@@ -1,4 +1,8 @@
 import Link from 'next/link'
+import { IconCart } from './Icons'
+
+// WooCommerce store URL — set in Vercel env vars, falls back to laivunoma.shop
+const STORE_URL = process.env.NEXT_PUBLIC_WC_STORE_URL || 'https://laivunoma.shop'
 
 export function Nav() {
   return (
@@ -10,6 +14,9 @@ export function Nav() {
         <Link href="/fleet">Our Fleet</Link>
         <Link href="/about">About</Link>
         <Link href="/contact">Contact</Link>
+        <a href={`${STORE_URL}/cart`} className="nav-cart" title="Cart">
+          <IconCart size={18} strokeWidth={2} />
+        </a>
         <Link href="/booking" className="nav-cta">Book Now</Link>
       </div>
     </nav>

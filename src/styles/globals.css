@@ -61,11 +61,25 @@ img { max-width: 100%; display: block; }
 .nav-transparent .menu { display: flex; gap: 28px; align-items: center; }
 .nav-transparent .menu a { color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 .nav-transparent .menu a:hover { color: white; }
+.nav-transparent .nav-cart {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); transition: background 0.2s;
+}
+.nav-transparent .nav-cart:hover { background: rgba(255,255,255,0.3); }
+.nav-transparent .nav-cart svg { color: white; }
 .nav-transparent .nav-cta {
   background: white !important; color: var(--primary) !important;
   padding: 10px 24px; border-radius: var(--radius); font-weight: 700 !important;
   box-shadow: 0 2px 10px rgba(25,23,22,0.15);
 }
+.nav .nav-cart {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); transition: background 0.2s;
+}
+.nav .nav-cart:hover { background: rgba(255,255,255,0.3); }
+.nav .nav-cart svg { color: white; }
 
 /* ===== HERO ===== */
 .hero-full {
