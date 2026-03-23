@@ -10,6 +10,7 @@ interface Props {
   endLat: number
   endLng: number
   label: string
+  riverSlug: string
 }
 
 export default function MapWrapper(props: Props) {

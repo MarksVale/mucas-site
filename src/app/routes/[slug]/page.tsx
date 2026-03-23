@@ -195,7 +195,8 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
               startLng={content.startLng}
               endLat={content.endLat}
               endLng={content.endLng}
-                label={route.name}
+              label={route.name}
+              riverSlug={route.riverSlug}
             />
           ) : (
             <div className="map-container">
