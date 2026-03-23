@@ -1,18 +1,13 @@
 import Link from 'next/link'
 import { getBoats } from '@/lib/airtable'
+import { cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
+import BoatPhoto from '@/components/BoatPhoto'
+import { BoatIcon } from '@/components/Icons'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Our Fleet | Mučas Laivu Noma',
   description: 'Kayaks, canoes, rafts, and SUPs available for river trips across Latvia.',
-}
-
-const categoryIcons: Record<string, string> = {
-  Kayaks: '🛶',
-  Canoes: '🚣',
-  Rafts: '🏖️',
-  SUP: '🏄',
-  'Big Rafts': '🛟',
 }
 
 export default async function FleetPage() {
@@ -38,16 +33,27 @@ export default async function FleetPage() {
         <section className="section" key={category}>
           <div className="container">
             <div className="section-head">
-              <div className="label">{categoryIcons[category] || '🚤'} {category}</div>
+              <div className="label">{category}</div>
               <h2>{category}</h2>
             </div>
             <div className="card-grid-3">
               {catBoats.map(b => (
                 <div className="boat-card" key={b.slug}>
-                  <div className="bc-icon">{categoryIcons[b.category] || '🚤'}</div>
-                  <h3>{b.name}</h3>
-                  <div className="bc-price">{b.pricePerDay}€ <span>/ day</span></div>
-                  <div className="bc-meta">{b.seats} {b.seats === 1 ? 'seat' : 'seats'}</div>
+                  <div className="bc-photo">
+                    <BoatPhoto
+                      src={cldBoat(b.slug)}
+                      fallback={CLD_BOAT_FALLBACK}
+                      alt={b.name}
+                    />
+                  </div>
+                  <div className="bc-body">
+                    <div className="bc-icon-wrap">
+                      <BoatIcon category={b.category} size={20} />
+                    </div>
+                    <h3>{b.name}</h3>
+                    <div className="bc-price">{b.pricePerDay}€ <span>/ day</span></div>
+                    <div className="bc-meta">{b.seats} {b.seats === 1 ? 'seat' : 'seats'}</div>
+                  </div>
                 </div>
               ))}
             </div>

@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { getRoutes, getRoute, getRoutesByRiver, getBoats } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
-import { cldHero, cldGallery } from '@/lib/cloudinary'
+import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
+import BoatPhoto from '@/components/BoatPhoto'
 import { BoatIcon } from '@/components/Icons'
 import {
   IconDistance, IconDuration, IconDifficulty,
@@ -157,14 +158,23 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <div className="boats-grid">
               {availableBoats.map(b => (
                 <div className="bcard" key={b.slug}>
-                  <div className="bcard-icon">
-                    <BoatIcon category={b.category} size={36} />
+                  <div className="bcard-photo">
+                    <BoatPhoto
+                      src={cldBoat(b.slug)}
+                      fallback={CLD_BOAT_FALLBACK}
+                      alt={b.name}
+                    />
                   </div>
-                  <h4>{b.name}</h4>
-                  <div className="bcard-cap">{b.seats} {b.seats === 1 ? 'seat' : 'seats'} · {b.category}</div>
-                  <div className="bcard-price">
-                    {b.pricePerDay}€
-                    <span style={{ fontSize: 13, fontWeight: 400, color: 'var(--text-muted)' }}> / day</span>
+                  <div className="bcard-body">
+                    <div className="bcard-icon">
+                      <BoatIcon category={b.category} size={18} />
+                    </div>
+                    <h4>{b.name}</h4>
+                    <div className="bcard-cap">{b.seats} {b.seats === 1 ? 'seat' : 'seats'} · {b.category}</div>
+                    <div className="bcard-price">
+                      {b.pricePerDay}€
+                      <span style={{ fontSize: 13, fontWeight: 400, color: 'var(--text-muted)' }}> / day</span>
+                    </div>
                   </div>
                 </div>
               ))}

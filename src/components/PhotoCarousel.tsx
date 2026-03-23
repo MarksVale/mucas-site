@@ -26,7 +26,15 @@ export default function PhotoCarousel({ images, alt, placeholder = '/images/phot
         {srcs.map((src, i) => (
           <div className="carousel-strip-item" key={i}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src} alt={`${alt} ${i + 1}`} loading={i < VISIBLE ? 'eager' : 'lazy'} />
+            <img
+              src={src}
+              alt={`${alt} ${i + 1}`}
+              loading={i < VISIBLE ? 'eager' : 'lazy'}
+              onError={(e) => {
+                const img = e.currentTarget
+                if (img.src !== placeholder) img.src = placeholder
+              }}
+            />
           </div>
         ))}
       </div>
