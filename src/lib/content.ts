@@ -18,6 +18,11 @@ export interface RouteContent {
   km: number
   hours: string
   photoUrl: string
+  photos?: string[]         // array of photo URLs (Cloudinary / any CDN)
+  startLat?: number         // GPS for Mapbox static map
+  startLon?: number
+  endLat?: number
+  endLon?: number
 }
 
 export function getRiverContent(slug: string): RiverContent {
@@ -40,5 +45,6 @@ export function getRouteContent(slug: string): RouteContent {
     km: 0,
     hours: '',
     photoUrl: '',
+    photos: [],
   }
 }

@@ -1,6 +1,13 @@
 import Link from 'next/link'
 import { getRoutes, getRoute, getRoutesByRiver, getBoats } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
+import { BoatIcon } from '@/components/Icons'
+import {
+  IconDistance, IconDuration, IconDifficulty,
+  IconHighlight, IconGallery, IconInfo,
+  IconIncluded, IconTransport, IconSeason, IconNote,
+  IconMap, IconRoute
+} from '@/components/Icons'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
@@ -19,17 +26,6 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   }
 }
 
-const boatIcons: Record<string, string> = {
-  Kayak: '🚣', Canoe: '🛶', SUP: '🏄', Raft: '🛟',
-}
-
-function getBoardIcon(category: string) {
-  for (const [k, v] of Object.entries(boatIcons)) {
-    if (category.toLowerCase().includes(k.toLowerCase())) return v
-  }
-  return '🚣'
-}
-
 export default async function RoutePage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
   const route = await getRoute(slug)
@@ -41,6 +37,12 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
   const availableBoats = allBoats.filter(b => route.boats.includes(b.name))
   const riverRoutes = await getRoutesByRiver(route.riverSlug)
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)
+  const topHighlights = content.highlights.slice(0, 3)
+
+  // Duration display: hours only if 1 day, days count if multi-day
+  const durationDisplay = route.days === 1 && content.hours
+    ? content.hours + 'h'
+    : `${route.days} days`
 
   return (
     <>
@@ -70,33 +72,21 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
         <div className="floating-stats-inner">
           {content.km > 0 && (
             <div className="fstat">
-              <div className="fstat-icon">📏</div>
+              <div className="fstat-icon"><IconDistance size={24} strokeWidth={1.6} /></div>
               <div className="fstat-value">{content.km} km</div>
               <div className="fstat-label">Distance</div>
             </div>
           )}
           <div className="fstat">
-            <div className="fstat-icon">⏱</div>
-            <div className="fstat-value">{route.days} {route.days === 1 ? 'day' : 'days'}{content.hours ? ` · ${content.hours}h` : ''}</div>
+            <div className="fstat-icon"><IconDuration size={24} strokeWidth={1.6} /></div>
+            <div className="fstat-value">{durationDisplay}</div>
             <div className="fstat-label">Duration</div>
           </div>
           {content.difficulty && (
             <div className="fstat">
-              <div className="fstat-icon">📊</div>
+              <div className="fstat-icon"><IconDifficulty size={24} strokeWidth={1.6} /></div>
               <div className="fstat-value">{content.difficulty}</div>
               <div className="fstat-label">Difficulty</div>
-            </div>
-          )}
-          <div className="fstat">
-            <div className="fstat-icon">🚌</div>
-            <div className="fstat-value">{route.transportCost}€</div>
-            <div className="fstat-label">Transport</div>
-          </div>
-          {availableBoats.length > 0 && (
-            <div className="fstat">
-              <div className="fstat-icon">🛶</div>
-              <div className="fstat-value">from {Math.min(...availableBoats.map(b => b.pricePerDay))}€</div>
-              <div className="fstat-label">Per day</div>
             </div>
           )}
         </div>
@@ -108,23 +98,28 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
         {/* DESCRIPTION */}
         {content.description && (
           <div className="page-section">
-            <h2 className="stitle"><span className="stitle-icon">🌊</span> About the Route</h2>
+            <h2 className="stitle">
+              <span className="stitle-icon"><IconRoute size={22} strokeWidth={1.8} /></span>
+              About the Route
+            </h2>
             <p style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--text-secondary)', maxWidth: 800 }}>
               {content.description}
             </p>
           </div>
         )}
 
-        {/* HIGHLIGHTS */}
-        {content.highlights.length > 0 && (
+        {/* HIGHLIGHTS — max 3 */}
+        {topHighlights.length > 0 && (
           <div className="page-section">
-            <h2 className="stitle"><span className="stitle-icon">⭐</span> What You&apos;ll See Along the Way</h2>
+            <h2 className="stitle">
+              <span className="stitle-icon"><IconHighlight size={22} strokeWidth={1.8} /></span>
+              What You&apos;ll See Along the Way
+            </h2>
             <div className="hl-cards">
-              {content.highlights.map((h, i) => (
+              {topHighlights.map((h, i) => (
                 <div className="hl-card" key={i}>
-                  <div className="hl-card-icon">{['🪨', '🌲', '🏰', '🦅', '🌊', '🗺️', '⛵', '🏕️'][i % 8]}</div>
+                  <div className="hl-card-icon"><IconHighlight size={26} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
                   <h4>{h}</h4>
-                  <p>A highlight of this route — part of what makes the {route.river} special.</p>
                 </div>
               ))}
             </div>
@@ -133,27 +128,42 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
 
         {/* GALLERY */}
         <div className="page-section">
-          <h2 className="stitle"><span className="stitle-icon">📷</span> Gallery</h2>
+          <h2 className="stitle">
+            <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
+            Gallery
+          </h2>
           <div className="photo-gallery">
-            <div className="pg-item">🏞️</div>
-            <div className="pg-item">🌿</div>
-            <div className="pg-item">🚣</div>
-            <div className="pg-item">🪨</div>
+            <div className="pg-item">
+              <span className="pg-item-label">Main Photo</span>
+            </div>
+            <div className="pg-item"><span className="pg-item-label">Photo</span></div>
+            <div className="pg-item"><span className="pg-item-label">Photo</span></div>
+            <div className="pg-item"><span className="pg-item-label">Photo</span></div>
           </div>
-          <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 10 }}>Photos coming soon — be the first to share yours!</p>
+          <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 10 }}>
+            Photos coming soon. Add photo URLs to <code>src/content/routes.json</code> to populate this gallery.
+          </p>
         </div>
 
         {/* AVAILABLE BOATS */}
         {availableBoats.length > 0 && (
           <div className="page-section">
-            <h2 className="stitle"><span className="stitle-icon">🛶</span> Available Boats</h2>
+            <h2 className="stitle">
+              <span className="stitle-icon"><IconRoute size={22} strokeWidth={1.8} /></span>
+              Available Boats
+            </h2>
             <div className="boats-grid">
               {availableBoats.map(b => (
                 <div className="bcard" key={b.slug}>
-                  <div className="bcard-icon">{getBoardIcon(b.category)}</div>
+                  <div className="bcard-icon">
+                    <BoatIcon category={b.category} size={36} />
+                  </div>
                   <h4>{b.name}</h4>
                   <div className="bcard-cap">{b.seats} {b.seats === 1 ? 'seat' : 'seats'} · {b.category}</div>
-                  <div className="bcard-price">{b.pricePerDay}€ <span style={{ fontSize: 13, fontWeight: 400, color: 'var(--text-muted)' }}>/ day</span></div>
+                  <div className="bcard-price">
+                    {b.pricePerDay}€
+                    <span style={{ fontSize: 13, fontWeight: 400, color: 'var(--text-muted)' }}> / day</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -162,9 +172,18 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
 
         {/* MAP */}
         <div className="page-section">
-          <h2 className="stitle"><span className="stitle-icon">🗺️</span> Map</h2>
+          <h2 className="stitle">
+            <span className="stitle-icon"><IconMap size={22} strokeWidth={1.8} /></span>
+            Map
+          </h2>
           <div className="map-container">
-            <span style={{ fontSize: 16, color: 'var(--text-muted)', fontWeight: 500 }}>Interactive map coming soon</span>
+            <div style={{ textAlign: 'center' }}>
+              <IconMap size={40} strokeWidth={1.2} style={{ color: 'var(--text-muted)', marginBottom: 10 }} />
+              <p style={{ fontSize: 15, color: 'var(--text-muted)', fontWeight: 500 }}>Interactive map coming soon</p>
+              <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>
+                Add GPS coordinates to <code>routes.json</code> to enable Mapbox map
+              </p>
+            </div>
             <div className="map-overlay">
               <div className="map-point">
                 <span className="map-dot start"></span>
@@ -180,34 +199,37 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
 
         {/* USEFUL INFO */}
         <div className="page-section">
-          <h2 className="stitle"><span className="stitle-icon">ℹ️</span> Useful Information</h2>
+          <h2 className="stitle">
+            <span className="stitle-icon"><IconInfo size={22} strokeWidth={1.8} /></span>
+            Useful Information
+          </h2>
           <div className="info-cards-grid">
             <div className="icard">
-              <div className="icard-icon">📦</div>
+              <div className="icard-icon"><IconIncluded size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
               <div>
                 <h4>Included in Price</h4>
-                <p>Paddles, life jackets, waterproof dry bag, boat delivery and pickup</p>
+                <p>Paddles, life jackets, waterproof dry bag</p>
               </div>
             </div>
             <div className="icard">
-              <div className="icard-icon">🚌</div>
+              <div className="icard-icon"><IconTransport size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
               <div>
                 <h4>Transport</h4>
-                <p>Transport cost: {route.transportCost}€. Boat delivery to start or pickup at finish.{route.hub ? ` Hub: ${route.hub}.` : ''}</p>
+                <p>Boat transport to start point and pickup at finish: {route.transportCost}€</p>
               </div>
             </div>
             <div className="icard">
-              <div className="icard-icon">🌤️</div>
+              <div className="icard-icon"><IconSeason size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
               <div>
                 <h4>Best Time</h4>
                 <p>May — September. Water levels are optimal during summer months.</p>
               </div>
             </div>
             <div className="icard">
-              <div className="icard-icon">⚠️</div>
+              <div className="icard-icon"><IconNote size={24} strokeWidth={1.6} style={{ color: 'var(--accent)' }} /></div>
               <div>
                 <h4>Notes</h4>
-                <p>{content.difficulty === 'Hard' ? 'Prior paddling experience recommended.' : 'Suitable for beginners with basic fitness.'} Children from age 7.</p>
+                <p>{content.difficulty === 'Hard' ? 'Prior paddling experience recommended.' : content.difficulty === 'Medium' ? 'Basic paddling fitness required.' : 'Suitable for all fitness levels.'}</p>
               </div>
             </div>
           </div>
@@ -219,8 +241,8 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <h2>Book Your Adventure!</h2>
             <p>Choose a date, boat type, and quantity — we&apos;ll take care of the rest.</p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-              <Link href={`/booking?route=${route.slug}`} className="btn btn-white">📅 Book This Route</Link>
-              <Link href="/contact" className="btn btn-outline">📞 Ask a Question</Link>
+              <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
+              <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
             </div>
           </div>
         </div>
@@ -228,18 +250,23 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
         {/* RELATED ROUTES */}
         {relatedRoutes.length > 0 && (
           <div className="page-section">
-            <h2 className="stitle"><span className="stitle-icon">👉</span> Other {route.river} Routes</h2>
+            <h2 className="stitle">
+              <span className="stitle-icon"><IconRoute size={22} strokeWidth={1.8} /></span>
+              Other {route.river} Routes
+            </h2>
             <div className="related-3">
               {relatedRoutes.map(r => {
                 const rc = getRouteContent(r.slug)
                 return (
                   <Link href={`/routes/${r.slug}`} className="rel-card" key={r.slug}>
-                    <div className="rel-img">🏞️</div>
+                    <div className="rel-img">
+                      <IconMap size={36} strokeWidth={1.2} style={{ color: 'var(--primary)', opacity: 0.4 }} />
+                    </div>
                     <div className="rel-body">
                       <h4>{r.name}</h4>
                       <div className="rel-meta">
                         {rc.km > 0 && <span>{rc.km} km</span>}
-                        <span>{r.days} {r.days === 1 ? 'day' : 'days'}</span>
+                        <span>{r.days === 1 && rc.hours ? rc.hours + 'h' : `${r.days} days`}</span>
                         {rc.difficulty && <span>{rc.difficulty}</span>}
                       </div>
                     </div>

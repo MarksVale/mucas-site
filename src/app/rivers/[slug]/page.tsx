@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getRivers, getRiver, getRoutesByRiver } from '@/lib/airtable'
 import { getRiverContent, getRouteContent } from '@/lib/content'
+import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason } from '@/components/Icons'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
@@ -49,33 +50,26 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
         <div className="floating-stats-inner">
           {content.totalLength > 0 && (
             <div className="fstat">
-              <div className="fstat-icon">📏</div>
+              <div className="fstat-icon"><IconDistance size={24} strokeWidth={1.6} /></div>
               <div className="fstat-value">{content.totalLength} km</div>
               <div className="fstat-label">Total Length</div>
             </div>
           )}
           <div className="fstat">
-            <div className="fstat-icon">🗺️</div>
+            <div className="fstat-icon"><IconRoute size={24} strokeWidth={1.6} /></div>
             <div className="fstat-value">{river.routeCount}</div>
             <div className="fstat-label">Routes</div>
           </div>
           {river.boatCategories.length > 0 && (
             <div className="fstat">
-              <div className="fstat-icon">🛶</div>
+              <div className="fstat-icon"><IconBoat size={24} strokeWidth={1.6} /></div>
               <div className="fstat-value">{river.boatCategories.length}</div>
               <div className="fstat-label">Boat Types</div>
             </div>
           )}
-          {content.priceFrom > 0 && (
-            <div className="fstat">
-              <div className="fstat-icon">💶</div>
-              <div className="fstat-value">from {content.priceFrom}€</div>
-              <div className="fstat-label">Per Day</div>
-            </div>
-          )}
           {content.season && (
             <div className="fstat">
-              <div className="fstat-icon">🌤️</div>
+              <div className="fstat-icon"><IconSeason size={24} strokeWidth={1.6} /></div>
               <div className="fstat-value">{content.season}</div>
               <div className="fstat-label">Season</div>
             </div>
@@ -89,23 +83,28 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
         {/* DESCRIPTION */}
         {content.description && (
           <div className="page-section">
-            <h2 className="stitle"><span className="stitle-icon">🌊</span> About the {river.name}</h2>
+            <h2 className="stitle">
+              <span className="stitle-icon"><IconWater size={22} strokeWidth={1.8} /></span>
+              About the {river.name}
+            </h2>
             <p style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--text-secondary)', maxWidth: 800 }}>
               {content.description}
             </p>
           </div>
         )}
 
-        {/* HIGHLIGHTS */}
+        {/* HIGHLIGHTS — max 3 */}
         {content.highlights.length > 0 && (
           <div className="page-section">
-            <h2 className="stitle"><span className="stitle-icon">⭐</span> Highlights</h2>
+            <h2 className="stitle">
+              <span className="stitle-icon"><IconHighlight size={22} strokeWidth={1.8} /></span>
+              Highlights
+            </h2>
             <div className="hl-cards">
-              {content.highlights.map((h, i) => (
+              {content.highlights.slice(0, 3).map((h, i) => (
                 <div className="hl-card" key={i}>
-                  <div className="hl-card-icon">{['🏰', '🪨', '🌲', '🦅', '🌊', '🗺️', '🏕️', '⛵'][i % 8]}</div>
+                  <div className="hl-card-icon"><IconHighlight size={26} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
                   <h4>{h}</h4>
-                  <p>One of the natural and cultural highlights along the {river.name}.</p>
                 </div>
               ))}
             </div>
@@ -115,7 +114,10 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
         {/* AVAILABLE BOATS */}
         {river.boatCategories.length > 0 && (
           <div className="page-section">
-            <h2 className="stitle"><span className="stitle-icon">🛶</span> Available Boats</h2>
+            <h2 className="stitle">
+              <span className="stitle-icon"><IconBoat size={22} strokeWidth={1.8} /></span>
+              Available Boats
+            </h2>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
               {river.boatCategories.map((cat, i) => (
                 <span key={i} style={{
@@ -133,20 +135,22 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
 
         {/* ROUTES LIST */}
         <div className="page-section">
-          <h2 className="stitle"><span className="stitle-icon">🗺️</span> All Routes on the {river.name}</h2>
+          <h2 className="stitle">
+            <span className="stitle-icon"><IconRoute size={22} strokeWidth={1.8} /></span>
+            All Routes on the {river.name}
+          </h2>
           <div className="route-list">
             {routes.map(r => {
               const rc = getRouteContent(r.slug)
+              const dur = r.days === 1 && rc.hours ? rc.hours + 'h' : `${r.days} days`
               return (
                 <Link href={`/routes/${r.slug}`} className="route-list-item" key={r.slug}>
                   <div className="rli-left">
                     <div>
                       <h4>{r.name}</h4>
                       <div className="rli-meta">
-                        {rc.km > 0 && `${rc.km} km · `}
-                        {r.days} {r.days === 1 ? 'day' : 'days'}
+                        {rc.km > 0 && `${rc.km} km · `}{dur}
                         {rc.difficulty && ` · ${rc.difficulty}`}
-                        {r.hub && ` · Hub: ${r.hub}`}
                       </div>
                     </div>
                   </div>
@@ -171,8 +175,8 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
             <h2>Ready to Paddle the {river.name}?</h2>
             <p>Pick a route above and book your adventure. We handle the rest.</p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-              <Link href="/booking" className="btn btn-white">📅 Book Now</Link>
-              <Link href="/contact" className="btn btn-outline">📞 Ask a Question</Link>
+              <Link href="/booking" className="btn btn-white">Book Now</Link>
+              <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
             </div>
           </div>
         </div>

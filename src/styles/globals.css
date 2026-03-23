@@ -669,20 +669,19 @@ img { max-width: 100%; display: block; }
 }
 .fstat { flex: 1; padding: 24px 20px; text-align: center; border-right: 1px solid var(--border); }
 .fstat:last-child { border-right: none; }
-.fstat-icon { font-size: 22px; margin-bottom: 6px; }
+.fstat-icon { display: flex; justify-content: center; margin-bottom: 8px; color: var(--text-muted); }
 .fstat-value { font-size: 20px; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
 .fstat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
 
-/* Section title with icon (from mockup) */
+/* Section title with icon (Lucide icons) */
 .stitle { font-size: 22px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text); }
-.stitle-icon { font-size: 22px; }
+.stitle-icon { display: flex; align-items: center; color: var(--primary); flex-shrink: 0; }
 
 /* Highlight cards with left border accent */
 .hl-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .hl-card { background: var(--card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-sm); border-left: 4px solid var(--primary); }
-.hl-card-icon { font-size: 28px; margin-bottom: 10px; }
-.hl-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
-.hl-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin: 0; }
+.hl-card-icon { display: flex; margin-bottom: 12px; color: var(--primary); }
+.hl-card h4 { font-size: 15px; font-weight: 700; color: var(--text); margin: 0; }
 
 /* Photo gallery placeholder */
 .photo-gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 200px 200px; gap: 12px; }
