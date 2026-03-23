@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     images: ['https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto,w_1200,h_630,c_fill/mucas/rivers/gauja/hero'],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icon.svg',
   },
 }
 
