@@ -637,10 +637,15 @@ img { max-width: 100%; display: block; }
 .contact-info h2 { font-size: 28px; font-weight: 800; text-transform: uppercase; margin-bottom: 16px; }
 .contact-methods { display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
 .contact-method { display: flex; gap: 16px; align-items: flex-start; }
-.cm-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.cm-icon { display: flex; align-items: center; color: var(--primary); flex-shrink: 0; margin-top: 2px; }
 .contact-method h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
 .contact-method p { font-size: 14px; color: var(--text-secondary); margin: 0; }
-.cm-note { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.contact-method a { color: var(--text-secondary); text-decoration: none; }
+.contact-method a:hover { color: var(--primary); }
+.cm-note { font-size: 12px !important; color: var(--text-muted) !important; margin-top: 2px !important; }
+.contact-business { margin-top: 36px; padding: 20px; background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); }
+.contact-business p { font-size: 13px; color: var(--text-secondary); margin: 0 0 4px; line-height: 1.6; }
+.contact-business p:last-child { margin-bottom: 0; }
 .contact-form-wrap { position: sticky; top: 100px; }
 
 /* Contact / booking forms */
@@ -687,47 +692,42 @@ img { max-width: 100%; display: block; }
 .hl-card-icon { display: flex; margin-bottom: 12px; color: var(--primary); }
 .hl-card h4 { font-size: 15px; font-weight: 700; color: var(--text); margin: 0; }
 
-/* ===== PHOTO CAROUSEL ===== */
-.carousel {
+/* ===== PHOTO CAROUSEL (strip — 3 photos visible) ===== */
+.carousel-strip-wrap {
   position: relative; overflow: hidden;
   border-radius: var(--radius);
-  background: var(--tint);
-  aspect-ratio: 16/9;
-  max-height: 540px;
+  width: 100%;
 }
-.carousel-track {
-  display: flex; height: 100%;
+.carousel-strip {
+  display: flex;
   transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
   will-change: transform;
 }
-.carousel-slide { flex: 0 0 100%; height: 100%; }
-.carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.carousel-strip-item {
+  flex: 0 0 calc(33.333% - 6px);
+  margin-right: 8px;
+  height: 260px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--tint);
+}
+.carousel-strip-item:last-child { margin-right: 0; }
+.carousel-strip-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .carousel-btn {
   position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(255,255,255,0.9); border: none; cursor: pointer;
-  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.92); border: none; cursor: pointer;
+  width: 40px; height: 40px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   color: var(--dark); z-index: 10;
   box-shadow: 0 2px 12px rgba(25,23,22,0.15);
   transition: background 0.2s, transform 0.2s;
 }
-.carousel-btn:hover { background: white; transform: translateY(-50%) scale(1.05); }
-.carousel-prev { left: 16px; }
-.carousel-next { right: 16px; }
-.carousel-dots {
-  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 6px; z-index: 10;
-}
-.carousel-dot {
-  width: 8px; height: 8px; border-radius: 50%; border: none; cursor: pointer;
-  background: rgba(255,255,255,0.5); transition: background 0.2s, transform 0.2s; padding: 0;
-}
-.carousel-dot.active { background: white; transform: scale(1.3); }
-.carousel-count {
-  position: absolute; top: 16px; right: 16px;
-  background: rgba(0,0,0,0.45); color: white;
-  font-size: 12px; font-weight: 600; padding: 4px 10px;
-  border-radius: var(--radius-full); z-index: 10;
+.carousel-btn:disabled { opacity: 0.35; cursor: default; }
+.carousel-btn:not(:disabled):hover { background: white; transform: translateY(-50%) scale(1.05); }
+.carousel-prev { left: 8px; }
+.carousel-next { right: 8px; }
+@media (max-width: 768px) {
+  .carousel-strip-item { flex: 0 0 calc(50% - 4px); height: 200px; }
 }
 
 /* Hero photo overlay (dark scrim over background image) */

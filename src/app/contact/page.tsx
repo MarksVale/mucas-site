@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
+import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Contact Us | Mučas Laivu Noma',
-  description: 'Get in touch with Mučas Laivu Noma. Phone, email, or visit us in Cēsis, Latvia.',
+  description: 'Get in touch with Mučas Laivu Noma. Phone, email, or visit us in Sigulda, Latvia.',
 }
 
 export default function ContactPage() {
@@ -23,38 +24,46 @@ export default function ContactPage() {
               <p className="route-desc">Have questions about routes, boats, or group bookings? We respond within 24 hours.</p>
 
               <div className="contact-methods">
+
+                {/* Phone + WhatsApp merged */}
                 <div className="contact-method">
-                  <div className="cm-icon">📞</div>
+                  <div className="cm-icon">
+                    <Phone size={20} strokeWidth={1.8} />
+                    <MessageCircle size={20} strokeWidth={1.8} style={{ marginLeft: 6 }} />
+                  </div>
                   <div>
-                    <h4>Phone</h4>
-                    <p>+371 2X XXX XXX</p>
-                    <p className="cm-note">Mon–Sat, 9:00–18:00</p>
+                    <h4>Phone &amp; WhatsApp</h4>
+                    <p><a href="tel:+37129211634">+371 29211634</a></p>
+                    <p className="cm-note">Mon–Sat, 9:00–18:00 · WhatsApp fastest</p>
                   </div>
                 </div>
+
                 <div className="contact-method">
-                  <div className="cm-icon">✉️</div>
+                  <div className="cm-icon"><Mail size={20} strokeWidth={1.8} /></div>
                   <div>
                     <h4>Email</h4>
-                    <p>info@laivunoma.shop</p>
+                    <p><a href="mailto:info@laivunoma.com">info@laivunoma.com</a></p>
                     <p className="cm-note">We reply within 24h</p>
                   </div>
                 </div>
+
                 <div className="contact-method">
-                  <div className="cm-icon">💬</div>
-                  <div>
-                    <h4>WhatsApp</h4>
-                    <p>+371 2X XXX XXX</p>
-                    <p className="cm-note">Fastest response</p>
-                  </div>
-                </div>
-                <div className="contact-method">
-                  <div className="cm-icon">📍</div>
+                  <div className="cm-icon"><MapPin size={20} strokeWidth={1.8} /></div>
                   <div>
                     <h4>Location</h4>
-                    <p>Cēsis, Latvia</p>
+                    <p>Jāņa Čakstes 1-41, Sigulda, LV-2150</p>
                     <p className="cm-note">Gauja National Park area</p>
                   </div>
                 </div>
+
+              </div>
+
+              {/* Business info */}
+              <div className="contact-business">
+                <p><strong>SIA &ldquo;Mučas&rdquo;</strong></p>
+                <p>Reģ. Nr.: LV40103263487</p>
+                <p>A/S SEB banka &middot; UNLALV2X</p>
+                <p>IBAN: LV90UNLA0055005842535</p>
               </div>
             </div>
 

@@ -145,6 +145,14 @@ function toSlug(name: string): string {
     .replace(/^-|-$/g, '')
 }
 
+// Helper: resolve a field value that could be a multi-select object OR a plain string
+function resolveName(val: any): string {
+  if (!val) return ''
+  if (typeof val === 'string') return val
+  if (typeof val === 'object' && val.name) return val.name
+  return ''
+}
+
 // Data fetchers
 export async function getRivers(): Promise<River[]> {
   if (!AIRTABLE_API_KEY) return FALLBACK_RIVERS.filter(r => r.active)
@@ -152,14 +160,22 @@ export async function getRivers(): Promise<River[]> {
   const records = await fetchTable('Rivers')
   return records
     .filter((r: any) => r.fields?.['Active'])
-    .map((r: any) => ({
-      slug: toSlug(r.fields['River name'] || ''),
-      name: r.fields['River name'] || '',
-      active: r.fields['Active'] || false,
-      routeCount: (r.fields['Routes'] || []).length,
-      boatCategories: (r.fields['Boat Types'] || []).map((bt: any) => bt.name),
-      gradient: `g-${toSlug(r.fields['River name'] || '')}`,
-    }))
+    .map((r: any) => {
+      const name = r.fields['River name'] || ''
+      // Boat Types may be multi-select [{id,name,color}] or linked record IDs or a lookup text
+      const rawBT = r.fields['Boat Types'] || r.fields['Boat categories'] || []
+      const boatCategories = Array.isArray(rawBT)
+        ? rawBT.map(resolveName).filter(Boolean)
+        : []
+      return {
+        slug: toSlug(name),
+        name,
+        active: r.fields['Active'] || false,
+        routeCount: (r.fields['Routes'] || []).length,
+        boatCategories,
+        gradient: `g-${toSlug(name)}`,
+      }
+    })
 }
 
 export async function getRiver(slug: string): Promise<River | undefined> {
@@ -170,16 +186,61 @@ export async function getRiver(slug: string): Promise<River | undefined> {
 export async function getRoutes(): Promise<Route[]> {
   if (!AIRTABLE_API_KEY) return FALLBACK_ROUTES.filter(r => r.active)
 
+  // Fetch rivers first so we can resolve linked record IDs → river name/slug
+  const riverRecords = await fetchTable('Rivers')
+  const riverById: Record<string, { name: string; slug: string }> = {}
+  riverRecords.forEach((r: any) => {
+    const name = r.fields['River name'] || ''
+    riverById[r.id] = { name, slug: toSlug(name) }
+  })
+
+  // Fetch boats so we can resolve boat linked record IDs → boat names
+  const boatRecords = await fetchTable('Boat Types')
+  const boatById: Record<string, string> = {}
+  boatRecords.forEach((r: any) => {
+    boatById[r.id] = r.fields['Boat type name'] || ''
+  })
+
   const records = await fetchTable('Routes')
   return records
     .filter((r: any) => r.fields?.['Active'])
     .map((r: any) => {
-      const riverName = (r.fields['River'] || [{}])[0]?.name || ''
+      // River: linked record → array of IDs, or multi-select object, or plain text
+      const riverRaw = r.fields['River'] || []
+      let riverName = ''
+      let riverSlug = ''
+      if (Array.isArray(riverRaw) && riverRaw.length > 0) {
+        const first = riverRaw[0]
+        if (typeof first === 'string' && riverById[first]) {
+          // linked record ID
+          riverName = riverById[first].name
+          riverSlug = riverById[first].slug
+        } else {
+          // plain text or object
+          riverName = resolveName(first)
+          riverSlug = toSlug(riverName)
+        }
+      }
+
+      // Boat Types: could be linked record IDs or multi-select objects
+      const boatRaw = r.fields['Boat Types'] || []
+      const boats = Array.isArray(boatRaw)
+        ? boatRaw.map((bt: any) => {
+            if (typeof bt === 'string') return boatById[bt] || bt
+            return resolveName(bt)
+          }).filter(Boolean)
+        : []
+
+      // Start Times: multi-select objects
+      const startTimes = (r.fields['Start Times'] || [])
+        .map(resolveName)
+        .filter((n: string) => n && n !== 'Cits laiks')
+
       return {
         slug: toSlug(r.fields['Route name'] || ''),
         name: r.fields['Route name'] || '',
         river: riverName,
-        riverSlug: toSlug(riverName),
+        riverSlug,
         days: r.fields['Days'] || 1,
         active: r.fields['Active'] || false,
         hub: (() => {
@@ -190,10 +251,10 @@ export async function getRoutes(): Promise<Route[]> {
           }
           return ''
         })(),
-        startTimes: (r.fields['Start Times'] || []).map((st: any) => st.name).filter((n: string) => n !== 'Cits laiks'),
+        startTimes,
         transportCost: r.fields['Transport Cost'] || 0,
-        boats: (r.fields['Boat Types'] || []).map((bt: any) => bt.name),
-        gradient: `g-${toSlug(riverName)}`,
+        boats,
+        gradient: `g-${riverSlug || 'gauja'}`,
       }
     })
 }
