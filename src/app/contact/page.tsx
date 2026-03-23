@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react'
+import { Mail, MapPin, MessageCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Contact Us | Mučas Laivu Noma',
@@ -28,8 +28,7 @@ export default function ContactPage() {
                 {/* Phone + WhatsApp merged */}
                 <div className="contact-method">
                   <div className="cm-icon">
-                    <Phone size={20} strokeWidth={1.8} />
-                    <MessageCircle size={20} strokeWidth={1.8} style={{ marginLeft: 6 }} />
+                    <MessageCircle size={20} strokeWidth={1.8} />
                   </div>
                   <div>
                     <h4>Phone &amp; WhatsApp</h4>
