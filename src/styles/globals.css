@@ -473,6 +473,9 @@ img { max-width: 100%; display: block; }
 .footer-col a, .footer-col p { font-size: 14px; color: rgba(255,255,255,0.6); display: block; margin-bottom: 8px; line-height: 1.5; }
 .footer-col a:hover { color: white; }
 .footer-brand { font-size: 22px; font-weight: 900; letter-spacing: 1px; color: white; margin-bottom: 12px; }
+.footer-business { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
+.footer-business p { font-size: 12px !important; color: rgba(255,255,255,0.35) !important; margin-bottom: 4px !important; line-height: 1.6 !important; }
+.footer-note { font-size: 12px !important; color: rgba(255,255,255,0.35) !important; margin-top: -4px !important; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.3); }
 
 /* ===== GRADIENT HELPERS ===== */

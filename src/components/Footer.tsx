@@ -8,6 +8,12 @@ export function Footer() {
           <div className="footer-col">
             <div className="footer-brand">MUČAS</div>
             <p>Boat rentals across Latvia&apos;s rivers — Gauja, Salaca, Brasla, Amata.</p>
+            <div className="footer-business">
+              <p><strong>SIA &ldquo;Mučas&rdquo;</strong></p>
+              <p>Reģ. Nr.: LV40103263487</p>
+              <p>A/S SEB banka &middot; UNLALV2X</p>
+              <p>IBAN: LV90UNLA0055005842535</p>
+            </div>
           </div>
           <div className="footer-col">
             <h4>Rivers</h4>
@@ -26,13 +32,17 @@ export function Footer() {
           </div>
           <div className="footer-col">
             <h4>Contact</h4>
-            <p>+371 2X XXX XXX</p>
-            <p>info@laivunoma.shop</p>
-            <p>Sigulda, Latvia</p>
+            <p><a href="tel:+37129211634">+371 29211634</a></p>
+            <p className="footer-note">Mon&ndash;Sat, 9:00&ndash;18:00</p>
+            <p><a href="https://wa.me/37129211634">WhatsApp</a></p>
+            <p><a href="mailto:info@laivunoma.com">info@laivunoma.com</a></p>
+            <p style={{ marginTop: 12 }}>Jāņa Čakstes 1-41</p>
+            <p>Sigulda, LV-2150</p>
+            <p className="footer-note">Gauja National Park area</p>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>&copy; 2026 Mučas Laivu Noma</span>
+          <span>&copy; {new Date().getFullYear()} SIA &ldquo;Mučas&rdquo; &middot; Mučas Laivu Noma</span>
           <span>Privacy Policy &bull; Terms</span>
         </div>
       </div>
