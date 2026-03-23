@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { getRivers, getRiver, getRoutesByRiver } from '@/lib/airtable'
-import { getRiverContent } from '@/lib/content'
+import { getRiverContent, getRouteContent } from '@/lib/content'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
@@ -32,89 +32,152 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
       {/* HERO */}
       <section className={`river-hero ${river.gradient}`}>
         <div className="container">
-          <Link href="/rivers" className="breadcrumb">← All Rivers</Link>
-          <h1>{river.name} River</h1>
-          {content.region && <p className="route-hero-sub">{content.region} · {content.season}</p>}
-          <div className="hero-stats">
-            {content.totalLength > 0 && <div className="hero-stat"><div className="num">{content.totalLength}</div><div className="lbl">km total</div></div>}
-            <div className="hero-stat"><div className="num">{river.routeCount}</div><div className="lbl">routes</div></div>
-            {content.priceFrom > 0 && <div className="hero-stat"><div className="num">{content.priceFrom}€</div><div className="lbl">from / day</div></div>}
+          <div className="river-hero-inner">
+            <p className="breadcrumb" style={{ color: 'rgba(255,255,255,0.7)', marginBottom: 16 }}>
+              <Link href="/rivers" style={{ color: 'rgba(255,255,255,0.7)' }}>← All Rivers</Link>
+            </p>
+            <h1>{river.name} River</h1>
+            {content.region && (
+              <p className="river-hero-sub">{content.region} · {content.season}</p>
+            )}
           </div>
         </div>
       </section>
 
-      {/* DESCRIPTION + HIGHLIGHTS */}
-      <section className="section">
-        <div className="container" style={{ maxWidth: 760 }}>
-          {content.description && (
-            <>
-              <h2 style={{ fontSize: 26, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>About the {river.name}</h2>
-              <p className="route-desc">{content.description}</p>
-            </>
-          )}
-
-          {content.highlights.length > 0 && (
-            <div style={{ marginTop: 32 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14, color: 'var(--text-muted)' }}>Highlights</h3>
-              <div className="highlights-list">
-                {content.highlights.map((h, i) => <span className="highlight-tag" key={i}>{h}</span>)}
-              </div>
+      {/* FLOATING STATS BAR */}
+      <div className="floating-stats">
+        <div className="floating-stats-inner">
+          {content.totalLength > 0 && (
+            <div className="fstat">
+              <div className="fstat-icon">📏</div>
+              <div className="fstat-value">{content.totalLength} km</div>
+              <div className="fstat-label">Total Length</div>
             </div>
           )}
-
+          <div className="fstat">
+            <div className="fstat-icon">🗺️</div>
+            <div className="fstat-value">{river.routeCount}</div>
+            <div className="fstat-label">Routes</div>
+          </div>
           {river.boatCategories.length > 0 && (
-            <div style={{ marginTop: 28 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14, color: 'var(--text-muted)' }}>Available Boats</h3>
-              <div className="highlights-list">
-                {river.boatCategories.map((cat, i) => <span className="highlight-tag" key={i}>{cat}</span>)}
-              </div>
+            <div className="fstat">
+              <div className="fstat-icon">🛶</div>
+              <div className="fstat-value">{river.boatCategories.length}</div>
+              <div className="fstat-label">Boat Types</div>
+            </div>
+          )}
+          {content.priceFrom > 0 && (
+            <div className="fstat">
+              <div className="fstat-icon">💶</div>
+              <div className="fstat-value">from {content.priceFrom}€</div>
+              <div className="fstat-label">Per Day</div>
+            </div>
+          )}
+          {content.season && (
+            <div className="fstat">
+              <div className="fstat-icon">🌤️</div>
+              <div className="fstat-value">{content.season}</div>
+              <div className="fstat-label">Season</div>
             </div>
           )}
         </div>
-      </section>
+      </div>
 
-      {/* ROUTES LIST */}
-      <section className="section gray">
-        <div className="container">
-          <div className="section-head">
-            <div className="label">All Routes</div>
-            <h2>Routes on the {river.name}</h2>
+      {/* MAIN CONTENT */}
+      <div className="page-content">
+
+        {/* DESCRIPTION */}
+        {content.description && (
+          <div className="page-section">
+            <h2 className="stitle"><span className="stitle-icon">🌊</span> About the {river.name}</h2>
+            <p style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--text-secondary)', maxWidth: 800 }}>
+              {content.description}
+            </p>
           </div>
+        )}
+
+        {/* HIGHLIGHTS */}
+        {content.highlights.length > 0 && (
+          <div className="page-section">
+            <h2 className="stitle"><span className="stitle-icon">⭐</span> Highlights</h2>
+            <div className="hl-cards">
+              {content.highlights.map((h, i) => (
+                <div className="hl-card" key={i}>
+                  <div className="hl-card-icon">{['🏰', '🪨', '🌲', '🦅', '🌊', '🗺️', '🏕️', '⛵'][i % 8]}</div>
+                  <h4>{h}</h4>
+                  <p>One of the natural and cultural highlights along the {river.name}.</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* AVAILABLE BOATS */}
+        {river.boatCategories.length > 0 && (
+          <div className="page-section">
+            <h2 className="stitle"><span className="stitle-icon">🛶</span> Available Boats</h2>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              {river.boatCategories.map((cat, i) => (
+                <span key={i} style={{
+                  background: 'var(--tint)', color: 'var(--primary)',
+                  padding: '10px 20px', borderRadius: 'var(--radius)',
+                  fontWeight: 700, fontSize: 14, border: '1px solid var(--border)'
+                }}>{cat}</span>
+              ))}
+            </div>
+            <p style={{ marginTop: 16, fontSize: 14, color: 'var(--text-secondary)' }}>
+              View all boats and prices on our <Link href="/fleet" style={{ color: 'var(--primary)', fontWeight: 600 }}>fleet page →</Link>
+            </p>
+          </div>
+        )}
+
+        {/* ROUTES LIST */}
+        <div className="page-section">
+          <h2 className="stitle"><span className="stitle-icon">🗺️</span> All Routes on the {river.name}</h2>
           <div className="route-list">
-            {routes.map(r => (
-              <Link href={`/routes/${r.slug}`} className="route-list-item" key={r.slug}>
-                <div className="rli-left">
-                  <div>
-                    <h4>{r.name}</h4>
-                    <div className="rli-meta">
-                      {r.days} {r.days === 1 ? 'day' : 'days'} · Hub: {r.hub}
-                      {r.startTimes.length > 0 && ` · Starts: ${r.startTimes.slice(0, 2).join(', ')}`}
+            {routes.map(r => {
+              const rc = getRouteContent(r.slug)
+              return (
+                <Link href={`/routes/${r.slug}`} className="route-list-item" key={r.slug}>
+                  <div className="rli-left">
+                    <div>
+                      <h4>{r.name}</h4>
+                      <div className="rli-meta">
+                        {rc.km > 0 && `${rc.km} km · `}
+                        {r.days} {r.days === 1 ? 'day' : 'days'}
+                        {rc.difficulty && ` · ${rc.difficulty}`}
+                        {r.hub && ` · Hub: ${r.hub}`}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="rli-right">
-                  <div className="rli-price">Transport: {r.transportCost}€</div>
-                  <span className="rli-arrow">→</span>
-                </div>
-              </Link>
-            ))}
+                  <div className="rli-right">
+                    {rc.difficulty && (
+                      <span className={`diff-badge-sm diff-${rc.difficulty.toLowerCase().replace(' ', '')}`}>
+                        {rc.difficulty}
+                      </span>
+                    )}
+                    <div className="rli-price">Transport: {r.transportCost}€</div>
+                    <span className="rli-arrow">→</span>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="section">
-        <div className="container">
+        {/* CTA */}
+        <div className="page-section">
           <div className="cta-banner">
             <h2>Ready to Paddle the {river.name}?</h2>
-            <p>Pick a route above and book your adventure.</p>
-            <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link href="/booking" className="btn btn-white">Book Now</Link>
-              <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
+            <p>Pick a route above and book your adventure. We handle the rest.</p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+              <Link href="/booking" className="btn btn-white">📅 Book Now</Link>
+              <Link href="/contact" className="btn btn-outline">📞 Ask a Question</Link>
             </div>
           </div>
         </div>
-      </section>
+
+      </div>
     </>
   )
 }
