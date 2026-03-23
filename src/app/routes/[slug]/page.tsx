@@ -1,6 +1,8 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { getRoutes, getRoute, getRoutesByRiver, getBoats } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
+import { cldHero, cldGallery } from '@/lib/cloudinary'
 import { BoatIcon } from '@/components/Icons'
 import {
   IconDistance, IconDuration, IconDifficulty,
@@ -38,6 +40,8 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
   const riverRoutes = await getRoutesByRiver(route.riverSlug)
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)
   const topHighlights = content.highlights.slice(0, 3)
+  const hasPhotos = (content.galleryCount ?? 0) > 0
+  const galleryCount = content.galleryCount ?? 0
 
   // Duration display: hours only if 1 day, days count if multi-day
   const durationDisplay = route.days === 1 && content.hours
@@ -47,8 +51,12 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
   return (
     <>
       {/* HERO */}
-      <section className={`route-hero ${route.gradient}`}>
-        <div className="container">
+      <section
+        className={`route-hero ${route.gradient}${hasPhotos ? ' route-hero-photo' : ''}`}
+        style={hasPhotos ? { backgroundImage: `url(${cldHero('routes', slug)})` } : undefined}
+      >
+        {hasPhotos && <div className="hero-overlay" />}
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div className="route-hero-inner">
             <p className="breadcrumb" style={{ marginBottom: 16 }}>
               <Link href="/rivers" style={{ color: 'rgba(255,255,255,0.7)' }}>Rivers</Link>
@@ -133,17 +141,35 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
             Gallery
           </h2>
-          <div className="photo-gallery">
-            <div className="pg-item">
-              <span className="pg-item-label">Main Photo</span>
+          {hasPhotos ? (
+            <div className="photo-gallery">
+              <div className="pg-item pg-item-main">
+                <Image
+                  src={cldGallery('routes', slug, 1)}
+                  alt={route.name}
+                  width={800} height={560}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              {Array.from({ length: Math.min(galleryCount - 1, 4) }, (_, i) => (
+                <div className="pg-item" key={i}>
+                  <Image
+                    src={cldGallery('routes', slug, i + 2)}
+                    alt={`${route.name} photo ${i + 2}`}
+                    width={800} height={560}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+              ))}
             </div>
-            <div className="pg-item"><span className="pg-item-label">Photo</span></div>
-            <div className="pg-item"><span className="pg-item-label">Photo</span></div>
-            <div className="pg-item"><span className="pg-item-label">Photo</span></div>
-          </div>
-          <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 10 }}>
-            Photos coming soon. Add photo URLs to <code>src/content/routes.json</code> to populate this gallery.
-          </p>
+          ) : (
+            <div className="photo-gallery">
+              <div className="pg-item"><span className="pg-item-label">Photos coming soon</span></div>
+              <div className="pg-item"><span className="pg-item-label">Photo</span></div>
+              <div className="pg-item"><span className="pg-item-label">Photo</span></div>
+              <div className="pg-item"><span className="pg-item-label">Photo</span></div>
+            </div>
+          )}
         </div>
 
         {/* AVAILABLE BOATS */}

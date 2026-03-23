@@ -14,6 +14,7 @@ export interface RiverContent {
   totalLength: number
   priceFrom: number
   photoUrl: string
+  galleryCount?: number   // number of gallery-N images in Cloudinary (0 = no photos yet)
 }
 
 export interface RouteContent {
@@ -24,6 +25,7 @@ export interface RouteContent {
   hours: string
   photoUrl: string
   photos?: string[]         // array of photo URLs (Cloudinary / any CDN)
+  galleryCount?: number     // number of gallery-N images in Cloudinary (0 = no photos yet)
   startLat?: number         // GPS for Mapbox static map
   startLon?: number
   endLat?: number

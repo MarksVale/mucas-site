@@ -1,7 +1,9 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { getRivers, getRiver, getRoutesByRiver } from '@/lib/airtable'
 import { getRiverContent, getRouteContent } from '@/lib/content'
-import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason } from '@/components/Icons'
+import { cldHero, cldGallery } from '@/lib/cloudinary'
+import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery } from '@/components/Icons'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
@@ -28,11 +30,18 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
 
   if (!river) return <div className="container" style={{ padding: '80px 0' }}><h1>River not found</h1></div>
 
+  const hasPhotos = (content.galleryCount ?? 0) > 0
+  const galleryCount = content.galleryCount ?? 0
+
   return (
     <>
       {/* HERO */}
-      <section className={`river-hero ${river.gradient}`}>
-        <div className="container">
+      <section
+        className={`river-hero ${river.gradient}${hasPhotos ? ' river-hero-photo' : ''}`}
+        style={hasPhotos ? { backgroundImage: `url(${cldHero('rivers', slug)})` } : undefined}
+      >
+        {hasPhotos && <div className="hero-overlay" />}
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div className="river-hero-inner">
             <p className="breadcrumb" style={{ color: 'rgba(255,255,255,0.7)', marginBottom: 16 }}>
               <Link href="/rivers" style={{ color: 'rgba(255,255,255,0.7)' }}>← All Rivers</Link>
@@ -90,6 +99,36 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
             <p style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--text-secondary)', maxWidth: 800 }}>
               {content.description}
             </p>
+          </div>
+        )}
+
+        {/* GALLERY */}
+        {hasPhotos && (
+          <div className="page-section">
+            <h2 className="stitle">
+              <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
+              Gallery
+            </h2>
+            <div className="photo-gallery">
+              <div className="pg-item pg-item-main">
+                <Image
+                  src={cldGallery('rivers', slug, 1)}
+                  alt={`${river.name} river`}
+                  width={800} height={560}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              {Array.from({ length: Math.min(galleryCount - 1, 4) }, (_, i) => (
+                <div className="pg-item" key={i}>
+                  <Image
+                    src={cldGallery('rivers', slug, i + 2)}
+                    alt={`${river.name} river photo ${i + 2}`}
+                    width={800} height={560}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

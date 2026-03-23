@@ -516,7 +516,9 @@ img { max-width: 100%; display: block; }
   padding: 120px 20px 60px;
   text-align: center;
   color: white;
+  position: relative;
 }
+.route-hero-photo { background-size: cover !important; background-position: center !important; }
 .route-hero.g-gauja { background: linear-gradient(160deg, #1a7a2e 0%, #24943A 50%, #2ea544 100%); }
 .route-hero.g-salaca { background: linear-gradient(160deg, #0d6b3d 0%, #1a9955 50%, #25b366 100%); }
 .route-hero.g-abava { background: linear-gradient(160deg, #2d7a1a 0%, #55a52e 50%, #6bbd42 100%); }
@@ -539,12 +541,14 @@ img { max-width: 100%; display: block; }
 .diff-badge.diff-easymedium { background: rgba(255,255,255,0.2); color: white; }
 
 /* ===== RIVER HERO ===== */
-.river-hero { padding: 120px 20px 60px; text-align: center; color: white; }
+.river-hero { padding: 120px 20px 60px; text-align: center; color: white; position: relative; }
 .river-hero.g-gauja { background: linear-gradient(160deg, #1a7a2e 0%, #24943A 50%, #2ea544 100%); }
 .river-hero.g-salaca { background: linear-gradient(160deg, #0d6b3d 0%, #1a9955 50%, #25b366 100%); }
 .river-hero.g-abava { background: linear-gradient(160deg, #2d7a1a 0%, #55a52e 50%, #6bbd42 100%); }
 .river-hero.g-brasla { background: linear-gradient(160deg, #1a5c7a 0%, #2a8ab0 50%, #3aa0cc 100%); }
 .river-hero.g-amata { background: linear-gradient(160deg, #3e5c3a 0%, #6b9f5e 50%, #82b874 100%); }
+/* Photo variant — background-image set inline; overlay provided by .hero-overlay child */
+.river-hero-photo { background-size: cover !important; background-position: center !important; }
 .river-hero-inner { max-width: 800px; margin: 0 auto; }
 .river-hero .breadcrumb { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
 .river-hero .breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: underline; }
@@ -684,9 +688,17 @@ img { max-width: 100%; display: block; }
 .hl-card h4 { font-size: 15px; font-weight: 700; color: var(--text); margin: 0; }
 
 /* Photo gallery placeholder */
+/* Hero photo overlay (dark scrim over background image) */
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.40) 100%);
+}
+
 .photo-gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 200px 200px; gap: 12px; }
 .pg-item { background: var(--tint); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 36px; color: var(--primary); overflow: hidden; }
-.pg-item:first-child { grid-row: 1 / 3; font-size: 56px; }
+.pg-item:first-child { grid-row: 1 / 3; }
+.pg-item-main { grid-row: 1 / 3; }
+.pg-item img, .pg-item-main img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 0; }
 .pg-item-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
 
 /* Info cards (useful info) */
