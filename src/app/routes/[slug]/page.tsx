@@ -4,6 +4,7 @@ import { getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import BoatPhoto from '@/components/BoatPhoto'
+import MapWrapper from '@/components/MapWrapper'
 import { BoatIcon } from '@/components/Icons'
 import {
   IconDistance, IconDuration, IconDifficulty,
@@ -188,25 +189,22 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <span className="stitle-icon"><IconMap size={22} strokeWidth={1.8} /></span>
             Map
           </h2>
-          <div className="map-container">
-            <div style={{ textAlign: 'center' }}>
-              <IconMap size={40} strokeWidth={1.2} style={{ color: 'var(--text-muted)', marginBottom: 10 }} />
-              <p style={{ fontSize: 15, color: 'var(--text-muted)', fontWeight: 500 }}>Interactive map coming soon</p>
-              <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>
-                Add GPS coordinates to <code>routes.json</code> to enable Mapbox map
-              </p>
-            </div>
-            <div className="map-overlay">
-              <div className="map-point">
-                <span className="map-dot start"></span>
-                <strong>Start:</strong>&nbsp;{route.hub || route.river}
-              </div>
-              <div className="map-point">
-                <span className="map-dot end"></span>
-                <strong>Finish:</strong>&nbsp;{route.name.split('–').pop()?.trim() || route.river}
+          {content.startLat && content.startLng && content.endLat && content.endLng ? (
+            <MapWrapper
+              startLat={content.startLat}
+              startLng={content.startLng}
+              endLat={content.endLat}
+              endLng={content.endLng}
+                label={route.name}
+            />
+          ) : (
+            <div className="map-container">
+              <div style={{ textAlign: 'center' }}>
+                <IconMap size={40} strokeWidth={1.2} style={{ color: 'var(--text-muted)', marginBottom: 10 }} />
+                <p style={{ fontSize: 15, color: 'var(--text-muted)', fontWeight: 500 }}>Map coming soon</p>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* USEFUL INFO */}

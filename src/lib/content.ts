@@ -26,10 +26,10 @@ export interface RouteContent {
   photoUrl: string
   photos?: string[]         // array of photo URLs (Cloudinary / any CDN)
   galleryCount?: number     // number of gallery-N images in Cloudinary (0 = no photos yet)
-  startLat?: number         // GPS for Mapbox static map
-  startLon?: number
+  startLat?: number
+  startLng?: number
   endLat?: number
-  endLon?: number
+  endLng?: number
 }
 
 export function getRiverContent(slug: string): RiverContent {

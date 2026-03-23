@@ -9,7 +9,9 @@
     "difficulty": "Easy",
     "km": 38,
     "hours": "6-8",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.538, "startLng": 25.426,
+    "endLat": 57.313, "endLng": 25.269
   },
   "cesis-sigulda": {
     "description": "The classic 2-day Gauja experience. Camp overnight by the river and paddle through the most scenic sections of Gauja National Park — sandstone cliffs, caves, and deep forest valleys.",
@@ -21,7 +23,9 @@
     "difficulty": "Easy",
     "km": 26,
     "hours": "10-12",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.313, "startLng": 25.269,
+    "endLat": 57.160, "endLng": 24.880
   },
   "strenci-valmiera": {
     "description": "A relaxed upper-Gauja paddle through open countryside. Perfect for beginners and families — wide river, gentle current, beautiful rural Latvian scenery.",
@@ -33,7 +37,9 @@
     "difficulty": "Easy",
     "km": 30,
     "hours": "5-7",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.623, "startLng": 25.701,
+    "endLat": 57.538, "endLng": 25.426
   },
   "grivini-cesis": {
     "description": "An exciting approach to Cēsis through increasingly dramatic scenery. The river picks up pace as the valley deepens — a great day trip with a rewarding finish.",
@@ -45,7 +51,9 @@
     "difficulty": "Easy",
     "km": 22,
     "hours": "4-6",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.447, "startLng": 25.383,
+    "endLat": 57.313, "endLng": 25.269
   },
   "cesis-ligatne": {
     "description": "The most popular single-day trip on the Gauja. Paddle through the heart of the national park past Eagle Rock, sandstone caves, and stunning cliff faces. A classic for a reason.",
@@ -57,7 +65,9 @@
     "difficulty": "Easy",
     "km": 12,
     "hours": "4-5",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.313, "startLng": 25.269,
+    "endLat": 57.237, "endLng": 25.024
   },
   "ligatne-sigulda": {
     "description": "Continue downstream through the deepest, most dramatic section of the Gauja Valley. Pass under the famous Līgatne cable car and arrive near Turaida Castle.",
@@ -69,7 +79,9 @@
     "difficulty": "Easy",
     "km": 14,
     "hours": "5-6",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.237, "startLng": 25.024,
+    "endLat": 57.160, "endLng": 24.880
   },
   "sigulda-ramkalni": {
     "description": "A shorter section below Sigulda with calmer water and beautiful forest scenery. Good option for a relaxed afternoon paddle or for less experienced groups.",
@@ -81,7 +93,9 @@
     "difficulty": "Easy",
     "km": 10,
     "hours": "3-4",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.160, "startLng": 24.880,
+    "endLat": 57.075, "endLng": 24.745
   },
   "ligatne-ramkalni": {
     "description": "A 2-day route covering the lower Gauja valley with camping overnight. Takes in the best of the lower sections in a relaxed multi-day format.",
@@ -93,7 +107,9 @@
     "difficulty": "Easy",
     "km": 24,
     "hours": "8-10",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.237, "startLng": 25.024,
+    "endLat": 57.075, "endLng": 24.745
   },
   "valmiera-sigulda": {
     "description": "The full Gauja traverse — 3 days from Valmiera all the way to Sigulda. Camp two nights riverside and experience every mood of Latvia's most famous river.",
@@ -105,7 +121,9 @@
     "difficulty": "Easy",
     "km": 64,
     "hours": "18-22",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.538, "startLng": 25.426,
+    "endLat": 57.160, "endLng": 24.880
   },
   "valmiera-ligatne": {
     "description": "Three days on the upper and middle Gauja — the perfect balance of distance and scenery without the crowds near Sigulda.",
@@ -117,7 +135,9 @@
     "difficulty": "Easy",
     "km": 50,
     "hours": "16-20",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.538, "startLng": 25.426,
+    "endLat": 57.237, "endLng": 25.024
   },
   "janramis-sigulda": {
     "description": "A 3-day journey ending at Sigulda — starts from a quiet forest launch point and builds through increasingly scenic terrain to the dramatic Gauja Valley finale.",
@@ -129,7 +149,9 @@
     "difficulty": "Easy",
     "km": 55,
     "hours": "16-20",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.337, "startLng": 25.232,
+    "endLat": 57.160, "endLng": 24.880
   },
   "melturi-veclacu-tilts": {
     "description": "A full day on the Amata river through deep forest gorges and past dramatic rock formations. The Amata is narrower and more intimate than the Gauja — a true hidden gem.",
@@ -141,7 +163,9 @@
     "difficulty": "Medium",
     "km": 18,
     "hours": "5-7",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.293, "startLng": 25.183,
+    "endLat": 57.270, "endLng": 25.090
   },
   "zvartes-iezis-veclacu-tilts": {
     "description": "Start your paddle directly at the foot of Zvārtes Rock — one of Latvia's most spectacular natural landmarks. The river winds through forested valleys to a calm finish.",
@@ -153,7 +177,9 @@
     "difficulty": "Medium",
     "km": 12,
     "hours": "3-5",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.275, "startLng": 25.134,
+    "endLat": 57.270, "endLng": 25.090
   },
   "mazsalaca-licu-skola": {
     "description": "A gentle intro to the Salaca — clear water, sandy banks, and forest scenery. Perfect for families and first-time paddlers wanting to experience this beautiful river.",
@@ -165,7 +191,9 @@
     "difficulty": "Easy",
     "km": 8,
     "hours": "2-3",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.861, "startLng": 25.050,
+    "endLat": 57.844, "endLng": 24.980
   },
   "mazsalaca-staicele": {
     "description": "Two days on the most scenic stretch of the Salaca. Red sandstone outcrops rise above crystal-clear water — camp overnight and experience the river at its most wild.",
@@ -177,7 +205,9 @@
     "difficulty": "Medium",
     "km": 28,
     "hours": "8-10",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.861, "startLng": 25.050,
+    "endLat": 57.837, "endLng": 24.771
   },
   "staicele-salacgriva": {
     "description": "The lower Salaca to the sea — the river widens as it approaches Salacgrīva and the Baltic. A unique experience paddling from forest into open coastal landscape.",
@@ -189,7 +219,9 @@
     "difficulty": "Easy",
     "km": 32,
     "hours": "10-12",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.837, "startLng": 24.771,
+    "endLat": 57.753, "endLng": 24.354
   },
   "staicele-sarkanas-klintis": {
     "description": "A day trip to the famous Red Cliffs — dramatic sandstone formations rising directly from the water. One of the most photogenic spots on any Latvian river.",
@@ -201,7 +233,9 @@
     "difficulty": "Easy",
     "km": 14,
     "hours": "4-5",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.837, "startLng": 24.771,
+    "endLat": 57.832, "endLng": 24.665
   },
   "mazsalaca-viku-tilts": {
     "description": "A 2-day Salaca route through varied terrain — open meadows give way to forested banks and sandstone gorges. A well-rounded introduction to multi-day paddling.",
@@ -213,7 +247,9 @@
     "difficulty": "Easy",
     "km": 22,
     "hours": "6-8",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.861, "startLng": 25.050,
+    "endLat": 57.843, "endLng": 24.900
   },
   "rozula-vejini": {
     "description": "A short, exciting run on the Brasla with fast water and forest scenery. Perfect for those wanting a taste of moving water without committing to a full day.",
@@ -225,7 +261,9 @@
     "difficulty": "Medium",
     "km": 8,
     "hours": "2-3",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.335, "startLng": 25.040,
+    "endLat": 57.275, "endLng": 24.985
   },
   "rozula-a3-tilts": {
     "description": "A full day on the Brasla from the classic Rozula launch point. Fast sections alternate with calmer pools — great variety and beautiful gorge scenery throughout.",
@@ -237,7 +275,9 @@
     "difficulty": "Medium",
     "km": 16,
     "hours": "4-6",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.335, "startLng": 25.040,
+    "endLat": 57.210, "endLng": 24.908
   },
   "placis-a3-tilts": {
     "description": "Launch from Plācis and paddle to the A3 bridge — a well-known Brasla day route with consistent moving water and great scenery.",
@@ -249,7 +289,9 @@
     "difficulty": "Medium",
     "km": 14,
     "hours": "4-5",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.305, "startLng": 25.012,
+    "endLat": 57.210, "endLng": 24.908
   },
   "vejini-a3-tilts": {
     "description": "The lower section of the Brasla — slightly calmer than the upper reaches but still with good current and beautiful forest-lined banks.",
@@ -261,7 +303,9 @@
     "difficulty": "Easy",
     "km": 10,
     "hours": "3-4",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.275, "startLng": 24.985,
+    "endLat": 57.210, "endLng": 24.908
   },
   "placis-ieteka-gauja": {
     "description": "Paddle the Brasla all the way to its confluence with the Gauja — a satisfying full-day route that ends where two great rivers meet.",
@@ -273,7 +317,9 @@
     "difficulty": "Medium",
     "km": 20,
     "hours": "5-7",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.305, "startLng": 25.012,
+    "endLat": 57.177, "endLng": 24.883
   },
   "vejini-ieteka-gauja": {
     "description": "From Vējiņi to the Gauja confluence — a great option for those who want the Brasla experience with a shorter upper section.",
@@ -285,7 +331,9 @@
     "difficulty": "Easy",
     "km": 16,
     "hours": "4-6",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.275, "startLng": 24.985,
+    "endLat": 57.177, "endLng": 24.883
   },
   "straupe-a3-tilts": {
     "description": "Launch from Straupe and follow the Brasla downstream to the A3 bridge — a classic route through one of the most scenic parts of the river.",
@@ -297,7 +345,9 @@
     "difficulty": "Medium",
     "km": 12,
     "hours": "3-5",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.338, "startLng": 25.024,
+    "endLat": 57.210, "endLng": 24.908
   },
   "straupe-ieteka-gauja": {
     "description": "A longer day on the lower Brasla from Straupe all the way to the Gauja. Takes in the best of the lower river with a memorable confluence finish.",
@@ -309,7 +359,9 @@
     "difficulty": "Medium",
     "km": 18,
     "hours": "5-7",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.338, "startLng": 25.024,
+    "endLat": 57.177, "endLng": 24.883
   },
   "rozula-ieteka-gauja": {
     "description": "Two full days on the Brasla from top to bottom. Camp overnight mid-river and experience the full character of this exciting tributary — fast, scenic, and wild.",
@@ -321,7 +373,9 @@
     "difficulty": "Medium",
     "km": 32,
     "hours": "10-14",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.335, "startLng": 25.040,
+    "endLat": 57.177, "endLng": 24.883
   },
   "placis-sigulda": {
     "description": "A 2-day adventure combining the Brasla with the Gauja — paddle down the Brasla to the confluence then continue on the Gauja to Sigulda. Two rivers in one trip.",
@@ -333,7 +387,9 @@
     "difficulty": "Medium",
     "km": 36,
     "hours": "12-16",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.305, "startLng": 25.012,
+    "endLat": 57.160, "endLng": 24.880
   },
   "straupe-sigulda": {
     "description": "Start on the Brasla at Straupe, join the Gauja at the confluence, and finish at Sigulda. A spectacular 2-day route through two of Latvia's best rivers.",
@@ -345,6 +401,8 @@
     "difficulty": "Medium",
     "km": 30,
     "hours": "10-14",
-    "photoUrl": ""
+    "photoUrl": "",
+    "startLat": 57.338, "startLng": 25.024,
+    "endLat": 57.160, "endLng": 24.880
   }
 }
