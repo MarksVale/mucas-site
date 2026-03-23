@@ -5,6 +5,7 @@ import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinar
 import PhotoCarousel from '@/components/PhotoCarousel'
 import BoatPhoto from '@/components/BoatPhoto'
 import { BoatIcon } from '@/components/Icons'
+import RouteMap from '@/components/RouteMap'
 import {
   IconDistance, IconDuration, IconDifficulty,
   IconHighlight, IconGallery, IconInfo,
@@ -188,25 +189,33 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <span className="stitle-icon"><IconMap size={22} strokeWidth={1.8} /></span>
             Map
           </h2>
-          <div className="map-container">
-            <div style={{ textAlign: 'center' }}>
-              <IconMap size={40} strokeWidth={1.2} style={{ color: 'var(--text-muted)', marginBottom: 10 }} />
-              <p style={{ fontSize: 15, color: 'var(--text-muted)', fontWeight: 500 }}>Interactive map coming soon</p>
-              <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>
-                Add GPS coordinates to <code>routes.json</code> to enable Mapbox map
-              </p>
-            </div>
-            <div className="map-overlay">
-              <div className="map-point">
-                <span className="map-dot start"></span>
-                <strong>Start:</strong>&nbsp;{route.hub || route.river}
+          {content.startCoords && content.endCoords ? (
+            <div className="map-container map-container-live">
+              <RouteMap
+                startCoords={content.startCoords as [number, number]}
+                endCoords={content.endCoords as [number, number]}
+                startLabel={route.name.split('–')[0]?.trim() || route.river}
+                endLabel={route.name.split('–').pop()?.trim() || route.river}
+              />
+              <div className="map-legend">
+                <div className="map-point">
+                  <span className="map-dot start"></span>
+                  <span>Start: {route.name.split('–')[0]?.trim() || route.river}</span>
+                </div>
+                <div className="map-point">
+                  <span className="map-dot end"></span>
+                  <span>Finish: {route.name.split('–').pop()?.trim() || route.river}</span>
+                </div>
               </div>
-              <div className="map-point">
-                <span className="map-dot end"></span>
-                <strong>Finish:</strong>&nbsp;{route.name.split('–').pop()?.trim() || route.river}
+            </div>
+          ) : (
+            <div className="map-container">
+              <div style={{ textAlign: 'center' }}>
+                <IconMap size={40} strokeWidth={1.2} style={{ color: 'var(--text-muted)', marginBottom: 10 }} />
+                <p style={{ fontSize: 15, color: 'var(--text-muted)', fontWeight: 500 }}>Map coming soon</p>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* USEFUL INFO */}

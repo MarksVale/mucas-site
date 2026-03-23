@@ -26,10 +26,8 @@ export interface RouteContent {
   photoUrl: string
   photos?: string[]         // array of photo URLs (Cloudinary / any CDN)
   galleryCount?: number     // number of gallery-N images in Cloudinary (0 = no photos yet)
-  startLat?: number         // GPS for Mapbox static map
-  startLon?: number
-  endLat?: number
-  endLon?: number
+  startCoords?: [number, number]  // [lat, lng] for Leaflet map
+  endCoords?: [number, number]
 }
 
 export function getRiverContent(slug: string): RiverContent {
@@ -40,7 +38,7 @@ export function getRiverContent(slug: string): RiverContent {
 }
 
 export function getRouteContent(slug: string): RouteContent {
-  return (routesContent as Record<string, RouteContent>)[slug] ?? {
+  return (routesContent as unknown as Record<string, RouteContent>)[slug] ?? {
     description: '',
     highlights: [],
     difficulty: 'Easy',

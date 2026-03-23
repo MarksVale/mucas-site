@@ -778,11 +778,24 @@ img { max-width: 100%; display: block; }
 
 /* Map container */
 .map-container { background: var(--tint); border-radius: var(--radius); height: 320px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 1px solid var(--border); }
+.map-container-live { height: auto; flex-direction: column; }
+.map-container-live .route-map { width: 100%; height: 360px; border-radius: var(--radius) var(--radius) 0 0; }
+.map-legend { width: 100%; display: flex; justify-content: space-between; padding: 14px 20px; background: var(--card); border-top: 1px solid var(--border); border-radius: 0 0 var(--radius) var(--radius); }
 .map-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(246,246,244,0.95)); padding: 20px 24px; display: flex; justify-content: space-between; align-items: flex-end; }
 .map-point { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; }
 .map-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .map-dot.start { background: var(--primary); }
 .map-dot.end { background: #e74c3c; }
+
+/* Leaflet custom markers */
+.marker-pin { width: 18px; height: 18px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+.start-pin { background: var(--primary); }
+.end-pin { background: #e74c3c; }
+.route-marker { background: none !important; border: none !important; }
+
+/* Leaflet popup override */
+.leaflet-popup-content-wrapper { border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 13px; }
+.leaflet-popup-content { margin: 10px 14px; }
 
 /* Page content wrapper (mockup style) */
 .page-content { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
