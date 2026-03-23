@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { getRivers, getRiver, getRoutesByRiver } from '@/lib/airtable'
 import { getRiverContent, getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery } from '@/lib/cloudinary'
 import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery } from '@/components/Icons'
+import PhotoCarousel from '@/components/PhotoCarousel'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
@@ -108,36 +108,10 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
             <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
             Gallery
           </h2>
-          <div className="photo-gallery">
-            {hasPhotos ? (
-              <>
-                <div className="pg-item pg-item-main">
-                  <Image
-                    src={cldGallery('rivers', slug, 1)}
-                    alt={`${river.name} river`}
-                    width={800} height={560}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                </div>
-                {Array.from({ length: Math.min(galleryCount - 1, 4) }, (_, i) => (
-                  <div className="pg-item" key={i}>
-                    <Image
-                      src={cldGallery('rivers', slug, i + 2)}
-                      alt={`${river.name} river photo ${i + 2}`}
-                      width={800} height={560}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                  </div>
-                ))}
-              </>
-            ) : (
-              [0,1,2,3].map(i => (
-                <div className="pg-item" key={i}>
-                  <Image src="/images/photo-placeholder.svg" alt="Photo coming soon" width={800} height={560} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-              ))
-            )}
-          </div>
+          <PhotoCarousel
+            images={hasPhotos ? Array.from({ length: galleryCount }, (_, i) => cldGallery('rivers', slug, i + 1)) : []}
+            alt={`${river.name} river`}
+          />
         </div>
 
         {/* HIGHLIGHTS — max 3 */}
@@ -208,7 +182,6 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
                         {rc.difficulty}
                       </span>
                     )}
-                    <div className="rli-price">Transport: {r.transportCost}€</div>
                     <span className="rli-arrow">→</span>
                   </div>
                 </Link>

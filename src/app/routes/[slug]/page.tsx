@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { getRoutes, getRoute, getRoutesByRiver, getBoats } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery } from '@/lib/cloudinary'
+import PhotoCarousel from '@/components/PhotoCarousel'
 import { BoatIcon } from '@/components/Icons'
 import {
   IconDistance, IconDuration, IconDifficulty,
@@ -141,36 +141,10 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
             Gallery
           </h2>
-          {hasPhotos ? (
-            <div className="photo-gallery">
-              <div className="pg-item pg-item-main">
-                <Image
-                  src={cldGallery('routes', slug, 1)}
-                  alt={route.name}
-                  width={800} height={560}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-              </div>
-              {Array.from({ length: Math.min(galleryCount - 1, 4) }, (_, i) => (
-                <div className="pg-item" key={i}>
-                  <Image
-                    src={cldGallery('routes', slug, i + 2)}
-                    alt={`${route.name} photo ${i + 2}`}
-                    width={800} height={560}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="photo-gallery">
-              {[0,1,2,3].map(i => (
-                <div className="pg-item" key={i}>
-                  <Image src="/images/photo-placeholder.svg" alt="Photo coming soon" width={800} height={560} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-              ))}
-            </div>
-          )}
+          <PhotoCarousel
+            images={hasPhotos ? Array.from({ length: galleryCount }, (_, i) => cldGallery('routes', slug, i + 1)) : []}
+            alt={route.name}
+          />
         </div>
 
         {/* AVAILABLE BOATS */}
