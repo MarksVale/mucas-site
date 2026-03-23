@@ -19,12 +19,6 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   }
 }
 
-const difficultyClass: Record<string, string> = {
-  Easy: 'diff-easy',
-  Medium: 'diff-medium',
-  Hard: 'diff-hard',
-}
-
 export default async function RoutePage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
   const route = await getRoute(slug)
@@ -54,88 +48,73 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
         </div>
       </section>
 
-      {/* MAIN CONTENT */}
+      {/* DESCRIPTION + HIGHLIGHTS */}
       <section className="section">
-        <div className="container">
-          <div className="route-grid">
-            <div>
-              {/* Description */}
-              {content.description && (
-                <>
-                  <h2 style={{ fontSize: 26, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>About This Route</h2>
-                  <p className="route-desc">{content.description}</p>
-                </>
-              )}
+        <div className="container" style={{ maxWidth: 760 }}>
+          {content.description && (
+            <>
+              <h2 style={{ fontSize: 26, fontWeight: 800, textTransform: 'uppercase', marginBottom: 16 }}>About This Route</h2>
+              <p className="route-desc">{content.description}</p>
+            </>
+          )}
 
-              {/* Highlights */}
-              {content.highlights.length > 0 && (
-                <div style={{ marginTop: 28 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12 }}>Route Highlights</h3>
-                  <div className="highlights-list">
-                    {content.highlights.map((h, i) => <span className="highlight-tag" key={i}>{h}</span>)}
-                  </div>
-                </div>
-              )}
-
-              {/* Detail table */}
-              <div style={{ marginTop: 32 }}>
-                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12 }}>Route Details</h3>
-                <div className="detail-table">
-                  <div className="detail-row"><span className="detail-label">River</span><span>{route.river}</span></div>
-                  <div className="detail-row"><span className="detail-label">Duration</span><span>{route.days} {route.days === 1 ? 'day' : 'days'}{content.hours ? ` (${content.hours} hours on water)` : ''}</span></div>
-                  {content.km > 0 && <div className="detail-row"><span className="detail-label">Distance</span><span>{content.km} km</span></div>}
-                  {content.difficulty && <div className="detail-row"><span className="detail-label">Difficulty</span><span>{content.difficulty}</span></div>}
-                  <div className="detail-row"><span className="detail-label">Starting Hub</span><span>{route.hub}</span></div>
-                  <div className="detail-row"><span className="detail-label">Transport Cost</span><span>{route.transportCost}€</span></div>
-                  {route.startTimes.length > 0 && <div className="detail-row"><span className="detail-label">Start Times</span><span>{route.startTimes.join(', ')}</span></div>}
-                </div>
+          {content.highlights.length > 0 && (
+            <div style={{ marginTop: 32 }}>
+              <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14, color: 'var(--text-muted)' }}>Route Highlights</h3>
+              <div className="highlights-list">
+                {content.highlights.map((h, i) => <span className="highlight-tag" key={i}>{h}</span>)}
               </div>
+            </div>
+          )}
+        </div>
+      </section>
 
-              {/* Available boats */}
-              {availableBoats.length > 0 && (
-                <div style={{ marginTop: 32 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12 }}>Available Boats</h3>
-                  <div className="boat-options">
-                    {availableBoats.map(b => (
-                      <div className="boat-option" key={b.slug}>
-                        <div className="boat-name">{b.name}</div>
-                        <div className="boat-meta">{b.category} · {b.seats} {b.seats === 1 ? 'seat' : 'seats'}</div>
-                        <div className="boat-price">{b.pricePerDay}€ <span>/ day</span></div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Map placeholder */}
-              <div className="map-card" style={{ marginTop: 32 }}>
-                <h4>Route Map</h4>
-                <div className="map-placeholder">
-                  <div style={{ fontSize: 32 }}>🗺️</div>
-                  <p>Interactive map coming soon</p>
-                  {route.hub && <p className="gps-text">Starting hub: {route.hub}</p>}
-                </div>
+      {/* DETAILS + BOATS */}
+      <section className="section gray">
+        <div className="container">
+          <div className="route-details-grid">
+            {/* Detail table */}
+            <div>
+              <h3 className="section-sub-title">Route Details</h3>
+              <div className="detail-table">
+                <div className="detail-row"><span className="detail-label">River</span><span>{route.river}</span></div>
+                <div className="detail-row"><span className="detail-label">Duration</span><span>{route.days} {route.days === 1 ? 'day' : 'days'}{content.hours ? ` · ${content.hours} hrs on water` : ''}</span></div>
+                {content.km > 0 && <div className="detail-row"><span className="detail-label">Distance</span><span>{content.km} km</span></div>}
+                {content.difficulty && <div className="detail-row"><span className="detail-label">Difficulty</span><span>{content.difficulty}</span></div>}
+                <div className="detail-row"><span className="detail-label">Starting Hub</span><span>{route.hub}</span></div>
+                <div className="detail-row"><span className="detail-label">Transport</span><span>{route.transportCost}€</span></div>
+                {route.startTimes.length > 0 && <div className="detail-row"><span className="detail-label">Start Times</span><span>{route.startTimes.join(', ')}</span></div>}
               </div>
             </div>
 
-            {/* SIDEBAR */}
-            <div>
-              <div className="booking-card">
-                <h3>Book This Route</h3>
-                <p>Select your boat, date, and group size to get started.</p>
-                <div className="detail-table" style={{ marginBottom: 20 }}>
-                  {content.km > 0 && <div className="detail-row"><span className="detail-label">Distance</span><span>{content.km} km</span></div>}
-                  <div className="detail-row"><span className="detail-label">Duration</span><span>{route.days} {route.days === 1 ? 'day' : 'days'}</span></div>
-                  <div className="detail-row"><span className="detail-label">Transport</span><span>{route.transportCost}€</span></div>
-                  {content.difficulty && <div className="detail-row"><span className="detail-label">Level</span><span>{content.difficulty}</span></div>}
-                </div>
-                <Link href={`/booking?route=${route.slug}`} className="btn btn-primary" style={{ display: 'block', textAlign: 'center', width: '100%' }}>
-                  Book Now
-                </Link>
-                <div style={{ textAlign: 'center', marginTop: 12 }}>
-                  <Link href="/contact" style={{ fontSize: 13, color: 'var(--primary)' }}>Questions? Contact us →</Link>
+            {/* Available boats */}
+            {availableBoats.length > 0 && (
+              <div>
+                <h3 className="section-sub-title">Available Boats</h3>
+                <div className="boat-options">
+                  {availableBoats.map(b => (
+                    <div className="boat-option" key={b.slug}>
+                      <div className="boat-name">{b.name}</div>
+                      <div className="boat-meta">{b.category} · {b.seats} {b.seats === 1 ? 'seat' : 'seats'}</div>
+                      <div className="boat-price">{b.pricePerDay}€ <span>/ day</span></div>
+                    </div>
+                  ))}
                 </div>
               </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* MAP */}
+      <section className="section">
+        <div className="container" style={{ maxWidth: 760 }}>
+          <div className="map-card">
+            <h4>Route Map</h4>
+            <div className="map-placeholder">
+              <div style={{ fontSize: 40 }}>🗺️</div>
+              <p>Interactive map coming soon</p>
+              {route.hub && <p className="gps-text">Starting hub: {route.hub}</p>}
             </div>
           </div>
         </div>
@@ -147,7 +126,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
           <div className="cta-banner">
             <h2>Ready to Paddle {route.name}?</h2>
             <p>Book now or browse more routes on the {route.river}.</p>
-            <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
               <Link href={`/rivers/${route.riverSlug}`} className="btn btn-outline">More {route.river} Routes</Link>
             </div>

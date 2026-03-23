@@ -491,6 +491,7 @@ img { max-width: 100%; display: block; }
   .filter-bar { flex-direction: column; }
   .booking-steps { flex-wrap: wrap; }
   .route-grid { grid-template-columns: 1fr; }
+  .route-details-grid { grid-template-columns: 1fr; }
   .route-stats, .river-stats { flex-direction: column; gap: 16px; }
   .route-list-item { flex-direction: column; gap: 12px; }
 }
@@ -547,6 +548,8 @@ img { max-width: 100%; display: block; }
 
 /* ===== ROUTE DETAIL GRID ===== */
 .route-grid { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+.route-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.section-sub-title { font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
 .route-main h2 { font-size: 26px; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; color: var(--text); }
 .route-main h3 { font-size: 20px; font-weight: 700; margin: 32px 0 16px; color: var(--text); }
 .route-desc { font-size: 16px; line-height: 1.8; color: var(--text-secondary); }
