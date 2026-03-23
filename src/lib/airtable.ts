@@ -1,0 +1,225 @@
+// Airtable API configuration
+// Base ID: appYaHUWSdtuUSeaB
+const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID || 'appYaHUWSdtuUSeaB'
+const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY || ''
+
+const API_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}`
+
+async function fetchTable(tableName: string, params?: Record<string, string>) {
+  const url = new URL(`${API_URL}/${encodeURIComponent(tableName)}`)
+  if (params) {
+    Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v))
+  }
+
+  const res = await fetch(url.toString(), {
+    headers: {
+      Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+    },
+    next: { revalidate: 300 },
+  })
+
+  if (!res.ok) {
+    console.error(`Airtable fetch failed for ${tableName}:`, res.status)
+    return []
+  }
+
+  const data = await res.json()
+  return data.records || []
+}
+
+// Types — matching real Airtable fields
+export interface River {
+  slug: string
+  name: string
+  active: boolean
+  routeCount: number
+  boatCategories: string[]
+  gradient: string
+}
+
+export interface Route {
+  slug: string
+  name: string
+  river: string
+  riverSlug: string
+  days: number
+  active: boolean
+  hub: string
+  startTimes: string[]
+  transportCost: number
+  boats: string[]
+  gradient: string
+}
+
+export interface BoatType {
+  slug: string
+  name: string
+  category: string
+  seats: number
+  pricePerDay: number
+  active: boolean
+}
+
+export interface Hub {
+  slug: string
+  name: string
+  river: string
+  type: string
+}
+
+// =============================================
+// FALLBACK DATA — matches real Airtable content
+// =============================================
+
+const FALLBACK_RIVERS: River[] = [
+  { slug: 'gauja', name: 'Gauja', active: true, routeCount: 11, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-gauja' },
+  { slug: 'amata', name: 'Amata', active: true, routeCount: 2, boatCategories: ['Rafts'], gradient: 'g-amata' },
+  { slug: 'salaca', name: 'Salaca', active: true, routeCount: 5, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-salaca' },
+  { slug: 'brasla', name: 'Brasla', active: true, routeCount: 11, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-brasla' },
+]
+
+const FALLBACK_ROUTES: Route[] = [
+  // Gauja routes
+  { slug: 'valmiera-cesis', name: 'Valmiera - Cēsis', river: 'Gauja', riverSlug: 'gauja', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 120, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+  { slug: 'cesis-sigulda', name: 'Cēsis - Sigulda', river: 'Gauja', riverSlug: 'gauja', days: 2, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+  { slug: 'strenci-valmiera', name: 'Strenči - Valmiera', river: 'Gauja', riverSlug: 'gauja', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 150, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+  { slug: 'grivini-cesis', name: 'Grīviņi - Cēsis', river: 'Gauja', riverSlug: 'gauja', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 80, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+  { slug: 'cesis-ligatne', name: 'Cēsis - Līgatne', river: 'Gauja', riverSlug: 'gauja', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+  { slug: 'ligatne-sigulda', name: 'Līgatne - Sigulda', river: 'Gauja', riverSlug: 'gauja', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 50, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+  { slug: 'sigulda-ramkalni', name: 'Sigulda - Rāmkalni', river: 'Gauja', riverSlug: 'gauja', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 50, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+  { slug: 'ligatne-ramkalni', name: 'Līgatne - Rāmkalni', river: 'Gauja', riverSlug: 'gauja', days: 2, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 70, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+  { slug: 'valmiera-sigulda', name: 'Valmiera - Sigulda', river: 'Gauja', riverSlug: 'gauja', days: 3, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 120, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+  { slug: 'valmiera-ligatne', name: 'Valmiera - Līgatne', river: 'Gauja', riverSlug: 'gauja', days: 3, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 120, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+  { slug: 'janramis-sigulda', name: 'Jāņrāmis - Sigulda', river: 'Gauja', riverSlug: 'gauja', days: 3, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 70, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
+
+  // Amata routes
+  { slug: 'melturi-veclacu-tilts', name: 'Melturi - Veclauču tilts', river: 'Amata', riverSlug: 'amata', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 460', 'DULKAN Raft 330'], gradient: 'g-amata' },
+  { slug: 'zvartes-iezis-veclacu-tilts', name: 'Zvārtes iezis - Veclauču tilts', river: 'Amata', riverSlug: 'amata', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 460', 'DULKAN Raft 330'], gradient: 'g-amata' },
+
+  // Salaca routes
+  { slug: 'mazsalaca-licu-skola', name: 'Mazsalaca - Līču skola', river: 'Salaca', riverSlug: 'salaca', days: 1, active: true, hub: 'Mazsalaca', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 40, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460', 'Piepūšamais plosts VIKING 10', 'Piepūšamais plosts VIKING 20'], gradient: 'g-salaca' },
+  { slug: 'mazsalaca-staicele', name: 'Mazsalaca - Staicele', river: 'Salaca', riverSlug: 'salaca', days: 2, active: true, hub: 'Mazsalaca', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460', 'Piepūšamais plosts VIKING 10', 'Piepūšamais plosts VIKING 20'], gradient: 'g-salaca' },
+  { slug: 'staicele-salacgriva', name: 'Staicele - Salacgrīva', river: 'Salaca', riverSlug: 'salaca', days: 2, active: true, hub: 'Staicele', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 75, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460', 'Piepūšamais plosts VIKING 10', 'Piepūšamais plosts VIKING 20'], gradient: 'g-salaca' },
+  { slug: 'staicele-sarkanas-klintis', name: 'Staicele - Sarkanās Klintis', river: 'Salaca', riverSlug: 'salaca', days: 1, active: true, hub: 'Staicele', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 65, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460', 'Piepūšamais plosts VIKING 10', 'Piepūšamais plosts VIKING 20'], gradient: 'g-salaca' },
+  { slug: 'mazsalaca-viku-tilts', name: 'Mazsalaca - Vīķu tilts', river: 'Salaca', riverSlug: 'salaca', days: 2, active: true, hub: 'Mazsalaca', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460', 'Piepūšamais plosts VIKING 10', 'Piepūšamais plosts VIKING 20'], gradient: 'g-salaca' },
+
+  // Brasla routes
+  { slug: 'rozula-vejini', name: 'Rozula - Vējiņi', river: 'Brasla', riverSlug: 'brasla', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+  { slug: 'rozula-a3-tilts', name: 'Rozula - A3 tilts', river: 'Brasla', riverSlug: 'brasla', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+  { slug: 'placis-a3-tilts', name: 'Plācis - A3 tilts', river: 'Brasla', riverSlug: 'brasla', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+  { slug: 'vejini-a3-tilts', name: 'Vējiņi - A3 tilts', river: 'Brasla', riverSlug: 'brasla', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+  { slug: 'placis-ieteka-gauja', name: 'Plācis - Ieteka Gaujā', river: 'Brasla', riverSlug: 'brasla', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+  { slug: 'vejini-ieteka-gauja', name: 'Vējiņi - Ieteka Gaujā', river: 'Brasla', riverSlug: 'brasla', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+  { slug: 'straupe-a3-tilts', name: 'Straupe - A3 tilts', river: 'Brasla', riverSlug: 'brasla', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+  { slug: 'straupe-ieteka-gauja', name: 'Straupe - Ieteka Gaujā', river: 'Brasla', riverSlug: 'brasla', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+  { slug: 'rozula-ieteka-gauja', name: 'Rozula - Ieteka Gaujā', river: 'Brasla', riverSlug: 'brasla', days: 2, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+  { slug: 'placis-sigulda', name: 'Plācis - Sigulda', river: 'Brasla', riverSlug: 'brasla', days: 2, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+  { slug: 'straupe-sigulda', name: 'Straupe - Sigulda', river: 'Brasla', riverSlug: 'brasla', days: 2, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['Kajaks VISTA', 'Kanoe PELICAN', 'Kanoe ROTOATTIVO CANADIER 3'], gradient: 'g-brasla' },
+]
+
+const FALLBACK_BOATS: BoatType[] = [
+  { slug: 'kajaks-vista', name: 'Kajaks VISTA', category: 'Kayaks', seats: 2, pricePerDay: 20, active: true },
+  { slug: 'perception-pescador', name: 'Perception PESCADOR', category: 'Kayaks', seats: 1, pricePerDay: 15, active: true },
+  { slug: 'kanoe-loxia', name: 'Kanoe LOXIA', category: 'Canoes', seats: 3, pricePerDay: 20, active: true },
+  { slug: 'kanoe-rotoattivo-canadier-3', name: 'Kanoe ROTOATTIVO CANADIER 3', category: 'Canoes', seats: 3, pricePerDay: 20, active: true },
+  { slug: 'kanoe-alba', name: 'Kanoe ALBA', category: 'Canoes', seats: 3, pricePerDay: 20, active: true },
+  { slug: 'kanoe-pelican', name: 'Kanoe PELICAN', category: 'Canoes', seats: 3, pricePerDay: 20, active: true },
+  { slug: 'sup-bee', name: 'SUP Bee', category: 'SUP', seats: 1, pricePerDay: 20, active: true },
+  { slug: 'dulkan-amata-300', name: 'DULKAN Amata 300', category: 'Rafts', seats: 2, pricePerDay: 35, active: true },
+  { slug: 'bush-venta-300', name: 'BUSH Venta 300', category: 'Rafts', seats: 3, pricePerDay: 35, active: true },
+  { slug: 'dulkan-raft-330', name: 'DULKAN Raft 330', category: 'Rafts', seats: 4, pricePerDay: 45, active: true },
+  { slug: 'dulkan-raft-460', name: 'DULKAN Raft 460', category: 'Rafts', seats: 9, pricePerDay: 65, active: true },
+  { slug: 'viking-10', name: 'Piepūšamais plosts VIKING 10', category: 'Big Rafts', seats: 10, pricePerDay: 35, active: false },
+  { slug: 'viking-20', name: 'Piepūšamais plosts VIKING 20', category: 'Big Rafts', seats: 20, pricePerDay: 50, active: false },
+]
+
+// Helper: make a URL-safe slug from a route/river name
+function toSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/ā/g, 'a').replace(/č/g, 'c').replace(/ē/g, 'e')
+    .replace(/ģ/g, 'g').replace(/ī/g, 'i').replace(/ķ/g, 'k')
+    .replace(/ļ/g, 'l').replace(/ņ/g, 'n').replace(/š/g, 's')
+    .replace(/ū/g, 'u').replace(/ž/g, 'z')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
+// Data fetchers
+export async function getRivers(): Promise<River[]> {
+  if (!AIRTABLE_API_KEY) return FALLBACK_RIVERS.filter(r => r.active)
+
+  const records = await fetchTable('Rivers')
+  return records
+    .filter((r: any) => r.fields?.['Active'])
+    .map((r: any) => ({
+      slug: toSlug(r.fields['River name'] || ''),
+      name: r.fields['River name'] || '',
+      active: r.fields['Active'] || false,
+      routeCount: (r.fields['Routes'] || []).length,
+      boatCategories: (r.fields['Boat Types'] || []).map((bt: any) => bt.name),
+      gradient: `g-${toSlug(r.fields['River name'] || '')}`,
+    }))
+}
+
+export async function getRiver(slug: string): Promise<River | undefined> {
+  const rivers = await getRivers()
+  return rivers.find(r => r.slug === slug)
+}
+
+export async function getRoutes(): Promise<Route[]> {
+  if (!AIRTABLE_API_KEY) return FALLBACK_ROUTES.filter(r => r.active)
+
+  const records = await fetchTable('Routes')
+  return records
+    .filter((r: any) => r.fields?.['Active'])
+    .map((r: any) => {
+      const riverName = (r.fields['River'] || [{}])[0]?.name || ''
+      return {
+        slug: toSlug(r.fields['Route name'] || ''),
+        name: r.fields['Route name'] || '',
+        river: riverName,
+        riverSlug: toSlug(riverName),
+        days: r.fields['Days'] || 1,
+        active: r.fields['Active'] || false,
+        hub: (() => {
+          const lookup = r.fields['Starting Hub Lookup'] as any
+          if (lookup?.linkedRecordIds && lookup?.valuesByLinkedRecordId) {
+            const vals = Object.values(lookup.valuesByLinkedRecordId) as any[]
+            return vals[0]?.[0] || ''
+          }
+          return ''
+        })(),
+        startTimes: (r.fields['Start Times'] || []).map((st: any) => st.name).filter((n: string) => n !== 'Cits laiks'),
+        transportCost: r.fields['Transport Cost'] || 0,
+        boats: (r.fields['Boat Types'] || []).map((bt: any) => bt.name),
+        gradient: `g-${toSlug(riverName)}`,
+      }
+    })
+}
+
+export async function getRoute(slug: string): Promise<Route | undefined> {
+  const routes = await getRoutes()
+  return routes.find(r => r.slug === slug)
+}
+
+export async function getRoutesByRiver(riverSlug: string): Promise<Route[]> {
+  const routes = await getRoutes()
+  return routes.filter(r => r.riverSlug === riverSlug)
+}
+
+export async function getBoats(): Promise<BoatType[]> {
+  if (!AIRTABLE_API_KEY) return FALLBACK_BOATS.filter(b => b.active)
+
+  const records = await fetchTable('Boat Types')
+  return records
+    .filter((r: any) => r.fields?.['Active'])
+    .map((r: any) => ({
+      slug: toSlug(r.fields['Boat type name'] || ''),
+      name: r.fields['Boat type name'] || '',
+      category: r.fields['Category']?.name || '',
+      seats: r.fields['Seating Capacity'] || 0,
+      pricePerDay: r.fields['Price per day'] || 0,
+      active: r.fields['Active'] || false,
+    }))
+}
