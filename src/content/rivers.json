@@ -1,0 +1,38 @@
+{
+  "gauja": {
+    "description": "Latvia's most popular river — stunning sandstone cliffs, ancient caves, and pristine forests. The Gauja Valley is a national park and one of the most scenic landscapes in the Baltics. Perfect for all skill levels with a gentle current and plenty of stopping points.",
+    "highlights": ["Sandstone cliffs", "Gutmanis Cave", "Turaida Castle", "Gauja National Park", "Pristine forests"],
+    "region": "Vidzeme",
+    "season": "May – October",
+    "totalLength": 452,
+    "priceFrom": 20,
+    "photoUrl": ""
+  },
+  "salaca": {
+    "description": "Wild and scenic — crystal-clear waters, dramatic red sandstone outcrops, and exciting rapids. One of the cleanest rivers in Latvia and a favourite for paddlers looking for adventure. The upper sections offer Class I-II rapids while the lower stretches are more relaxed.",
+    "highlights": ["Red sandstone cliffs", "Crystal-clear water", "Class I-II rapids", "Wild riverbanks", "Salacgrīva estuary"],
+    "region": "Vidzeme",
+    "season": "May – September",
+    "totalLength": 95,
+    "priceFrom": 20,
+    "photoUrl": ""
+  },
+  "brasla": {
+    "description": "A fast-flowing tributary of the Gauja with exciting rapids and beautiful gorge scenery. Best paddled in spring when water levels are at their highest. Shorter routes make it ideal for a half-day or full-day adventure.",
+    "highlights": ["Spring rapids", "Fast current", "Scenic gorge", "Gauja confluence", "Compact and exciting"],
+    "region": "Vidzeme",
+    "season": "April – June",
+    "totalLength": 52,
+    "priceFrom": 20,
+    "photoUrl": ""
+  },
+  "amata": {
+    "description": "A hidden gem in the Gauja tributaries — the Amata cuts through deep forest valleys with dramatic rock outcrops and crystal-clear water. The famous Zvārtes rock is one of Latvia's most spectacular natural landmarks.",
+    "highlights": ["Zvārtes rock", "Deep forest valleys", "Crystal-clear water", "Rock outcrops", "Secluded nature"],
+    "region": "Vidzeme",
+    "season": "May – September",
+    "totalLength": 56,
+    "priceFrom": 35,
+    "photoUrl": ""
+  }
+}
