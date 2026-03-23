@@ -164,10 +164,11 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             </div>
           ) : (
             <div className="photo-gallery">
-              <div className="pg-item"><span className="pg-item-label">Photos coming soon</span></div>
-              <div className="pg-item"><span className="pg-item-label">Photo</span></div>
-              <div className="pg-item"><span className="pg-item-label">Photo</span></div>
-              <div className="pg-item"><span className="pg-item-label">Photo</span></div>
+              {[0,1,2,3].map(i => (
+                <div className="pg-item" key={i}>
+                  <Image src="/images/photo-placeholder.svg" alt="Photo coming soon" width={800} height={560} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              ))}
             </div>
           )}
         </div>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560" fill="none">
+  <rect width="800" height="560" fill="#edf5ee"/>
+  <!-- subtle wave lines -->
+  <path d="M0 340 Q100 310 200 340 Q300 370 400 340 Q500 310 600 340 Q700 370 800 340 L800 560 L0 560 Z" fill="#d6ecd9" opacity="0.6"/>
+  <path d="M0 380 Q100 355 200 380 Q300 405 400 380 Q500 355 600 380 Q700 405 800 380 L800 560 L0 560 Z" fill="#c2e3c7" opacity="0.5"/>
+  <path d="M0 420 Q100 400 200 420 Q300 440 400 420 Q500 400 600 420 Q700 440 800 420 L800 560 L0 560 Z" fill="#add9b3" opacity="0.4"/>
+  <!-- paddle icon centered -->
+  <g transform="translate(400,240) rotate(-35)" opacity="0.25">
+    <!-- shaft -->
+    <rect x="-4" y="-80" width="8" height="160" rx="4" fill="#24943A"/>
+    <!-- left blade -->
+    <ellipse cx="0" cy="-90" rx="18" ry="28" fill="#24943A"/>
+    <!-- right blade -->
+    <ellipse cx="0" cy="90" rx="18" ry="28" fill="#24943A" transform="rotate(180 0 90)"/>
+  </g>
+  <!-- label -->
+  <text x="400" y="310" font-family="Montserrat, sans-serif" font-size="13" font-weight="600" letter-spacing="2" text-anchor="middle" fill="#24943A" opacity="0.5" text-transform="uppercase">PHOTO COMING SOON</text>
+</svg>

@@ -103,34 +103,42 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
         )}
 
         {/* GALLERY */}
-        {hasPhotos && (
-          <div className="page-section">
-            <h2 className="stitle">
-              <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
-              Gallery
-            </h2>
-            <div className="photo-gallery">
-              <div className="pg-item pg-item-main">
-                <Image
-                  src={cldGallery('rivers', slug, 1)}
-                  alt={`${river.name} river`}
-                  width={800} height={560}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-              </div>
-              {Array.from({ length: Math.min(galleryCount - 1, 4) }, (_, i) => (
-                <div className="pg-item" key={i}>
+        <div className="page-section">
+          <h2 className="stitle">
+            <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
+            Gallery
+          </h2>
+          <div className="photo-gallery">
+            {hasPhotos ? (
+              <>
+                <div className="pg-item pg-item-main">
                   <Image
-                    src={cldGallery('rivers', slug, i + 2)}
-                    alt={`${river.name} river photo ${i + 2}`}
+                    src={cldGallery('rivers', slug, 1)}
+                    alt={`${river.name} river`}
                     width={800} height={560}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </div>
-              ))}
-            </div>
+                {Array.from({ length: Math.min(galleryCount - 1, 4) }, (_, i) => (
+                  <div className="pg-item" key={i}>
+                    <Image
+                      src={cldGallery('rivers', slug, i + 2)}
+                      alt={`${river.name} river photo ${i + 2}`}
+                      width={800} height={560}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                ))}
+              </>
+            ) : (
+              [0,1,2,3].map(i => (
+                <div className="pg-item" key={i}>
+                  <Image src="/images/photo-placeholder.svg" alt="Photo coming soon" width={800} height={560} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              ))
+            )}
           </div>
-        )}
+        </div>
 
         {/* HIGHLIGHTS — max 3 */}
         {content.highlights.length > 0 && (
