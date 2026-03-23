@@ -104,7 +104,8 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
               {content.highlights.slice(0, 3).map((h, i) => (
                 <div className="hl-card" key={i}>
                   <div className="hl-card-icon"><IconHighlight size={26} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
-                  <h4>{h}</h4>
+                  <h4>{h.name}</h4>
+                  <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: '6px 0 0' }}>{h.desc}</p>
                 </div>
               ))}
             </div>

@@ -1,9 +1,14 @@
 import riversContent from '@/content/rivers.json'
 import routesContent from '@/content/routes.json'
 
+export interface Highlight {
+  name: string
+  desc: string
+}
+
 export interface RiverContent {
   description: string
-  highlights: string[]
+  highlights: Highlight[]
   region: string
   season: string
   totalLength: number
@@ -13,7 +18,7 @@ export interface RiverContent {
 
 export interface RouteContent {
   description: string
-  highlights: string[]
+  highlights: Highlight[]
   difficulty: string
   km: number
   hours: string
@@ -27,13 +32,8 @@ export interface RouteContent {
 
 export function getRiverContent(slug: string): RiverContent {
   return (riversContent as Record<string, RiverContent>)[slug] ?? {
-    description: '',
-    highlights: [],
-    region: '',
-    season: 'May – October',
-    totalLength: 0,
-    priceFrom: 0,
-    photoUrl: '',
+    description: '', highlights: [], region: '',
+    season: 'May – October', totalLength: 0, priceFrom: 0, photoUrl: '',
   }
 }
 
