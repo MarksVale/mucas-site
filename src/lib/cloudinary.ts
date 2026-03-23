@@ -2,7 +2,7 @@
 // Convention: mucas/rivers/[slug]/hero, gallery-1 … gallery-N
 //             mucas/routes/[slug]/hero, gallery-1 … gallery-N
 
-const CLOUD = 'ddgqweffe'
+const CLOUD = 'mucas'
 const BASE = `https://res.cloudinary.com/${CLOUD}/image/upload`
 
 /** Full-width hero (1400×600, smart-cropped) */
