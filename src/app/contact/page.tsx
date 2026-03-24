@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Mail, MapPin, MessageCircle } from 'lucide-react'
+import ContactForm from '@/components/ContactForm'
 
 export const metadata: Metadata = {
   title: 'Contact Us | Mučas Laivu Noma',
@@ -67,34 +68,7 @@ export default function ContactPage() {
             </div>
 
             <div className="contact-form-wrap">
-              <div className="booking-card">
-                <h3>Send a Message</h3>
-                <form className="contact-form">
-                  <div className="form-group">
-                    <label>Name</label>
-                    <input type="text" placeholder="Your name" />
-                  </div>
-                  <div className="form-group">
-                    <label>Email</label>
-                    <input type="email" placeholder="your@email.com" />
-                  </div>
-                  <div className="form-group">
-                    <label>Subject</label>
-                    <select>
-                      <option>General inquiry</option>
-                      <option>Route recommendation</option>
-                      <option>Group booking (10+)</option>
-                      <option>Corporate / team event</option>
-                      <option>Partnership</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>Message</label>
-                    <textarea rows={5} placeholder="Tell us about your plans..." />
-                  </div>
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
-                </form>
-              </div>
+              <ContactForm />
             </div>
           </div>
         </div>
