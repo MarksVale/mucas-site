@@ -93,8 +93,8 @@ const FALLBACK_ROUTES: Route[] = [
   { slug: 'janramis-sigulda', name: 'Jāņrāmis - Sigulda', river: 'Gauja', riverSlug: 'gauja', days: 3, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 70, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460'], gradient: 'g-gauja' },
 
   // Amata routes
-  { slug: 'melturi-veclacu-tilts', name: 'Melturi - Veclauču tilts', river: 'Amata', riverSlug: 'amata', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 460', 'DULKAN Raft 330'], gradient: 'g-amata' },
-  { slug: 'zvartes-iezis-veclacu-tilts', name: 'Zvārtes iezis - Veclauču tilts', river: 'Amata', riverSlug: 'amata', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 460', 'DULKAN Raft 330'], gradient: 'g-amata' },
+  { slug: 'melturi-veclaucu-tilts', name: 'Melturi - Veclauču tilts', river: 'Amata', riverSlug: 'amata', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 460', 'DULKAN Raft 330'], gradient: 'g-amata' },
+  { slug: 'zvartes-iezis-veclaucu-tilts', name: 'Zvārtes iezis - Veclauču tilts', river: 'Amata', riverSlug: 'amata', days: 1, active: true, hub: 'Sigulda', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 60, boats: ['DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 460', 'DULKAN Raft 330'], gradient: 'g-amata' },
 
   // Salaca routes
   { slug: 'mazsalaca-licu-skola', name: 'Mazsalaca - Līču skola', river: 'Salaca', riverSlug: 'salaca', days: 1, active: true, hub: 'Mazsalaca', startTimes: ['9:00', '11:00', '13:00', '15:00'], transportCost: 40, boats: ['Kajaks VISTA', 'SUP Bee', 'Kanoe LOXIA', 'Perception PESCADOR', 'Kanoe ROTOATTIVO CANADIER 3', 'Kanoe ALBA', 'Kanoe PELICAN', 'DULKAN Amata 300', 'BUSH Venta 300', 'DULKAN Raft 330', 'DULKAN Raft 460', 'Piepūšamais plosts VIKING 10', 'Piepūšamais plosts VIKING 20'], gradient: 'g-salaca' },
@@ -136,6 +136,7 @@ const FALLBACK_BOATS: BoatType[] = [
 // Helper: make a URL-safe slug from a route/river name
 function toSlug(name: string): string {
   return name
+    .trim()
     .toLowerCase()
     .replace(/ā/g, 'a').replace(/č/g, 'c').replace(/ē/g, 'e')
     .replace(/ģ/g, 'g').replace(/ī/g, 'i').replace(/ķ/g, 'k')
