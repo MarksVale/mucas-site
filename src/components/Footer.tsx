@@ -29,6 +29,7 @@ export function Footer() {
             <Link href="/contact">Contact</Link>
             <Link href="/fleet">Our Fleet</Link>
             <Link href="/booking">Book Now</Link>
+            <Link href="/blog">Blog</Link>
           </div>
           <div className="footer-col">
             <h4>Contact</h4>

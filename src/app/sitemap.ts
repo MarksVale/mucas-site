@@ -1,4 +1,5 @@
 import { getRoutes, getRivers } from '@/lib/airtable'
+import { BLOG_POSTS } from '@/content/blog/posts'
 import type { MetadataRoute } from 'next'
 
 const BASE = 'https://mucas-site.vercel.app'
@@ -14,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/booking`, lastModified: new Date(), priority: 0.9 },
     { url: `${BASE}/contact`, lastModified: new Date(), priority: 0.7 },
     { url: `${BASE}/about`, lastModified: new Date(), priority: 0.6 },
+    { url: `${BASE}/blog`, lastModified: new Date(), priority: 0.8 },
   ]
 
   const riverPages = rivers.map(r => ({
@@ -28,5 +30,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  return [...staticPages, ...riverPages, ...routePages]
+  const blogPages = BLOG_POSTS.map(p => ({
+    url: `${BASE}/blog/${p.slug}`,
+    lastModified: new Date(p.date),
+    priority: 0.6,
+  }))
+
+  return [...staticPages, ...riverPages, ...routePages, ...blogPages]
 }

@@ -5,6 +5,7 @@ import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinar
 import PhotoCarousel from '@/components/PhotoCarousel'
 import BoatPhoto from '@/components/BoatPhoto'
 import MapWrapper from '@/components/MapWrapper'
+import WeatherWidget from '@/components/WeatherWidget'
 import { BoatIcon } from '@/components/Icons'
 import {
   IconDistance, IconDuration, IconDifficulty,
@@ -207,6 +208,17 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             </div>
           )}
         </div>
+
+        {/* WEATHER */}
+        {content.startLat && content.startLng && (
+          <div className="page-section">
+            <WeatherWidget
+              lat={(content.startLat + (content.endLat || content.startLat)) / 2}
+              lng={(content.startLng + (content.endLng || content.startLng)) / 2}
+              locationName={route.name}
+            />
+          </div>
+        )}
 
         {/* USEFUL INFO */}
         <div className="page-section">
