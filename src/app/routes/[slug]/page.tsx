@@ -236,11 +236,11 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <span className="stitle-icon"><IconMap size={22} strokeWidth={1.8} /></span>
             Map
           </h2>
-          {content.startCoords && content.endCoords ? (
+          {content.startLat && content.startLng && content.endLat && content.endLng ? (
             <div className="map-container map-container-live">
               <RouteMap
-                startCoords={content.startCoords as [number, number]}
-                endCoords={content.endCoords as [number, number]}
+                startCoords={[content.startLat, content.startLng] as [number, number]}
+                endCoords={[content.endLat, content.endLng] as [number, number]}
                 startLabel={route.name.split('–')[0]?.trim() || route.river}
                 endLabel={route.name.split('–').pop()?.trim() || route.river}
               />
