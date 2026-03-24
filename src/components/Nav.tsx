@@ -12,7 +12,7 @@ export async function Nav() {
     <>
       {/* Desktop nav — hidden on mobile */}
       <nav className="nav-transparent nav-desktop">
-        <Link href="/" className="logo">{settings.brandName}</Link>
+        <Link href="/" className="logo">{settings.brandNameShort}</Link>
         <div className="menu">
           <Link href="/">Home</Link>
           <Link href="/rivers">Rivers</Link>
@@ -30,7 +30,7 @@ export async function Nav() {
 
       {/* Mobile nav — hidden on desktop */}
       <div className="nav-mobile">
-        <MobileMenu brandName={settings.brandName} />
+        <MobileMenu brandName={settings.brandNameShort} />
       </div>
     </>
   )

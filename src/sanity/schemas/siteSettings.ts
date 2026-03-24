@@ -7,9 +7,15 @@ export default defineType({
   fields: [
     defineField({
       name: 'brandName',
-      title: 'Brand Name',
+      title: 'Brand Name (Full)',
       type: 'string',
-      description: 'Shown in nav and footer (e.g. "MUČAS")',
+      description: 'Full name shown in footer (e.g. "Mučas Laivu Noma")',
+    }),
+    defineField({
+      name: 'brandNameShort',
+      title: 'Brand Name (Short)',
+      type: 'string',
+      description: 'Short name shown in header / nav bar (e.g. "MUČAS")',
     }),
     defineField({
       name: 'tagline',

@@ -9,6 +9,7 @@ import {
 // ---- Site Settings ----
 export interface SiteSettings {
   brandName: string
+  brandNameShort: string
   tagline: string
   phone: string
   email: string
@@ -20,7 +21,8 @@ export interface SiteSettings {
 }
 
 const DEFAULT_SETTINGS: SiteSettings = {
-  brandName: 'MUČAS',
+  brandName: 'Mučas Laivu Noma',
+  brandNameShort: 'MUČAS',
   tagline: 'Boat Rentals on Latvia\'s Rivers',
   phone: '+371 29211634',
   email: 'info@laivunoma.com',
