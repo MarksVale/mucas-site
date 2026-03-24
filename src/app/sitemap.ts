@@ -16,6 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/contact`, lastModified: new Date(), priority: 0.7 },
     { url: `${BASE}/about`, lastModified: new Date(), priority: 0.6 },
     { url: `${BASE}/blog`, lastModified: new Date(), priority: 0.8 },
+    { url: `${BASE}/gallery`, lastModified: new Date(), priority: 0.7 },
   ]
 
   const riverPages = rivers.map(r => ({

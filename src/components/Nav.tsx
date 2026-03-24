@@ -14,6 +14,7 @@ export function Nav() {
         <Link href="/fleet">Our Fleet</Link>
         <Link href="/about">About</Link>
         <Link href="/contact">Contact</Link>
+        <Link href="/gallery">Gallery</Link>
         <Link href="/blog">Blog</Link>
         <a href={`${STORE_URL}/basket`} className="nav-cart" title="Cart">
           <IconCart size={18} strokeWidth={2} />
