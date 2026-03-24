@@ -29,7 +29,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   if (!river) return { title: 'River Not Found' }
   return {
     title: `${river.name} River Kayak & Canoe Trips | Mučas Laivu Noma`,
-    description: content.description || river.description || `Boat rentals on the ${river.name} river. ${river.routeCount} routes available.`,
+    description: content.description || ('description' in river ? river.description : '') || `Boat rentals on the ${river.name} river. ${river.routeCount} routes available.`,
   }
 }
 
