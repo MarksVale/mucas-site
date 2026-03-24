@@ -83,3 +83,17 @@ export async function getSanitySettings() {
     `)
   } catch { return null }
 }
+
+// ---- Page Content (singleton documents) ----
+async function getPageDoc(typeName: string) {
+  if (!sanityClient) return null
+  try {
+    return await sanityClient.fetch(`*[_type == $typeName][0]`, { typeName })
+  } catch { return null }
+}
+
+export async function getSanityHomePage() { return getPageDoc('homePage') }
+export async function getSanityAboutPage() { return getPageDoc('aboutPage') }
+export async function getSanityContactPage() { return getPageDoc('contactPage') }
+export async function getSanityBookingPage() { return getPageDoc('bookingPage') }
+export async function getSanityFleetPage() { return getPageDoc('fleetPage') }

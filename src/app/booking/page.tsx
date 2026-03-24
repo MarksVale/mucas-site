@@ -1,19 +1,24 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { BookingForm } from '@/components/BookingForm'
+import { getBookingPage } from '@/lib/content'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Book Your Trip | Mučas Laivu Noma',
   description: 'Book a kayak, canoe, or raft trip on Latvia\'s rivers. Choose your route, pick boats, and reserve your adventure.',
 }
 
-export default function BookingPage() {
+export default async function BookingPage() {
+  const c = await getBookingPage()
+
   return (
     <>
       <section className="page-hero">
         <div className="container">
-          <h1>Book Your Trip</h1>
-          <p>Choose your route, pick your boats, and hit the water</p>
+          <h1>{c.heroHeading}</h1>
+          <p>{c.heroSubtitle}</p>
         </div>
       </section>
 

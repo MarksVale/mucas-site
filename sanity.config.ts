@@ -18,12 +18,26 @@ export default defineConfig({
           .items([
             S.listItem()
               .title('Site Settings')
+              .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+            S.divider(),
+
+            // Page Content
+            S.listItem()
+              .title('Pages')
               .child(
-                S.document()
-                  .schemaType('siteSettings')
-                  .documentId('siteSettings')
+                S.list()
+                  .title('Pages')
+                  .items([
+                    S.documentTypeListItem('homePage').title('Home Page'),
+                    S.documentTypeListItem('aboutPage').title('About Page'),
+                    S.documentTypeListItem('contactPage').title('Contact Page'),
+                    S.documentTypeListItem('bookingPage').title('Booking Page'),
+                    S.documentTypeListItem('fleetPage').title('Fleet Page'),
+                  ]),
               ),
             S.divider(),
+
+            // Content collections
             S.documentTypeListItem('blogPost').title('Blog Posts'),
             S.documentTypeListItem('riverContent').title('Rivers'),
             S.documentTypeListItem('routeContent').title('Routes'),
