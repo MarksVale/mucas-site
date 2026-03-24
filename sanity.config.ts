@@ -9,6 +9,7 @@ export default defineConfig({
   title: 'Mučas Laivu Noma',
   projectId,
   dataset,
+  basePath: '/admin',
   plugins: [
     structureTool({
       structure: (S) =>
