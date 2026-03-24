@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { IconCart } from './Icons'
+import { IconAccount } from './Icons'
 import { getSettings } from '@/lib/content'
 import MobileMenu from './MobileMenu'
 
@@ -21,8 +21,8 @@ export async function Nav() {
           <Link href="/contact">Contact</Link>
           <Link href="/gallery">Gallery</Link>
           <Link href="/blog">Blog</Link>
-          <a href={`${STORE_URL}/basket`} className="nav-cart" title="Cart">
-            <IconCart size={18} strokeWidth={2} />
+          <a href={`${STORE_URL}/my-account`} className="nav-account" title="My Account">
+            <IconAccount size={18} strokeWidth={2} />
           </a>
           <Link href="/booking" className="nav-cta">Book Now</Link>
         </div>

@@ -36,6 +36,7 @@ export {
   TreePine as IconNature,
   Mountain as IconTerrain,
   ShoppingCart as IconCart,
+  User as IconAccount,
 }
 
 // Boat type icons — consistent throughout the site

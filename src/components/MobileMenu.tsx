@@ -1,17 +1,15 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { IconCart } from './Icons'
+import { IconAccount } from './Icons'
 
 const STORE_URL = process.env.NEXT_PUBLIC_WC_STORE_URL || 'https://laivunoma.shop'
 
 export default function MobileMenu({ brandName }: { brandName: string }) {
   const [open, setOpen] = useState(false)
 
-  // Close menu on route change (clicking a link)
   const close = () => setOpen(false)
 
-  // Prevent scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -37,8 +35,8 @@ export default function MobileMenu({ brandName }: { brandName: string }) {
         <Link href="/contact" onClick={close}>Contact</Link>
         <Link href="/gallery" onClick={close}>Gallery</Link>
         <Link href="/blog" onClick={close}>Blog</Link>
-        <a href={`${STORE_URL}/basket`} onClick={close} className="mob-cart">
-          <IconCart size={16} strokeWidth={2} /> Cart
+        <a href={`${STORE_URL}/my-account`} onClick={close} className="mob-account">
+          <IconAccount size={16} strokeWidth={2} /> My Account
         </a>
         <Link href="/booking" className="mob-cta" onClick={close}>Book Now</Link>
       </nav>
