@@ -1,12 +1,12 @@
 import Link from 'next/link'
-import { getRoutes, getRoute, getRoutesByRiver, getBoats } from '@/lib/airtable'
-import { getRouteContentAsync, getRouteContent } from '@/lib/content'
+import { getRoute, getRoutesByRiver, getBoats } from '@/lib/airtable'
+import { getStaticRoute, getStaticRoutesByRiver, getBranchForRiver, getStaticRoutes } from '@/data/static-rivers'
+import { getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import BoatPhoto from '@/components/BoatPhoto'
-import MapWrapper from '@/components/MapWrapper'
-import WeatherWidget from '@/components/WeatherWidget'
 import { BoatIcon } from '@/components/Icons'
+import RouteMap from '@/components/RouteMap'
 import {
   IconDistance, IconDuration, IconDifficulty,
   IconHighlight, IconGallery, IconInfo,
@@ -16,16 +16,49 @@ import {
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
-  const routes = await getRoutes()
-  return routes.map(r => ({ slug: r.slug }))
+  // Hard-code Airtable routes
+  const airtableRoutes = [
+    { slug: 'valmiera-cesis' },
+    { slug: 'cesis-sigulda' },
+    { slug: 'strenci-valmiera' },
+    { slug: 'grivini-cesis' },
+    { slug: 'cesis-ligatne' },
+    { slug: 'ligatne-sigulda' },
+    { slug: 'sigulda-ramkalni' },
+    { slug: 'ligatne-ramkalni' },
+    { slug: 'valmiera-sigulda' },
+    { slug: 'valmiera-ligatne' },
+    { slug: 'janramis-sigulda' },
+    { slug: 'melturi-veclacu-tilts' },
+    { slug: 'zvartes-iezis-veclacu-tilts' },
+    { slug: 'mazsalaca-licu-skola' },
+    { slug: 'mazsalaca-staicele' },
+    { slug: 'staicele-salacgriva' },
+    { slug: 'staicele-sarkanas-klintis' },
+    { slug: 'mazsalaca-viku-tilts' },
+    { slug: 'rozula-vejini' },
+    { slug: 'rozula-a3-tilts' },
+    { slug: 'placis-a3-tilts' },
+    { slug: 'vejini-a3-tilts' },
+    { slug: 'placis-ieteka-gauja' },
+    { slug: 'vejini-ieteka-gauja' },
+    { slug: 'straupe-a3-tilts' },
+    { slug: 'straupe-ieteka-gauja' },
+    { slug: 'rozula-ieteka-gauja' },
+    { slug: 'placis-sigulda' },
+    { slug: 'straupe-sigulda' },
+  ]
+  // Get static routes
+  const staticRoutes = getStaticRoutes().map(r => ({ slug: r.slug }))
+  return [...airtableRoutes, ...staticRoutes]
 }
-
-export const revalidate = 60
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await props.params
-  const route = await getRoute(slug)
-  const content = await getRouteContentAsync(slug)
+  const airtableRoute = await getRoute(slug)
+  const staticRoute = getStaticRoute(slug)
+  const route = airtableRoute || staticRoute
+  const content = getRouteContent(slug)
   if (!route) return { title: 'Route Not Found' }
   return {
     title: `${route.name} | ${route.river} River | Mučas Laivu Noma`,
@@ -35,21 +68,32 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 
 export default async function RoutePage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
-  const route = await getRoute(slug)
-  const allBoats = await getBoats()
-  const content = await getRouteContentAsync(slug)
+  const airtableRoute = await getRoute(slug)
+  const staticRoute = getStaticRoute(slug)
+  const route = airtableRoute || staticRoute
 
   if (!route) return <div className="container" style={{ padding: '80px 0' }}><h1>Route not found</h1></div>
 
-  const availableBoats = allBoats.filter(b => route.boats.includes(b.name))
-  const riverRoutes = await getRoutesByRiver(route.riverSlug)
+  const allBoats = airtableRoute ? await getBoats() : []
+  const availableBoats = airtableRoute ? allBoats.filter(b => airtableRoute.boats.includes(b.name)) : []
+
+  // Get related routes - use appropriate function based on route type
+  let riverRoutes: any[] = []
+  if (airtableRoute) {
+    riverRoutes = await getRoutesByRiver(airtableRoute.riverSlug)
+  } else if (staticRoute) {
+    riverRoutes = getStaticRoutesByRiver(staticRoute.riverSlug)
+  }
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)
+
+  const content = getRouteContent(slug)
+  const branch = getBranchForRiver(route.riverSlug)
   const topHighlights = content.highlights.slice(0, 3)
   const hasPhotos = (content.galleryCount ?? 0) > 0
   const galleryCount = content.galleryCount ?? 0
 
   // Duration display: hours only if 1 day, days count if multi-day
-  const durationDisplay = route.days === 1 && content.hours
+  const durationDisplay = parseInt(route.days) === 1 && content.hours
     ? content.hours + 'h'
     : `${route.days} days`
 
@@ -152,8 +196,8 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
           />
         </div>
 
-        {/* AVAILABLE BOATS */}
-        {availableBoats.length > 0 && (
+        {/* AVAILABLE BOATS - only for Airtable (bookable) routes */}
+        {airtableRoute && availableBoats.length > 0 && (
           <div className="page-section">
             <h2 className="stitle">
               <span className="stitle-icon"><IconRoute size={22} strokeWidth={1.8} /></span>
@@ -192,15 +236,25 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <span className="stitle-icon"><IconMap size={22} strokeWidth={1.8} /></span>
             Map
           </h2>
-          {content.startLat && content.startLng && content.endLat && content.endLng ? (
-            <MapWrapper
-              startLat={content.startLat}
-              startLng={content.startLng}
-              endLat={content.endLat}
-              endLng={content.endLng}
-              label={route.name}
-              riverSlug={route.riverSlug}
-            />
+          {content.startCoords && content.endCoords ? (
+            <div className="map-container map-container-live">
+              <RouteMap
+                startCoords={content.startCoords as [number, number]}
+                endCoords={content.endCoords as [number, number]}
+                startLabel={route.name.split('–')[0]?.trim() || route.river}
+                endLabel={route.name.split('–').pop()?.trim() || route.river}
+              />
+              <div className="map-legend">
+                <div className="map-point">
+                  <span className="map-dot start"></span>
+                  <span>Start: {route.name.split('–')[0]?.trim() || route.river}</span>
+                </div>
+                <div className="map-point">
+                  <span className="map-dot end"></span>
+                  <span>Finish: {route.name.split('–').pop()?.trim() || route.river}</span>
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="map-container">
               <div style={{ textAlign: 'center' }}>
@@ -210,17 +264,6 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             </div>
           )}
         </div>
-
-        {/* WEATHER */}
-        {content.startLat && content.startLng && (
-          <div className="page-section">
-            <WeatherWidget
-              lat={(content.startLat + (content.endLat || content.startLat)) / 2}
-              lng={(content.startLng + (content.endLng || content.startLng)) / 2}
-              locationName={route.name}
-            />
-          </div>
-        )}
 
         {/* USEFUL INFO */}
         <div className="page-section">
@@ -236,14 +279,24 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
                 <p>Paddles, life jackets, waterproof dry bag</p>
               </div>
             </div>
-            <div className="icard">
-              <div className="icard-icon"><IconTransport size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
-              <div>
-                <h4>Transport</h4>
-                <p>Boat transport to start point and pickup at finish: {route.transportCost}€</p>
-                <p style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: 4 }}>* Transport costs may change based on group size and external factors. Final price confirmed after booking.</p>
+            {airtableRoute && (
+              <div className="icard">
+                <div className="icard-icon"><IconTransport size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
+                <div>
+                  <h4>Transport</h4>
+                  <p>Boat transport to start point and pickup at finish: {airtableRoute.transportCost}€</p>
+                </div>
               </div>
-            </div>
+            )}
+            {!airtableRoute && (
+              <div className="icard">
+                <div className="icard-icon"><IconTransport size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
+                <div>
+                  <h4>Pricing</h4>
+                  <p>Contact our branch for current rates and availability</p>
+                </div>
+              </div>
+            )}
             <div className="icard">
               <div className="icard-icon"><IconSeason size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
               <div>
@@ -264,12 +317,31 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
         {/* CTA */}
         <div className="page-section">
           <div className="cta-banner">
-            <h2>Book Your Adventure!</h2>
-            <p>Choose a date, boat type, and quantity — we&apos;ll take care of the rest.</p>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-              <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
-              <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
-            </div>
+            <h2>Ready to Paddle?</h2>
+            {airtableRoute ? (
+              <>
+                <p>Choose a date, boat type, and quantity — we&apos;ll take care of the rest.</p>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+                  <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
+                  <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
+                </div>
+              </>
+            ) : branch ? (
+              <>
+                <p>Contact our {branch.name} branch to book this route and plan your adventure.</p>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+                  <a href={`tel:${branch.phone}`} className="btn btn-white">
+                    📞 Call to Book
+                  </a>
+                  <a href={`mailto:${branch.email}`} className="btn btn-outline">
+                    ✉️ Write to Us
+                  </a>
+                </div>
+                <p style={{ marginTop: 16, fontSize: 14, color: 'var(--text-secondary)' }}>
+                  {branch.contactPerson} • {branch.phone}
+                </p>
+              </>
+            ) : null}
           </div>
         </div>
 
@@ -292,7 +364,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
                       <h4>{r.name}</h4>
                       <div className="rel-meta">
                         {rc.km > 0 && <span>{rc.km} km</span>}
-                        <span>{r.days === 1 && rc.hours ? rc.hours + 'h' : `${r.days} days`}</span>
+                        <span>{parseInt(r.days) === 1 && rc.hours ? rc.hours + 'h' : `${r.days} days`}</span>
                         {rc.difficulty && <span>{rc.difficulty}</span>}
                       </div>
                     </div>

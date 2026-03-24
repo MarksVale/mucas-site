@@ -7,7 +7,6 @@ import {
   getStaticRoute,
   getBranchForRiver,
   getBranches,
-  getBranch,
   type Branch,
   type StaticRiver,
   type StaticRoute,

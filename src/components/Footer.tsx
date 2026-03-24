@@ -1,21 +1,16 @@
 import Link from 'next/link'
-import { getSettings } from '@/lib/content'
+import { getBranches } from '@/data/static-rivers'
 
-export async function Footer() {
-  const settings = await getSettings()
+export function Footer() {
+  const branches = getBranches()
+
   return (
     <footer className="footer">
       <div className="footer-inner">
         <div className="footer-grid">
           <div className="footer-col">
-            <div className="footer-brand">{settings.brandName}</div>
-            <p>Boat rentals across Latvia&apos;s rivers — Gauja, Salaca, Brasla, Amata.</p>
-            <div className="footer-business">
-              <p><strong>SIA &ldquo;Mučas&rdquo;</strong></p>
-              <p>Reģ. Nr.: LV40103263487</p>
-              <p>A/S SEB banka &middot; UNLALV2X</p>
-              <p>IBAN: LV90UNLA0055005842535</p>
-            </div>
+            <div className="footer-brand">MUČAS</div>
+            <p>Boat rentals across 22 rivers in Latvia — from Vidzeme to Latgale.</p>
           </div>
           <div className="footer-col">
             <h4>Rivers</h4>
@@ -31,26 +26,22 @@ export async function Footer() {
             <Link href="/contact">Contact</Link>
             <Link href="/fleet">Our Fleet</Link>
             <Link href="/booking">Book Now</Link>
-            <Link href="/gallery">Gallery</Link>
-            <Link href="/blog">Blog</Link>
           </div>
           <div className="footer-col">
-            <h4>Contact</h4>
-            <p><a href={`tel:${settings.phone.replace(/\s/g, '')}`}>{settings.phone}</a></p>
-            <p className="footer-note">Mon&ndash;Sat, 9:00&ndash;18:00</p>
-            <p><a href={`https://wa.me/${settings.phone.replace(/[^0-9]/g, '')}`}>WhatsApp</a></p>
-            <p><a href={`mailto:${settings.email}`}>{settings.email}</a></p>
-            {settings.address && (
-              <>
-                <p style={{ marginTop: 12 }}>{settings.address.split(',')[0]}</p>
-                <p>{settings.address.split(',').slice(1).join(',').trim()}</p>
-              </>
-            )}
-            <p className="footer-note">Gauja National Park area</p>
+            <h4>Filiāles / Branches</h4>
+            {branches.map(b => (
+              <div key={b.slug} style={{ marginBottom: 12, fontSize: 14 }}>
+                <p style={{ margin: 0, fontWeight: 600 }}>{b.name}</p>
+                <p style={{ margin: '4px 0', color: 'var(--text-secondary)' }}>{b.contactPerson}</p>
+                <a href={`tel:${b.phone}`} style={{ color: 'var(--primary)', textDecoration: 'none' }}>
+                  {b.phone}
+                </a>
+              </div>
+            ))}
           </div>
         </div>
         <div className="footer-bottom">
-          <span>&copy; {new Date().getFullYear()} SIA &ldquo;Mučas&rdquo; &middot; {settings.brandName} Laivu Noma</span>
+          <span>&copy; 2026 Mučas Laivu Noma</span>
           <span>Privacy Policy &bull; Terms</span>
         </div>
       </div>
