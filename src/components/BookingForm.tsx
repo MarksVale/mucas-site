@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 const API_BASE = 'https://boat-availability.vercel.app/api'
 
@@ -20,6 +21,11 @@ interface FormData {
 }
 
 const DOW = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU']
+
+function slugify(s: string) {
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+}
 
 function pad(n: number) { return n < 10 ? '0' + n : '' + n }
 function fmtDisplay(iso: string) {
@@ -178,6 +184,7 @@ function DatePicker({
 
 // ——— Main BookingForm ———
 export function BookingForm() {
+  const searchParams = useSearchParams()
   const [formData, setFormData] = useState<FormData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -195,6 +202,7 @@ export function BookingForm() {
   const [notes, setNotes] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [preselected, setPreselected] = useState(false)
 
   useEffect(() => {
     fetch(API_BASE + '/get-form-data')
@@ -202,6 +210,19 @@ export function BookingForm() {
       .then(data => { setFormData(data); setLoading(false) })
       .catch(() => { setError('Failed to load form data'); setLoading(false) })
   }, [])
+
+  // Auto-select route from URL param (e.g. /booking?route=valmiera-cesis)
+  useEffect(() => {
+    if (!formData || preselected) return
+    const routeSlug = searchParams.get('route')
+    if (!routeSlug) return
+    const match = formData.routes.find(r => slugify(r.name) === routeSlug)
+    if (match) {
+      setRiverId(match.riverId)
+      setRouteId(match.id)
+      setPreselected(true)
+    }
+  }, [formData, searchParams, preselected])
 
   const filteredRoutes = useMemo(() => {
     if (!formData || !riverId) return []
@@ -500,7 +521,7 @@ export function BookingForm() {
       )}
       {selectedRoute && (
         <p className="bf-transport-note">
-          * Transport cost may vary depending on the number of boats and other factors. All adjustments will be sent in the confirmation email.
+          * Transport cost is an estimate and may be adjusted after your booking request based on group size, fuel costs, and other external factors. Final price will be confirmed in your confirmation email.
         </p>
       )}
 

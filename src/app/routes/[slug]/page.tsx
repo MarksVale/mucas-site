@@ -227,6 +227,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
               <div>
                 <h4>Transport</h4>
                 <p>Boat transport to start point and pickup at finish: {route.transportCost}€</p>
+                <p style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: 4 }}>* Transport costs may change based on group size and external factors. Final price confirmed after booking.</p>
               </div>
             </div>
             <div className="icard">

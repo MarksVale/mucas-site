@@ -100,11 +100,12 @@ export default async function Home() {
                 <div className="rtc-body">
                   <h4>{r.name}</h4>
                   <div className="river-name">{r.river}</div>
-                  <div className="meta">Transport: {r.transportCost}€ &bull; Hub: {r.hub}</div>
+                  <div className="meta">Transport: from {r.transportCost}€* &bull; Hub: {r.hub}</div>
                 </div>
               </Link>
             ))}
           </div>
+          <p style={{ textAlign: 'center', fontSize: '11px', color: 'var(--text-muted)', marginTop: 16 }}>* Transport costs are estimates and may vary based on group size and external factors.</p>
         </div>
       </section>
 

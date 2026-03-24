@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { BookingForm } from '@/components/BookingForm'
 
 export const metadata: Metadata = {
@@ -19,7 +20,9 @@ export default function BookingPage() {
       <section className="section">
         <div className="container">
           <div className="booking-card" style={{ maxWidth: 720, margin: '0 auto' }}>
-            <BookingForm />
+            <Suspense fallback={<div className="booking-loading"><div className="bf-spinner" />Loading...</div>}>
+              <BookingForm />
+            </Suspense>
           </div>
         </div>
       </section>
