@@ -10,6 +10,8 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 })
 
+export const revalidate = 60   // re-fetch Sanity data every 60 s
+
 const SITE_URL = 'https://mucas-site.vercel.app'
 
 export const metadata: Metadata = {

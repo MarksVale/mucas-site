@@ -1,13 +1,15 @@
 import Link from 'next/link'
 import { IconCart } from './Icons'
+import { getSettings } from '@/lib/content'
 
 // WooCommerce store URL — set in Vercel env vars, falls back to laivunoma.shop
 const STORE_URL = process.env.NEXT_PUBLIC_WC_STORE_URL || 'https://laivunoma.shop'
 
-export function Nav() {
+export async function Nav() {
+  const settings = await getSettings()
   return (
     <nav className="nav-transparent">
-      <Link href="/" className="logo">MUČAS</Link>
+      <Link href="/" className="logo">{settings.brandName}</Link>
       <div className="menu">
         <Link href="/">Home</Link>
         <Link href="/rivers">Rivers</Link>

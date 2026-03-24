@@ -1,6 +1,37 @@
 import riversContent from '@/content/rivers.json'
 import routesContent from '@/content/routes.json'
-import { getSanityRiverContent, getSanityRouteContent } from '@/sanity/queries'
+import { getSanityRiverContent, getSanityRouteContent, getSanitySettings } from '@/sanity/queries'
+
+// ---- Site Settings ----
+export interface SiteSettings {
+  brandName: string
+  tagline: string
+  phone: string
+  email: string
+  address: string
+  colorPrimary: string
+  colorAccent: string
+  colorDark: string
+  colorBackground: string
+}
+
+const DEFAULT_SETTINGS: SiteSettings = {
+  brandName: 'MUČAS',
+  tagline: 'Boat Rentals on Latvia\'s Rivers',
+  phone: '+371 29211634',
+  email: 'info@laivunoma.com',
+  address: 'Jāņa Čakstes 1-41, Sigulda, LV-2150',
+  colorPrimary: '#24943A',
+  colorAccent: '#E7B236',
+  colorDark: '#191716',
+  colorBackground: '#F6F6F4',
+}
+
+export async function getSettings(): Promise<SiteSettings> {
+  const sanity = await getSanitySettings()
+  if (sanity) return { ...DEFAULT_SETTINGS, ...sanity }
+  return DEFAULT_SETTINGS
+}
 
 export interface Highlight {
   name: string

@@ -1,13 +1,30 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { BLOG_POSTS } from '@/content/blog/posts'
+import { getSanityBlogPosts } from '@/sanity/queries'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Blog | Mučas Laivu Noma',
   description: 'Tips, guides, and news about kayaking, canoeing, and river trips in Latvia. Everything you need to prepare for your adventure.',
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  // Try Sanity first, fallback to local posts
+  const sanityPosts = await getSanityBlogPosts()
+  const posts = sanityPosts && sanityPosts.length > 0
+    ? sanityPosts.map((p: Record<string, string>) => ({
+        slug: p.slug,
+        title: p.title,
+        excerpt: p.excerpt,
+        category: p.category,
+        date: p.date,
+        readTime: p.readTime,
+        heroEmoji: p.heroEmoji || '📝',
+      }))
+    : BLOG_POSTS
+
   return (
     <>
       <section className="page-hero">
@@ -20,7 +37,7 @@ export default function BlogPage() {
       <section className="section">
         <div className="container">
           <div className="blog-grid">
-            {BLOG_POSTS.map(post => (
+            {posts.map((post: { slug: string; title: string; excerpt: string; category: string; date: string; readTime: string; heroEmoji: string }) => (
               <Link href={`/blog/${post.slug}`} className="blog-card" key={post.slug}>
                 <div className="blog-img">
                   <span style={{ fontSize: 48 }}>{post.heroEmoji}</span>

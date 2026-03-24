@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { getRoutes, getRoute, getRoutesByRiver, getBoats } from '@/lib/airtable'
-import { getRouteContent } from '@/lib/content'
+import { getRouteContentAsync, getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import BoatPhoto from '@/components/BoatPhoto'
@@ -20,10 +20,12 @@ export async function generateStaticParams() {
   return routes.map(r => ({ slug: r.slug }))
 }
 
+export const revalidate = 60
+
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await props.params
   const route = await getRoute(slug)
-  const content = getRouteContent(slug)
+  const content = await getRouteContentAsync(slug)
   if (!route) return { title: 'Route Not Found' }
   return {
     title: `${route.name} | ${route.river} River | Mučas Laivu Noma`,
@@ -35,7 +37,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
   const { slug } = await props.params
   const route = await getRoute(slug)
   const allBoats = await getBoats()
-  const content = getRouteContent(slug)
+  const content = await getRouteContentAsync(slug)
 
   if (!route) return <div className="container" style={{ padding: '80px 0' }}><h1>Route not found</h1></div>
 
