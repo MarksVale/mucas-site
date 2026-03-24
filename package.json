@@ -12,16 +12,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sanity/image-url": "^2.0.3",
+    "@sanity/vision": "^5.17.1",
     "@types/leaflet": "^1.9.21",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.577.0",
     "next": "^16.2.1",
+    "next-sanity": "^12.1.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-leaflet": "^5.0.0",
     "resend": "^6.9.4",
+    "sanity": "^5.17.1",
     "typescript": "^5.9.3"
   }
 }
