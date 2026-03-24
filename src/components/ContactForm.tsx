@@ -5,6 +5,7 @@ import { useState, FormEvent } from 'react'
 export default function ContactForm() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [subject, setSubject] = useState('General inquiry')
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
@@ -17,7 +18,7 @@ export default function ContactForm() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: JSON.stringify({ name, email, phone, subject, message }),
       })
 
       if (!res.ok) throw new Error()
@@ -25,6 +26,7 @@ export default function ContactForm() {
       setStatus('sent')
       setName('')
       setEmail('')
+      setPhone('')
       setSubject('General inquiry')
       setMessage('')
     } catch {
@@ -57,6 +59,10 @@ export default function ContactForm() {
         <div className="form-group">
           <label>Email</label>
           <input type="email" placeholder="your@email.com" value={email} onChange={e => setEmail(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="+371 ..." value={phone} onChange={e => setPhone(e.target.value)} required />
         </div>
         <div className="form-group">
           <label>Subject</label>
