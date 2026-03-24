@@ -8,34 +8,45 @@ export const metadata: Metadata = {
   description: 'Explore 4 Latvian rivers for kayak, canoe, and raft trips. Compare rivers, find routes, and book your paddling adventure.',
 }
 
-const RIVER_INFO: Record<string, { desc: string; km: string; difficulty: string; bestFor: string; season: string }> = {
+const RIVER_INFO: Record<string, {
+  desc: string; km: string; difficulty: string; bestFor: string
+  season: string; routes: string; highlights: string[]
+}> = {
   gauja: {
-    desc: 'Latvia\'s most popular paddling river, winding through the Gauja National Park with sandstone cliffs, caves, and ancient castles along the banks.',
+    desc: 'Latvia\'s most popular river — sandstone cliffs, caves, and castles through the National Park.',
     km: '10–95 km',
-    difficulty: 'Easy to Moderate',
-    bestFor: 'Families, multi-day trips',
-    season: 'April – October',
+    difficulty: 'Easy–Moderate',
+    bestFor: 'Families, multi-day',
+    season: 'Apr – Oct',
+    routes: '11 routes',
+    highlights: ['National Park', 'Sandstone cliffs', 'Multi-day trips', 'Camping spots'],
   },
   salaca: {
-    desc: 'A scenic northern river flowing through forests and past the famous Red Cliffs (Sarkanās Klintis). Calm waters and untouched nature.',
+    desc: 'Calm northern river through forests and past the famous Red Cliffs. Perfect for beginners.',
     km: '12–60 km',
     difficulty: 'Easy',
-    bestFor: 'Beginners, relaxed paddling',
-    season: 'April – October',
+    bestFor: 'Beginners, relaxed',
+    season: 'Apr – Oct',
+    routes: '5 routes',
+    highlights: ['Red Cliffs', 'Calm water', 'Beginner-friendly', 'Scenic forests'],
   },
   brasla: {
-    desc: 'A fast, narrow tributary of the Gauja with rapids and tight turns — the go-to river for an adrenaline-filled day trip.',
+    desc: 'Fast, narrow Gauja tributary with rapids and tight turns — for an adrenaline-filled day.',
     km: '8–25 km',
-    difficulty: 'Moderate to Challenging',
-    bestFor: 'Experienced paddlers, thrill-seekers',
-    season: 'April – September',
+    difficulty: 'Moderate–Hard',
+    bestFor: 'Thrill-seekers',
+    season: 'Apr – Sep',
+    routes: '11 routes',
+    highlights: ['Rapids', 'Tight turns', 'Day trips', 'Kayaks & canoes'],
   },
   amata: {
-    desc: 'A wild, rocky river known for its rapids and boulders. Raft-only routes through one of Latvia\'s most dramatic valleys.',
+    desc: 'Wild rocky river with boulders and rapids. Raft-only routes through a dramatic valley.',
     km: '8–14 km',
-    difficulty: 'Moderate to Challenging',
-    bestFor: 'Groups, team building, adventure',
-    season: 'March – October (weekends)',
+    difficulty: 'Moderate–Hard',
+    bestFor: 'Groups, team building',
+    season: 'Mar – Oct',
+    routes: '2 routes',
+    highlights: ['Boulders', 'Rafts only', 'Team building', 'Wild nature'],
   },
 }
 
@@ -51,10 +62,10 @@ export default async function RiversPage() {
         </div>
       </section>
 
-      {/* River Cards */}
+      {/* River Cards — 3 columns */}
       <section className="section">
         <div className="container">
-          <div className="card-grid-2">
+          <div className="card-grid-3">
             {rivers.map(r => {
               const info = RIVER_INFO[r.slug]
               return (
@@ -78,41 +89,28 @@ export default async function RiversPage() {
         </div>
       </section>
 
-      {/* River Comparison Table */}
+      {/* River Highlights — quick-glance cards */}
       <section className="section section-alt">
         <div className="container">
-          <h2 className="section-heading">Compare Rivers</h2>
-          <p className="section-subheading">Find the right river for your group</p>
-          <div className="compare-table-wrap">
-            <table className="compare-table">
-              <thead>
-                <tr>
-                  <th>River</th>
-                  <th>Distance</th>
-                  <th>Difficulty</th>
-                  <th>Best for</th>
-                  <th>Boats</th>
-                  <th>Season</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rivers.map(r => {
-                  const info = RIVER_INFO[r.slug]
-                  return (
-                    <tr key={r.slug}>
-                      <td>
-                        <Link href={`/rivers/${r.slug}`} className="compare-river-link">{r.name}</Link>
-                      </td>
-                      <td>{info?.km || '—'}</td>
-                      <td>{info?.difficulty || '—'}</td>
-                      <td>{info?.bestFor || '—'}</td>
-                      <td>{r.boatCategories.join(', ')}</td>
-                      <td>{info?.season || '—'}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+          <h2 className="section-heading">At a Glance</h2>
+          <p className="section-subheading">Quick stats to help you pick the right river</p>
+          <div className="river-highlights">
+            {rivers.map(r => {
+              const info = RIVER_INFO[r.slug]
+              if (!info) return null
+              return (
+                <Link href={`/rivers/${r.slug}`} className="rh-card" key={r.slug}>
+                  <div className="rh-card-name">{r.name}</div>
+                  <div className="rh-stat-row"><span>Distance</span><span>{info.km}</span></div>
+                  <div className="rh-stat-row"><span>Difficulty</span><span>{info.difficulty}</span></div>
+                  <div className="rh-stat-row"><span>Best for</span><span>{info.bestFor}</span></div>
+                  <div className="rh-stat-row"><span>Season</span><span>{info.season}</span></div>
+                  <div className="rh-tags">
+                    {info.highlights.map(h => <span key={h} className="rh-tag">{h}</span>)}
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -126,9 +124,9 @@ export default async function RiversPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section cta-banner">
-        <div className="container" style={{ textAlign: 'center' }}>
+      {/* CTA — full bleed, no rounded corners */}
+      <section className="cta-fullbleed">
+        <div className="container">
           <h2>Ready to paddle?</h2>
           <p>Pick a river, choose your boats, and we&apos;ll handle the rest.</p>
           <Link href="/booking" className="btn btn-primary btn-lg">Book Your Trip</Link>

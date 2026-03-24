@@ -490,9 +490,6 @@ img { max-width: 100%; display: block; }
 .g-venta { background: linear-gradient(145deg, #4e342e, #795548); }
 .g-brasla { background: linear-gradient(145deg, #455a64, #78909c); }
 
-/* ===== 2-COL CARD GRID ===== */
-.card-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-
 /* ===== SECTION HEADINGS ===== */
 .section-heading {
   font-size: 1.8rem;
@@ -509,46 +506,13 @@ img { max-width: 100%; display: block; }
 }
 .section-alt { background: var(--tint); }
 
-/* ===== COMPARISON TABLE ===== */
-.compare-table-wrap {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.compare-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-}
-.compare-table th {
-  text-align: left;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-  padding: 10px 16px;
-  border-bottom: 2px solid var(--border);
-  white-space: nowrap;
-}
-.compare-table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text-secondary);
-  vertical-align: top;
-}
-.compare-table tr:last-child td { border-bottom: none; }
-.compare-table tr:hover td { background: rgba(36,148,58,0.04); }
-.compare-river-link {
-  font-weight: 700;
-  color: var(--primary);
-  text-decoration: none;
-}
-.compare-river-link:hover { text-decoration: underline; }
+/* (comparison table removed — using highlight cards instead) */
 
 /* ===== FAQ ACCORDION ===== */
 .faq-list {
   max-width: 720px;
   margin: 0 auto;
+  columns: 1;
 }
 .faq-item {
   border-bottom: 1px solid var(--border);
@@ -558,13 +522,13 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   width: 100%;
-  padding: 18px 4px;
+  padding: 14px 0;
   background: none;
   border: none;
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--text);
   cursor: pointer;
@@ -579,36 +543,40 @@ img { max-width: 100%; display: block; }
 }
 .faq-chevron-open { transform: rotate(180deg); color: var(--primary); }
 .faq-answer {
-  padding: 0 4px 18px;
+  padding: 0 0 14px;
 }
 .faq-answer p {
-  font-size: 0.9rem;
-  line-height: 1.7;
+  font-size: 0.85rem;
+  line-height: 1.6;
   color: var(--text-secondary);
   margin: 0;
 }
 
-/* ===== CTA BANNER ===== */
-.cta-banner {
+/* ===== CTA FULL-BLEED (rivers page etc) ===== */
+.cta-fullbleed {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
+  border-radius: 0;
+  padding: 80px 24px;
+  text-align: center;
 }
-.cta-banner h2 {
+.cta-fullbleed h2 {
   color: white;
   font-size: 2rem;
+  font-weight: 800;
   margin-bottom: 8px;
 }
-.cta-banner p {
+.cta-fullbleed p {
   color: rgba(255,255,255,0.85);
   font-size: 1.05rem;
   margin-bottom: 24px;
 }
-.cta-banner .btn-primary {
+.cta-fullbleed .btn-primary {
   background: white;
   color: var(--primary);
   font-weight: 700;
 }
-.cta-banner .btn-primary:hover {
+.cta-fullbleed .btn-primary:hover {
   background: var(--accent);
   color: var(--dark);
 }
@@ -617,9 +585,58 @@ img { max-width: 100%; display: block; }
   font-size: 1.1rem;
 }
 
+/* ===== RIVER HIGHLIGHT CARDS ===== */
+.river-highlights {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.rh-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.rh-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.rh-card-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+.rh-stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.rh-stat-row:last-child { border-bottom: none; }
+.rh-stat-row span:first-child { color: var(--text-muted); }
+.rh-stat-row span:last-child { font-weight: 600; }
+.rh-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.rh-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--tint);
+  color: var(--primary);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .card-grid-2 { grid-template-columns: 1fr; }
+  .river-highlights { grid-template-columns: repeat(2, 1fr); }
   .card-grid-3, .feature-grid, .testimonial-grid, .values-grid, .team-grid, .boat-grid { grid-template-columns: repeat(2, 1fr); }
   .card-grid-4, .steps, .extras-grid { grid-template-columns: repeat(2, 1fr); }
   .story-grid, .contact-grid, .booking-layout { grid-template-columns: 1fr; }
@@ -634,7 +651,7 @@ img { max-width: 100%; display: block; }
   .hero-stats { flex-direction: column; gap: 16px; }
   .card-grid-3, .card-grid-4, .feature-grid, .testimonial-grid, .values-grid,
   .team-grid, .boat-grid, .bases-grid, .safety-grid, .steps, .extras-grid,
-  .info-grid, .highlights-grid, .gallery-grid, .related-grid { grid-template-columns: 1fr; }
+  .info-grid, .highlights-grid, .gallery-grid, .related-grid, .river-highlights { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
   .stats-bar { flex-direction: column; gap: 16px; padding: 24px; }
   .stat-item + .stat-item { border-left: none; border-top: 1px solid var(--border); padding-top: 16px; }
