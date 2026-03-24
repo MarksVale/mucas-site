@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 
 const API_BASE = 'https://boat-availability.vercel.app/api'
 
@@ -19,12 +19,169 @@ interface FormData {
   rivers: River[]; routes: Route[]; boatTypes: BoatType[]; bookingWindows: BookingWindow[]
 }
 
+const DOW = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU']
+
+function pad(n: number) { return n < 10 ? '0' + n : '' + n }
+function fmtDisplay(iso: string) {
+  if (!iso) return ''
+  const [y, m, d] = iso.split('-')
+  return `${d}.${m}.${y}`
+}
+
+// ——— Custom Calendar Component ———
+function Calendar({
+  value,
+  onChange,
+  minDate,
+  maxDate,
+  isDateAllowed,
+  startDate,
+  endDate,
+}: {
+  value: string
+  onChange: (iso: string) => void
+  minDate: string
+  maxDate: string
+  isDateAllowed: (d: string) => boolean
+  startDate?: string
+  endDate?: string
+}) {
+  const today = new Date()
+  const initMonth = value ? new Date(value + 'T00:00:00') : new Date(minDate ? minDate + 'T00:00:00' : Date.now())
+  const [viewYear, setViewYear] = useState(initMonth.getFullYear())
+  const [viewMonth, setViewMonth] = useState(initMonth.getMonth())
+
+  const prevMonth = () => {
+    if (viewMonth === 0) { setViewYear(y => y - 1); setViewMonth(11) }
+    else setViewMonth(m => m - 1)
+  }
+  const nextMonth = () => {
+    if (viewMonth === 11) { setViewYear(y => y + 1); setViewMonth(0) }
+    else setViewMonth(m => m + 1)
+  }
+
+  const monthName = new Date(viewYear, viewMonth).toLocaleString('en', { month: 'long', year: 'numeric' })
+
+  // Build day grid (Monday-first)
+  const firstDay = new Date(viewYear, viewMonth, 1)
+  const startDow = (firstDay.getDay() + 6) % 7 // 0=Mon
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate()
+
+  const cells: { day: number; iso: string; disabled: boolean; blocked: boolean }[] = []
+  for (let i = 0; i < startDow; i++) cells.push({ day: 0, iso: '', disabled: true, blocked: false })
+  for (let d = 1; d <= daysInMonth; d++) {
+    const iso = `${viewYear}-${pad(viewMonth + 1)}-${pad(d)}`
+    const pastMin = minDate && iso < minDate
+    const pastMax = maxDate && iso > maxDate
+    const blocked = !isDateAllowed(iso)
+    cells.push({ day: d, iso, disabled: !!(pastMin || pastMax), blocked })
+  }
+
+  const todayIso = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`
+
+  function dayClass(cell: typeof cells[0]) {
+    if (cell.day === 0) return 'cal-day empty'
+    const cls = ['cal-day']
+    if (cell.disabled) cls.push('disabled')
+    else if (cell.blocked) cls.push('blocked')
+    if (cell.iso === todayIso) cls.push('today')
+    if (cell.iso === value) cls.push('selected')
+    // Range highlighting
+    if (startDate && endDate && cell.iso >= startDate && cell.iso <= endDate && !cell.disabled && !cell.blocked) {
+      cls.push('in-range')
+      if (cell.iso === startDate) cls.push('range-start')
+      if (cell.iso === endDate) cls.push('range-end')
+    }
+    return cls.join(' ')
+  }
+
+  return (
+    <div className="cal-popup open">
+      <div className="cal-header">
+        <button type="button" className="cal-nav" onClick={prevMonth}>&lsaquo;</button>
+        <span className="cal-month-label">{monthName}</span>
+        <button type="button" className="cal-nav" onClick={nextMonth}>&rsaquo;</button>
+      </div>
+      <div className="cal-grid">
+        {DOW.map(d => <div key={d} className="cal-dow">{d}</div>)}
+        {cells.map((cell, i) => (
+          <div
+            key={i}
+            className={dayClass(cell)}
+            onClick={() => {
+              if (cell.day && !cell.disabled && !cell.blocked) onChange(cell.iso)
+            }}
+          >
+            {cell.day || ''}
+          </div>
+        ))}
+      </div>
+      <div className="cal-legend">
+        <div className="cal-legend-item"><div className="cal-legend-dot" style={{ background: '#24943A' }} /> Available</div>
+        <div className="cal-legend-item"><div className="cal-legend-dot" style={{ background: '#ddd' }} /> Unavailable</div>
+      </div>
+    </div>
+  )
+}
+
+// ——— DatePicker wrapper (button + popup) ———
+function DatePicker({
+  value,
+  onChange,
+  minDate,
+  maxDate,
+  isDateAllowed,
+  placeholder,
+  startDate,
+  endDate,
+}: {
+  value: string
+  onChange: (iso: string) => void
+  minDate: string
+  maxDate: string
+  isDateAllowed: (d: string) => boolean
+  placeholder: string
+  startDate?: string
+  endDate?: string
+}) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
+
+  return (
+    <div className="datepicker-wrap" ref={ref}>
+      <button type="button" className="datepicker-btn" onClick={() => setOpen(o => !o)}>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="13" rx="2" stroke="#0f5c00" strokeWidth="1.5"/><path d="M1 6h14" stroke="#0f5c00" strokeWidth="1.5"/><path d="M5 1v2M11 1v2" stroke="#0f5c00" strokeWidth="1.5" strokeLinecap="round"/></svg>
+        <span className={value ? '' : 'placeholder'}>{value ? fmtDisplay(value) : placeholder}</span>
+      </button>
+      {open && (
+        <Calendar
+          value={value}
+          onChange={(d) => { onChange(d); setOpen(false) }}
+          minDate={minDate}
+          maxDate={maxDate}
+          isDateAllowed={isDateAllowed}
+          startDate={startDate}
+          endDate={endDate}
+        />
+      )}
+    </div>
+  )
+}
+
+// ——— Main BookingForm ———
 export function BookingForm() {
   const [formData, setFormData] = useState<FormData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  // Form state
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -39,7 +196,6 @@ export function BookingForm() {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
-  // Load form data from boat-availability API
   useEffect(() => {
     fetch(API_BASE + '/get-form-data')
       .then(r => r.json())
@@ -47,31 +203,26 @@ export function BookingForm() {
       .catch(() => { setError('Failed to load form data'); setLoading(false) })
   }, [])
 
-  // Filtered routes based on selected river
   const filteredRoutes = useMemo(() => {
     if (!formData || !riverId) return []
     return formData.routes.filter(r => r.riverId === riverId)
   }, [formData, riverId])
 
-  // Selected route object
   const selectedRoute = useMemo(() => {
     if (!formData || !routeId) return null
     return formData.routes.find(r => r.id === routeId) || null
   }, [formData, routeId])
 
-  // Available boat types for selected route
   const availableBoats = useMemo(() => {
     if (!formData || !selectedRoute) return []
     return formData.boatTypes.filter(b => selectedRoute.boatTypeIds.includes(b.id))
   }, [formData, selectedRoute])
 
-  // Booking windows for selected river
   const activeWindows = useMemo(() => {
     if (!formData || !riverId) return []
     return formData.bookingWindows.filter(w => w.riverId === riverId && w.type === 'Open')
   }, [formData, riverId])
 
-  // Min date for date picker (earliest open window)
   const minDate = useMemo(() => {
     if (!activeWindows.length) return ''
     const today = new Date().toISOString().split('T')[0]
@@ -79,18 +230,15 @@ export function BookingForm() {
     return earliest > today ? earliest : today
   }, [activeWindows])
 
-  // Max date (latest close window)
   const maxDate = useMemo(() => {
     if (!activeWindows.length) return ''
     return activeWindows.reduce((max, w) => w.seasonClose > max ? w.seasonClose : max, activeWindows[0].seasonClose)
   }, [activeWindows])
 
-  // Check if a date is within any active booking window
-  function isDateInWindow(date: string): boolean {
+  const isDateAllowed = useCallback((date: string): boolean => {
     return activeWindows.some(w => date >= w.seasonOpen && date <= w.seasonClose)
-  }
+  }, [activeWindows])
 
-  // Calculate days
   const days = useMemo(() => {
     if (!startDate || !endDate) return 0
     const s = new Date(startDate)
@@ -99,7 +247,6 @@ export function BookingForm() {
     return diff > 0 ? diff : 0
   }, [startDate, endDate])
 
-  // Calculate boat cost
   const boatCost = useMemo(() => {
     if (!formData || !days) return 0
     let total = 0
@@ -111,13 +258,22 @@ export function BookingForm() {
     return total
   }, [formData, boatSelections, days])
 
+  // Total people capacity
+  const totalPeople = useMemo(() => {
+    if (!formData) return 0
+    let total = 0
+    for (const [btId, qty] of Object.entries(boatSelections)) {
+      if (qty <= 0) continue
+      const bt = formData.boatTypes.find(b => b.id === btId)
+      if (bt) total += bt.capacity * qty
+    }
+    return total
+  }, [formData, boatSelections])
+
   const transportCost = selectedRoute?.transportCost || 0
   const totalCost = boatCost + transportCost
-
-  // Has at least one boat selected
   const hasBoats = Object.values(boatSelections).some(q => q > 0)
 
-  // Reset downstream when river changes
   function handleRiverChange(newRiverId: string) {
     setRiverId(newRiverId)
     setRouteId('')
@@ -126,19 +282,18 @@ export function BookingForm() {
     setEndDate('')
   }
 
-  // Reset boats when route changes
   function handleRouteChange(newRouteId: string) {
     setRouteId(newRouteId)
     setBoatSelections({})
   }
 
-  function updateBoatQty(boatId: string, delta: number) {
+  function setBoatQty(boatId: string, val: number) {
     setBoatSelections(prev => {
-      const current = prev[boatId] || 0
-      const next = Math.max(0, current + delta)
+      const next = Math.max(0, val)
       if (next === 0) {
-        const { [boatId]: _, ...rest } = prev
-        return rest
+        const copy = { ...prev }
+        delete copy[boatId]
+        return copy
       }
       return { ...prev, [boatId]: next }
     })
@@ -147,33 +302,21 @@ export function BookingForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!routeId || !startDate || !endDate || !hasBoats) return
-
-    // Validate dates in window
-    if (!isDateInWindow(startDate) || !isDateInWindow(endDate)) {
+    if (!isDateAllowed(startDate) || !isDateAllowed(endDate)) {
       setError('Selected dates are outside the booking season.')
       return
     }
-
     setSubmitting(true)
     setError('')
-
     try {
       const res = await fetch(API_BASE + '/submit-booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
+          firstName, lastName, email,
           phone: '+371 ' + phone,
-          riverId,
-          routeId,
-          startDate,
-          endDate,
-          boatSelections,
-          transportCost,
-          startTime,
-          notes,
+          riverId, routeId, startDate, endDate,
+          boatSelections, transportCost, startTime, notes,
           paymentMethod: 'Cash'
         })
       })
@@ -190,9 +333,7 @@ export function BookingForm() {
     }
   }
 
-  if (loading) {
-    return <div className="booking-loading">Loading booking form...</div>
-  }
+  if (loading) return <div className="booking-loading"><div className="bf-spinner" />Loading...</div>
 
   if (submitted) {
     return (
@@ -205,15 +346,13 @@ export function BookingForm() {
     )
   }
 
-  if (!formData) {
-    return <div className="booking-error">Could not load booking data. Please refresh.</div>
-  }
+  if (!formData) return <div className="booking-error">Could not load booking data. Please refresh.</div>
 
   return (
     <form className="booking-form" onSubmit={handleSubmit}>
       {error && <div className="booking-form-error">{error}</div>}
 
-      {/* Contact Information */}
+      {/* Contact */}
       <div className="bf-section">
         <div className="bf-section-title">Your Contact Information</div>
         <div className="bf-row">
@@ -244,24 +383,19 @@ export function BookingForm() {
       {/* Reservation Details */}
       <div className="bf-section">
         <div className="bf-section-title">Reservation Details</div>
-
         <div className="bf-row">
           <div className="bf-field">
             <label>River <span className="bf-req">*</span></label>
             <select value={riverId} onChange={e => handleRiverChange(e.target.value)} required>
               <option value="">— Select river —</option>
-              {formData.rivers.map(r => (
-                <option key={r.id} value={r.id}>{r.name}</option>
-              ))}
+              {formData.rivers.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
           </div>
           <div className="bf-field">
             <label>Route <span className="bf-req">*</span></label>
             <select value={routeId} onChange={e => handleRouteChange(e.target.value)} required disabled={!riverId}>
               <option value="">{riverId ? '— Select route —' : '— Select river first —'}</option>
-              {filteredRoutes.map(r => (
-                <option key={r.id} value={r.id}>{r.name}</option>
-              ))}
+              {filteredRoutes.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
           </div>
         </div>
@@ -278,33 +412,35 @@ export function BookingForm() {
           </div>
         )}
 
+        {/* Dates — custom calendar */}
         {selectedRoute && (
           <div className="bf-field" style={{ marginBottom: 20 }}>
             <label>Dates <span className="bf-req">*</span></label>
             <small className="bf-hint">For a one-day trip, select the same start and end date.</small>
-            <div className="bf-row">
+            <div className="bf-date-row">
               <div className="bf-field">
-                <input
-                  type="date"
+                <DatePicker
                   value={startDate}
-                  onChange={e => {
-                    setStartDate(e.target.value)
-                    if (!endDate || e.target.value > endDate) setEndDate(e.target.value)
-                  }}
-                  min={minDate}
-                  max={maxDate}
-                  required
+                  onChange={d => { setStartDate(d); if (!endDate || d > endDate) setEndDate(d) }}
+                  minDate={minDate}
+                  maxDate={maxDate}
+                  isDateAllowed={isDateAllowed}
+                  placeholder="Select date"
+                  startDate={startDate}
+                  endDate={endDate}
                 />
                 <small className="bf-hint">Start date</small>
               </div>
               <div className="bf-field">
-                <input
-                  type="date"
+                <DatePicker
                   value={endDate}
-                  onChange={e => setEndDate(e.target.value)}
-                  min={startDate || minDate}
-                  max={maxDate}
-                  required
+                  onChange={d => setEndDate(d)}
+                  minDate={startDate || minDate}
+                  maxDate={maxDate}
+                  isDateAllowed={isDateAllowed}
+                  placeholder="Select date"
+                  startDate={startDate}
+                  endDate={endDate}
                 />
                 <small className="bf-hint">End date</small>
               </div>
@@ -312,7 +448,7 @@ export function BookingForm() {
           </div>
         )}
 
-        {/* Boat Selection */}
+        {/* Boat Selection — card layout matching standalone */}
         {selectedRoute && startDate && endDate && (
           <div className="bf-field">
             <label>Boats <span className="bf-req">*</span></label>
@@ -321,20 +457,18 @@ export function BookingForm() {
                 const qty = boatSelections[bt.id] || 0
                 return (
                   <div key={bt.id} className={`bf-boat-card${qty > 0 ? ' bf-boat-selected' : ''}`}>
-                    <div className="bf-boat-name">{bt.name}</div>
-                    <div className="bf-boat-meta">
-                      <span>{bt.capacity} {bt.capacity === 1 ? 'seat' : 'seats'}</span>
-                      <span className="bf-boat-cat">{bt.category}</span>
+                    <div className="bf-boat-header">
+                      <div className="bf-boat-name">{bt.name}</div>
+                      <div className="bf-boat-price">&euro;{bt.price}/day</div>
                     </div>
-                    <div className="bf-boat-price">{bt.price}€ / day</div>
-                    <div className="bf-boat-qty">
-                      <button type="button" onClick={() => updateBoatQty(bt.id, -1)} disabled={qty === 0}>−</button>
-                      <span>{qty}</span>
-                      <button type="button" onClick={() => updateBoatQty(bt.id, 1)}>+</button>
-                    </div>
-                    {qty > 0 && days > 0 && (
-                      <div className="bf-boat-subtotal">{bt.price * days * qty}€</div>
-                    )}
+                    <div className="bf-boat-desc">{bt.capacity} {bt.capacity === 1 ? 'seat' : 'seats'}</div>
+                    <input
+                      type="number"
+                      className="bf-boat-input"
+                      min={0}
+                      value={qty}
+                      onChange={e => setBoatQty(bt.id, parseInt(e.target.value) || 0)}
+                    />
                   </div>
                 )
               })}
@@ -342,6 +476,33 @@ export function BookingForm() {
           </div>
         )}
       </div>
+
+      {/* Live Summary Bar */}
+      {selectedRoute && (
+        <div className="bf-summary-bar">
+          <div className="bf-summary-item">
+            <div className="bf-summary-label">Total people</div>
+            <div className="bf-summary-value">{totalPeople}</div>
+          </div>
+          <div className="bf-summary-item">
+            <div className="bf-summary-label">Days</div>
+            <div className="bf-summary-value">{days || '--'}</div>
+          </div>
+          <div className="bf-summary-item">
+            <div className="bf-summary-label">Price</div>
+            <div className="bf-summary-value">&euro;{boatCost}</div>
+          </div>
+          <div className="bf-summary-item">
+            <div className="bf-summary-label">Transport</div>
+            <div className="bf-summary-value">&euro;{transportCost}</div>
+          </div>
+        </div>
+      )}
+      {selectedRoute && (
+        <p className="bf-transport-note">
+          * Transport cost may vary depending on the number of boats and other factors. All adjustments will be sent in the confirmation email.
+        </p>
+      )}
 
       {/* Notes */}
       <div className="bf-section">
@@ -351,28 +512,9 @@ export function BookingForm() {
         </div>
       </div>
 
-      {/* Summary */}
-      {hasBoats && days > 0 && (
-        <div className="bf-summary">
-          <div className="bf-summary-title">Booking Summary</div>
-          <div className="bf-summary-row">
-            <span>Boats ({days} {days === 1 ? 'day' : 'days'})</span>
-            <span>{boatCost}€</span>
-          </div>
-          <div className="bf-summary-row">
-            <span>Transport</span>
-            <span>{transportCost}€</span>
-          </div>
-          <div className="bf-summary-row bf-summary-total">
-            <span>Total</span>
-            <span>{totalCost}€</span>
-          </div>
-        </div>
-      )}
-
       <button
         type="submit"
-        className="btn btn-primary bf-submit"
+        className="bf-submit-btn"
         disabled={submitting || !routeId || !startDate || !endDate || !hasBoats || !firstName || !lastName || !email || !phone}
       >
         {submitting ? 'Sending...' : 'Submit Booking'}
