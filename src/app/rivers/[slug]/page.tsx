@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { getRiver, getRoutesByRiver } from '@/lib/airtable'
-import { getStaticRiver, getStaticRoutesByRiver, getBranchForRiver, getStaticRivers } from '@/data/static-rivers'
+import { getRiver, getRoutesByRiver, getBranchForRiver } from '@/lib/airtable'
+import { getStaticRiver, getStaticRoutesByRiver, getStaticRivers } from '@/data/static-rivers'
 import { getRiverContent, getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery } from '@/lib/cloudinary'
 import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery } from '@/components/Icons'
@@ -29,7 +29,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   if (!river) return { title: 'River Not Found' }
   return {
     title: `${river.name} River Kayak & Canoe Trips | Mučas Laivu Noma`,
-    description: content.description || ('description' in river ? river.description : '') || `Boat rentals on the ${river.name} river. ${river.routeCount} routes available.`,
+    description: content.description || airtableRiver?.description || staticRiver?.description || `Boat rentals on the ${river.name} river. ${river.routeCount} routes available.`,
   }
 }
 
@@ -48,7 +48,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
   }
 
   const content = getRiverContent(slug)
-  const branch = getBranchForRiver(slug)
+  const branch = await getBranchForRiver(slug)
 
   if (!river) return <div className="container" style={{ padding: '80px 0' }}><h1>River not found</h1></div>
 

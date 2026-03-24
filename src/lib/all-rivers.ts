@@ -1,11 +1,10 @@
-import { getRivers, getRoutes, getRoutesByRiver, getRiver, getRoute } from './airtable'
+import { getRivers, getRoutes, getRoutesByRiver, getRiver, getRoute, getBranchForRiver } from './airtable'
 import {
   getStaticRivers,
   getStaticRiver,
   getStaticRoutes,
   getStaticRoutesByRiver,
   getStaticRoute,
-  getBranchForRiver,
   getBranches,
   type Branch,
   type StaticRiver,
@@ -50,15 +49,15 @@ export interface UnifiedRoute {
 }
 
 export async function getAllRivers(): Promise<UnifiedRiver[]> {
-  // Get Airtable rivers (online bookable)
+  // Get Airtable rivers
   const airtableRivers = await getRivers()
   const bookableRivers: UnifiedRiver[] = airtableRivers.map(r => ({
     slug: r.slug,
     name: r.name,
-    region: 'Vidzeme', // All current Airtable rivers are Vidzeme
-    description: '', // Will use page-level descriptions
+    region: r.region,
+    description: r.description,
     routeCount: r.routeCount,
-    bookable: true,
+    bookable: r.bookingType === 'online',
     branchSlug: r.slug === 'salaca' ? 'staicele' : 'sigulda',
     gradient: r.gradient,
   }))
@@ -83,7 +82,7 @@ export async function getAllRivers(): Promise<UnifiedRiver[]> {
 }
 
 export async function getAllRoutes(): Promise<UnifiedRoute[]> {
-  // Get Airtable routes (online bookable)
+  // Get Airtable routes
   const airtableRoutes = await getRoutes()
   const bookableRoutes: UnifiedRoute[] = airtableRoutes.map(r => ({
     slug: r.slug,
@@ -91,7 +90,7 @@ export async function getAllRoutes(): Promise<UnifiedRoute[]> {
     river: r.river,
     riverSlug: r.riverSlug,
     days: r.days.toString(),
-    distance: `${r.distance} km`,
+    distance: r.km > 0 ? `${r.km} km` : '',
     difficulty: r.difficulty,
     bookable: true,
     branchSlug: r.riverSlug === 'salaca' ? 'staicele' : 'sigulda',
@@ -137,10 +136,9 @@ export async function getRoutesForRiver(riverSlug: string): Promise<UnifiedRoute
   return allRoutes.filter(r => r.riverSlug === riverSlug)
 }
 
-// Re-export types and functions from static-rivers for convenience
+// Re-export types and functions for convenience
 export type { Branch, StaticRiver, StaticRoute }
 export {
-  getBranch,
   getBranches,
   getBranchForRiver,
 }

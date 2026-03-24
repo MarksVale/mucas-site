@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { getRoute, getRoutesByRiver, getBoats } from '@/lib/airtable'
-import { getStaticRoute, getStaticRoutesByRiver, getBranchForRiver, getStaticRoutes } from '@/data/static-rivers'
+import { getRoute, getRoutesByRiver, getBoats, getBranchForRiver } from '@/lib/airtable'
+import { getStaticRoute, getStaticRoutesByRiver, getStaticRoutes } from '@/data/static-rivers'
 import { getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
@@ -87,13 +87,13 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)
 
   const content = getRouteContent(slug)
-  const branch = getBranchForRiver(route.riverSlug)
+  const branch = await getBranchForRiver(route.riverSlug)
   const topHighlights = content.highlights.slice(0, 3)
   const hasPhotos = (content.galleryCount ?? 0) > 0
   const galleryCount = content.galleryCount ?? 0
 
   // Duration display: hours only if 1 day, days count if multi-day
-  const durationDisplay = parseInt(route.days) === 1 && content.hours
+  const durationDisplay = route.days === 1 && content.hours
     ? content.hours + 'h'
     : `${route.days} days`
 
@@ -355,6 +355,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <div className="related-3">
               {relatedRoutes.map(r => {
                 const rc = getRouteContent(r.slug)
+                const daysValue = typeof r.days === 'string' ? parseInt(r.days) : r.days
                 return (
                   <Link href={`/routes/${r.slug}`} className="rel-card" key={r.slug}>
                     <div className="rel-img">
@@ -364,7 +365,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
                       <h4>{r.name}</h4>
                       <div className="rel-meta">
                         {rc.km > 0 && <span>{rc.km} km</span>}
-                        <span>{parseInt(r.days) === 1 && rc.hours ? rc.hours + 'h' : `${r.days} days`}</span>
+                        <span>{daysValue === 1 && rc.hours ? rc.hours + 'h' : `${daysValue} days`}</span>
                         {rc.difficulty && <span>{rc.difficulty}</span>}
                       </div>
                     </div>
