@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { getAllRivers } from '@/lib/all-rivers'
+import { RiverCard } from '@/components/RiverCard'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -47,24 +47,7 @@ export default async function RiversPage() {
                 </h2>
                 <div className="card-grid-3">
                   {riversByRegion[region].map(r => (
-                    <Link href={`/rivers/${r.slug}`} className="river-card" key={r.slug}>
-                      <div className={`rc-img ${r.gradient}`}>
-                        <div className="overlay" />
-                        <div style={{ position: 'relative', zIndex: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                          <h3>{r.name}</h3>
-                          <span className="rc-badge">{r.routeCount} routes</span>
-                        </div>
-                      </div>
-                      <div className="rc-body">
-                        <p>{r.description.length > 120 ? r.description.slice(0, 120).trimEnd() + '…' : r.description}</p>
-                        <div className="rc-meta">
-                          <span>{r.region}</span>
-                          <span style={{ marginLeft: 'auto' }}>
-                            {r.bookable ? 'Book Online' : 'Call to Book'}
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
+                    <RiverCard key={r.slug} {...r} />
                   ))}
                 </div>
               </div>

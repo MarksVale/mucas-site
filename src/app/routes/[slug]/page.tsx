@@ -293,13 +293,11 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
         <div className="page-section">
           <div className="cta-banner">
             <h2>Ready to Paddle?</h2>
-            <>
-              <p>Choose a date, boat type, and quantity — we&apos;ll take care of the rest.</p>
-              <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-                <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
-                <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
-              </div>
-            </>
+            <p>Choose a date, boat type, and quantity — we&apos;ll take care of the rest.</p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+              <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
+              <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
+            </div>
           </div>
         </div>
 

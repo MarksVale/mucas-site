@@ -157,7 +157,8 @@ img { max-width: 100%; display: block; }
 .river-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .rc-img { height: 200px; position: relative; display: flex; align-items: flex-end; padding: 20px; }
 .rc-img .overlay { position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(0,0,0,0.5)); }
-.rc-img h3 { position: relative; z-index: 1; color: white; font-size: 22px; font-weight: 700; }
+.rc-title-row { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.rc-img h3 { color: white; font-size: 22px; font-weight: 700; margin: 0; }
 .rc-badge {
   background: var(--accent); color: var(--dark);
   padding: 4px 14px; border-radius: var(--radius); font-size: 12px; font-weight: 700;
@@ -166,8 +167,6 @@ img { max-width: 100%; display: block; }
 .rc-body { padding: 24px; }
 .rc-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
 .rc-meta { display: flex; gap: 16px; font-size: 13px; color: var(--text-muted); }
-.rc-tags { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
-.tag { padding: 3px 10px; border-radius: var(--radius-full); font-size: 11px; font-weight: 600; background: rgba(231,178,54,0.15); color: #9a7418; }
 
 /* ===== CARDS â ROUTE ===== */
 .route-card {
