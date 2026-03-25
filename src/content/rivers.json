@@ -10,7 +10,8 @@
     "season": "May – October",
     "totalLength": 452,
     "priceFrom": 20,
-    "photoUrl": ""
+    "photoUrl": "",
+    "galleryCount": 3
   },
   "salaca": {
     "description": "Wild and scenic — crystal-clear waters, dramatic red sandstone outcrops, and exciting rapids. One of the cleanest rivers in Latvia and a favourite for paddlers looking for adventure. The upper sections offer Class I-II rapids while the lower stretches are more relaxed.",
@@ -37,7 +38,8 @@
     "season": "April – June",
     "totalLength": 52,
     "priceFrom": 20,
-    "photoUrl": ""
+    "photoUrl": "",
+    "galleryCount": 3
   },
   "amata": {
     "description": "A hidden gem among Gauja's tributaries — the Amata cuts through deep forest valleys with dramatic rock outcrops and crystal-clear water. The famous Zvārtes rock is one of Latvia's most spectacular natural landmarks.",
@@ -50,6 +52,7 @@
     "season": "May – September",
     "totalLength": 56,
     "priceFrom": 35,
-    "photoUrl": ""
+    "photoUrl": "",
+    "galleryCount": 3
   }
 }

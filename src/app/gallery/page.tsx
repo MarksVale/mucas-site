@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getRivers, getRoutes } from '@/lib/airtable'
 import { getRiverContent, getRouteContent } from '@/lib/content'
+import { cldGallery } from '@/lib/cloudinary'
 import Link from 'next/link'
 import GalleryGrid from '@/components/GalleryGrid'
 
@@ -28,18 +29,18 @@ export default async function GalleryPage() {
   // River hero + gallery images
   for (const river of rivers) {
     const content = getRiverContent(river.slug)
-    // Hero
+    // Hero (uses Salaca fallback if no own hero exists)
     images.push({
-      src: `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/rivers/${river.slug}/hero`,
+      src: `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto,d_mucas:rivers:salaca:hero/mucas/rivers/${river.slug}/hero`,
       alt: `${river.name} river`,
       river: river.name,
       link: `/rivers/${river.slug}`,
     })
-    // Gallery images
+    // Gallery images (uses Salaca fallback if no own gallery photos exist)
     const count = content.galleryCount ?? 0
     for (let i = 1; i <= count; i++) {
       images.push({
-        src: `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/rivers/${river.slug}/gallery-${i}`,
+        src: cldGallery('rivers', river.slug, i),
         alt: `${river.name} river photo ${i}`,
         river: river.name,
         link: `/rivers/${river.slug}`,
