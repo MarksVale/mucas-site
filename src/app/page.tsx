@@ -45,12 +45,18 @@ export default async function Home() {
               <Link href={`/rivers/${r.slug}`} className="river-card" key={r.slug}>
                 <div className={`rc-img ${r.gradient}`}>
                   <div className="overlay" />
-                  <h3>{r.name}</h3>
-                  <span className="rc-badge">{r.routeCount} routes</span>
+                  <div style={{ position: 'relative', zIndex: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                    <h3>{r.name}</h3>
+                    <span className="rc-badge">{r.routeCount} routes</span>
+                  </div>
                 </div>
                 <div className="rc-body">
+                  <p>{r.description && r.description.length > 120 ? r.description.slice(0, 120).trimEnd() + '…' : r.description}</p>
                   <div className="rc-meta">
-                    <span>{r.boatCategories.join(', ')}</span>
+                    <span>{r.region}</span>
+                    <span style={{ marginLeft: 'auto' }}>
+                      {r.bookingType === 'online' ? 'Book Online' : 'Call to Book'}
+                    </span>
                   </div>
                 </div>
               </Link>
