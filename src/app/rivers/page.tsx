@@ -56,6 +56,7 @@ export default async function RiversPage() {
                         </div>
                       </div>
                       <div className="rc-body">
+                        <p>{r.description.length > 120 ? r.description.slice(0, 120).trimEnd() + '…' : r.description}</p>
                         <div className="rc-meta">
                           <span>{r.region}</span>
                           <span style={{ marginLeft: 'auto' }}>
