@@ -181,11 +181,10 @@ function resolveName(val: any): string {
 
 // Data fetchers
 export async function getRivers(): Promise<River[]> {
-  if (!AIRTABLE_API_KEY) return FALLBACK_RIVERS.filter(r => r.active)
+  if (!AIRTABLE_API_KEY) return FALLBACK_RIVERS
 
   const records = await fetchTable('Rivers')
   return records
-    .filter((r: any) => r.fields?.['Active'])
     .map((r: any) => {
       const name = r.fields['River name'] || ''
       // Boat Types may be multi-select [{id,name,color}] or linked record IDs or a lookup text

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getRiver, getRoutesByRiver, getBranchForRiver } from '@/lib/airtable'
+import { getRiver, getRivers, getRoutesByRiver, getBranchForRiver } from '@/lib/airtable'
 import { getRiverContent, getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery } from '@/lib/cloudinary'
 import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery } from '@/components/Icons'
@@ -7,12 +7,8 @@ import PhotoCarousel from '@/components/PhotoCarousel'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
-  return [
-    { slug: 'gauja' },
-    { slug: 'amata' },
-    { slug: 'salaca' },
-    { slug: 'brasla' },
-  ]
+  const rivers = await getRivers()
+  return rivers.map(r => ({ slug: r.slug }))
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
