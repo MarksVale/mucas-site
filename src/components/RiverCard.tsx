@@ -9,7 +9,7 @@ export function RiverCard({ slug, name, gradient, routeCount, description, regio
   return (
     <Link href={`/rivers/${slug}`} className="river-card">
       <div
-        className={`rc-img ${gradient}`}
+        className={`rc-img ${gradient || 'gradient-gauja'}`}
         style={{ backgroundImage: `url(${cldCard(slug)})` }}
       >
         <div className="overlay" />
