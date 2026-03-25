@@ -10,7 +10,7 @@ export default async function Home() {
   const [allRivers, allRoutes, allBoats, c] = await Promise.all([
     getAllRivers(), getRoutes(), getBoats(), getHomePage(),
   ])
-  const rivers = allRivers
+  const rivers = allRivers.slice(0, 6)
   const routes = allRoutes.slice(0, 4)
 
   return (
