@@ -1,8 +1,8 @@
-/* ===== MUČAS LAIVU NOMA — GLOBAL STYLES ===== */
+/* ===== MUÄAS LAIVU NOMA â GLOBAL STYLES ===== */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  /* Mučas 2026 palette */
+  /* MuÄas 2026 palette */
   --primary: #24943A;
   --secondary: #1e7d31;
   --tertiary: #2ea544;
@@ -145,7 +145,7 @@ img { max-width: 100%; display: block; }
 .section-head p { font-size: 16px; color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.6; }
 .section-head p.white { color: rgba(255,255,255,0.7); }
 
-/* ===== CARDS — RIVER ===== */
+/* ===== CARDS â RIVER ===== */
 .card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .card-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .river-card {
@@ -159,9 +159,9 @@ img { max-width: 100%; display: block; }
 .rc-img .overlay { position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(0,0,0,0.5)); }
 .rc-img h3 { position: relative; z-index: 1; color: white; font-size: 22px; font-weight: 700; }
 .rc-badge {
-  position: absolute; top: 16px; right: 16px; z-index: 1;
   background: var(--accent); color: var(--dark);
   padding: 4px 14px; border-radius: var(--radius); font-size: 12px; font-weight: 700;
+  white-space: nowrap;
 }
 .rc-body { padding: 24px; }
 .rc-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
@@ -169,7 +169,7 @@ img { max-width: 100%; display: block; }
 .rc-tags { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
 .tag { padding: 3px 10px; border-radius: var(--radius-full); font-size: 11px; font-weight: 600; background: rgba(231,178,54,0.15); color: #9a7418; }
 
-/* ===== CARDS — ROUTE ===== */
+/* ===== CARDS â ROUTE ===== */
 .route-card {
   background: white; border-radius: var(--radius); overflow: hidden;
   box-shadow: var(--shadow-sm); transition: transform 0.2s; text-decoration: none; color: inherit; display: block;
@@ -498,7 +498,7 @@ img { max-width: 100%; display: block; }
 }
 .section-alt { background: var(--tint); }
 
-/* (comparison table removed — using highlight cards instead) */
+/* (comparison table removed â using highlight cards instead) */
 
 /* ===== FAQ ACCORDION ===== */
 .faq-list {
@@ -695,7 +695,7 @@ img { max-width: 100%; display: block; }
   .cta-banner h2 { font-size: 26px; }
 }
 
-/* -- Small tablet / large phone (768px) — switch to mobile nav -- */
+/* -- Small tablet / large phone (768px) â switch to mobile nav -- */
 @media (max-width: 768px) {
   .nav-desktop { display: none !important; }
   .nav-mobile { display: block; }
@@ -879,7 +879,7 @@ img { max-width: 100%; display: block; }
 .river-hero.g-abava { background: linear-gradient(160deg, #2d7a1a 0%, #55a52e 50%, #6bbd42 100%); }
 .river-hero.g-brasla { background: linear-gradient(160deg, #2d5a1e 0%, #4a8c2e 50%, #5a9c3e 100%); }
 .river-hero.g-amata { background: linear-gradient(160deg, #3e5c3a 0%, #6b9f5e 50%, #82b874 100%); }
-/* Photo variant — background-image set inline; overlay provided by .hero-overlay child */
+/* Photo variant â background-image set inline; overlay provided by .hero-overlay child */
 .river-hero-photo { background-size: cover !important; background-position: center !important; }
 .river-hero-inner { max-width: 800px; margin: 0 auto; }
 .river-hero .breadcrumb { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
@@ -1028,7 +1028,7 @@ img { max-width: 100%; display: block; }
 .hl-card-icon { display: flex; margin-bottom: 12px; color: var(--primary); }
 .hl-card h4 { font-size: 15px; font-weight: 700; color: var(--text); margin: 0; }
 
-/* ===== PHOTO CAROUSEL (strip — 3 photos visible) ===== */
+/* ===== PHOTO CAROUSEL (strip â 3 photos visible) ===== */
 .carousel-strip-wrap {
   position: relative; overflow: hidden;
   border-radius: var(--radius);
@@ -1266,7 +1266,7 @@ img { max-width: 100%; display: block; }
 }
 .bf-phone-wrap input:focus { outline: none; }
 
-/* ——— Custom Date Picker ——— */
+/* âââ Custom Date Picker âââ */
 .datepicker-wrap { position: relative; }
 .datepicker-btn {
   display: flex;
@@ -1366,7 +1366,7 @@ img { max-width: 100%; display: block; }
 .cal-legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.72rem; color: #888; }
 .cal-legend-dot { width: 10px; height: 10px; border-radius: 3px; }
 
-/* ——— Boat Cards (matching standalone) ——— */
+/* âââ Boat Cards (matching standalone) âââ */
 .bf-boat-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1431,7 +1431,7 @@ img { max-width: 100%; display: block; }
 .bf-boat-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .bf-boat-input[type=number] { -moz-appearance: textfield; }
 
-/* ——— Live Summary Bar ——— */
+/* âââ Live Summary Bar âââ */
 .bf-summary-bar {
   background: var(--tint);
   border-radius: 12px;
