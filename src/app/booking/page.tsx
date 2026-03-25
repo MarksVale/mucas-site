@@ -1,5 +1,4 @@
-import { getRoutes, getBoats } from '@/lib/airtable'
-import { getBranches } from '@/data/static-rivers'
+import { getRoutes, getBoats, getBranches } from '@/lib/airtable'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
 export default async function BookingPage() {
   const routes = await getRoutes()
   const boats = await getBoats()
-  const phoneBranches = getBranches().filter(b => b.bookingType === 'phone')
+  const phoneBranches = (await getBranches()).filter(b => b.bookingType === 'phone')
 
   return (
     <>
@@ -121,7 +120,7 @@ export default async function BookingPage() {
               <div key={b.slug} style={{ background: '#fff', borderRadius: 12, padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
                 <div style={{ textAlign: 'left' }}>
                   <strong>{b.name}</strong>
-                  <div style={{ fontSize: 14, color: '#666' }}>{b.contactPerson} &middot; {b.rivers.length} rivers</div>
+                  <div style={{ fontSize: 14, color: '#666' }}>{b.contactPerson}</div>
                 </div>
                 <div style={{ display: 'flex', gap: 8 }}>
                   <a href={`tel:${b.phone}`} className="btn btn-primary" style={{ fontSize: 14, padding: '8px 16px' }}>

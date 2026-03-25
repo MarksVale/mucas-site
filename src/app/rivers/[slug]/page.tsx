@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { getRiver, getRoutesByRiver, getBranchForRiver } from '@/lib/airtable'
-import { getStaticRiver, getStaticRoutesByRiver, getStaticRivers } from '@/data/static-rivers'
 import { getRiverContent, getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery } from '@/lib/cloudinary'
 import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery } from '@/components/Icons'
@@ -8,44 +7,29 @@ import PhotoCarousel from '@/components/PhotoCarousel'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
-  // Get Airtable rivers
-  const airtableRivers = [
+  return [
     { slug: 'gauja' },
     { slug: 'amata' },
     { slug: 'salaca' },
     { slug: 'brasla' },
   ]
-  // Get static rivers
-  const staticRivers = getStaticRivers().map(r => ({ slug: r.slug }))
-  return [...airtableRivers, ...staticRivers]
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await props.params
-  const airtableRiver = await getRiver(slug)
-  const staticRiver = getStaticRiver(slug)
-  const river = airtableRiver || staticRiver
+  const river = await getRiver(slug)
   const content = getRiverContent(slug)
   if (!river) return { title: 'River Not Found' }
   return {
     title: `${river.name} River Kayak & Canoe Trips | Mučas Laivu Noma`,
-    description: content.description || airtableRiver?.description || staticRiver?.description || `Boat rentals on the ${river.name} river. ${river.routeCount} routes available.`,
+    description: content.description || river.description || `Boat rentals on the ${river.name} river. ${river.routeCount} routes available.`,
   }
 }
 
 export default async function RiverPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
-  const airtableRiver = await getRiver(slug)
-  const staticRiver = getStaticRiver(slug)
-  const river = airtableRiver || staticRiver
-
-  // Get routes - use appropriate function based on river type
-  let routes: any[] = []
-  if (airtableRiver) {
-    routes = await getRoutesByRiver(slug)
-  } else if (staticRiver) {
-    routes = getStaticRoutesByRiver(slug)
-  }
+  const river = await getRiver(slug)
+  const routes = river ? await getRoutesByRiver(slug) : []
 
   const content = getRiverContent(slug)
   const branch = await getBranchForRiver(slug)
@@ -91,10 +75,10 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
             <div className="fstat-value">{river.routeCount}</div>
             <div className="fstat-label">Routes</div>
           </div>
-          {airtableRiver && airtableRiver.boatCategories.length > 0 && (
+          {river.boatCategories.length > 0 && (
             <div className="fstat">
               <div className="fstat-icon"><IconBoat size={24} strokeWidth={1.6} /></div>
-              <div className="fstat-value">{airtableRiver.boatCategories.length}</div>
+              <div className="fstat-value">{river.boatCategories.length}</div>
               <div className="fstat-label">Boat Types</div>
             </div>
           )}
@@ -112,14 +96,14 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
       <div className="page-content">
 
         {/* DESCRIPTION */}
-        {(content.description || staticRiver?.description) && (
+        {(content.description || river.description) && (
           <div className="page-section">
             <h2 className="stitle">
               <span className="stitle-icon"><IconWater size={22} strokeWidth={1.8} /></span>
               About the {river.name}
             </h2>
             <p style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--text-secondary)', maxWidth: 800 }}>
-              {content.description || staticRiver?.description}
+              {content.description || river.description}
             </p>
           </div>
         )}
@@ -155,15 +139,14 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
           </div>
         )}
 
-        {/* AVAILABLE BOATS - only for Airtable (bookable) rivers */}
-        {airtableRiver && airtableRiver.boatCategories.length > 0 && (
+        {river.boatCategories.length > 0 && (
           <div className="page-section">
             <h2 className="stitle">
               <span className="stitle-icon"><IconBoat size={22} strokeWidth={1.8} /></span>
               Available Boats
             </h2>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              {airtableRiver.boatCategories.map((cat, i) => (
+              {river.boatCategories.map((cat, i) => (
                 <span key={i} style={{
                   background: 'var(--tint)', color: 'var(--primary)',
                   padding: '10px 20px', borderRadius: 'var(--radius)',
@@ -216,7 +199,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
         <div className="page-section">
           <div className="cta-banner">
             <h2>Ready to Paddle the {river.name}?</h2>
-            {airtableRiver ? (
+            {river.bookingType === 'online' ? (
               <>
                 <p>Pick a route above and book your adventure. We handle the rest.</p>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>

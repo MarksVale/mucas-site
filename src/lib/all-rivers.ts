@@ -1,24 +1,14 @@
-import { getRivers, getRoutes, getRoutesByRiver, getRiver, getRoute, getBranchForRiver } from './airtable'
-import {
-  getStaticRivers,
-  getStaticRiver,
-  getStaticRoutes,
-  getStaticRoutesByRiver,
-  getStaticRoute,
-  getBranches,
-  type Branch,
-  type StaticRiver,
-  type StaticRoute,
-} from '../data/static-rivers'
+import { getRivers, getRoutes, getBranches, getBranchForRiver } from './airtable'
+import type { Branch } from './airtable'
 
-// A unified river type that works for both Airtable and static rivers
+// A unified river type for the rivers listing page
 export interface UnifiedRiver {
   slug: string
   name: string
   region: string
   description: string
   routeCount: number
-  bookable: boolean // true = online booking, false = phone/email
+  bookable: boolean
   branchSlug: string
   gradient: string
   season?: string
@@ -26,7 +16,7 @@ export interface UnifiedRiver {
   totalLength?: number
 }
 
-// A unified route type that works for both Airtable and static routes
+// A unified route type
 export interface UnifiedRoute {
   slug: string
   name: string
@@ -38,20 +28,15 @@ export interface UnifiedRoute {
   bookable: boolean
   branchSlug: string
   gradient: string
-  // Only for bookable (Airtable) routes:
   startTimes?: string[]
   transportCost?: number
   boats?: string[]
   hub?: string
-  // Only for static routes:
-  startPoint?: string
-  endPoint?: string
 }
 
 export async function getAllRivers(): Promise<UnifiedRiver[]> {
-  // Get Airtable rivers
-  const airtableRivers = await getRivers()
-  const bookableRivers: UnifiedRiver[] = airtableRivers.map(r => ({
+  const rivers = await getRivers()
+  return rivers.map(r => ({
     slug: r.slug,
     name: r.name,
     region: r.region,
@@ -61,30 +46,11 @@ export async function getAllRivers(): Promise<UnifiedRiver[]> {
     branchSlug: r.slug === 'salaca' ? 'staicele' : 'sigulda',
     gradient: r.gradient,
   }))
-
-  // Get static rivers (phone/email booking)
-  const staticRiversData = getStaticRivers()
-  const staticUnified: UnifiedRiver[] = staticRiversData.map(r => ({
-    slug: r.slug,
-    name: r.name,
-    region: r.region,
-    description: r.description,
-    routeCount: r.routeCount,
-    bookable: false,
-    branchSlug: r.branchSlug,
-    gradient: r.gradient,
-    season: r.season,
-    difficulty: r.difficulty,
-    totalLength: r.totalLength,
-  }))
-
-  return [...bookableRivers, ...staticUnified]
 }
 
 export async function getAllRoutes(): Promise<UnifiedRoute[]> {
-  // Get Airtable routes
-  const airtableRoutes = await getRoutes()
-  const bookableRoutes: UnifiedRoute[] = airtableRoutes.map(r => ({
+  const routes = await getRoutes()
+  return routes.map(r => ({
     slug: r.slug,
     name: r.name,
     river: r.river,
@@ -100,25 +66,6 @@ export async function getAllRoutes(): Promise<UnifiedRoute[]> {
     boats: r.boats,
     hub: r.hub,
   }))
-
-  // Get static routes (phone/email booking)
-  const staticRoutesData = getStaticRoutes()
-  const staticUnifiedRoutes: UnifiedRoute[] = staticRoutesData.map(r => ({
-    slug: r.slug,
-    name: r.name,
-    river: r.river,
-    riverSlug: r.riverSlug,
-    days: r.days,
-    distance: r.distance,
-    difficulty: r.difficulty,
-    bookable: false,
-    branchSlug: r.branchSlug,
-    gradient: r.gradient,
-    startPoint: r.startPoint,
-    endPoint: r.endPoint,
-  }))
-
-  return [...bookableRoutes, ...staticUnifiedRoutes]
 }
 
 export async function getUnifiedRiver(slug: string): Promise<UnifiedRiver | undefined> {
@@ -136,9 +83,5 @@ export async function getRoutesForRiver(riverSlug: string): Promise<UnifiedRoute
   return allRoutes.filter(r => r.riverSlug === riverSlug)
 }
 
-// Re-export types and functions for convenience
-export type { Branch, StaticRiver, StaticRoute }
-export {
-  getBranches,
-  getBranchForRiver,
-}
+export type { Branch }
+export { getBranches, getBranchForRiver }

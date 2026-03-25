@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
-import { getBranches } from '@/data/static-rivers'
+import { getBranches } from '@/lib/airtable'
 
 export const metadata: Metadata = {
   title: 'Contact Us | Mučas Laivu Noma',
   description: 'Get in touch with Mučas Laivu Noma. Contact any of our 6 branches across Latvia.',
 }
 
-export default function ContactPage() {
-  const branches = getBranches()
+export default async function ContactPage() {
+  const branches = await getBranches()
 
   return (
     <>
@@ -157,9 +157,6 @@ export default function ContactPage() {
                 </div>
 
                 <div style={{ borderTop: '1px solid var(--border)', paddingTop: 12 }}>
-                  <p style={{ fontSize: 13, color: 'var(--text-secondary)', margin: 0 }}>
-                    <strong>Rivers managed:</strong> {branch.rivers.length}
-                  </p>
                   {branch.bookingType === 'online' && (
                     <p style={{ fontSize: 13, color: 'var(--primary)', margin: '4px 0 0' }}>
                       Online booking available

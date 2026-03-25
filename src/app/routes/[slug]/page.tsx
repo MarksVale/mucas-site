@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { getRoute, getRoutesByRiver, getBoats, getBranchForRiver } from '@/lib/airtable'
-import { getStaticRoute, getStaticRoutesByRiver, getStaticRoutes } from '@/data/static-rivers'
+import { getRoute, getRoutesByRiver, getBoats } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
@@ -16,8 +15,7 @@ import {
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
-  // Hard-code Airtable routes
-  const airtableRoutes = [
+  return [
     { slug: 'valmiera-cesis' },
     { slug: 'cesis-sigulda' },
     { slug: 'strenci-valmiera' },
@@ -48,16 +46,11 @@ export async function generateStaticParams() {
     { slug: 'placis-sigulda' },
     { slug: 'straupe-sigulda' },
   ]
-  // Get static routes
-  const staticRoutes = getStaticRoutes().map(r => ({ slug: r.slug }))
-  return [...airtableRoutes, ...staticRoutes]
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await props.params
-  const airtableRoute = await getRoute(slug)
-  const staticRoute = getStaticRoute(slug)
-  const route = airtableRoute || staticRoute
+  const route = await getRoute(slug)
   const content = getRouteContent(slug)
   if (!route) return { title: 'Route Not Found' }
   return {
@@ -68,26 +61,17 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 
 export default async function RoutePage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
-  const airtableRoute = await getRoute(slug)
-  const staticRoute = getStaticRoute(slug)
-  const route = airtableRoute || staticRoute
+  const route = await getRoute(slug)
 
   if (!route) return <div className="container" style={{ padding: '80px 0' }}><h1>Route not found</h1></div>
 
-  const allBoats = airtableRoute ? await getBoats() : []
-  const availableBoats = airtableRoute ? allBoats.filter(b => airtableRoute.boats.includes(b.name)) : []
+  const allBoats = await getBoats()
+  const availableBoats = allBoats.filter(b => route.boats.includes(b.name))
 
-  // Get related routes - use appropriate function based on route type
-  let riverRoutes: any[] = []
-  if (airtableRoute) {
-    riverRoutes = await getRoutesByRiver(airtableRoute.riverSlug)
-  } else if (staticRoute) {
-    riverRoutes = getStaticRoutesByRiver(staticRoute.riverSlug)
-  }
+  const riverRoutes = await getRoutesByRiver(route.riverSlug)
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)
 
   const content = getRouteContent(slug)
-  const branch = await getBranchForRiver(route.riverSlug)
   const topHighlights = content.highlights.slice(0, 3)
   const hasPhotos = (content.galleryCount ?? 0) > 0
   const galleryCount = content.galleryCount ?? 0
@@ -196,8 +180,8 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
           />
         </div>
 
-        {/* AVAILABLE BOATS - only for Airtable (bookable) routes */}
-        {airtableRoute && availableBoats.length > 0 && (
+        {/* AVAILABLE BOATS */}
+        {availableBoats.length > 0 && (
           <div className="page-section">
             <h2 className="stitle">
               <span className="stitle-icon"><IconRoute size={22} strokeWidth={1.8} /></span>
@@ -281,24 +265,13 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
                 <p>Paddles, life jackets, waterproof dry bag</p>
               </div>
             </div>
-            {airtableRoute && (
-              <div className="icard">
-                <div className="icard-icon"><IconTransport size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
-                <div>
-                  <h4>Transport</h4>
-                  <p>Boat transport to start point and pickup at finish: {airtableRoute.transportCost}€</p>
-                </div>
+            <div className="icard">
+              <div className="icard-icon"><IconTransport size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
+              <div>
+                <h4>Transport</h4>
+                <p>Boat transport to start point and pickup at finish: {route.transportCost}€</p>
               </div>
-            )}
-            {!airtableRoute && (
-              <div className="icard">
-                <div className="icard-icon"><IconTransport size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
-                <div>
-                  <h4>Pricing</h4>
-                  <p>Contact our branch for current rates and availability</p>
-                </div>
-              </div>
-            )}
+            </div>
             <div className="icard">
               <div className="icard-icon"><IconSeason size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
               <div>
@@ -320,30 +293,13 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
         <div className="page-section">
           <div className="cta-banner">
             <h2>Ready to Paddle?</h2>
-            {airtableRoute ? (
-              <>
-                <p>Choose a date, boat type, and quantity — we&apos;ll take care of the rest.</p>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-                  <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
-                  <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
-                </div>
-              </>
-            ) : branch ? (
-              <>
-                <p>Contact our {branch.name} branch to book this route and plan your adventure.</p>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-                  <a href={`tel:${branch.phone}`} className="btn btn-white">
-                    📞 Call to Book
-                  </a>
-                  <a href={`mailto:${branch.email}`} className="btn btn-outline">
-                    ✉️ Write to Us
-                  </a>
-                </div>
-                <p style={{ marginTop: 16, fontSize: 14, color: 'var(--text-secondary)' }}>
-                  {branch.contactPerson} • {branch.phone}
-                </p>
-              </>
-            ) : null}
+            <>
+              <p>Choose a date, boat type, and quantity — we&apos;ll take care of the rest.</p>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+                <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
+                <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
+              </div>
+            </>
           </div>
         </div>
 

@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { getBranches } from '@/data/static-rivers'
+import { getBranches } from '@/lib/airtable'
 
-export function Footer() {
-  const branches = getBranches()
+export async function Footer() {
+  const branches = await getBranches()
 
   return (
     <footer className="footer">
