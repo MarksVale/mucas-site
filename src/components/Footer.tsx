@@ -1,13 +1,16 @@
 import Link from 'next/link'
+import { getBranches } from '@/data/static-rivers'
 
 export function Footer() {
+  const branches = getBranches()
+
   return (
     <footer className="footer">
       <div className="footer-inner">
         <div className="footer-grid">
           <div className="footer-col">
             <div className="footer-brand">MUČAS</div>
-            <p>Boat rentals across Latvia&apos;s rivers — Gauja, Salaca, Brasla, Amata.</p>
+            <p>Boat rentals across 22 rivers in Latvia — from Vidzeme to Latgale.</p>
           </div>
           <div className="footer-col">
             <h4>Rivers</h4>
@@ -25,10 +28,16 @@ export function Footer() {
             <Link href="/booking">Book Now</Link>
           </div>
           <div className="footer-col">
-            <h4>Contact</h4>
-            <p>+371 2X XXX XXX</p>
-            <p>info@laivunoma.shop</p>
-            <p>Sigulda, Latvia</p>
+            <h4>Filiāles / Branches</h4>
+            {branches.map(b => (
+              <div key={b.slug} style={{ marginBottom: 12, fontSize: 14 }}>
+                <p style={{ margin: 0, fontWeight: 600 }}>{b.name}</p>
+                <p style={{ margin: '4px 0', color: 'var(--text-secondary)' }}>{b.contactPerson}</p>
+                <a href={`tel:${b.phone}`} style={{ color: 'var(--primary)', textDecoration: 'none' }}>
+                  {b.phone}
+                </a>
+              </div>
+            ))}
           </div>
         </div>
         <div className="footer-bottom">

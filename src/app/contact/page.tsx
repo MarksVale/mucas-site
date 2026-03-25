@@ -1,12 +1,15 @@
 import type { Metadata } from 'next'
-import { Mail, MapPin, MessageCircle } from 'lucide-react'
+import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { getBranches } from '@/data/static-rivers'
 
 export const metadata: Metadata = {
   title: 'Contact Us | Mučas Laivu Noma',
-  description: 'Get in touch with Mučas Laivu Noma. Phone, email, or visit us in Sigulda, Latvia.',
+  description: 'Get in touch with Mučas Laivu Noma. Contact any of our 6 branches across Latvia.',
 }
 
 export default function ContactPage() {
+  const branches = getBranches()
+
   return (
     <>
       <section className="page-hero">
@@ -96,6 +99,80 @@ export default function ContactPage() {
                 </form>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* OUR BRANCHES SECTION */}
+      <section className="section" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+        <div className="container">
+          <h2 style={{ marginBottom: 40, fontSize: 28, fontWeight: 700, textAlign: 'center' }}>Our Branches</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
+            {branches.map(branch => (
+              <div
+                key={branch.slug}
+                style={{
+                  backgroundColor: 'white',
+                  border: '1px solid var(--border)',
+                  borderRadius: 'var(--radius)',
+                  padding: 24,
+                }}
+              >
+                <h3 style={{ marginBottom: 4 }}>{branch.name}</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: 14, marginBottom: 16 }}>
+                  {branch.region}
+                </p>
+
+                <div style={{ marginBottom: 16 }}>
+                  <p style={{ margin: '0 0 4px', fontWeight: 600 }}>{branch.contactPerson}</p>
+                  <a
+                    href={`tel:${branch.phone}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      color: 'var(--primary)',
+                      textDecoration: 'none',
+                      marginBottom: 8,
+                      fontSize: 14,
+                    }}
+                  >
+                    <Phone size={16} />
+                    {branch.phone}
+                  </a>
+                  <a
+                    href={`mailto:${branch.email}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      color: 'var(--primary)',
+                      textDecoration: 'none',
+                      fontSize: 14,
+                    }}
+                  >
+                    <Mail size={16} />
+                    {branch.email}
+                  </a>
+                </div>
+
+                <div style={{ borderTop: '1px solid var(--border)', paddingTop: 12 }}>
+                  <p style={{ fontSize: 13, color: 'var(--text-secondary)', margin: 0 }}>
+                    <strong>Rivers managed:</strong> {branch.rivers.length}
+                  </p>
+                  {branch.bookingType === 'online' && (
+                    <p style={{ fontSize: 13, color: 'var(--primary)', margin: '4px 0 0' }}>
+                      Online booking available
+                    </p>
+                  )}
+                  {branch.bookingType === 'phone' && (
+                    <p style={{ fontSize: 13, color: 'var(--accent)', margin: '4px 0 0' }}>
+                      Call or email to book
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

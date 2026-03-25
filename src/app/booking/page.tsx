@@ -1,4 +1,6 @@
 import { getRoutes, getBoats } from '@/lib/airtable'
+import { getBranches } from '@/data/static-rivers'
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -9,6 +11,7 @@ export const metadata: Metadata = {
 export default async function BookingPage() {
   const routes = await getRoutes()
   const boats = await getBoats()
+  const phoneBranches = getBranches().filter(b => b.bookingType === 'phone')
 
   return (
     <>
@@ -102,6 +105,38 @@ export default async function BookingPage() {
               </p>
             </form>
           </div>
+        </div>
+      </section>
+
+      {/* Phone-booking branches */}
+      <section className="section" style={{ background: 'var(--white-smoke)' }}>
+        <div className="container" style={{ maxWidth: 640, margin: '0 auto', textAlign: 'center' }}>
+          <h3 style={{ marginBottom: 8 }}>Rivers Outside Vidzeme?</h3>
+          <p style={{ color: '#666', marginBottom: 24, fontSize: 15 }}>
+            We also offer trips on 18 rivers across Kurzeme, Zemgale, and Latgale.
+            These trips are booked directly with our regional branches.
+          </p>
+          <div style={{ display: 'grid', gap: 16 }}>
+            {phoneBranches.map(b => (
+              <div key={b.slug} style={{ background: '#fff', borderRadius: 12, padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+                <div style={{ textAlign: 'left' }}>
+                  <strong>{b.name}</strong>
+                  <div style={{ fontSize: 14, color: '#666' }}>{b.contactPerson} &middot; {b.rivers.length} rivers</div>
+                </div>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <a href={`tel:${b.phone}`} className="btn btn-primary" style={{ fontSize: 14, padding: '8px 16px' }}>
+                    Call {b.phone}
+                  </a>
+                  <a href={`mailto:${b.email}`} className="btn" style={{ fontSize: 14, padding: '8px 16px', border: '1px solid var(--primary)', color: 'var(--primary)' }}>
+                    Email
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p style={{ marginTop: 16, fontSize: 13, color: '#888' }}>
+            <Link href="/rivers" style={{ color: 'var(--primary)' }}>Browse all rivers</Link> to find your perfect trip.
+          </p>
         </div>
       </section>
     </>
