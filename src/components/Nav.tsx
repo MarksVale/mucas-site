@@ -1,17 +1,37 @@
 import Link from 'next/link'
+import { IconAccount } from './Icons'
+import { getSettings } from '@/lib/content'
+import MobileMenu from './MobileMenu'
 
-export function Nav() {
+// WooCommerce store URL — set in Vercel env vars, falls back to laivunoma.shop
+const STORE_URL = process.env.NEXT_PUBLIC_WC_STORE_URL || 'https://laivunoma.shop'
+
+export async function Nav() {
+  const settings = await getSettings()
   return (
-    <nav className="nav-transparent">
-      <Link href="/" className="logo">MUČAS</Link>
-      <div className="menu">
-        <Link href="/">Home</Link>
-        <Link href="/rivers">Rivers</Link>
-        <Link href="/fleet">Our Fleet</Link>
-        <Link href="/about">About</Link>
-        <Link href="/contact">Contact</Link>
-        <Link href="/booking" className="nav-cta">Book Now</Link>
+    <>
+      {/* Desktop nav — hidden on mobile */}
+      <nav className="nav-transparent nav-desktop">
+        <Link href="/" className="logo">{settings.brandNameShort}</Link>
+        <div className="menu">
+          <Link href="/">Home</Link>
+          <Link href="/rivers">Rivers</Link>
+          <Link href="/fleet">Our Fleet</Link>
+          <Link href="/about">About</Link>
+          <Link href="/contact">Contact</Link>
+          <Link href="/gallery">Gallery</Link>
+          <Link href="/blog">Blog</Link>
+          <a href={`${STORE_URL}/my-account`} className="nav-account" title="My Account">
+            <IconAccount size={18} strokeWidth={2} />
+          </a>
+          <Link href="/booking" className="nav-cta">Book Now</Link>
+        </div>
+      </nav>
+
+      {/* Mobile nav — hidden on desktop */}
+      <div className="nav-mobile">
+        <MobileMenu brandName={settings.brandNameShort} />
       </div>
-    </nav>
+    </>
   )
 }

@@ -1,10 +1,12 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  output: 'export', // Static export for Vercel
   images: {
-    unoptimized: true, // Required for static export — Cloudinary handles its own optimization via q_auto,f_auto
+    unoptimized: true, // Cloudinary handles its own optimization via q_auto,f_auto
   },
+  // Environment variable WC_STORE_URL (default: https://laivunoma.shop) is used
+  // in components to link to WooCommerce cart/checkout/account pages.
+  // No rewrites needed — two separate domains, same styling.
 }
 
 export default nextConfig

@@ -4,6 +4,9 @@ import { cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
 import BoatPhoto from '@/components/BoatPhoto'
 import { BoatIcon } from '@/components/Icons'
 import type { Metadata } from 'next'
+import { getFleetPage } from '@/lib/content'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Our Fleet | Mučas Laivu Noma',
@@ -11,7 +14,7 @@ export const metadata: Metadata = {
 }
 
 export default async function FleetPage() {
-  const boats = await getBoats()
+  const [boats, c] = await Promise.all([getBoats(), getFleetPage()])
 
   // Group by category
   const categories = boats.reduce<Record<string, typeof boats>>((acc, b) => {
@@ -24,8 +27,8 @@ export default async function FleetPage() {
     <>
       <section className="page-hero">
         <div className="container">
-          <h1>Our Fleet</h1>
-          <p>All boats available for your river adventure</p>
+          <h1>{c.heroHeading}</h1>
+          <p>{c.heroSubtitle}</p>
         </div>
       </section>
 
@@ -64,11 +67,11 @@ export default async function FleetPage() {
       <section className="section">
         <div className="container">
           <div className="cta-banner">
-            <h2>Ready to Hit the Water?</h2>
-            <p>Pick a route and book your boat.</p>
+            <h2>{c.ctaHeading}</h2>
+            <p>{c.ctaSubtitle}</p>
             <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
-              <Link href="/rivers" className="btn btn-white">Browse Routes</Link>
-              <Link href="/booking" className="btn btn-outline">Book Now</Link>
+              <Link href="/rivers" className="btn btn-white">{c.ctaBtn1}</Link>
+              <Link href="/booking" className="btn btn-outline">{c.ctaBtn2}</Link>
             </div>
           </div>
         </div>

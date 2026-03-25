@@ -50,7 +50,7 @@ export default async function RiversPage() {
                     <Link href={`/rivers/${r.slug}`} className="river-card" key={r.slug}>
                       <div className={`rc-img ${r.gradient}`}>
                         <div className="overlay" />
-                        <div style={{ position: 'relative', zIndex: 2 }}>
+                        <div style={{ position: 'relative', zIndex: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                           <h3>{r.name}</h3>
                           <span className="rc-badge">{r.routeCount} routes</span>
                         </div>

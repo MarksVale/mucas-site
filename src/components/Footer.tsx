@@ -1,9 +1,6 @@
 import Link from 'next/link'
-import { getBranches } from '@/lib/airtable'
 
-export async function Footer() {
-  const branches = await getBranches()
-
+export function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
@@ -28,16 +25,10 @@ export async function Footer() {
             <Link href="/booking">Book Now</Link>
           </div>
           <div className="footer-col">
-            <h4>Filiāles / Branches</h4>
-            {branches.map(b => (
-              <div key={b.slug} style={{ marginBottom: 12, fontSize: 14 }}>
-                <p style={{ margin: 0, fontWeight: 600 }}>{b.name}</p>
-                <p style={{ margin: '4px 0', color: 'var(--text-secondary)' }}>{b.contactPerson}</p>
-                <a href={`tel:${b.phone}`} style={{ color: 'var(--primary)', textDecoration: 'none' }}>
-                  {b.phone}
-                </a>
-              </div>
-            ))}
+            <h4>Contact</h4>
+            <a href="tel:+37129211634">+371 29 211 634</a>
+            <a href="mailto:info@laivunoma.com">info@laivunoma.com</a>
+            <p style={{ margin: '8px 0 0', fontSize: 14, color: 'var(--text-secondary)' }}>Sigulda, Latvia</p>
           </div>
         </div>
         <div className="footer-bottom">
@@ -48,3 +39,4 @@ export async function Footer() {
     </footer>
   )
 }
+
