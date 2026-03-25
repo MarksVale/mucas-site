@@ -8,6 +8,7 @@ export interface UnifiedRiver {
   routeCount: number
   bookable: boolean
   gradient: string
+  galleryCount: number
 }
 
 export async function getAllRivers(): Promise<UnifiedRiver[]> {
@@ -20,5 +21,6 @@ export async function getAllRivers(): Promise<UnifiedRiver[]> {
     routeCount: r.routeCount,
     bookable: r.bookingType === 'online',
     gradient: r.gradient,
+    galleryCount: r.galleryCount ?? 0,
   }))
 }
