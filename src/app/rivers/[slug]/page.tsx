@@ -32,17 +32,16 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
 
   if (!river) return <div className="container" style={{ padding: '80px 0' }}><h1>River not found</h1></div>
 
-  const hasPhotos = (content.galleryCount ?? 0) > 0
-  const galleryCount = content.galleryCount ?? 0
+  const galleryCount = Math.max(content.galleryCount ?? 0, 3)
 
   return (
     <>
-      {/* HERO */}
+      {/* HERO — always uses Cloudinary (falls back to Salaca if no own photo) */}
       <section
-        className={`river-hero ${river.gradient}${hasPhotos ? ' river-hero-photo' : ''}`}
-        style={hasPhotos ? { backgroundImage: `url(${cldHero('rivers', slug)})` } : undefined}
+        className={`river-hero ${river.gradient} river-hero-photo`}
+        style={{ backgroundImage: `url(${cldHero('rivers', slug)})` }}
       >
-        {hasPhotos && <div className="hero-overlay" />}
+        <div className="hero-overlay" />
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div className="river-hero-inner">
             <p className="breadcrumb" style={{ color: 'rgba(255,255,255,0.7)', marginBottom: 16 }}>
@@ -111,7 +110,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
             Gallery
           </h2>
           <PhotoCarousel
-            images={hasPhotos ? Array.from({ length: galleryCount }, (_, i) => cldGallery('rivers', slug, i + 1)) : []}
+            images={Array.from({ length: galleryCount }, (_, i) => cldGallery('rivers', slug, i + 1))}
             alt={`${river.name} river`}
           />
         </div>

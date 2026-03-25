@@ -25,6 +25,11 @@ export function cldGallery(type: 'rivers' | 'routes', slug: string, n: number): 
   return `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto${fallback}/mucas/${type}/${slug}/gallery-${n}`
 }
 
+/** River card thumbnail (600×340, smart-cropped). Falls back to Salaca. */
+export function cldCard(slug: string): string {
+  return `${BASE}/c_fill,g_auto,w_600,h_340,q_auto,f_auto,${RIVER_HERO_FALLBACK}/mucas/rivers/${slug}/hero`
+}
+
 /** Boat card photo (640×420, smart-cropped) */
 export function cldBoat(slug: string): string {
   return `${BASE}/c_fill,g_auto,w_640,h_420,q_auto,f_auto/mucas/boats/${slug}/hero`

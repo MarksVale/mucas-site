@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { UnifiedRiver } from '@/lib/all-rivers'
+import { cldCard } from '@/lib/cloudinary'
 
 export function RiverCard({ slug, name, gradient, routeCount, description, region, bookable }: UnifiedRiver) {
   const desc = description && description.length > 120
@@ -7,7 +8,10 @@ export function RiverCard({ slug, name, gradient, routeCount, description, regio
     : description
   return (
     <Link href={`/rivers/${slug}`} className="river-card">
-      <div className={`rc-img ${gradient}`}>
+      <div
+        className={`rc-img ${gradient}`}
+        style={{ backgroundImage: `url(${cldCard(slug)})` }}
+      >
         <div className="overlay" />
         <div className="rc-title-row">
           <h3>{name}</h3>
