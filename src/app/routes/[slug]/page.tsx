@@ -241,7 +241,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
               <div className="icard-icon"><IconTransport size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
               <div>
                 <h4>Transport</h4>
-                <p>Boat transport to start point and pickup at finish: {route.transportCost}€</p>
+                <p>Boat transport to start point and pickup at finish included</p>
               </div>
             </div>
             <div className="icard">
