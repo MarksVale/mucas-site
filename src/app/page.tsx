@@ -23,22 +23,28 @@ export default async function Home() {
 
   return (
     <>
-      {/* HERO */}
-      <section className="hero-full">
-        <div className="hero-inner">
-          <div className="hero-badge">{c.heroBadge}</div>
-          <h1>{c.heroHeading}</h1>
-          <p className="hero-sub">{c.heroSubtitle}</p>
-          <div className="hero-btns">
+      {/* HERO — full-bleed photo */}
+      <section className="hero-photo">
+        <img
+          src="https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto,w_1920,h_1080,c_fill,g_auto/mucas/rivers/gauja/hero"
+          alt="Kayaking on the Gauja river in Latvia"
+          className="hero-photo-bg"
+        />
+        <div className="hero-photo-overlay" />
+        <div className="hero-photo-inner">
+          <span className="hero-photo-badge">{c.heroBadge}</span>
+          <h1 className="hero-photo-title">{c.heroHeading}</h1>
+          <p className="hero-photo-sub">{c.heroSubtitle}</p>
+          <div className="hero-photo-btns">
             <Link href="/rivers" className="btn btn-white">{c.heroBtn1}</Link>
             <Link href="#how" className="btn btn-outline">{c.heroBtn2}</Link>
           </div>
-          <div className="hero-stats">
-            <div className="hero-stat"><div className="num">{allRivers.length}</div><div className="lbl">Rivers</div></div>
-            <div className="hero-stat"><div className="num">{allRoutes.length}</div><div className="lbl">Routes</div></div>
-            <div className="hero-stat"><div className="num">{allBoats.length}</div><div className="lbl">Boat Types</div></div>
-            <div className="hero-stat"><div className="num">{Math.min(...allBoats.map(b => b.pricePerDay))}€</div><div className="lbl">From / day</div></div>
-          </div>
+        </div>
+        <div className="hero-photo-stats">
+          <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">Rivers</span></div>
+          <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">Routes</span></div>
+          <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">Boat Types</span></div>
+          <div className="hps-item"><span className="hps-num">{Math.min(...allBoats.map(b => b.pricePerDay))}€</span><span className="hps-lbl">From / day</span></div>
         </div>
       </section>
 
