@@ -2,16 +2,15 @@ import Link from 'next/link'
 import type { UnifiedRiver } from '@/lib/all-rivers'
 import { cldCard } from '@/lib/cloudinary'
 
-export function RiverCard({ slug, name, gradient, routeCount, description, region, bookable, galleryCount }: UnifiedRiver) {
+export function RiverCard({ slug, name, gradient, routeCount, description, region, bookable }: UnifiedRiver) {
   const desc = description && description.length > 120
     ? description.slice(0, 120).trimEnd() + '…'
     : description
-  const hasPhoto = (galleryCount ?? 0) > 0
   return (
     <Link href={`/rivers/${slug}`} className="river-card">
       <div
         className={`rc-img ${gradient || 'gradient-gauja'}`}
-        style={hasPhoto ? { backgroundImage: `url(${cldCard(slug)})` } : undefined}
+        style={{ backgroundImage: `url(${cldCard(slug)})` }}
       >
         <div className="overlay" />
         <div className="rc-title-row">

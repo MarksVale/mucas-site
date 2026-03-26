@@ -1,5 +1,7 @@
 'use client'
 
+import { CLD_FALLBACK_URL } from '@/lib/cloudinary'
+
 interface Props {
   src: string
   fallback: string
@@ -16,9 +18,8 @@ export default function BoatPhoto({ src, fallback, alt, className }: Props) {
       className={className}
       onError={(e) => {
         const img = e.currentTarget
-        const svg = '/images/photo-placeholder.svg'
         if (img.src !== fallback) { img.src = fallback }
-        else if (img.src !== svg) { img.src = svg }
+        else if (img.src !== CLD_FALLBACK_URL) { img.src = CLD_FALLBACK_URL }
       }}
     />
   )

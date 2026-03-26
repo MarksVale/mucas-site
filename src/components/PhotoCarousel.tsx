@@ -1,17 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import { CLD_FALLBACK_URL } from '@/lib/cloudinary'
 
 interface Props {
   images: string[]
   alt: string
-  placeholder?: string
 }
 
 const VISIBLE = 3 // photos shown at once on desktop
 
-export default function PhotoCarousel({ images, alt, placeholder = '/images/photo-placeholder.svg' }: Props) {
-  const base = images.length > 0 ? images : [placeholder, placeholder, placeholder]
+export default function PhotoCarousel({ images, alt }: Props) {
+  const base = images.length > 0 ? images : [CLD_FALLBACK_URL, CLD_FALLBACK_URL, CLD_FALLBACK_URL]
   // Duplicate enough times so looping always has items to show
   const srcs = base.length < VISIBLE * 2 ? [...base, ...base, ...base] : [...base, ...base]
   const total = base.length
@@ -32,7 +32,7 @@ export default function PhotoCarousel({ images, alt, placeholder = '/images/phot
               loading={i < VISIBLE ? 'eager' : 'lazy'}
               onError={(e) => {
                 const img = e.currentTarget
-                if (img.src !== placeholder) img.src = placeholder
+                if (img.src !== CLD_FALLBACK_URL) img.src = CLD_FALLBACK_URL
               }}
             />
           </div>

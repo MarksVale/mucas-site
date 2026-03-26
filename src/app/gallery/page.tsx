@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getRivers, getRoutes } from '@/lib/airtable'
 import { getRiverContent, getRouteContent } from '@/lib/content'
-import { cldGallery } from '@/lib/cloudinary'
+import { cldGallery, cldHero } from '@/lib/cloudinary'
 import Link from 'next/link'
 import GalleryGrid from '@/components/GalleryGrid'
 
@@ -9,9 +9,6 @@ export const metadata: Metadata = {
   title: 'Gallery | Mučas Laivu Noma',
   description: 'Photos from our kayak, canoe, and raft trips on Latvia\'s most beautiful rivers — Gauja, Salaca, Brasla, and Amata.',
 }
-
-const CLOUD = 'mucas'
-const BASE = `https://res.cloudinary.com/${CLOUD}/image/upload`
 
 interface GalleryImage {
   src: string
@@ -29,15 +26,13 @@ export default async function GalleryPage() {
   // River hero + gallery images
   for (const river of rivers) {
     const content = getRiverContent(river.slug)
-    // Hero (uses Salaca fallback if no own hero exists)
     images.push({
-      src: `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto,d_mucas:rivers:salaca:hero/mucas/rivers/${river.slug}/hero`,
+      src: cldHero('rivers', river.slug).replace('w_1400,h_600', 'w_800,h_560'),
       alt: `${river.name} river`,
       river: river.name,
       link: `/rivers/${river.slug}`,
     })
-    // Gallery images (uses Salaca fallback if no own gallery photos exist)
-    const count = content.galleryCount ?? 0
+    const count = Math.max(content.galleryCount ?? 0, 3)
     for (let i = 1; i <= count; i++) {
       images.push({
         src: cldGallery('rivers', river.slug, i),
@@ -52,18 +47,16 @@ export default async function GalleryPage() {
   for (const route of routes) {
     const content = getRouteContent(route.slug)
     const riverName = rivers.find(r => r.slug === route.riverSlug)?.name ?? route.river
-    // Hero
     images.push({
-      src: `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/routes/${route.slug}/hero`,
+      src: cldHero('routes', route.slug).replace('w_1400,h_600', 'w_800,h_560'),
       alt: route.name,
       river: riverName,
       link: `/routes/${route.slug}`,
     })
-    // Gallery images
-    const count = content.galleryCount ?? 0
+    const count = Math.max(content.galleryCount ?? 0, 3)
     for (let i = 1; i <= count; i++) {
       images.push({
-        src: `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/routes/${route.slug}/gallery-${i}`,
+        src: cldGallery('routes', route.slug, i),
         alt: `${route.name} photo ${i}`,
         river: riverName,
         link: `/routes/${route.slug}`,

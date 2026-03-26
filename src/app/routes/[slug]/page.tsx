@@ -44,8 +44,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
 
   const content = getRouteContent(slug)
   const topHighlights = content.highlights.slice(0, 3)
-  const hasPhotos = (content.galleryCount ?? 0) > 0
-  const galleryCount = content.galleryCount ?? 0
+  const galleryCount = Math.max(content.galleryCount ?? 0, 3)
 
   // Duration display: hours only if 1 day, days count if multi-day
   const durationDisplay = route.days === 1 && content.hours
@@ -56,10 +55,10 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
     <>
       {/* HERO */}
       <section
-        className={`route-hero ${route.gradient}${hasPhotos ? ' route-hero-photo' : ''}`}
-        style={hasPhotos ? { backgroundImage: `url(${cldHero('routes', slug)})` } : undefined}
+        className={`route-hero ${route.gradient} route-hero-photo`}
+        style={{ backgroundImage: `url(${cldHero('routes', slug)})` }}
       >
-        {hasPhotos && <div className="hero-overlay" />}
+        <div className="hero-overlay" />
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div className="route-hero-inner">
             <p className="breadcrumb" style={{ marginBottom: 16 }}>
@@ -146,7 +145,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             Gallery
           </h2>
           <PhotoCarousel
-            images={hasPhotos ? Array.from({ length: galleryCount }, (_, i) => cldGallery('routes', slug, i + 1)) : []}
+            images={Array.from({ length: galleryCount }, (_, i) => cldGallery('routes', slug, i + 1))}
             alt={route.name}
           />
         </div>
