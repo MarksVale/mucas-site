@@ -28,7 +28,13 @@ export function Footer() {
             <h4>Contact</h4>
             <a href="tel:+37129211634">+371 29 211 634</a>
             <a href="mailto:info@laivunoma.com">info@laivunoma.com</a>
-            <p style={{ margin: '8px 0 0', fontSize: 14, color: 'var(--text-secondary)' }}>Sigulda, Latvia</p>
+            <p style={{ margin: '8px 0 0', fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              SIA „Mučas"<br />
+              Reģ. Nr.: LV40103263487<br />
+              Jāņa Čakstes 1-41, Sigulda, LV-2150<br />
+              A/S SEB banka UNLALV2X<br />
+              IBAN: LV90UNLA0055005842535
+            </p>
           </div>
         </div>
         <div className="footer-bottom">
