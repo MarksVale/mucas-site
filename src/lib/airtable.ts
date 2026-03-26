@@ -186,6 +186,7 @@ export async function getRivers(): Promise<River[]> {
 
   const records = await fetchTable('Rivers')
   return records
+    .filter((r: any) => r.fields?.['Active'])
     .map((r: any) => {
       const name = r.fields['River name'] || ''
       // Boat Types may be multi-select [{id,name,color}] or linked record IDs or a lookup text
@@ -214,7 +215,7 @@ export async function getRiver(slug: string): Promise<River | undefined> {
 }
 
 export async function getRoutes(): Promise<Route[]> {
-  if (!AIRTABLE_API_KEY) return FALLBACK_ROUTES.filter(r => r.active)
+  if (!AIRTABLE_API_KEY) return FALLBACK_ROUTES
 
   // Fetch rivers first so we can resolve linked record IDs → river name/slug
   const riverRecords = await fetchTable('Rivers')
@@ -233,7 +234,6 @@ export async function getRoutes(): Promise<Route[]> {
 
   const records = await fetchTable('Routes')
   return records
-    .filter((r: any) => r.fields?.['Active'])
     .map((r: any) => {
       // River: linked record → array of IDs, or multi-select object, or plain text
       const riverRaw = r.fields['River'] || []

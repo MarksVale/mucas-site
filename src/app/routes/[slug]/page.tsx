@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getRoute, getRoutesByRiver, getBoats } from '@/lib/airtable'
+import { getRoute, getRoutes, getRoutesByRiver, getBoats } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
@@ -15,37 +15,8 @@ import {
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
-  return [
-    { slug: 'valmiera-cesis' },
-    { slug: 'cesis-sigulda' },
-    { slug: 'strenci-valmiera' },
-    { slug: 'grivini-cesis' },
-    { slug: 'cesis-ligatne' },
-    { slug: 'ligatne-sigulda' },
-    { slug: 'sigulda-ramkalni' },
-    { slug: 'ligatne-ramkalni' },
-    { slug: 'valmiera-sigulda' },
-    { slug: 'valmiera-ligatne' },
-    { slug: 'janramis-sigulda' },
-    { slug: 'melturi-veclacu-tilts' },
-    { slug: 'zvartes-iezis-veclacu-tilts' },
-    { slug: 'mazsalaca-licu-skola' },
-    { slug: 'mazsalaca-staicele' },
-    { slug: 'staicele-salacgriva' },
-    { slug: 'staicele-sarkanas-klintis' },
-    { slug: 'mazsalaca-viku-tilts' },
-    { slug: 'rozula-vejini' },
-    { slug: 'rozula-a3-tilts' },
-    { slug: 'placis-a3-tilts' },
-    { slug: 'vejini-a3-tilts' },
-    { slug: 'placis-ieteka-gauja' },
-    { slug: 'vejini-ieteka-gauja' },
-    { slug: 'straupe-a3-tilts' },
-    { slug: 'straupe-ieteka-gauja' },
-    { slug: 'rozula-ieteka-gauja' },
-    { slug: 'placis-sigulda' },
-    { slug: 'straupe-sigulda' },
-  ]
+  const routes = await getRoutes()
+  return routes.map(r => ({ slug: r.slug }))
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
