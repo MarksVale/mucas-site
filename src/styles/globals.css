@@ -4,7 +4,7 @@
 :root {
   /* === New nature-close palette === */
   --color-bg:           #F5F0E8;
-  --color-bg-dark:      #1C2B1E;
+  --color-bg-dark:      #1A3322;
   --color-surface:      #EDE8DC;
   --color-surface-dark: #243226;
   --color-primary:      #2C4A2E;
@@ -22,7 +22,7 @@
   --accent:         var(--color-accent);
   --accent-hover:   #7a5c10;
   --tint:           #E8EDE4;
-  --dark:           #1C2B1E;
+  --dark:           #1A3322;
   --text:           var(--color-text);
   --text-secondary: #4A4438;
   --text-muted:     var(--color-text-muted);
@@ -510,14 +510,14 @@ img { max-width: 100%; display: block; }
 
 /* ===== GRADIENT HELPERS (used as hero bg fallbacks) ===== */
 .g-gauja { background: var(--color-bg-dark); }
-.g-salaca { background: #1a2e22; }
-.g-abava { background: #2a2218; }
+.g-salaca { background: #163828; }
+.g-abava { background: #25301e; }
 .g-daugava { background: var(--color-bg-dark); }
 .g-lielupe { background: var(--color-bg-dark); }
 .g-ogre { background: var(--color-bg-dark); }
-.g-amata { background: #212e21; }
-.g-venta { background: #261e18; }
-.g-brasla { background: #1c2e16; }
+.g-amata { background: #1c3320; }
+.g-venta { background: #20301e; }
+.g-brasla { background: #163620; }
 
 /* ===== SECTION HEADINGS ===== */
 .section-heading {
@@ -806,10 +806,10 @@ img { max-width: 100%; display: block; }
 }
 .route-hero-photo { background-size: cover !important; background-position: center !important; }
 .route-hero.g-gauja { background: var(--color-bg-dark); }
-.route-hero.g-salaca { background: #1a2e22; }
-.route-hero.g-abava { background: #2a2218; }
-.route-hero.g-brasla { background: #1c2e16; }
-.route-hero.g-amata { background: #212e21; }
+.route-hero.g-salaca { background: #163828; }
+.route-hero.g-abava { background: #25301e; }
+.route-hero.g-brasla { background: #163620; }
+.route-hero.g-amata { background: #1c3320; }
 .route-hero-inner { max-width: 800px; margin: 0 auto; }
 .route-hero .breadcrumb { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
 .route-hero .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: underline; }
@@ -829,10 +829,10 @@ img { max-width: 100%; display: block; }
 /* ===== RIVER HERO ===== */
 .river-hero { padding: 120px 20px 60px; text-align: center; color: white; position: relative; }
 .river-hero.g-gauja { background: var(--color-bg-dark); }
-.river-hero.g-salaca { background: #1a2e22; }
-.river-hero.g-abava { background: #2a2218; }
-.river-hero.g-brasla { background: #1c2e16; }
-.river-hero.g-amata { background: #212e21; }
+.river-hero.g-salaca { background: #163828; }
+.river-hero.g-abava { background: #25301e; }
+.river-hero.g-brasla { background: #163620; }
+.river-hero.g-amata { background: #1c3320; }
 .river-hero-photo { background-size: cover !important; background-position: center !important; }
 .river-hero-inner { max-width: 800px; margin: 0 auto; }
 .river-hero .breadcrumb { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
