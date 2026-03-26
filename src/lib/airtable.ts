@@ -186,7 +186,6 @@ export async function getRivers(): Promise<River[]> {
 
   const records = await fetchTable('Rivers')
   return records
-    .filter((r: any) => r.fields?.['Active'])
     .map((r: any) => {
       const name = r.fields['River name'] || ''
       // Boat Types may be multi-select [{id,name,color}] or linked record IDs or a lookup text
