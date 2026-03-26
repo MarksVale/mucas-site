@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { getRiver, getRivers, getRoutesByRiver, getBranchForRiver } from '@/lib/airtable'
 import { getRiverContent, getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery } from '@/lib/cloudinary'
-import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery, IconPhone, IconEmail } from '@/components/Icons'
+import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery, IconPhone, IconEmail, IconNature } from '@/components/Icons'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import type { Metadata } from 'next'
 
@@ -192,6 +192,24 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
             })}
           </div>
         </div>
+        )}
+
+        {/* LĪČU SKOLA BANNER — Salaca only */}
+        {slug === 'salaca' && (
+          <div className="page-section">
+            <div style={{ background: 'var(--tint)', border: '1px solid var(--border)', borderLeft: '4px solid var(--primary)', borderRadius: 'var(--radius)', padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
+              <IconNature size={28} strokeWidth={1.6} style={{ color: 'var(--primary)', flexShrink: 0 }} />
+              <div style={{ flex: 1, minWidth: 200 }}>
+                <h4 style={{ margin: '0 0 4px', fontSize: 16 }}>Looking for an overnight stop?</h4>
+                <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                  Līču skola campsite sits right on the Salaca — sauna, fire pit, and meals available on site.
+                </p>
+              </div>
+              <a href="https://licuskola.lv" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ flexShrink: 0, whiteSpace: 'nowrap' }}>
+                Learn more →
+              </a>
+            </div>
+          </div>
         )}
 
         {/* CTA */}
