@@ -22,8 +22,8 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await props.params
   const route = await getRoute(slug)
-  const content = getRouteContent(slug)
   if (!route) return { title: 'Route Not Found' }
+  const content = getRouteContent(route)
   return {
     title: `${route.name} | ${route.river} River | Mučas Laivu Noma`,
     description: content.description || `${route.name} on the ${route.river} river. ${route.days}-day trip.`,
@@ -42,7 +42,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
   const riverRoutes = await getRoutesByRiver(route.riverSlug)
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)
 
-  const content = getRouteContent(slug)
+  const content = getRouteContent(route)
   const topHighlights = content.highlights.slice(0, 3)
   const galleryCount = content.galleryCount ?? 0
 
@@ -300,7 +300,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             </h2>
             <div className="related-3">
               {relatedRoutes.map(r => {
-                const rc = getRouteContent(r.slug)
+                const rc = getRouteContent(r)
                 const daysValue = typeof r.days === 'string' ? parseInt(r.days) : r.days
                 return (
                   <Link href={`/routes/${r.slug}`} className="rel-card" key={r.slug}>

@@ -14,8 +14,8 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await props.params
   const river = await getRiver(slug)
-  const content = getRiverContent(slug)
   if (!river) return { title: 'River Not Found' }
+  const content = getRiverContent(river)
   return {
     title: `${river.name} River Kayak & Canoe Trips | Mučas Laivu Noma`,
     description: content.description || river.description || `Boat rentals on the ${river.name} river. ${river.routeCount} routes available.`,
@@ -25,12 +25,11 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 export default async function RiverPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
   const river = await getRiver(slug)
-  const routes = river ? await getRoutesByRiver(slug) : []
-
-  const content = getRiverContent(slug)
-  const branch = await getBranchForRiver(slug)
-
   if (!river) return <div className="container" style={{ padding: '80px 0' }}><h1>River not found</h1></div>
+
+  const routes = await getRoutesByRiver(slug)
+  const content = getRiverContent(river)
+  const branch = await getBranchForRiver(slug)
 
   const galleryCount = content.galleryCount ?? 0
 
@@ -166,7 +165,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
           </h2>
           <div className="route-list">
             {routes.map(r => {
-              const rc = getRouteContent(r.slug)
+              const rc = getRouteContent(r)
               const dur = r.days === 1 && rc.hours ? rc.hours + 'h' : `${r.days} days`
               return (
                 <Link href={`/routes/${r.slug}`} className="route-list-item" key={r.slug}>

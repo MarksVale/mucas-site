@@ -1,10 +1,4 @@
-import riversContent from '@/content/rivers.json'
-import routesContent from '@/content/routes.json'
-import {
-  getSanityRiverContent, getSanityRouteContent, getSanitySettings,
-  getSanityHomePage, getSanityAboutPage, getSanityContactPage,
-  getSanityBookingPage, getSanityFleetPage,
-} from '@/sanity/queries'
+import type { River, Route } from '@/lib/airtable'
 
 // ---- Site Settings ----
 export interface SiteSettings {
@@ -34,8 +28,6 @@ const DEFAULT_SETTINGS: SiteSettings = {
 }
 
 export async function getSettings(): Promise<SiteSettings> {
-  const sanity = await getSanitySettings()
-  if (sanity) return { ...DEFAULT_SETTINGS, ...sanity }
   return DEFAULT_SETTINGS
 }
 
@@ -52,7 +44,7 @@ export interface RiverContent {
   totalLength: number
   priceFrom: number
   photoUrl: string
-  galleryCount?: number   // number of gallery-N images in Cloudinary (0 = no photos yet)
+  galleryCount?: number
 }
 
 export interface RouteContent {
@@ -62,68 +54,46 @@ export interface RouteContent {
   km: number
   hours: string
   photoUrl: string
-  photos?: string[]         // array of photo URLs (Cloudinary / any CDN)
-  galleryCount?: number     // number of gallery-N images in Cloudinary (0 = no photos yet)
+  photos?: string[]
+  galleryCount?: number
   startLat?: number
   startLng?: number
   endLat?: number
   endLng?: number
 }
 
-const RIVER_FALLBACK: RiverContent = {
-  description: '', highlights: [], region: '',
-  season: 'May – October', totalLength: 0, priceFrom: 0, photoUrl: '',
-}
-
-const ROUTE_FALLBACK: RouteContent = {
-  description: '', highlights: [], difficulty: 'Easy',
-  km: 0, hours: '', photoUrl: '', photos: [],
-}
-
-// Sync version — reads from local JSON only (used in non-async contexts)
-export function getRiverContent(slug: string): RiverContent {
-  return (riversContent as Record<string, RiverContent>)[slug] ?? RIVER_FALLBACK
-}
-
-export function getRouteContent(slug: string): RouteContent {
-  return (routesContent as Record<string, RouteContent>)[slug] ?? ROUTE_FALLBACK
-}
-
-// Async version — tries Sanity first, falls back to local JSON
-export async function getRiverContentAsync(slug: string): Promise<RiverContent> {
-  const sanity = await getSanityRiverContent(slug)
-  if (sanity) {
-    const local = getRiverContent(slug)
-    return { ...local, ...sanity }
+export function getRiverContent(river: River): RiverContent {
+  return {
+    description: river.description,
+    highlights: river.highlights,
+    region: river.region,
+    season: river.season,
+    totalLength: river.totalLength,
+    priceFrom: river.priceFrom,
+    photoUrl: '',
+    galleryCount: river.galleryCount,
   }
-  return getRiverContent(slug)
 }
 
-export async function getRouteContentAsync(slug: string): Promise<RouteContent> {
-  const sanity = await getSanityRouteContent(slug)
-  if (sanity) {
-    const local = getRouteContent(slug)
-    return { ...local, ...sanity }
+export function getRouteContent(route: Route): RouteContent {
+  return {
+    description: route.description,
+    highlights: route.highlights,
+    difficulty: route.difficulty,
+    km: route.km,
+    hours: route.hours,
+    photoUrl: '',
+    galleryCount: 0,
+    startLat: route.startLat || undefined,
+    startLng: route.startLng || undefined,
+    endLat: route.endLat || undefined,
+    endLng: route.endLng || undefined,
   }
-  return getRouteContent(slug)
 }
 
 // =========================================================
-//  PAGE CONTENT — Sanity-first with hardcoded fallback
+//  PAGE CONTENT — hardcoded defaults
 // =========================================================
-
-// Helper: merge Sanity doc over defaults, filtering out null/undefined
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function merge<T extends Record<string, any>>(defaults: T, sanity: any): T {
-  if (!sanity) return defaults
-  const out = { ...defaults }
-  for (const k of Object.keys(defaults)) {
-    if (sanity[k] !== undefined && sanity[k] !== null) {
-      out[k as keyof T] = sanity[k]
-    }
-  }
-  return out
-}
 
 // ---- Home Page ----
 export interface HomePageContent {
@@ -199,7 +169,7 @@ const DEFAULT_HOME: HomePageContent = {
 }
 
 export async function getHomePage(): Promise<HomePageContent> {
-  return merge(DEFAULT_HOME, await getSanityHomePage())
+  return DEFAULT_HOME
 }
 
 // ---- About Page ----
@@ -248,7 +218,7 @@ const DEFAULT_ABOUT: AboutPageContent = {
 }
 
 export async function getAboutPage(): Promise<AboutPageContent> {
-  return merge(DEFAULT_ABOUT, await getSanityAboutPage())
+  return DEFAULT_ABOUT
 }
 
 // ---- Contact Page ----
@@ -273,7 +243,7 @@ const DEFAULT_CONTACT: ContactPageContent = {
 }
 
 export async function getContactPage(): Promise<ContactPageContent> {
-  return merge(DEFAULT_CONTACT, await getSanityContactPage())
+  return DEFAULT_CONTACT
 }
 
 // ---- Booking Page ----
@@ -288,7 +258,7 @@ const DEFAULT_BOOKING: BookingPageContent = {
 }
 
 export async function getBookingPage(): Promise<BookingPageContent> {
-  return merge(DEFAULT_BOOKING, await getSanityBookingPage())
+  return DEFAULT_BOOKING
 }
 
 // ---- Fleet Page ----
@@ -311,5 +281,5 @@ const DEFAULT_FLEET: FleetPageContent = {
 }
 
 export async function getFleetPage(): Promise<FleetPageContent> {
-  return merge(DEFAULT_FLEET, await getSanityFleetPage())
+  return DEFAULT_FLEET
 }

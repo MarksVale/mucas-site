@@ -1,29 +1,14 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { BLOG_POSTS } from '@/content/blog/posts'
-import { getSanityBlogPosts } from '@/sanity/queries'
-
-export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Blog | Mučas Laivu Noma',
   description: 'Tips, guides, and news about kayaking, canoeing, and river trips in Latvia. Everything you need to prepare for your adventure.',
 }
 
-export default async function BlogPage() {
-  // Try Sanity first, fallback to local posts
-  const sanityPosts = await getSanityBlogPosts()
-  const posts = sanityPosts && sanityPosts.length > 0
-    ? sanityPosts.map((p: Record<string, string>) => ({
-        slug: p.slug,
-        title: p.title,
-        excerpt: p.excerpt,
-        category: p.category,
-        date: p.date,
-        readTime: p.readTime,
-        heroEmoji: p.heroEmoji || '📝',
-      }))
-    : BLOG_POSTS
+export default function BlogPage() {
+  const posts = BLOG_POSTS
 
   return (
     <>
