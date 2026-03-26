@@ -5,7 +5,8 @@ import {
   Ruler, Clock, BarChart2, Bus, Waves, Map, Star, Camera,
   Info, Package, Sun, AlertTriangle, Navigation, Anchor,
   Wind, Layers, ChevronRight, Phone, Mail, MapPin, Calendar,
-  User, Users, ArrowRight, TreePine, Mountain, ShoppingCart
+  User, Users, ArrowRight, TreePine, Mountain, ShoppingCart,
+  Shield, MessageCircle, Sailboat
 } from 'lucide-react'
 
 export {
@@ -37,6 +38,9 @@ export {
   Mountain as IconTerrain,
   ShoppingCart as IconCart,
   User as IconAccount,
+  Shield as IconSafety,
+  MessageCircle as IconExpertise,
+  Sailboat as IconSailboat,
 }
 
 // Boat type icons — consistent throughout the site

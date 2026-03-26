@@ -3,6 +3,14 @@ import { getRoutes, getBoats } from '@/lib/airtable'
 import { getAllRivers } from '@/lib/all-rivers'
 import { getHomePage } from '@/lib/content'
 import { RiverCard } from '@/components/RiverCard'
+import { IconSafety, IconTransport, IconExpertise, IconSeats, IconSailboat } from '@/components/Icons'
+
+const WHY_ICONS = [
+  <IconSafety size={28} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
+  <IconTransport size={28} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
+  <IconExpertise size={28} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
+  <IconSeats size={28} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
+]
 
 export const revalidate = 60
 
@@ -86,7 +94,7 @@ export default async function Home() {
               <Link href={`/routes/${r.slug}`} className="route-card" key={r.slug}>
                 <div className={`rtc-top ${r.gradient}`}>
                   <span className="rtc-diff">{r.days} {r.days === 1 ? 'day' : 'days'}</span>
-                  🛶
+                  <IconSailboat size={32} strokeWidth={1.6} />
                 </div>
                 <div className="rtc-body">
                   <h4>{r.name}</h4>
@@ -110,7 +118,7 @@ export default async function Home() {
           <div className="feature-grid">
             {c.whyFeatures.map((f, i) => (
               <div className="feature" key={i}>
-                <div className="icon">{f.icon}</div>
+                <div className="icon">{WHY_ICONS[i % WHY_ICONS.length]}</div>
                 <h4>{f.title}</h4>
                 <p>{f.description}</p>
               </div>
