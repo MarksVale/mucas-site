@@ -49,6 +49,7 @@ export interface River {
   region: string
   bookingType: 'online' | 'phone'
   description: string
+  galleryCount: number
 }
 
 export interface Route {
@@ -98,10 +99,10 @@ export interface Hub {
 // =============================================
 
 const FALLBACK_RIVERS: River[] = [
-  { slug: 'gauja', name: 'Gauja', active: true, routeCount: 11, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-gauja', region: 'Vidzeme', bookingType: 'online', description: '' },
-  { slug: 'amata', name: 'Amata', active: true, routeCount: 2, boatCategories: ['Rafts'], gradient: 'g-amata', region: 'Vidzeme', bookingType: 'online', description: '' },
-  { slug: 'salaca', name: 'Salaca', active: true, routeCount: 5, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-salaca', region: 'Vidzeme', bookingType: 'online', description: '' },
-  { slug: 'brasla', name: 'Brasla', active: true, routeCount: 11, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-brasla', region: 'Vidzeme', bookingType: 'online', description: '' },
+  { slug: 'gauja', name: 'Gauja', active: true, routeCount: 11, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-gauja', region: 'Vidzeme', bookingType: 'online', description: '', galleryCount: 3 },
+  { slug: 'amata', name: 'Amata', active: true, routeCount: 2, boatCategories: ['Rafts'], gradient: 'g-amata', region: 'Vidzeme', bookingType: 'online', description: '', galleryCount: 3 },
+  { slug: 'salaca', name: 'Salaca', active: true, routeCount: 5, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-salaca', region: 'Vidzeme', bookingType: 'online', description: '', galleryCount: 5 },
+  { slug: 'brasla', name: 'Brasla', active: true, routeCount: 11, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-brasla', region: 'Vidzeme', bookingType: 'online', description: '', galleryCount: 3 },
 ]
 
 const FALLBACK_ROUTES: Route[] = [
@@ -202,6 +203,7 @@ export async function getRivers(): Promise<River[]> {
         region: r.fields['Region']?.name || r.fields['Region'] || '',
         bookingType: (r.fields['Booking Type']?.name || r.fields['Booking Type'] || 'online') as 'online' | 'phone',
         description: r.fields['Description'] || '',
+        galleryCount: r.fields['Gallery Count'] || 0,
       }
     })
 }
