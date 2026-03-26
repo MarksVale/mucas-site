@@ -33,7 +33,6 @@ export default function MobileMenu({ brandName }: { brandName: string }) {
         <Link href="/fleet" onClick={close}>Our Fleet</Link>
         <Link href="/about" onClick={close}>About</Link>
         <Link href="/contact" onClick={close}>Contact</Link>
-        <Link href="/gallery" onClick={close}>Gallery</Link>
         <Link href="/blog" onClick={close}>Blog</Link>
         <a href={`${STORE_URL}/my-account`} onClick={close} className="mob-account">
           <IconAccount size={16} strokeWidth={2} /> My Account
