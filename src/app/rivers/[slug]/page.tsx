@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { getRiver, getRivers, getRoutesByRiver, getBranchForRiver } from '@/lib/airtable'
 import { getRiverContent, getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery } from '@/lib/cloudinary'
-import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery } from '@/components/Icons'
+import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery, IconPhone, IconEmail } from '@/components/Icons'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import type { Metadata } from 'next'
 
@@ -156,6 +156,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
         )}
 
         {/* ROUTES LIST */}
+        {routes.length > 0 && (
         <div className="page-section">
           <h2 className="stitle">
             <span className="stitle-icon"><IconRoute size={22} strokeWidth={1.8} /></span>
@@ -189,6 +190,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
             })}
           </div>
         </div>
+        )}
 
         {/* CTA */}
         <div className="page-section">
@@ -207,13 +209,13 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
                 <p>Contact our {branch.name} branch to book your trip.</p>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
                   <a href={`tel:${branch.phone}`} className="btn btn-white">
-                    📞 Call to Book
+                    <IconPhone size={16} strokeWidth={2} /> Call to Book
                   </a>
                   <a href={`mailto:${branch.email}`} className="btn btn-outline">
-                    ✉️ Write to Us
+                    <IconEmail size={16} strokeWidth={2} /> Write to Us
                   </a>
                 </div>
-                <p style={{ marginTop: 16, fontSize: 14, color: 'var(--text-secondary)' }}>
+                <p style={{ marginTop: 16, fontSize: 14, color: 'white', fontWeight: 700 }}>
                   {branch.contactPerson} • {branch.phone}
                 </p>
               </>
