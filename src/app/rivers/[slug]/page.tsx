@@ -32,7 +32,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
 
   if (!river) return <div className="container" style={{ padding: '80px 0' }}><h1>River not found</h1></div>
 
-  const galleryCount = Math.max(content.galleryCount ?? 0, 3)
+  const galleryCount = content.galleryCount ?? 0
 
   return (
     <>
@@ -104,16 +104,18 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
         )}
 
         {/* GALLERY */}
-        <div className="page-section">
-          <h2 className="stitle">
-            <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
-            Gallery
-          </h2>
-          <PhotoCarousel
-            images={Array.from({ length: galleryCount }, (_, i) => cldGallery('rivers', slug, i + 1))}
-            alt={`${river.name} river`}
-          />
-        </div>
+        {galleryCount > 0 && (
+          <div className="page-section">
+            <h2 className="stitle">
+              <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
+              Gallery
+            </h2>
+            <PhotoCarousel
+              images={Array.from({ length: galleryCount }, (_, i) => cldGallery('rivers', slug, i + 1))}
+              alt={`${river.name} river`}
+            />
+          </div>
+        )}
 
         {/* HIGHLIGHTS — max 3 */}
         {content.highlights.length > 0 && (

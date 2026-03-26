@@ -44,7 +44,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
 
   const content = getRouteContent(slug)
   const topHighlights = content.highlights.slice(0, 3)
-  const galleryCount = Math.max(content.galleryCount ?? 0, 3)
+  const galleryCount = content.galleryCount ?? 0
 
   // Duration display: hours only if 1 day, days count if multi-day
   const durationDisplay = route.days === 1 && content.hours
@@ -139,16 +139,18 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
         )}
 
         {/* GALLERY */}
-        <div className="page-section">
-          <h2 className="stitle">
-            <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
-            Gallery
-          </h2>
-          <PhotoCarousel
-            images={Array.from({ length: galleryCount }, (_, i) => cldGallery('routes', slug, i + 1))}
-            alt={route.name}
-          />
-        </div>
+        {galleryCount > 0 && (
+          <div className="page-section">
+            <h2 className="stitle">
+              <span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>
+              Gallery
+            </h2>
+            <PhotoCarousel
+              images={Array.from({ length: galleryCount }, (_, i) => cldGallery('routes', slug, i + 1))}
+              alt={route.name}
+            />
+          </div>
+        )}
 
         {/* AVAILABLE BOATS */}
         {availableBoats.length > 0 && (

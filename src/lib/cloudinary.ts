@@ -9,8 +9,8 @@
 const CLOUD = 'mucas'
 const BASE = `https://res.cloudinary.com/${CLOUD}/image/upload`
 
-// Single global fallback — the Salaca hero is always in Cloudinary
-const FALLBACK = 'd_mucas:rivers:salaca:hero'
+// Single global fallback — confirmed to exist in Cloudinary
+const FALLBACK = 'd_mucas:routes:abavas-rumba-renda:hero'
 
 /** Full-width hero (1400×600, smart-cropped). Falls back to Salaca hero. */
 export function cldHero(type: 'rivers' | 'routes', slug: string): string {
@@ -36,4 +36,4 @@ export function cldBoat(slug: string): string {
 export const CLD_BOAT_FALLBACK = `${BASE}/c_fill,g_auto,w_640,h_420,q_auto,f_auto,${FALLBACK}/mucas/boats/fallback/hero`
 
 /** Pre-built fallback URL for client components (onError handlers etc.) */
-export const CLD_FALLBACK_URL = `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/rivers/salaca/hero`
+export const CLD_FALLBACK_URL = `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/routes/abavas-rumba-renda/hero`
