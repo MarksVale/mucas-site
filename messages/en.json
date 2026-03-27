@@ -178,6 +178,7 @@
     "bookOnlineTitle": "Book Online",
     "bookOnlineDesc": "Pick a route, fill the form, and pay securely online.",
     "callToBookTitle": "Call to Book",
-    "callToBookDesc": "Contact the local branch by phone or email."
+    "callToBookDesc": "Contact the local branch by phone or email.",
+    "routesLabel": "routes"
   }
 }
