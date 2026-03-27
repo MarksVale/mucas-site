@@ -1,4 +1,5 @@
 import { getAllRivers } from '@/lib/all-rivers'
+import { getTranslations } from 'next-intl/server'
 import PageHero from '@/components/PageHero'
 import { RiverCard } from '@/components/RiverCard'
 import type { Metadata } from 'next'
@@ -24,6 +25,7 @@ export default async function RiversPage() {
   const allRivers = await getAllRivers()
 
   const regionOrder = ['Vidzeme', 'Kurzeme', 'Zemgale', 'Latgale']
+  const t = await getTranslations('rivers')
   const riversByRegion = regionOrder.reduce((acc, region) => {
     acc[region] = allRivers.filter(r => r.region === region)
     return acc
@@ -31,15 +33,15 @@ export default async function RiversPage() {
 
   return (
     <>
-      <PageHero heading="Our Rivers" subtitle="22 rivers across 4 regions with routes for every skill level" />
+      <PageHero heading={t('heading')} subtitle={t('subtitle')} />
 
       <section style={{ background: 'var(--white-smoke)', padding: '24px 0' }}>
         <div className="container" style={{ display: 'flex', gap: 32, flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', fontSize: 15, color: 'var(--text-secondary)' }}>
           <div>
-            <strong style={{ color: 'var(--primary)' }}>Book Online</strong> - pick a route, fill the form, and pay securely online
+            <strong style={{ color: 'var(--primary)' }}>{t('bookOnlineTitle')}</strong> - {t('bookOnlineDesc')}
           </div>
           <div style={{ borderLeft: '1px solid #ccc', paddingLeft: 32 }}>
-            <strong style={{ color: 'var(--text-primary)' }}>Call to Book</strong> - contact the local branch by phone or email
+            <strong style={{ color: 'var(--text-primary)' }}>{t('callToBookTitle')}</strong> - {t('callToBookDesc')}
           </div>
         </div>
       </section>
