@@ -50,7 +50,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Montserrat', sans-serif; color: var(--text); background: #ECEAD4 !important; line-height: 1.6; }
+body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
@@ -598,7 +598,7 @@ img { max-width: 100%; display: block; }
 .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
 /* ===== FOOTER ===== */
-.footer { background: #24943A !important; color: var(--color-text-inverse); padding: 64px 24px 32px; position: relative; }
+.footer { background: var(--color-bg-dark); color: var(--color-text-inverse); padding: 64px 24px 32px; position: relative; }
 .footer::before {
   content: ''; position: absolute;
   top: -69px; left: 0; right: 0; height: 70px;
