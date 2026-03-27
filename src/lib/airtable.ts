@@ -98,6 +98,7 @@ export interface BoatType {
   seats: number
   pricePerDay: number
   active: boolean
+  cloudinaryId: string
 }
 
 export interface Hub {
@@ -158,19 +159,19 @@ const FALLBACK_ROUTES: Route[] = [
 ]
 
 const FALLBACK_BOATS: BoatType[] = [
-  { slug: 'kajaks-vista', name: 'Kajaks VISTA', category: 'Kayaks', seats: 2, pricePerDay: 20, active: true },
-  { slug: 'perception-pescador', name: 'Perception PESCADOR', category: 'Kayaks', seats: 1, pricePerDay: 15, active: true },
-  { slug: 'kanoe-loxia', name: 'Kanoe LOXIA', category: 'Canoes', seats: 3, pricePerDay: 20, active: true },
-  { slug: 'kanoe-rotoattivo-canadier-3', name: 'Kanoe ROTOATTIVO CANADIER 3', category: 'Canoes', seats: 3, pricePerDay: 20, active: true },
-  { slug: 'kanoe-alba', name: 'Kanoe ALBA', category: 'Canoes', seats: 3, pricePerDay: 20, active: true },
-  { slug: 'kanoe-pelican', name: 'Kanoe PELICAN', category: 'Canoes', seats: 3, pricePerDay: 20, active: true },
-  { slug: 'sup-bee', name: 'SUP Bee', category: 'SUP', seats: 1, pricePerDay: 20, active: true },
-  { slug: 'dulkan-amata-300', name: 'DULKAN Amata 300', category: 'Rafts', seats: 2, pricePerDay: 35, active: true },
-  { slug: 'bush-venta-300', name: 'BUSH Venta 300', category: 'Rafts', seats: 3, pricePerDay: 35, active: true },
-  { slug: 'dulkan-raft-330', name: 'DULKAN Raft 330', category: 'Rafts', seats: 4, pricePerDay: 45, active: true },
-  { slug: 'dulkan-raft-460', name: 'DULKAN Raft 460', category: 'Rafts', seats: 9, pricePerDay: 65, active: true },
-  { slug: 'viking-10', name: 'Piepūšamais plosts VIKING 10', category: 'Big Rafts', seats: 10, pricePerDay: 35, active: false },
-  { slug: 'viking-20', name: 'Piepūšamais plosts VIKING 20', category: 'Big Rafts', seats: 20, pricePerDay: 50, active: false },
+  { slug: 'kajaks-vista', name: 'Kajaks VISTA', category: 'Kayaks', seats: 2, pricePerDay: 20, active: true, cloudinaryId: 'Kajaks_VISTA_t531t5' },
+  { slug: 'perception-pescador', name: 'Perception PESCADOR', category: 'Kayaks', seats: 1, pricePerDay: 15, active: true, cloudinaryId: '' },
+  { slug: 'kanoe-loxia', name: 'Kanoe LOXIA', category: 'Canoes', seats: 3, pricePerDay: 20, active: true, cloudinaryId: 'Kanoe_LOXIA_dcbp10' },
+  { slug: 'kanoe-rotoattivo-canadier-3', name: 'Kanoe ROTOATTIVO CANADIER 3', category: 'Canoes', seats: 3, pricePerDay: 20, active: true, cloudinaryId: 'Kanoe_ROTOATTIVO_CANADIER_3_gkjcu5' },
+  { slug: 'kanoe-alba', name: 'Kanoe ALBA', category: 'Canoes', seats: 3, pricePerDay: 20, active: true, cloudinaryId: 'Kanoe_ALBA_yj3wmf' },
+  { slug: 'kanoe-pelican', name: 'Kanoe PELICAN', category: 'Canoes', seats: 3, pricePerDay: 20, active: true, cloudinaryId: 'Kanoe_PELICAN_gq0shq' },
+  { slug: 'sup-bee', name: 'SUP Bee', category: 'SUP', seats: 1, pricePerDay: 20, active: true, cloudinaryId: 'SUP_Bee_o2dojg' },
+  { slug: 'dulkan-amata-300', name: 'DULKAN Amata 300', category: 'Rafts', seats: 2, pricePerDay: 35, active: true, cloudinaryId: 'DULKAN_Raft_330_uw4lts' },
+  { slug: 'bush-venta-300', name: 'BUSH Venta 300', category: 'Rafts', seats: 3, pricePerDay: 35, active: true, cloudinaryId: 'BUSH_Venta_300_vc3hi0' },
+  { slug: 'dulkan-raft-330', name: 'DULKAN Raft 330', category: 'Rafts', seats: 4, pricePerDay: 45, active: true, cloudinaryId: 'Dunkan_Amata_300_zombji' },
+  { slug: 'dulkan-raft-460', name: 'DULKAN Raft 460', category: 'Rafts', seats: 9, pricePerDay: 65, active: true, cloudinaryId: 'Dunkan_Raft_460_n0pjak' },
+  { slug: 'viking-10', name: 'Piepūšamais plosts VIKING 10', category: 'Big Rafts', seats: 10, pricePerDay: 35, active: false, cloudinaryId: '' },
+  { slug: 'viking-20', name: 'Piepūšamais plosts VIKING 20', category: 'Big Rafts', seats: 20, pricePerDay: 50, active: false, cloudinaryId: '' },
 ]
 
 // Helper: make a URL-safe slug from a route/river name
@@ -350,6 +351,7 @@ export async function getBoats(): Promise<BoatType[]> {
       seats: r.fields['Seating Capacity'] || 0,
       pricePerDay: r.fields['Price per day'] || 0,
       active: r.fields['Active'] || false,
+      cloudinaryId: r.fields['cloudinaryId'] || '',
     }))
 }
 

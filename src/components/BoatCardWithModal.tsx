@@ -10,6 +10,7 @@ interface Boat {
   name: string
   category: string
   seats: number
+  cloudinaryId: string
 }
 
 interface Props {
@@ -48,7 +49,7 @@ export default function BoatCardWithModal({ boat, seatLabel, seatsLabel }: Props
       >
         <div className="bc-photo">
           <Image
-            src={cldBoat(boat.name)}
+            src={cldBoat(boat.cloudinaryId)}
             alt={boat.name}
             width={640}
             height={420}
@@ -74,7 +75,7 @@ export default function BoatCardWithModal({ boat, seatLabel, seatsLabel }: Props
 
             <div className="bm-image">
               <Image
-                src={cldBoatFull(boat.name)}
+                src={cldBoatFull(boat.cloudinaryId)}
                 alt={boat.name}
                 width={1200}
                 height={800}

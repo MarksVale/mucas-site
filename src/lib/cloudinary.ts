@@ -3,32 +3,15 @@ const CLOUD = 'mucas'
 const BASE = `https://res.cloudinary.com/${CLOUD}/image/upload`
 const FALLBACK = 'd_mucas:routes:abavas-rumba-renda:hero'
 
-/** Maps boat name → Cloudinary public_id (images stored in mucas/boats/<name>/) */
-const BOAT_IMAGE_MAP: Record<string, string> = {
-  'Kajaks VISTA':                'Kajaks_VISTA_t531t5',
-  'SUP Bee':                     'SUP_Bee_o2dojg',
-  'Perception SCOOTER':          'Perception_SCOOTER_g9e8dg',
-  'Kanoe LOXIA':                 'Kanoe_LOXIA_dcbp10',
-  'Kanoe ROTOATTIVO CANADIER 3': 'Kanoe_ROTOATTIVO_CANADIER_3_gkjcu5',
-  'Kanoe ALBA':                  'Kanoe_ALBA_yj3wmf',
-  'DULKAN Amata 300':            'DULKAN_Raft_330_uw4lts',
-  'DULKAN Raft 330':             'Dunkan_Amata_300_zombji',
-  'DULKAN Raft 460':             'Dunkan_Raft_460_n0pjak',
-  'Kanoe PELICAN':               'Kanoe_PELICAN_gq0shq',
-  'BUSH Venta 300':              'BUSH_Venta_300_vc3hi0',
-}
-
-/** Boat card thumbnail (640×420) — uses real public_id, falls back to generic hero */
-export function cldBoat(boatName: string): string {
-  const pid = BOAT_IMAGE_MAP[boatName]
-  if (pid) return `${BASE}/c_fill,g_auto,w_640,h_420,q_auto,f_auto/${pid}`
+/** Boat card thumbnail (640×420) — cloudinaryId comes from Airtable */
+export function cldBoat(cloudinaryId: string): string {
+  if (cloudinaryId) return `${BASE}/c_fill,g_auto,w_640,h_420,q_auto,f_auto/${cloudinaryId}`
   return CLD_BOAT_FALLBACK
 }
 
 /** Boat modal full-size image (1200×800) */
-export function cldBoatFull(boatName: string): string {
-  const pid = BOAT_IMAGE_MAP[boatName]
-  if (pid) return `${BASE}/c_fill,g_auto,w_1200,h_800,q_auto,f_auto/${pid}`
+export function cldBoatFull(cloudinaryId: string): string {
+  if (cloudinaryId) return `${BASE}/c_fill,g_auto,w_1200,h_800,q_auto,f_auto/${cloudinaryId}`
   return CLD_BOAT_FALLBACK
 }
 
