@@ -1,8 +1,10 @@
+import React from 'react'
 import { Link } from '@/i18n/navigation'
 import PageHero from '@/components/PageHero'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getAboutPage } from '@/lib/content'
+import { IconGlobe, IconHandshake, IconSafety, IconAccessibility } from '@/components/Icons'
 
 export const revalidate = 60
 
@@ -24,6 +26,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const c = await getAboutPage(locale)
+
+  const valueIconMap: Record<string, React.ReactNode> = {
+    globe: <IconGlobe size={32} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
+    handshake: <IconHandshake size={32} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
+    shield: <IconSafety size={32} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
+    accessibility: <IconAccessibility size={32} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
+  }
 
   return (
     <>
@@ -51,7 +60,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <div className="feature-grid">
             {c.values.map((v, i) => (
               <div className="feature" key={i}>
-                <div className="icon">{v.icon}</div>
+                <div className="icon">{valueIconMap[v.icon] ?? v.icon}</div>
                 <h4>{v.title}</h4>
                 <p>{v.description}</p>
               </div>
