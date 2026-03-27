@@ -202,7 +202,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
                 <h2>{t('readyTitle')}</h2>
                 <p>{t('readyDesc')}</p>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-                  <Link href={{ pathname: '/booking', query: { route: route.slug } }} className="btn btn-white">{t('bookRoute')}</Link>
+                  <Link href={{ pathname: '/booking', query: { route: route.slug } }} className="btn btn-primary">{t('bookRoute')}</Link>
                   <Link href="/contact" className="btn btn-outline">{t('askQuestion')}</Link>
                 </div>
               </>
@@ -214,13 +214,13 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, marginTop: 8 }}>
                     {branch.contactPerson && <p style={{ margin: 0, fontWeight: 600, fontSize: 16, color: 'var(--color-white, #fff)' }}>{branch.contactPerson} · {branch.name}</p>}
                     <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap', marginTop: 8 }}>
-                      {branch.phone && <a href={`tel:${branch.phone.replace(/\s/g, '')}`} className="btn btn-white">{t('callPhone', { phone: branch.phone })}</a>}
+                      {branch.phone && <a href={`tel:${branch.phone.replace(/\s/g, '')}`} className="btn btn-primary">{t('callPhone', { phone: branch.phone })}</a>}
                       {branch.email && <a href={`mailto:${branch.email}?subject=Route enquiry: ${encodeURIComponent(route.name)}`} className="btn btn-outline">{t('emailUs')}</a>}
                     </div>
                   </div>
                 ) : (
                   <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-                    <Link href="/contact" className="btn btn-white">{c('contactUs')}</Link>
+                    <Link href="/contact" className="btn btn-primary">{c('contactUs')}</Link>
                   </div>
                 )}
               </>
