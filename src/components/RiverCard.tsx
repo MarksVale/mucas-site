@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import type { UnifiedRiver } from '@/lib/all-rivers'
 import { cldCard } from '@/lib/cloudinary'
 
