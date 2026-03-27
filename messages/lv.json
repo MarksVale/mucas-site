@@ -56,7 +56,12 @@
   "fleet": {
     "day": "dienā",
     "seat": "vieta",
-    "seats": "vietas"
+    "seats": "vietas",
+    "specLength": "Garums",
+    "specWidth": "Platums",
+    "specCapacity": "Ietilpība",
+    "specSeats": "Vietas",
+    "specWeight": "Svars"
   },
   "contact": {
     "phoneWhatsapp": "Tālrunis un WhatsApp",
@@ -144,9 +149,9 @@
     "mapFinish": "Finišs",
     "mapComingSoon": "Karte drīzumā",
     "included": "Iekļauts Cenā",
-    "includedDesc": "Airi, glābšanas vestes, ūdensnecaurlaidīgs maiss",
+    "includedDesc": "Airi, glābšanas vestes, ūdensnecaurlaidīgs maiss.",
     "transport": "Transports",
-    "transportDesc": "Transportēšana uz sākumpunktu un paņemšana finišā iekļauta",
+    "transportDesc": "Transportēšana uz sākumpunktu un paņemšana finišā iekļauta.",
     "bestTime": "Labākais Laiks",
     "bestTimeDesc": "Maijs — Septembris. Ūdens līmenis ir optimāls vasaras mēnešos.",
     "notes": "Piezīmes",
@@ -166,5 +171,13 @@
     "emailUs": "Rakstīt Mums",
     "contactUs": "Sazināties",
     "otherRoutes": "Citi {river} Maršruti"
+  },
+  "rivers": {
+    "heading": "Mūsų Upes",
+    "subtitle": "22 upes 4 reģionos ar maršrutiem visiem prasmju līmeņiem.",
+    "bookOnlineTitle": "Rezervē Tiešsaistē",
+    "bookOnlineDesc": "Izvēlies maršrutu, aizpildi formu un maksā droši tiešsaistē.",
+    "callToBookTitle": "Zvani un Rezervē",
+    "callToBookDesc": "Sazinieties ar vietējo filīāli pa tālruni vai e-pastu."
   }
 }
