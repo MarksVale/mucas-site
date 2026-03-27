@@ -1,12 +1,23 @@
 import { getRoutes, getBoats, getBranches } from '@/lib/airtable'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getBookingPage } from '@/lib/content'
 import { getTranslations } from 'next-intl/server'
 
-export const metadata: Metadata = {
-  title: 'Book Your Trip | Mučas Laivu Noma',
-  description: 'Book a kayak, canoe, or raft trip on Latvia\'s rivers.',
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const isLv = locale !== 'en'
+  const title = isLv ? `Rezervēt Braucienu | ${SITE_NAME}` : `Book Your Trip | ${SITE_NAME}`
+  const description = isLv
+    ? "Rezervē kajaku, kanoe vai plosta braucienu Latvijas upēs. Izvēlies maršrutu, ņem laivu un dodies uz ūdens."
+    : "Book a kayak, canoe, or raft trip on Latvia's rivers. Choose your route, pick a boat, and hit the water."
+  return {
+    title, description,
+    alternates: buildAlternates('/booking'),
+    openGraph: buildOpenGraph({ locale, title, description, path: '/booking' }),
+    twitter: twitterCard,
+  }
 }
 
 export default async function BookingPage({ params }: { params: Promise<{ locale: string }> }) {

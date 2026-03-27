@@ -13,20 +13,32 @@ import {
   IconMap, IconRoute, IconNature
 } from '@/components/Icons'
 import type { Metadata } from 'next'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 
 export async function generateStaticParams() {
   const routes = await getRoutes()
   return routes.map(r => ({ slug: r.slug }))
 }
 
-export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await props.params
+export async function generateMetadata(props: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
+  const { locale, slug } = await props.params
   const route = await getRoute(slug)
   if (!route) return { title: 'Route Not Found' }
   const content = getRouteContent(route)
+  const isLv = locale !== 'en'
+  const title = isLv
+    ? `${route.name} | ${route.river} upe | ${SITE_NAME}`
+    : `${route.name} | ${route.river} River | ${SITE_NAME}`
+  const description = content.description
+    || (isLv
+      ? `${route.name} uz ${route.river} upes. ${route.days} dienu brauciens.`
+      : `${route.name} on the ${route.river} river. ${route.days}-day trip.`)
   return {
-    title: `${route.name} | ${route.river} River | Mučas Laivu Noma`,
-    description: content.description || `${route.name} on the ${route.river} river. ${route.days}-day trip.`,
+    title,
+    description,
+    alternates: buildAlternates(`/routes/${slug}`),
+    openGraph: buildOpenGraph({ locale, title, description, path: `/routes/${slug}` }),
+    twitter: twitterCard,
   }
 }
 

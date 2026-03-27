@@ -4,14 +4,25 @@ import { cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
 import BoatPhoto from '@/components/BoatPhoto'
 import { BoatIcon } from '@/components/Icons'
 import type { Metadata } from 'next'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getFleetPage } from '@/lib/content'
 import { getTranslations } from 'next-intl/server'
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: 'Our Fleet | Mučas Laivu Noma',
-  description: 'Kayaks, canoes, rafts, and SUPs available for river trips across Latvia.',
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const isLv = locale !== 'en'
+  const title = isLv ? `Mūsu Flote | ${SITE_NAME}` : `Our Fleet | ${SITE_NAME}`
+  const description = isLv
+    ? 'Kajaki, kanoe, plosti un SUP dēļi pieejami upes braucieniem visā Latvijā. Izvēlies savu laivu.'
+    : 'Kayaks, canoes, rafts, and SUPs available for river trips across Latvia. Choose your boat.'
+  return {
+    title, description,
+    alternates: buildAlternates('/fleet'),
+    openGraph: buildOpenGraph({ locale, title, description, path: '/fleet' }),
+    twitter: twitterCard,
+  }
 }
 
 export default async function FleetPage({ params }: { params: Promise<{ locale: string }> }) {

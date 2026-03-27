@@ -1,12 +1,23 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getAboutPage } from '@/lib/content'
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: 'About Us | Mučas Laivu Noma',
-  description: 'Learn about Mučas Laivu Noma — Latvia\'s premier river adventure company. Our story, mission, and team.',
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const isLv = locale !== 'en'
+  const title = isLv ? `Par Mums | ${SITE_NAME}` : `About Us | ${SITE_NAME}`
+  const description = isLv
+    ? 'Uzzini par Mučas Laivu Noma — Latvijas vadošo upes piedzīvojumu uzņēmumu. Mūsu stāsts, misija un komanda.'
+    : "Learn about Mučas Laivu Noma — Latvia's premier river adventure company. Our story, mission, and team."
+  return {
+    title, description,
+    alternates: buildAlternates('/about'),
+    openGraph: buildOpenGraph({ locale, title, description, path: '/about' }),
+    twitter: twitterCard,
+  }
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {

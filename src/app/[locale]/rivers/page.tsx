@@ -1,16 +1,27 @@
 import { getAllRivers } from '@/lib/all-rivers'
 import { RiverCard } from '@/components/RiverCard'
 import type { Metadata } from 'next'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Rivers | Mučas Laivu Noma',
-  description: 'Browse all 22 rivers available for boat rentals across Latvia.',
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const isLv = locale !== 'en'
+  const title = isLv ? `Upes Laivošanai Latvijā | ${SITE_NAME}` : `Rivers for Boating in Latvia | ${SITE_NAME}`
+  const description = isLv
+    ? 'Pārlūko visas 22 upes pieejamas laivošanai Latvijā — Gauja, Salaca, Abava, Amata un daudzas citas. Visas prasmju pakāpes.'
+    : 'Browse all 22 rivers available for boat rentals across Latvia — Gauja, Salaca, Abava, Amata and more. All skill levels.'
+  return {
+    title,
+    description,
+    alternates: buildAlternates('/rivers'),
+    openGraph: buildOpenGraph({ locale, title, description, path: '/rivers' }),
+    twitter: twitterCard,
+  }
 }
 
 export default async function RiversPage() {
   const allRivers = await getAllRivers()
 
-  // Group by region: Vidzeme first, then others alphabetically
   const regionOrder = ['Vidzeme', 'Kurzeme', 'Zemgale', 'Latgale']
   const riversByRegion = regionOrder.reduce((acc, region) => {
     acc[region] = allRivers.filter(r => r.region === region)

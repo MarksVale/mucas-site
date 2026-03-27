@@ -1,12 +1,23 @@
 import type { Metadata } from 'next'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { getBranches } from '@/lib/airtable'
 import { getContactPage } from '@/lib/content'
 import { getTranslations } from 'next-intl/server'
 
-export const metadata: Metadata = {
-  title: 'Contact Us | Mučas Laivu Noma',
-  description: 'Get in touch with Mučas Laivu Noma. Contact any of our 6 branches across Latvia.',
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const isLv = locale !== 'en'
+  const title = isLv ? `Kontakti | ${SITE_NAME}` : `Contact Us | ${SITE_NAME}`
+  const description = isLv
+    ? 'Sazinies ar Mučas Laivu Noma. Mūsu 6 filiāles visā Latvijā — zvaniet, rakstiet vai rezervējiet tiešsaistē.'
+    : 'Get in touch with Mučas Laivu Noma. Contact any of our 6 branches across Latvia.'
+  return {
+    title, description,
+    alternates: buildAlternates('/contact'),
+    openGraph: buildOpenGraph({ locale, title, description, path: '/contact' }),
+    twitter: twitterCard,
+  }
 }
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {

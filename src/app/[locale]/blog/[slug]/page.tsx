@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { BLOG_POSTS, getPost } from '@/content/blog/posts'
 import { notFound } from 'next/navigation'
 
@@ -7,13 +8,18 @@ export async function generateStaticParams() {
   return BLOG_POSTS.map(p => ({ slug: p.slug }))
 }
 
-export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await props.params
+export async function generateMetadata(props: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
+  const { locale, slug } = await props.params
   const post = getPost(slug)
   if (!post) return { title: 'Not Found' }
+  const title = `${post.title} | ${SITE_NAME}`
+  const description = post.excerpt
   return {
-    title: `${post.title} | Mučas Laivu Noma`,
-    description: post.excerpt,
+    title,
+    description,
+    alternates: buildAlternates(`/blog/${slug}`),
+    openGraph: buildOpenGraph({ locale, title, description, path: `/blog/${slug}` }),
+    twitter: twitterCard,
   }
 }
 

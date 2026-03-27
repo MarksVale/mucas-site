@@ -3,6 +3,8 @@ import { getRoutes, getBoats } from '@/lib/airtable'
 import { getAllRivers } from '@/lib/all-rivers'
 import { getHomePage } from '@/lib/content'
 import { getTranslations } from 'next-intl/server'
+import type { Metadata } from 'next'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { RiverCard } from '@/components/RiverCard'
 import { IconSafety, IconTransport, IconExpertise, IconSeats, IconSailboat } from '@/components/Icons'
 
@@ -12,6 +14,24 @@ const WHY_ICONS = [
   <IconExpertise size={28} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
   <IconSeats size={28} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
 ]
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const isLv = locale !== 'en'
+  const title = isLv
+    ? `Laivu Noma Latvijā | ${SITE_NAME}`
+    : `River Boat Rentals in Latvia | ${SITE_NAME}`
+  const description = isLv
+    ? 'Izīrē kajaki, kanoe un plostus neaizmirstamiem upes braucieniem Latvijā. 22 upes, 110+ maršruti. Sezona 2026 atvērta.'
+    : "Rent kayaks, canoes, and rafts on Latvia's most beautiful rivers. 22 rivers, 110+ routes. Season 2026 open."
+  return {
+    title,
+    description,
+    alternates: buildAlternates('/'),
+    openGraph: buildOpenGraph({ locale, title, description, path: '/', image: 'https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto,w_1200,h_630,c_fill,g_auto/mucas/rivers/gauja/hero' }),
+    twitter: twitterCard,
+  }
+}
 
 export const revalidate = 60
 

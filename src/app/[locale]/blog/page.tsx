@@ -1,10 +1,21 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { BLOG_POSTS } from '@/content/blog/posts'
 
-export const metadata: Metadata = {
-  title: 'Blog | Mučas Laivu Noma',
-  description: 'Tips, guides, and news about kayaking, canoeing, and river trips in Latvia. Everything you need to prepare for your adventure.',
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const isLv = locale !== 'en'
+  const title = isLv ? `Blogs | ${SITE_NAME}` : `Blog | ${SITE_NAME}`
+  const description = isLv
+    ? 'Padomi, ceļveži un stāsti no Latvijas upēm. Viss, kas jāzina, lai sagatavotos savam piedzīvojumam.'
+    : "Tips, guides, and news about kayaking, canoeing, and river trips in Latvia. Everything you need to prepare for your adventure."
+  return {
+    title, description,
+    alternates: buildAlternates('/blog'),
+    openGraph: buildOpenGraph({ locale, title, description, path: '/blog' }),
+    twitter: twitterCard,
+  }
 }
 
 export default function BlogPage() {

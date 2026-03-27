@@ -5,20 +5,34 @@ import { cldHero, cldGallery } from '@/lib/cloudinary'
 import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery, IconPhone, IconEmail, IconNature } from '@/components/Icons'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import type { Metadata } from 'next'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME, canonicalUrl } from '@/lib/seo'
 
 export async function generateStaticParams() {
   const rivers = await getRivers()
   return rivers.map(r => ({ slug: r.slug }))
 }
 
-export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await props.params
+export async function generateMetadata(props: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
+  const { locale, slug } = await props.params
   const river = await getRiver(slug)
   if (!river) return { title: 'River Not Found' }
   const content = getRiverContent(river)
+  const isLv = locale !== 'en'
+  const title = isLv
+    ? `${river.name} upe — Kajaki un Kanoe | ${SITE_NAME}`
+    : `${river.name} River Kayak & Canoe Trips | ${SITE_NAME}`
+  const description = content.description
+    || river.description
+    || (isLv
+      ? `Laivas uz ${river.name} upes. ${river.routeCount} maršruti pieejami.`
+      : `Boat rentals on the ${river.name} river. ${river.routeCount} routes available.`)
+  const heroImg = `https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto,w_1200,h_630,c_fill,g_auto/mucas/rivers/${slug}/hero`
   return {
-    title: `${river.name} River Kayak & Canoe Trips | Mučas Laivu Noma`,
-    description: content.description || river.description || `Boat rentals on the ${river.name} river. ${river.routeCount} routes available.`,
+    title,
+    description,
+    alternates: buildAlternates(`/rivers/${slug}`),
+    openGraph: buildOpenGraph({ locale, title, description, path: `/rivers/${slug}`, image: heroImg }),
+    twitter: twitterCard,
   }
 }
 
