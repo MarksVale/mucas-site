@@ -58,39 +58,39 @@ export function buildDesignTokenCSS(tokens?: DesignTokens): string {
   const lines: string[] = []
   const c = tokens.colors ?? {}
 
-  // Semantic tokens (new naming)
-  if (c.primary)      lines.push(`  --color-primary: ${c.primary};`)
-  if (c.primaryLight) lines.push(`  --color-primary-light: ${c.primaryLight};`)
-  if (c.accent)       lines.push(`  --color-accent: ${c.accent};`)
-  if (c.bgDark)       lines.push(`  --color-bg-dark: ${c.bgDark};`)
-  if (c.bg)           lines.push(`  --color-bg: ${c.bg};`)
-  if (c.surface)      lines.push(`  --color-surface: ${c.surface};`)
-  if (c.text)         lines.push(`  --color-text: ${c.text};`)
-  if (c.textMuted)    lines.push(`  --color-text-muted: ${c.textMuted};`)
-  if (c.border)       lines.push(`  --color-border: ${c.border};`)
+  // Semantic tokens (new naming) — !important ensures these win over globals.css
+  if (c.primary)      lines.push(`  --color-primary: ${c.primary} !important;`)
+  if (c.primaryLight) lines.push(`  --color-primary-light: ${c.primaryLight} !important;`)
+  if (c.accent)       lines.push(`  --color-accent: ${c.accent} !important;`)
+  if (c.bgDark)       lines.push(`  --color-bg-dark: ${c.bgDark} !important;`)
+  if (c.bg)           lines.push(`  --color-bg: ${c.bg} !important;`)
+  if (c.surface)      lines.push(`  --color-surface: ${c.surface} !important;`)
+  if (c.text)         lines.push(`  --color-text: ${c.text} !important;`)
+  if (c.textMuted)    lines.push(`  --color-text-muted: ${c.textMuted} !important;`)
+  if (c.border)       lines.push(`  --color-border: ${c.border} !important;`)
 
   // Legacy aliases (existing classes use these)
-  if (c.primary)      lines.push(`  --primary: ${c.primary};`)
-  if (c.accent)       lines.push(`  --accent: ${c.accent};`)
-  if (c.bgDark)       lines.push(`  --dark: ${c.bgDark};`)
-  if (c.bg)           lines.push(`  --bg: ${c.bg};`)
-  if (c.surface)      lines.push(`  --card: ${c.surface};`)
-  if (c.text)         lines.push(`  --text: ${c.text};`)
-  if (c.textMuted)    lines.push(`  --text-muted: ${c.textMuted};`)
-  if (c.border)       lines.push(`  --border: ${c.border};`)
+  if (c.primary)      lines.push(`  --primary: ${c.primary} !important;`)
+  if (c.accent)       lines.push(`  --accent: ${c.accent} !important;`)
+  if (c.bgDark)       lines.push(`  --dark: ${c.bgDark} !important;`)
+  if (c.bg)           lines.push(`  --bg: ${c.bg} !important;`)
+  if (c.surface)      lines.push(`  --card: ${c.surface} !important;`)
+  if (c.text)         lines.push(`  --text: ${c.text} !important;`)
+  if (c.textMuted)    lines.push(`  --text-muted: ${c.textMuted} !important;`)
+  if (c.border)       lines.push(`  --border: ${c.border} !important;`)
 
   if (tokens.borderRadius) {
-    lines.push(`  --radius-sm: ${tokens.borderRadius};`)
-    lines.push(`  --radius: ${tokens.borderRadius};`)
-    lines.push(`  --radius-lg: ${tokens.borderRadius};`)
-    lines.push(`  --radius-xl: ${tokens.borderRadius};`)
+    lines.push(`  --radius-sm: ${tokens.borderRadius} !important;`)
+    lines.push(`  --radius: ${tokens.borderRadius} !important;`)
+    lines.push(`  --radius-lg: ${tokens.borderRadius} !important;`)
+    lines.push(`  --radius-xl: ${tokens.borderRadius} !important;`)
   }
 
   if (tokens.shadows) {
     const v = SHADOW_MAP[tokens.shadows]
-    lines.push(`  --shadow-sm: ${v};`)
-    lines.push(`  --shadow-md: ${v};`)
-    lines.push(`  --shadow-lg: ${v};`)
+    lines.push(`  --shadow-sm: ${v} !important;`)
+    lines.push(`  --shadow-md: ${v} !important;`)
+    lines.push(`  --shadow-lg: ${v} !important;`)
   }
 
   if (lines.length === 0) return ''
