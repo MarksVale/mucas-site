@@ -1,0 +1,61 @@
+{
+  "nav": {
+    "home": "Sākums",
+    "rivers": "Upes",
+    "fleet": "Mūsu Flote",
+    "about": "Par Mums",
+    "contact": "Kontakti",
+    "blog": "Blogs",
+    "bookNow": "Rezervēt",
+    "myAccount": "Mans Konts"
+  },
+  "footer": {
+    "tagline": "Laivošana 22 upēs Latvijā — no Vidzemes līdz Latgalei.",
+    "rivers": "Upes",
+    "allRivers": "Visas Upes",
+    "company": "Uzņēmums",
+    "aboutUs": "Par Mums",
+    "ourFleet": "Mūsu Flote",
+    "contact": "Kontakti",
+    "bookNow": "Rezervēt",
+    "privacyPolicy": "Privātuma Politika",
+    "terms": "Noteikumi",
+    "copyright": "© 2026 Mučas Laivu Noma"
+  },
+  "hero": {
+    "rivers": "Upes",
+    "routes": "Maršruti",
+    "boatTypes": "Laivu Veidi",
+    "fromPerDay": "No / dienā"
+  },
+  "common": {
+    "notFound": "Lapa nav atrasta",
+    "bookNow": "Rezervēt",
+    "viewAll": "Skatīt Visus",
+    "readMore": "Lasīt Vairāk",
+    "backToRivers": "← Atpakaļ uz Upēm",
+    "backToBlog": "← Atpakaļ uz Blogu",
+    "difficulty": "Grūtības Pakāpe",
+    "distance": "Attālums",
+    "duration": "Ilgums",
+    "season": "Sezona",
+    "priceFrom": "No",
+    "perDay": "dienā",
+    "hours": "st.",
+    "km": "km",
+    "days": "dienas",
+    "routes": "Maršruti",
+    "availableRoutes": "Pieejamie Maršruti",
+    "gallery": "Galerija",
+    "usefulInfo": "Noderīga Informācija",
+    "contactUs": "Sazinieties ar Mums",
+    "phone": "Tālrunis",
+    "email": "E-pasts",
+    "location": "Adrese"
+  },
+  "lang": {
+    "lv": "LV",
+    "en": "EN",
+    "switchTo": "Switch to English"
+  }
+}

@@ -1,12 +1,12 @@
 import type { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: true, // Cloudinary handles its own optimization via q_auto,f_auto
+    unoptimized: true,
   },
-  // Environment variable WC_STORE_URL (default: https://laivunoma.shop) is used
-  // in components to link to WooCommerce cart/checkout/account pages.
-  // No rewrites needed — two separate domains, same styling.
 }
 
-export default nextConfig
+export default withNextIntl(nextConfig)

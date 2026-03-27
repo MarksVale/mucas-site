@@ -1,0 +1,61 @@
+{
+  "nav": {
+    "home": "Home",
+    "rivers": "Rivers",
+    "fleet": "Our Fleet",
+    "about": "About",
+    "contact": "Contact",
+    "blog": "Blog",
+    "bookNow": "Book Now",
+    "myAccount": "My Account"
+  },
+  "footer": {
+    "tagline": "Boat rentals across 22 rivers in Latvia — from Vidzeme to Latgale.",
+    "rivers": "Rivers",
+    "allRivers": "All Rivers",
+    "company": "Company",
+    "aboutUs": "About Us",
+    "ourFleet": "Our Fleet",
+    "contact": "Contact",
+    "bookNow": "Book Now",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms",
+    "copyright": "© 2026 Mučas Laivu Noma"
+  },
+  "hero": {
+    "rivers": "Rivers",
+    "routes": "Routes",
+    "boatTypes": "Boat Types",
+    "fromPerDay": "From / day"
+  },
+  "common": {
+    "notFound": "Page Not Found",
+    "bookNow": "Book Now",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "backToRivers": "← Back to Rivers",
+    "backToBlog": "← Back to Blog",
+    "difficulty": "Difficulty",
+    "distance": "Distance",
+    "duration": "Duration",
+    "season": "Season",
+    "priceFrom": "From",
+    "perDay": "/ day",
+    "hours": "hrs",
+    "km": "km",
+    "days": "days",
+    "routes": "Routes",
+    "availableRoutes": "Available Routes",
+    "gallery": "Gallery",
+    "usefulInfo": "Useful Information",
+    "contactUs": "Contact Us",
+    "phone": "Phone",
+    "email": "Email",
+    "location": "Address"
+  },
+  "lang": {
+    "lv": "LV",
+    "en": "EN",
+    "switchTo": "Pārslēgties uz Latviešu"
+  }
+}

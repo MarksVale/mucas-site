@@ -1,31 +1,34 @@
 import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 
-export function Footer() {
+export async function Footer() {
+  const t = await getTranslations('footer')
+
   return (
     <footer className="footer">
       <div className="footer-inner">
         <div className="footer-grid">
           <div className="footer-col">
             <div className="footer-brand">MUČAS</div>
-            <p>Boat rentals across 22 rivers in Latvia — from Vidzeme to Latgale.</p>
+            <p>{t('tagline')}</p>
           </div>
           <div className="footer-col">
-            <h4>Rivers</h4>
-            <Link href="/rivers">All Rivers</Link>
+            <h4>{t('rivers')}</h4>
+            <Link href="/rivers">{t('allRivers')}</Link>
             <Link href="/rivers/gauja">Gauja</Link>
             <Link href="/rivers/salaca">Salaca</Link>
             <Link href="/rivers/brasla">Brasla</Link>
             <Link href="/rivers/amata">Amata</Link>
           </div>
           <div className="footer-col">
-            <h4>Company</h4>
-            <Link href="/about">About Us</Link>
-            <Link href="/contact">Contact</Link>
-            <Link href="/fleet">Our Fleet</Link>
-            <Link href="/booking">Book Now</Link>
+            <h4>{t('company')}</h4>
+            <Link href="/about">{t('aboutUs')}</Link>
+            <Link href="/contact">{t('contact')}</Link>
+            <Link href="/fleet">{t('ourFleet')}</Link>
+            <Link href="/booking">{t('bookNow')}</Link>
           </div>
           <div className="footer-col">
-            <h4>Contact</h4>
+            <h4>{t('contact')}</h4>
             <a href="tel:+37129211634">+371 29 211 634</a>
             <a href="mailto:info@laivunoma.com">info@laivunoma.com</a>
             <p style={{ margin: '8px 0 0', fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
@@ -38,11 +41,10 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>&copy; 2026 Mučas Laivu Noma</span>
-          <span>Privacy Policy &bull; Terms</span>
+          <span>{t('copyright')}</span>
+          <span>{t('privacyPolicy')} &bull; {t('terms')}</span>
         </div>
       </div>
     </footer>
   )
 }
-
