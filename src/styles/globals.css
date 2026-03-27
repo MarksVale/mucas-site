@@ -144,6 +144,10 @@ img { max-width: 100%; display: block; }
 }
 .hero-stat .num { font-size: 32px; font-weight: 800; color: var(--color-text-inverse); }
 .hero-stat .lbl { font-size: 13px; opacity: 0.5; margin-top: 4px; }
+/* Stats used outside hero (plain section) — make visible on light bg */
+.section .hero-stats { border-top: none; margin-top: 0; padding-top: 0; gap: 32px; flex-wrap: wrap; justify-content: center; }
+.section .hero-stat .num { color: var(--primary); }
+.section .hero-stat .lbl { color: var(--text-secondary); opacity: 1; font-size: 14px; }
 
 .hero-sm {
   background: var(--color-bg-dark); padding: 96px 24px 80px; text-align: center; color: white;
@@ -897,7 +901,25 @@ img { max-width: 100%; display: block; }
   .gal-lb-prev, .gal-lb-next { font-size: 32px; padding: 8px; }
   .gal-lb-close { font-size: 28px; top: 12px; right: 16px; }
 
+  /* CONTACT MOBILE */
   .contact-info h2 { font-size: 24px; }
+  .contact-grid { gap: 20px; }
+  .contact-methods { gap: 14px; margin-top: 16px; }
+  .contact-method { gap: 10px; }
+  .contact-method h4 { font-size: 14px; }
+  .contact-method p, .contact-method a { font-size: 13px; }
+  .contact-business { margin-top: 20px; padding: 14px; }
+  .contact-business p { font-size: 12px; }
+
+  /* BLOG MOBILE */
+  .blog-grid { grid-template-columns: 1fr; gap: 10px; }
+  .blog-card { display: flex; flex-direction: row; align-items: stretch; }
+  .blog-img { width: 90px; min-width: 90px; height: auto; min-height: 80px; }
+  .blog-body { padding: 10px 12px; }
+  .blog-body h3 { font-size: 13px; line-height: 1.3; margin-bottom: 4px; }
+  .blog-body p { font-size: 11px; -webkit-line-clamp: 2; }
+  .blog-meta { font-size: 10px; }
+  .blog-category { font-size: 10px; padding: 2px 6px; margin-bottom: 4px; }
 
   .blog-content h1 { font-size: 24px; }
   .blog-content h2 { font-size: 20px; }

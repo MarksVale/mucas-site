@@ -50,11 +50,13 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <section className="cta-fullbleed">
+      <section className="section">
         <div className="container">
-          <h2>Ready for Your River Adventure?</h2>
-          <p>Browse our routes and book your trip today.</p>
-          <Link href="/booking" className="btn btn-primary btn-lg">Book Now</Link>
+          <div className="cta-banner">
+            <h2>Ready for Your River Adventure?</h2>
+            <p>Browse our routes and book your trip today.</p>
+            <Link href="/booking" className="btn btn-primary btn-lg">Book Now</Link>
+          </div>
         </div>
       </section>
     </>
