@@ -80,7 +80,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <p className="breadcrumb" style={{ marginBottom: 16 }}>
               <Link href="/rivers" style={{ color: 'rgba(255,255,255,0.7)' }}>Rivers</Link>
               {' → '}
-              <Link href={`/rivers/${route.riverSlug}`} style={{ color: 'rgba(255,255,255,0.7)' }}>{route.river}</Link>
+              <Link href={{ pathname: '/rivers/[slug]', params: { slug: route.riverSlug } }} style={{ color: 'rgba(255,255,255,0.7)' }}>{route.river}</Link>
               {' → '}
               <span style={{ color: 'white' }}>{route.name}</span>
             </p>
@@ -299,7 +299,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
                 <h2>Ready to Paddle?</h2>
                 <p>Choose a date, boat type, and quantity - we&apos;ll take care of the rest.</p>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-                  <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
+                  <Link href={{ pathname: '/booking', query: { route: route.slug } }} className="btn btn-white">Book This Route</Link>
                   <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
                 </div>
               </>
@@ -347,7 +347,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
                 const rc = getRouteContent(r)
                 const daysValue = typeof r.days === 'string' ? parseInt(r.days) : r.days
                 return (
-                  <Link href={`/routes/${r.slug}`} className="rel-card" key={r.slug}>
+                  <Link href={{ pathname: '/routes/[slug]', params: { slug: r.slug } }} className="rel-card" key={r.slug}>
                     <div className="rel-img">
                       <IconMap size={36} strokeWidth={1.2} style={{ color: 'var(--primary)', opacity: 0.4 }} />
                     </div>
