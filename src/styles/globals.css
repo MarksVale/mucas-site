@@ -4,7 +4,7 @@
 :root {
   /* === Light, airy outdoor palette === */
   --color-bg:           #F6F6F4;
-  --color-bg-dark:      #1A3322;
+  --color-bg-dark:      #24943A;
   --color-surface:      #EEECEA;
   --color-surface-dark: #243226;
   --color-primary:      #24943A;
@@ -22,7 +22,7 @@
   --accent:         var(--color-accent);
   --accent-hover:   #d4a020;
   --tint:           #EDF5EF;
-  --dark:           #1A3322;
+  --dark:           #24943A;
   --text:           var(--color-text);
   --text-secondary: #4A4845;
   --text-muted:     var(--color-text-muted);
@@ -248,7 +248,7 @@ img { max-width: 100%; display: block; }
 .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
 .section { padding: 80px 24px; }
 .section.gray { background: var(--bg); }
-.section.green { background: var(--tint); color: var(--text-primary); }
+.section.green { background: #FAF7F2; color: var(--text); }
 .section-head { text-align: center; margin-bottom: 48px; }
 .section-head .label {
   font-size: 12px; font-weight: 700; letter-spacing: 3px;
@@ -334,11 +334,13 @@ img { max-width: 100%; display: block; }
 
 /* ===== CTA BANNER ===== */
 .cta-banner {
-  background: var(--primary);
-  border-radius: var(--radius-xl); padding: 64px 48px; text-align: center; color: #fff;
+  background: #FAF7F2;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-xl); padding: 64px 48px; text-align: center; color: var(--text-primary);
 }
-.cta-banner h2 { font-size: 32px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-.cta-banner p { font-size: 17px; opacity: 0.85; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+.cta-banner h2 { font-size: 32px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text); }
+.cta-banner p { font-size: 17px; color: var(--text-secondary); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
 
 /* ===== FILTER BAR ===== */
 .filter-bar {
@@ -630,7 +632,7 @@ img { max-width: 100%; display: block; }
 
 /* ===== CTA FULL-BLEED ===== */
 .cta-fullbleed {
-  background: var(--primary);
+  background: var(--color-bg-dark);
   color: #fff;
   border-radius: 0; padding: 80px 24px; text-align: center;
 }
@@ -1527,7 +1529,7 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
 }
 
-/* Wave into dark (#1A3322) */
+/* Wave into dark (#24943A) */
 .wave-bottom-dark {
   position: relative;
   padding-bottom: 80px;
@@ -1537,7 +1539,7 @@ img { max-width: 100%; display: block; }
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 80px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath d='M0,32 C240,72 480,8 720,40 C960,72 1200,16 1440,32 L1440,80 L0,80 Z' fill='%231A3322'/%3E%3C/svg%3E") no-repeat bottom center;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath d='M0,32 C240,72 480,8 720,40 C960,72 1200,16 1440,32 L1440,80 L0,80 Z' fill='%2324943A'/%3E%3C/svg%3E") no-repeat bottom center;
   background-size: 100% 100%;
   pointer-events: none;
 }
