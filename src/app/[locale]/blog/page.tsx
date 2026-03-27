@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import PageHero from '@/components/PageHero'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
