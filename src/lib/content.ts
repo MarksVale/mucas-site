@@ -1,4 +1,11 @@
 import type { River, Route } from '@/lib/airtable'
+import {
+  getHomePageSanity,
+  getAboutPageSanity,
+  getContactPageSanity,
+  getBookingPageSanity,
+  getFleetPageSanity,
+} from '@/lib/sanity'
 
 // ---- Site Settings ----
 export interface SiteSettings {
@@ -212,6 +219,8 @@ const DEFAULT_HOME_LV: HomePageContent = {
 }
 
 export async function getHomePage(locale = 'lv'): Promise<HomePageContent> {
+  const sanity = await getHomePageSanity(locale)
+  if (sanity && sanity.heroHeading) return sanity
   return locale === 'en' ? DEFAULT_HOME_EN : DEFAULT_HOME_LV
 }
 
@@ -288,6 +297,8 @@ const DEFAULT_ABOUT_LV: AboutPageContent = {
 }
 
 export async function getAboutPage(locale = 'lv'): Promise<AboutPageContent> {
+  const sanity = await getAboutPageSanity(locale)
+  if (sanity && sanity.heroHeading) return sanity
   return locale === 'en' ? DEFAULT_ABOUT_EN : DEFAULT_ABOUT_LV
 }
 
@@ -323,6 +334,8 @@ const DEFAULT_CONTACT_LV: ContactPageContent = {
 }
 
 export async function getContactPage(locale = 'lv'): Promise<ContactPageContent> {
+  const sanity = await getContactPageSanity(locale)
+  if (sanity && sanity.heroHeading) return sanity
   return locale === 'en' ? DEFAULT_CONTACT_EN : DEFAULT_CONTACT_LV
 }
 
@@ -343,6 +356,8 @@ const DEFAULT_BOOKING_LV: BookingPageContent = {
 }
 
 export async function getBookingPage(locale = 'lv'): Promise<BookingPageContent> {
+  const sanity = await getBookingPageSanity(locale)
+  if (sanity && sanity.heroHeading) return sanity
   return locale === 'en' ? DEFAULT_BOOKING_EN : DEFAULT_BOOKING_LV
 }
 
@@ -375,5 +390,7 @@ const DEFAULT_FLEET_LV: FleetPageContent = {
 }
 
 export async function getFleetPage(locale = 'lv'): Promise<FleetPageContent> {
+  const sanity = await getFleetPageSanity(locale)
+  if (sanity && sanity.heroHeading) return sanity
   return locale === 'en' ? DEFAULT_FLEET_EN : DEFAULT_FLEET_LV
 }
