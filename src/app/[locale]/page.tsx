@@ -181,8 +181,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <h2>{c.ctaHeading}</h2>
             <p>{c.ctaSubtitle}</p>
             <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
-              <Link href="/rivers" className="btn btn-white">{c.ctaBtn1}</Link>
-              <Link href="/booking" className="btn btn-outline">{c.ctaBtn2}</Link>
+              <Link href="/rivers" className="btn btn-primary">{c.ctaBtn1}</Link>
+              <Link href="/booking" className="btn btn-primary">{c.ctaBtn2}</Link>
             </div>
           </div>
         </div>
