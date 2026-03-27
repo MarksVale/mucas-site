@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { getRoute, getRoutes, getRoutesByRiver, getBoats, getRiver, getBranchForRiver } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
