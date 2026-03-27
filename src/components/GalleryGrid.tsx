@@ -62,8 +62,8 @@ export default function GalleryGrid({ images, riverNames }: { images: GalleryIma
               />
               <div className="gal-overlay">
                 <span className="gal-river">{img.river}</span>
-                <Link href={img.link} className="gal-link" onClick={e => e.stopPropagation()}>
-                  View route →
+                <Link href={img.link as any} className="gal-link" onClick={e => e.stopPropagation()}>
+                  View route â
                 </Link>
               </div>
             </div>
