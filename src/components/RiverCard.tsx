@@ -4,10 +4,10 @@ import { cldCard } from '@/lib/cloudinary'
 
 export function RiverCard({ slug, name, gradient, routeCount, description, region, bookable }: UnifiedRiver) {
   const desc = description && description.length > 120
-    ? description.slice(0, 120).trimEnd() + '…'
+    ? description.slice(0, 120).trimEnd() + 'â¦'
     : description
   return (
-    <Link href={`/rivers/${slug}`} className="river-card">
+    <Link href={{ pathname: '/rivers/[slug]', params: { slug } }} className="river-card">
       <div
         className={`rc-img ${gradient || 'gradient-gauja'}`}
         style={{ backgroundImage: `url(${cldCard(slug)})` }}
