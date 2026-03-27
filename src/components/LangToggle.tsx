@@ -1,23 +1,16 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname } from '@/i18n/navigation'
+import { Link } from '@/i18n/navigation'
 
 export function LangToggle({ locale }: { locale: string }) {
-  const pathname = usePathname()
-
-  // Build the alternate URL:
-  // If currently LV (no prefix), EN version = /en + pathname
-  // If currently EN (/en/...), LV version = strip the /en prefix
+  const pathname = usePathname() // locale-stripped path, e.g. /rivers (not /en/rivers)
   const altLocale = locale === 'lv' ? 'en' : 'lv'
-  const altHref =
-    locale === 'lv'
-      ? `/en${pathname}`
-      : pathname.replace(/^\/en/, '') || '/'
 
   return (
     <Link
-      href={altHref}
+      href={pathname}
+      locale={altLocale as 'lv' | 'en'}
       className="lang-toggle"
       title={locale === 'lv' ? 'Switch to English' : 'Pārslēgties uz Latviešu'}
     >
