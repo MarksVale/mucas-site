@@ -40,7 +40,45 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
         <div className="container">
           <div className="booking-layout">
 
-            {/* LEFT: Online Booking Form */}
+            {/* LEFT: Regional Branches */}
+            <div className="booking-branches-col">
+              <div className="booking-card">
+                <h3>{t('outsideVidzeme')}</h3>
+                <p style={{ color: '#666', marginBottom: 20, fontSize: 15 }}>{t('outsideVidzemeDesc')}</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {phoneBranches.map(b => (
+                    <div key={b.slug} style={{ background: 'var(--tint)', borderRadius: 10, padding: '14px 16px' }}>
+                      <div style={{ marginBottom: 10 }}>
+                        <strong style={{ fontSize: 15 }}>{b.name}</strong>
+                        {b.contactPerson && (
+                          <div style={{ fontSize: 13, color: '#666', marginTop: 2 }}>{b.contactPerson}</div>
+                        )}
+                        {b.region && (
+                          <div style={{ fontSize: 12, color: '#888', marginTop: 1 }}>{b.region}</div>
+                        )}
+                      </div>
+                      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                        {b.phone && (
+                          <a href={`tel:${b.phone.replace(/\s/g, '')}`} className="btn btn-primary" style={{ fontSize: 13, padding: '7px 14px' }}>
+                            {t('call')} {b.phone}
+                          </a>
+                        )}
+                        {b.email && (
+                          <a href={`mailto:${b.email}`} className="btn" style={{ fontSize: 13, padding: '7px 14px', border: '1px solid var(--primary)', color: 'var(--primary)' }}>
+                            {t('email')}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p style={{ marginTop: 16, fontSize: 13, color: '#888' }}>
+                  <Link href="/rivers" style={{ color: 'var(--primary)' }}>{t('browseRivers')}</Link> {t('toFindTrip')}
+                </p>
+              </div>
+            </div>
+
+            {/* RIGHT: Online Booking Form */}
             <div className="booking-form-col">
               <div className="booking-card">
                 <h3>{t('startBooking')}</h3>
@@ -122,44 +160,6 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
                     {t('securePayment')}
                   </p>
                 </form>
-              </div>
-            </div>
-
-            {/* RIGHT: Regional Branches */}
-            <div className="booking-branches-col">
-              <div className="booking-card">
-                <h3>{t('outsideVidzeme')}</h3>
-                <p style={{ color: '#666', marginBottom: 20, fontSize: 15 }}>{t('outsideVidzemeDesc')}</p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  {phoneBranches.map(b => (
-                    <div key={b.slug} style={{ background: 'var(--tint)', borderRadius: 10, padding: '14px 16px' }}>
-                      <div style={{ marginBottom: 10 }}>
-                        <strong style={{ fontSize: 15 }}>{b.name}</strong>
-                        {b.contactPerson && (
-                          <div style={{ fontSize: 13, color: '#666', marginTop: 2 }}>{b.contactPerson}</div>
-                        )}
-                        {b.region && (
-                          <div style={{ fontSize: 12, color: '#888', marginTop: 1 }}>{b.region}</div>
-                        )}
-                      </div>
-                      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                        {b.phone && (
-                          <a href={`tel:${b.phone.replace(/\s/g, '')}`} className="btn btn-primary" style={{ fontSize: 13, padding: '7px 14px' }}>
-                            {t('call')} {b.phone}
-                          </a>
-                        )}
-                        {b.email && (
-                          <a href={`mailto:${b.email}`} className="btn" style={{ fontSize: 13, padding: '7px 14px', border: '1px solid var(--primary)', color: 'var(--primary)' }}>
-                            {t('email')}
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <p style={{ marginTop: 16, fontSize: 13, color: '#888' }}>
-                  <Link href="/rivers" style={{ color: 'var(--primary)' }}>{t('browseRivers')}</Link> {t('toFindTrip')}
-                </p>
               </div>
             </div>
 
