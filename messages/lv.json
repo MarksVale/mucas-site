@@ -178,6 +178,7 @@
     "bookOnlineTitle": "Rezervē Tiešsaistē",
     "bookOnlineDesc": "Izvēlies maršrutu, aizpildi formu un maksā droši tiešsaistē.",
     "callToBookTitle": "Zvani un Rezervē",
-    "callToBookDesc": "Sazinieties ar vietējo filīāli pa tālruni vai e-pastu."
+    "callToBookDesc": "Sazinieties ar vietējo filīāli pa tālruni vai e-pastu.",
+    "routesLabel": "maršruti"
   }
 }
