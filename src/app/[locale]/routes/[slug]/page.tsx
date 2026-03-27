@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getRoute, getRoutes, getRoutesByRiver, getBoats } from '@/lib/airtable'
+import { getRoute, getRoutes, getRoutesByRiver, getBoats, getRiver, getBranchForRiver } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
@@ -48,10 +48,14 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
 
   if (!route) return <div className="container" style={{ padding: '80px 0' }}><h1>Route not found</h1></div>
 
-  const allBoats = await getBoats()
+  const [allBoats, river, branch, riverRoutes] = await Promise.all([
+    getBoats(),
+    getRiver(route.riverSlug),
+    getBranchForRiver(route.riverSlug),
+    getRoutesByRiver(route.riverSlug),
+  ])
   const availableBoats = allBoats.filter(b => route.boats.includes(b.name))
-
-  const riverRoutes = await getRoutesByRiver(route.riverSlug)
+  const isOnlineBookable = !river || river.bookingType === 'online'
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)
 
   const content = getRouteContent(route)
@@ -294,12 +298,44 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
         {/* CTA */}
         <div className="page-section">
           <div className="cta-banner">
-            <h2>Ready to Paddle?</h2>
-            <p>Choose a date, boat type, and quantity — we&apos;ll take care of the rest.</p>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-              <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
-              <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
-            </div>
+            {isOnlineBookable ? (
+              <>
+                <h2>Ready to Paddle?</h2>
+                <p>Choose a date, boat type, and quantity — we&apos;ll take care of the rest.</p>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+                  <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
+                  <Link href="/contact" className="btn btn-outline">Ask a Question</Link>
+                </div>
+              </>
+            ) : (
+              <>
+                <h2>Interested in This Route?</h2>
+                <p>This route is organised by our local team. Contact them directly to book or ask questions.</p>
+                {branch ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, marginTop: 8 }}>
+                    {branch.contactPerson && (
+                      <p style={{ margin: 0, fontWeight: 600, fontSize: 16, color: 'var(--color-white, #fff)' }}>{branch.contactPerson} · {branch.name}</p>
+                    )}
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap', marginTop: 8 }}>
+                      {branch.phone && (
+                        <a href={`tel:${branch.phone.replace(/\s/g, '')}`} className="btn btn-white">
+                          Call {branch.phone}
+                        </a>
+                      )}
+                      {branch.email && (
+                        <a href={`mailto:${branch.email}?subject=Route enquiry: ${encodeURIComponent(route.name)}`} className="btn btn-outline">
+                          Email Us
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+                    <Link href="/contact" className="btn btn-white">Contact Us</Link>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
 
