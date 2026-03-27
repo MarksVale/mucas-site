@@ -2,9 +2,6 @@ import { Link } from '@/i18n/navigation'
 import { getRoutes, getBoats } from '@/lib/airtable'
 import { getAllRivers } from '@/lib/all-rivers'
 import { getHomePage } from '@/lib/content'
-import { getTranslations } from 'next-intl/server'
-import type { Metadata } from 'next'
-import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { RiverCard } from '@/components/RiverCard'
 import { IconSafety, IconTransport, IconExpertise, IconSeats, IconSailboat } from '@/components/Icons'
 
@@ -15,37 +12,18 @@ const WHY_ICONS = [
   <IconSeats size={28} strokeWidth={1.6} style={{ color: 'var(--primary)' }} />,
 ]
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params
-  const isLv = locale !== 'en'
-  const title = isLv
-    ? `Laivu Noma Latvijā | ${SITE_NAME}`
-    : `River Boat Rentals in Latvia | ${SITE_NAME}`
-  const description = isLv
-    ? 'Izīrē kajaki, kanoe un plostus neaizmirstamiem upes braucieniem Latvijā. 22 upes, 110+ maršruti. Sezona 2026 atvērta.'
-    : "Rent kayaks, canoes, and rafts on Latvia's most beautiful rivers. 22 rivers, 110+ routes. Season 2026 open."
-  return {
-    title,
-    description,
-    alternates: buildAlternates('/'),
-    openGraph: buildOpenGraph({ locale, title, description, path: '/', image: 'https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto,w_1200,h_630,c_fill,g_auto/mucas/rivers/gauja/hero' }),
-    twitter: twitterCard,
-  }
-}
-
 export const revalidate = 60
 
-export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params
-  const [allRivers, allRoutes, allBoats, c, t] = await Promise.all([
-    getAllRivers(), getRoutes(), getBoats(), getHomePage(locale), getTranslations('hero'),
+export default async function Home() {
+  const [allRivers, allRoutes, allBoats, c] = await Promise.all([
+    getAllRivers(), getRoutes(), getBoats(), getHomePage(),
   ])
   const rivers = allRivers.slice(0, 6)
   const routes = allRoutes.slice(0, 4)
 
   return (
     <>
-      {/* HERO - full-bleed photo */}
+      {/* HERO — full-bleed photo */}
       <section className="hero-photo">
         <img
           src="https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto,w_1920,h_1080,c_fill,g_auto/mucas/rivers/gauja/hero"
@@ -63,9 +41,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </div>
         <div className="hero-photo-stats">
-          <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">{t('rivers')}</span></div>
-          <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">{t('routes')}</span></div>
-          <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">{t('boatTypes')}</span></div>
+          <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">Rivers</span></div>
+          <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">Routes</span></div>
+          <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">Boat Types</span></div>
+          <div className="hps-item"><span className="hps-num">{Math.min(...allBoats.map(b => b.pricePerDay))}€</span><span className="hps-lbl">From / day</span></div>
         </div>
       </section>
 
@@ -118,7 +97,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
           <div className="card-grid-4">
             {routes.map(r => (
-              <Link href={`/routes/${r.slug}`} className="route-card" key={r.slug}>
+              <Link href={{ pathname: '/routes/[slug]', params: { slug: r.slug } }} className="route-card" key={r.slug}>
                 <div className={`rtc-top ${r.gradient}`}>
                   <span className="rtc-diff">{r.days} {r.days === 1 ? 'day' : 'days'}</span>
                   <IconSailboat size={32} strokeWidth={1.6} />
@@ -131,7 +110,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </Link>
             ))}
           </div>
-
         </div>
       </section>
 
@@ -181,8 +159,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <h2>{c.ctaHeading}</h2>
             <p>{c.ctaSubtitle}</p>
             <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
-              <Link href="/rivers" className="btn btn-primary">{c.ctaBtn1}</Link>
-              <Link href="/booking" className="btn btn-primary">{c.ctaBtn2}</Link>
+              <Link href="/rivers" className="btn btn-white">{c.ctaBtn1}</Link>
+              <Link href="/booking" className="btn btn-outline">{c.ctaBtn2}</Link>
             </div>
           </div>
         </div>
