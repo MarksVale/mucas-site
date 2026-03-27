@@ -56,7 +56,12 @@
   "fleet": {
     "day": "day",
     "seat": "seat",
-    "seats": "seats"
+    "seats": "seats",
+    "specLength": "Length",
+    "specWidth": "Width",
+    "specCapacity": "Capacity",
+    "specSeats": "Seats",
+    "specWeight": "Weight"
   },
   "contact": {
     "phoneWhatsapp": "Phone & WhatsApp",
@@ -144,9 +149,9 @@
     "mapFinish": "Finish",
     "mapComingSoon": "Map coming soon",
     "included": "Included in Price",
-    "includedDesc": "Paddles, life jackets, waterproof dry bag",
+    "includedDesc": "Paddles, life jackets, waterproof dry bag.",
     "transport": "Transport",
-    "transportDesc": "Boat transport to start point and pickup at finish included",
+    "transportDesc": "Boat transport to start point and pickup at finish included.",
     "bestTime": "Best Time",
     "bestTimeDesc": "May – September. Water levels are optimal during summer months.",
     "notes": "Notes",
@@ -166,5 +171,13 @@
     "emailUs": "Email Us",
     "contactUs": "Contact Us",
     "otherRoutes": "Other {river} Routes"
+  },
+  "rivers": {
+    "heading": "Our Rivers",
+    "subtitle": "22 rivers across 4 regions with routes for every skill level.",
+    "bookOnlineTitle": "Book Online",
+    "bookOnlineDesc": "Pick a route, fill the form, and pay securely online.",
+    "callToBookTitle": "Call to Book",
+    "callToBookDesc": "Contact the local branch by phone or email."
   }
 }
