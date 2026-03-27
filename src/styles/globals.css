@@ -1070,6 +1070,56 @@ img { max-width: 100%; display: block; }
 .boat-card p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 16px; }
 .bc-rivers { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 
+/* ===== BOAT CARD CLICKABLE ===== */
+.boat-card-clickable { cursor: pointer; }
+.bc-hint { font-size: 11px; color: var(--text-muted); margin-top: 6px; opacity: 0.7; }
+.boat-card-clickable:hover .bc-hint { opacity: 1; }
+
+/* ===== BOAT MODAL ===== */
+.bm-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.65); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center; padding: 16px;
+}
+.bm-panel {
+  background: var(--card); border-radius: var(--radius-lg);
+  width: 100%; max-width: 680px; max-height: 90vh;
+  overflow-y: auto; position: relative;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  animation: bm-in 0.2s ease;
+}
+@keyframes bm-in { from { opacity: 0; transform: scale(0.96) translateY(12px); } to { opacity: 1; transform: none; } }
+.bm-close {
+  position: absolute; top: 14px; right: 14px; z-index: 10;
+  background: rgba(0,0,0,0.45); color: #fff; border: none;
+  width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+  font-size: 15px; display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.bm-close:hover { background: rgba(0,0,0,0.7); }
+.bm-image { width: 100%; aspect-ratio: 3/2; overflow: hidden; background: var(--bg); }
+.bm-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bm-content { padding: 24px 28px 28px; }
+.bm-header { margin-bottom: 20px; }
+.bm-badge {
+  display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--primary); background: var(--tint, #e8f5ea);
+  padding: 3px 10px; border-radius: var(--radius-full); margin-bottom: 8px;
+}
+.bm-title { font-size: 22px; font-weight: 800; color: var(--text); margin: 0; }
+.bm-specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.bm-spec {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.bm-spec-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+.bm-spec-value { font-size: 17px; font-weight: 700; color: var(--text); }
+@media (max-width: 480px) {
+  .bm-specs { grid-template-columns: repeat(2, 1fr); }
+  .bm-content { padding: 18px 18px 22px; }
+}
+
 /* Extra service cards */
 .extra-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; text-align: center; }
 .ec-icon { font-size: 36px; margin-bottom: 12px; }

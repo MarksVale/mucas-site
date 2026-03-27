@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import { getBoats } from '@/lib/airtable'
-import { cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
-import BoatPhoto from '@/components/BoatPhoto'
-import { BoatIcon } from '@/components/Icons'
+import BoatCardWithModal from '@/components/BoatCardWithModal'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getFleetPage } from '@/lib/content'
@@ -53,22 +51,12 @@ export default async function FleetPage({ params }: { params: Promise<{ locale: 
             </div>
             <div className="card-grid-4">
               {catBoats.map(b => (
-                <div className="boat-card" key={b.slug}>
-                  <div className="bc-photo">
-                    <BoatPhoto
-                      src={cldBoat(b.slug)}
-                      fallback={CLD_BOAT_FALLBACK}
-                      alt={b.name}
-                    />
-                  </div>
-                  <div className="bc-body">
-                    <div className="bc-icon-wrap">
-                      <BoatIcon category={b.category} size={20} />
-                    </div>
-                    <h3>{b.name}</h3>
-                    <div className="bc-meta">{b.seats} {b.seats === 1 ? t('seat') : t('seats')}</div>
-                  </div>
-                </div>
+                <BoatCardWithModal
+                  key={b.slug}
+                  boat={b}
+                  seatLabel={t('seat')}
+                  seatsLabel={t('seats')}
+                />
               ))}
             </div>
           </div>
