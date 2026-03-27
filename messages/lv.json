@@ -80,7 +80,7 @@
   },
   "booking": {
     "startBooking": "Sākt Rezervāciju",
-    "startBookingDesc": "Aizpildiet zemāk esošo veidlapu. Jūs tiksiet novirzīts uz drošu norēķinu lapu.",
+    "startBookingDesc": "Aizpildiet zemāk esošo veidlapu un mēs apstiprināsim rezervāciju e-pastā.",
     "route": "Maršruts",
     "selectRoute": "Izvēlieties maršrutu...",
     "day": "diena",
@@ -99,7 +99,7 @@
     "phone": "Tālrunis",
     "notes": "Piezīmes (neobligāti)",
     "notesPlaceholder": "Īpašas vēlmes...",
-    "proceedCheckout": "Turpināt uz Norēķiniem",
+    "proceedCheckout": "Rezervēt",
     "securePayment": "Drošs maksājums caur MakeCommerce.",
     "outsideVidzeme": "Upes ārpus Vidzemes?",
     "outsideVidzemeDesc": "Mēs piedāvājam braucienus 18 upēs Kurzemē, Zemgalē un Latgalē. Šie braucieni jārezervē tieši pie mūsu reģionālajām filiālēm.",

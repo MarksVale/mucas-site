@@ -13,7 +13,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'What\'s included in the price?',
-    a: 'The boat rental price includes the boat, paddles, life vests, and a waterproof barrel for your belongings. Transport to the start point and pickup from the finish is charged separately (shown at booking). We handle all logistics — just show up and paddle.',
+    a: 'The boat rental price includes the boat, paddles, life vests, and a waterproof barrel for your belongings. Transport to the start point and pickup from the finish is charged separately (shown at booking). We handle all logistics - just show up and paddle.',
   },
   {
     q: 'How long do the trips take?',
@@ -25,7 +25,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'What happens if the weather is bad?',
-    a: 'Light rain is actually great for paddling — fewer people on the river and beautiful atmosphere. In case of storms or dangerous conditions, we\'ll contact you to reschedule. Bookings can be moved to another date free of charge.',
+    a: 'Light rain is actually great for paddling - fewer people on the river and beautiful atmosphere. In case of storms or dangerous conditions, we\'ll contact you to reschedule. Bookings can be moved to another date free of charge.',
   },
   {
     q: 'How does payment work?',

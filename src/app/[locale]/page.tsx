@@ -45,7 +45,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <>
-      {/* HERO — full-bleed photo */}
+      {/* HERO - full-bleed photo */}
       <section className="hero-photo">
         <img
           src="https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto,w_1920,h_1080,c_fill,g_auto/mucas/rivers/gauja/hero"
@@ -66,7 +66,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">{t('rivers')}</span></div>
           <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">{t('routes')}</span></div>
           <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">{t('boatTypes')}</span></div>
-          <div className="hps-item"><span className="hps-num">{Math.min(...allBoats.map(b => b.pricePerDay))}€</span><span className="hps-lbl">{t('fromPerDay')}</span></div>
         </div>
       </section>
 

@@ -80,7 +80,7 @@
   },
   "booking": {
     "startBooking": "Start Your Booking",
-    "startBookingDesc": "Fill in the details below. You'll be taken to our secure checkout to complete payment.",
+    "startBookingDesc": "Fill in the details below and we'll confirm your booking by email.",
     "route": "Route",
     "selectRoute": "Select a route...",
     "day": "day",
@@ -99,7 +99,7 @@
     "phone": "Phone",
     "notes": "Notes (optional)",
     "notesPlaceholder": "Special requests...",
-    "proceedCheckout": "Proceed to Checkout",
+    "proceedCheckout": "Book",
     "securePayment": "Secure payment via MakeCommerce.",
     "outsideVidzeme": "Rivers Outside Vidzeme?",
     "outsideVidzemeDesc": "We also offer trips on 18 rivers across Kurzeme, Zemgale, and Latgale. These trips are booked directly with our regional branches.",

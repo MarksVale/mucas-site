@@ -19,7 +19,7 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
   const content = getRiverContent(river)
   const isLv = locale !== 'en'
   const title = isLv
-    ? `${river.name} upe — Kajaki un Kanoe | ${SITE_NAME}`
+    ? `${river.name} upe - Kajaki un Kanoe | ${SITE_NAME}`
     : `${river.name} River Kayak & Canoe Trips | ${SITE_NAME}`
   const description = content.description
     || river.description
@@ -49,7 +49,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
 
   return (
     <>
-      {/* HERO — always uses Cloudinary (falls back to Salaca if no own photo) */}
+      {/* HERO - always uses Cloudinary (falls back to Salaca if no own photo) */}
       <section
         className={`river-hero ${river.gradient} river-hero-photo`}
         style={{ backgroundImage: `url(${cldHero('rivers', slug)})` }}
@@ -130,7 +130,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
           </div>
         )}
 
-        {/* HIGHLIGHTS — max 3 */}
+        {/* HIGHLIGHTS - max 3 */}
         {content.highlights.length > 0 && (
           <div className="page-section">
             <h2 className="stitle">
@@ -207,7 +207,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
         </div>
         )}
 
-        {/* LĪČU SKOLA BANNER — Salaca only */}
+        {/* LĪČU SKOLA BANNER - Salaca only */}
         {slug === 'salaca' && (
           <div className="page-section">
             <div style={{ background: 'var(--tint)', border: '1px solid var(--border)', borderLeft: '4px solid var(--primary)', borderRadius: 'var(--radius)', padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
@@ -215,7 +215,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
               <div style={{ flex: 1, minWidth: 200 }}>
                 <h4 style={{ margin: '0 0 4px', fontSize: 16 }}>Looking for an overnight stop?</h4>
                 <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                  Līču skola campsite sits right on the Salaca — sauna, fire pit, and meals available on site.
+                  Līču skola campsite sits right on the Salaca - sauna, fire pit, and meals available on site.
                 </p>
               </div>
               <a href="https://licuskola.lv" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ flexShrink: 0, whiteSpace: 'nowrap' }}>

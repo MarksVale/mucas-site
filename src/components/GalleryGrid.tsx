@@ -73,7 +73,7 @@ export default function GalleryGrid({ images, riverNames }: { images: GalleryIma
 
       {visible.length === 0 && (
         <div className="gal-empty">
-          <p>Photos coming soon — we&apos;re uploading images from our latest trips.</p>
+          <p>Photos coming soon - we&apos;re uploading images from our latest trips.</p>
         </div>
       )}
 
@@ -94,7 +94,7 @@ export default function GalleryGrid({ images, riverNames }: { images: GalleryIma
           />
           <button className="gal-lb-next" onClick={e => { e.stopPropagation(); lightboxNext() }}>&rsaquo;</button>
           <div className="gal-lb-caption">
-            {visible[lightbox].alt} — {visible[lightbox].river}
+            {visible[lightbox].alt} - {visible[lightbox].river}
           </div>
         </div>
       )}

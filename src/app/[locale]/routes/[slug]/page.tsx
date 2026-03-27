@@ -135,7 +135,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
           </div>
         )}
 
-        {/* HIGHLIGHTS — max 3 */}
+        {/* HIGHLIGHTS - max 3 */}
         {topHighlights.length > 0 && (
           <div className="page-section">
             <h2 className="stitle">
@@ -191,10 +191,6 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
                     </div>
                     <h4>{b.name}</h4>
                     <div className="bcard-cap">{b.seats} {b.seats === 1 ? 'seat' : 'seats'} · {b.category}</div>
-                    <div className="bcard-price">
-                      {b.pricePerDay}€
-                      <span style={{ fontSize: 13, fontWeight: 400, color: 'var(--text-muted)' }}> / day</span>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -264,7 +260,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
               <div className="icard-icon"><IconSeason size={24} strokeWidth={1.6} style={{ color: 'var(--primary)' }} /></div>
               <div>
                 <h4>Best Time</h4>
-                <p>May — September. Water levels are optimal during summer months.</p>
+                <p>May - September. Water levels are optimal during summer months.</p>
               </div>
             </div>
             <div className="icard">
@@ -277,7 +273,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
           </div>
         </div>
 
-        {/* LĪČU SKOLA BANNER — Salaca routes only */}
+        {/* LĪČU SKOLA BANNER - Salaca routes only */}
         {route.riverSlug === 'salaca' && (
           <div className="page-section">
             <div style={{ background: 'var(--tint)', border: '1px solid var(--border)', borderLeft: '4px solid var(--primary)', borderRadius: 'var(--radius)', padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
@@ -285,7 +281,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
               <div style={{ flex: 1, minWidth: 200 }}>
                 <h4 style={{ margin: '0 0 4px', fontSize: 16 }}>Looking for an overnight stop?</h4>
                 <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                  Līču skola campsite sits right on the Salaca — sauna, fire pit, and meals available on site.
+                  Līču skola campsite sits right on the Salaca - sauna, fire pit, and meals available on site.
                 </p>
               </div>
               <a href="https://licuskola.lv" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ flexShrink: 0, whiteSpace: 'nowrap' }}>
@@ -301,7 +297,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             {isOnlineBookable ? (
               <>
                 <h2>Ready to Paddle?</h2>
-                <p>Choose a date, boat type, and quantity — we&apos;ll take care of the rest.</p>
+                <p>Choose a date, boat type, and quantity - we&apos;ll take care of the rest.</p>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
                   <Link href={`/booking?route=${route.slug}`} className="btn btn-white">Book This Route</Link>
                   <Link href="/contact" className="btn btn-outline">Ask a Question</Link>

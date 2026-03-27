@@ -54,7 +54,7 @@ export default async function LocaleLayout({
     '@type': 'LocalBusiness',
     name: SITE_NAME,
     description: isLv
-      ? 'Laivu nomas pakalpojums — kajaki, kanoe un plosti upes braucieniem visā Latvijā.'
+      ? 'Laivu nomas pakalpojums - kajaki, kanoe un plosti upes braucieniem visā Latvijā.'
       : 'Boat rental service offering kayaks, canoes, and rafts for river adventures across Latvia.',
     url: isLv ? SITE_URL : `${SITE_URL}/en`,
     telephone: '+37129211634',

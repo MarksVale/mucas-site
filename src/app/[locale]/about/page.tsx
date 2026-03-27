@@ -10,8 +10,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const isLv = locale !== 'en'
   const title = isLv ? `Par Mums | ${SITE_NAME}` : `About Us | ${SITE_NAME}`
   const description = isLv
-    ? 'Uzzini par Mučas Laivu Noma — Latvijas vadošo upes piedzīvojumu uzņēmumu. Mūsu stāsts, misija un komanda.'
-    : "Learn about Mučas Laivu Noma — Latvia's premier river adventure company. Our story, mission, and team."
+    ? 'Uzzini par Mučas Laivu Noma - Latvijas vadošo upes piedzīvojumu uzņēmumu. Mūsu stāsts, misija un komanda.'
+    : "Learn about Mučas Laivu Noma - Latvia's premier river adventure company. Our story, mission, and team."
   return {
     title, description,
     alternates: buildAlternates('/about'),

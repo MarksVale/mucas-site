@@ -92,7 +92,7 @@ export function getRouteContent(route: Route): RouteContent {
 }
 
 // =========================================================
-//  PAGE CONTENT — hardcoded defaults (EN + LV)
+//  PAGE CONTENT - hardcoded defaults (EN + LV)
 // =========================================================
 
 // ---- Home Page ----
@@ -137,10 +137,10 @@ const DEFAULT_HOME_EN: HomePageContent = {
   riversBtnLabel: 'View All Rivers →',
   howLabel: 'Simple',
   howHeading: 'How It Works',
-  howSubtitle: 'From choosing your route to paddling — we make it effortless',
+  howSubtitle: 'From choosing your route to paddling - we make it effortless',
   howSteps: [
     { title: 'Choose Your Route', description: 'Browse routes across 4 rivers. Pick by river, duration, or group size.' },
-    { title: 'Pick Your Boat', description: 'Kayaks, canoes, rafts, or SUPs. Solo or group — we have many boat types.' },
+    { title: 'Pick Your Boat', description: 'Kayaks, canoes, rafts, or SUPs. Solo or group - we have many boat types.' },
     { title: 'Book Online', description: 'Select your date and start time. Instant confirmation. Secure payment.' },
     { title: 'Paddle & Enjoy', description: 'We handle gear, transport, and safety. You just enjoy the river.' },
   ],
@@ -151,7 +151,7 @@ const DEFAULT_HOME_EN: HomePageContent = {
   whyHeading: 'Why Choose Mučas',
   whyFeatures: [
     { icon: '🛡️', title: 'Safety First', description: 'All equipment inspected. Safety briefing before every trip.' },
-    { icon: '🚐', title: 'Full Logistics', description: 'Shuttle service and boat transport — we handle everything.' },
+    { icon: '🚐', title: 'Full Logistics', description: 'Shuttle service and boat transport - we handle everything.' },
     { icon: '💬', title: 'Local Expertise', description: 'Our team knows every river and every route.' },
     { icon: '👨‍👩‍👧‍👦', title: 'Family Friendly', description: 'Routes and boats for all ages and group sizes.' },
   ],
@@ -180,10 +180,10 @@ const DEFAULT_HOME_LV: HomePageContent = {
   riversBtnLabel: 'Visas Upes →',
   howLabel: 'Vienkārši',
   howHeading: 'Kā Tas Darbojas',
-  howSubtitle: 'No maršruta izvēles līdz airēšanai — mēs padarām to bez piepūles',
+  howSubtitle: 'No maršruta izvēles līdz airēšanai - mēs padarām to bez piepūles',
   howSteps: [
     { title: 'Izvēlies Maršrutu', description: 'Pārlūko maršrutus pa upēm. Izvēlies pēc upes, ilguma vai grupas lieluma.' },
-    { title: 'Izvēlies Laivu', description: 'Kajaki, kanoe, plosti vai SUP. Vienatnē vai grupā — mums ir daudz laivu veidu.' },
+    { title: 'Izvēlies Laivu', description: 'Kajaki, kanoe, plosti vai SUP. Vienatnē vai grupā - mums ir daudz laivu veidu.' },
     { title: 'Rezervē Tiešsaistē', description: 'Izvēlies datumu un sākuma laiku. Tūlītējs apstiprinājums. Droša maksājumu.' },
     { title: 'Airē un Baudi', description: 'Mēs rūpējamies par inventāru, transportu un drošību. Tu vienkārši baudi upi.' },
   ],
@@ -194,7 +194,7 @@ const DEFAULT_HOME_LV: HomePageContent = {
   whyHeading: 'Kāpēc Izvēlēties Mučas',
   whyFeatures: [
     { icon: '🛡️', title: 'Drošība Pirmajā Vietā', description: 'Viss inventārs pārbaudīts. Drošības instruktāža pirms katra brauciena.' },
-    { icon: '🚐', title: 'Pilna Loģistika', description: 'Transporta pakalpojums un laivu pārvadāšana — mēs rūpējamies par visu.' },
+    { icon: '🚐', title: 'Pilna Loģistika', description: 'Transporta pakalpojums un laivu pārvadāšana - mēs rūpējamies par visu.' },
     { icon: '💬', title: 'Vietēja Kompetence', description: 'Mūsu komanda pazīst katru upi un katru maršrutu.' },
     { icon: '👨‍👩‍👧‍👦', title: 'Ģimenēm Piemērots', description: 'Maršruti un laivas visiem vecumiem un grupas lielumiem.' },
   ],
@@ -202,7 +202,7 @@ const DEFAULT_HOME_LV: HomePageContent = {
   testimonialsHeading: 'Ko Saka Mūsu Viesi',
   testimonials: [
     { text: 'Lieliska pieredze uz Gaujas! Komanda bija ļoti palīdzīga, inventārs labs, un skati bija elpu aizraujošas.', author: 'Laura K.', source: 'Google Reviews' },
-    { text: 'Ideāls ģimenes brauciens. Bērniem ļoti patika! Maršruts bija viegls un drošs, un kempinga vieta — skaista.', author: 'Māris B.', source: 'TripAdvisor' },
+    { text: 'Ideāls ģimenes brauciens. Bērniem ļoti patika! Maršruts bija viegls un drošs, un kempinga vieta - skaista.', author: 'Māris B.', source: 'TripAdvisor' },
     { text: '2 dienu brauciens pa Salacu. Lieliskas krāces, skaista daba, un transporta pakalpojums padarīja loģistiku tik vienkāršu. 10/10.', author: 'Anna & Jānis', source: 'Google Reviews' },
   ],
   ctaHeading: 'Gatavs Upes Piedzīvojumam?',
@@ -237,7 +237,7 @@ const DEFAULT_ABOUT_EN: AboutPageContent = {
   heroHeading: 'About Mučas',
   heroSubtitle: "Making Latvia's rivers accessible to everyone since 2020",
   storyHeading: 'Our Story',
-  storyText: "Mučas Laivu Noma started with a simple idea: Latvia has some of the most beautiful rivers in the Baltics, but getting out on the water shouldn't be complicated. We built a service that handles all the logistics — boats, gear, transport — so you can focus on what matters: enjoying the river.\n\nBased in Cēsis, in the heart of Gauja National Park, we now operate across 21 rivers with over 110 routes. From gentle family floats on the Abava to exciting rapids on the Salaca, we have something for every skill level and adventure appetite.",
+  storyText: "Mučas Laivu Noma started with a simple idea: Latvia has some of the most beautiful rivers in the Baltics, but getting out on the water shouldn't be complicated. We built a service that handles all the logistics - boats, gear, transport - so you can focus on what matters: enjoying the river.\n\nBased in Cēsis, in the heart of Gauja National Park, we now operate across 21 rivers with over 110 routes. From gentle family floats on the Abava to exciting rapids on the Salaca, we have something for every skill level and adventure appetite.",
   valuesLabel: 'Values',
   valuesHeading: 'What We Stand For',
   values: [
@@ -264,7 +264,7 @@ const DEFAULT_ABOUT_LV: AboutPageContent = {
   heroHeading: 'Par Mučas',
   heroSubtitle: 'Padarām Latvijas upes pieejamas ikvienam kopš 2020. gada',
   storyHeading: 'Mūsu Stāsts',
-  storyText: "Mučas Laivu Noma sākās ar vienkāršu ideju: Latvijā ir dažas no skaistākajām upēm Baltijā, bet nokļūt uz ūdens nevajadzētu būt sarežģīti. Mēs izveidojām pakalpojumu, kas rūpējas par visu loģistiku — laivām, inventāru, transportu — lai jūs varētu koncentrēties uz galveno: baudīt upi.\n\nMēs atrodamies Cēsīs, Gaujas Nacionālā parka sirdī, un tagad strādājam 21 upē ar vairāk nekā 110 maršrutiem. No mierīgiem ģimenes braucieniem pa Abavu līdz aizraujošām krācēm uz Salacas — mums ir kas piemērots katram prasmju līmenim un piedzīvojumu apetītei.",
+  storyText: "Mučas Laivu Noma sākās ar vienkāršu ideju: Latvijā ir dažas no skaistākajām upēm Baltijā, bet nokļūt uz ūdens nevajadzētu būt sarežģīti. Mēs izveidojām pakalpojumu, kas rūpējas par visu loģistiku - laivām, inventāru, transportu - lai jūs varētu koncentrēties uz galveno: baudīt upi.\n\nMēs atrodamies Cēsīs, Gaujas Nacionālā parka sirdī, un tagad strādājam 21 upē ar vairāk nekā 110 maršrutiem. No mierīgiem ģimenes braucieniem pa Abavu līdz aizraujošām krācēm uz Salacas - mums ir kas piemērots katram prasmju līmenim un piedzīvojumu apetītei.",
   valuesLabel: 'Vērtības',
   valuesHeading: 'Ko Mēs Pārstāvam',
   values: [

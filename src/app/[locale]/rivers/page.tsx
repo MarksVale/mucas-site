@@ -8,8 +8,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const isLv = locale !== 'en'
   const title = isLv ? `Upes Laivošanai Latvijā | ${SITE_NAME}` : `Rivers for Boating in Latvia | ${SITE_NAME}`
   const description = isLv
-    ? 'Pārlūko visas 22 upes pieejamas laivošanai Latvijā — Gauja, Salaca, Abava, Amata un daudzas citas. Visas prasmju pakāpes.'
-    : 'Browse all 22 rivers available for boat rentals across Latvia — Gauja, Salaca, Abava, Amata and more. All skill levels.'
+    ? 'Pārlūko visas 22 upes pieejamas laivošanai Latvijā - Gauja, Salaca, Abava, Amata un daudzas citas. Visas prasmju pakāpes.'
+    : 'Browse all 22 rivers available for boat rentals across Latvia - Gauja, Salaca, Abava, Amata and more. All skill levels.'
   return {
     title,
     description,
@@ -40,10 +40,10 @@ export default async function RiversPage() {
       <section style={{ background: 'var(--white-smoke)', padding: '24px 0' }}>
         <div className="container" style={{ display: 'flex', gap: 32, flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', fontSize: 15, color: 'var(--text-secondary)' }}>
           <div>
-            <strong style={{ color: 'var(--primary)' }}>Book Online</strong> — pick a route, fill the form, and pay securely online
+            <strong style={{ color: 'var(--primary)' }}>Book Online</strong> - pick a route, fill the form, and pay securely online
           </div>
           <div style={{ borderLeft: '1px solid #ccc', paddingLeft: 32 }}>
-            <strong style={{ color: 'var(--text-primary)' }}>Call to Book</strong> — contact the local branch by phone or email
+            <strong style={{ color: 'var(--text-primary)' }}>Call to Book</strong> - contact the local branch by phone or email
           </div>
         </div>
       </section>

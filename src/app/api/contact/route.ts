@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       from: 'Mučas Contact Form <onboarding@resend.dev>',
       to: TO_EMAIL,
       replyTo: email,
-      subject: `[Mučas] ${subject || 'General inquiry'} — ${name}`,
+      subject: `[Mučas] ${subject || 'General inquiry'} - ${name}`,
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${name}</p>

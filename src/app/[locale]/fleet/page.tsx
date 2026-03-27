@@ -66,7 +66,6 @@ export default async function FleetPage({ params }: { params: Promise<{ locale: 
                       <BoatIcon category={b.category} size={20} />
                     </div>
                     <h3>{b.name}</h3>
-                    <div className="bc-price">{b.pricePerDay}€ <span>/ {t('day')}</span></div>
                     <div className="bc-meta">{b.seats} {b.seats === 1 ? t('seat') : t('seats')}</div>
                   </div>
                 </div>

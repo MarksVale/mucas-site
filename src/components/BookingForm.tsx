@@ -34,7 +34,7 @@ function fmtDisplay(iso: string) {
   return `${d}.${m}.${y}`
 }
 
-// ——— Custom Calendar Component ———
+// --- Custom Calendar Component ---
 function Calendar({
   value,
   onChange,
@@ -130,7 +130,7 @@ function Calendar({
   )
 }
 
-// ——— DatePicker wrapper (button + popup) ———
+// --- DatePicker wrapper (button + popup) ---
 function DatePicker({
   value,
   onChange,
@@ -182,7 +182,7 @@ function DatePicker({
   )
 }
 
-// ——— Main BookingForm ———
+// --- Main BookingForm ---
 export function BookingForm() {
   const searchParams = useSearchParams()
   const [formData, setFormData] = useState<FormData | null>(null)
@@ -408,14 +408,14 @@ export function BookingForm() {
           <div className="bf-field">
             <label>River <span className="bf-req">*</span></label>
             <select value={riverId} onChange={e => handleRiverChange(e.target.value)} required>
-              <option value="">— Select river —</option>
+              <option value="">- Select river -</option>
               {formData.rivers.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
           </div>
           <div className="bf-field">
             <label>Route <span className="bf-req">*</span></label>
             <select value={routeId} onChange={e => handleRouteChange(e.target.value)} required disabled={!riverId}>
-              <option value="">{riverId ? '— Select route —' : '— Select river first —'}</option>
+              <option value="">{riverId ? '- Select route -' : '- Select river first -'}</option>
               {filteredRoutes.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
           </div>
@@ -433,7 +433,7 @@ export function BookingForm() {
           </div>
         )}
 
-        {/* Dates — custom calendar */}
+        {/* Dates - custom calendar */}
         {selectedRoute && (
           <div className="bf-field" style={{ marginBottom: 20 }}>
             <label>Dates <span className="bf-req">*</span></label>
@@ -469,7 +469,7 @@ export function BookingForm() {
           </div>
         )}
 
-        {/* Boat Selection — card layout matching standalone */}
+        {/* Boat Selection - card layout matching standalone */}
         {selectedRoute && startDate && endDate && (
           <div className="bf-field">
             <label>Boats <span className="bf-req">*</span></label>
@@ -480,7 +480,6 @@ export function BookingForm() {
                   <div key={bt.id} className={`bf-boat-card${qty > 0 ? ' bf-boat-selected' : ''}`}>
                     <div className="bf-boat-header">
                       <div className="bf-boat-name">{bt.name}</div>
-                      <div className="bf-boat-price">&euro;{bt.price}/day</div>
                     </div>
                     <div className="bf-boat-desc">{bt.capacity} {bt.capacity === 1 ? 'seat' : 'seats'}</div>
                     <input
