@@ -9,8 +9,9 @@ export const metadata: Metadata = {
   description: 'Learn about Mučas Laivu Noma — Latvia\'s premier river adventure company. Our story, mission, and team.',
 }
 
-export default async function AboutPage() {
-  const c = await getAboutPage()
+export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const c = await getAboutPage(locale)
 
   return (
     <>

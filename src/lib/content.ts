@@ -92,7 +92,7 @@ export function getRouteContent(route: Route): RouteContent {
 }
 
 // =========================================================
-//  PAGE CONTENT — hardcoded defaults
+//  PAGE CONTENT — hardcoded defaults (EN + LV)
 // =========================================================
 
 // ---- Home Page ----
@@ -125,7 +125,7 @@ export interface HomePageContent {
   ctaBtn2: string
 }
 
-const DEFAULT_HOME: HomePageContent = {
+const DEFAULT_HOME_EN: HomePageContent = {
   heroBadge: 'Season 2026 Now Open',
   heroHeading: "Explore Latvia's Rivers by Boat",
   heroSubtitle: 'Rent kayaks, canoes, and rafts for unforgettable river adventures across Latvia.',
@@ -168,8 +168,51 @@ const DEFAULT_HOME: HomePageContent = {
   ctaBtn2: 'Book Now',
 }
 
-export async function getHomePage(): Promise<HomePageContent> {
-  return DEFAULT_HOME
+const DEFAULT_HOME_LV: HomePageContent = {
+  heroBadge: '2026. gada sezona atvērta',
+  heroHeading: 'Izpēti Latvijas Upes ar Laivu',
+  heroSubtitle: 'Izīrē kajaki, kanoe un plostus neaizmirstamām upes braucienu pieredzēm visā Latvijā.',
+  heroBtn1: 'Skatīt Maršrutus',
+  heroBtn2: 'Kā Tas Darbojas',
+  riversLabel: 'Atklāj',
+  riversHeading: 'Mūsu Upes',
+  riversSubtitle: 'Izvēlies savu upi un atrodi ideālo maršrutu',
+  riversBtnLabel: 'Visas Upes →',
+  howLabel: 'Vienkārši',
+  howHeading: 'Kā Tas Darbojas',
+  howSubtitle: 'No maršruta izvēles līdz airēšanai — mēs padarām to bez piepūles',
+  howSteps: [
+    { title: 'Izvēlies Maršrutu', description: 'Pārlūko maršrutus pa upēm. Izvēlies pēc upes, ilguma vai grupas lieluma.' },
+    { title: 'Izvēlies Laivu', description: 'Kajaki, kanoe, plosti vai SUP. Vienatnē vai grupā — mums ir daudz laivu veidu.' },
+    { title: 'Rezervē Tiešsaistē', description: 'Izvēlies datumu un sākuma laiku. Tūlītējs apstiprinājums. Droša maksājumu.' },
+    { title: 'Airē un Baudi', description: 'Mēs rūpējamies par inventāru, transportu un drošību. Tu vienkārši baudi upi.' },
+  ],
+  routesLabel: 'Populārie',
+  routesHeading: 'Populārie Maršruti',
+  routesSubtitle: 'Visvairāk rezervētie braucieni šosezon',
+  whyLabel: 'Kāpēc Mēs',
+  whyHeading: 'Kāpēc Izvēlēties Mučas',
+  whyFeatures: [
+    { icon: '🛡️', title: 'Drošība Pirmajā Vietā', description: 'Viss inventārs pārbaudīts. Drošības instruktāža pirms katra brauciena.' },
+    { icon: '🚐', title: 'Pilna Loģistika', description: 'Transporta pakalpojums un laivu pārvadāšana — mēs rūpējamies par visu.' },
+    { icon: '💬', title: 'Vietēja Kompetence', description: 'Mūsu komanda pazīst katru upi un katru maršrutu.' },
+    { icon: '👨‍👩‍👧‍👦', title: 'Ģimenēm Piemērots', description: 'Maršruti un laivas visiem vecumiem un grupas lielumiem.' },
+  ],
+  testimonialsLabel: 'Atsauksmes',
+  testimonialsHeading: 'Ko Saka Mūsu Viesi',
+  testimonials: [
+    { text: 'Lieliska pieredze uz Gaujas! Komanda bija ļoti palīdzīga, inventārs labs, un skati bija elpu aizraujošas.', author: 'Laura K.', source: 'Google Reviews' },
+    { text: 'Ideāls ģimenes brauciens. Bērniem ļoti patika! Maršruts bija viegls un drošs, un kempinga vieta — skaista.', author: 'Māris B.', source: 'TripAdvisor' },
+    { text: '2 dienu brauciens pa Salacu. Lieliskas krāces, skaista daba, un transporta pakalpojums padarīja loģistiku tik vienkāršu. 10/10.', author: 'Anna & Jānis', source: 'Google Reviews' },
+  ],
+  ctaHeading: 'Gatavs Upes Piedzīvojumam?',
+  ctaSubtitle: 'Pārlūko maršrutus, izvēlies laivu un rezervē. 2026. gada sezona ir atvērta!',
+  ctaBtn1: 'Visi Maršruti',
+  ctaBtn2: 'Rezervēt',
+}
+
+export async function getHomePage(locale = 'lv'): Promise<HomePageContent> {
+  return locale === 'en' ? DEFAULT_HOME_EN : DEFAULT_HOME_LV
 }
 
 // ---- About Page ----
@@ -190,7 +233,7 @@ export interface AboutPageContent {
   ctaBtn2: string
 }
 
-const DEFAULT_ABOUT: AboutPageContent = {
+const DEFAULT_ABOUT_EN: AboutPageContent = {
   heroHeading: 'About Mučas',
   heroSubtitle: "Making Latvia's rivers accessible to everyone since 2020",
   storyHeading: 'Our Story',
@@ -217,8 +260,35 @@ const DEFAULT_ABOUT: AboutPageContent = {
   ctaBtn2: 'Browse Rivers',
 }
 
-export async function getAboutPage(): Promise<AboutPageContent> {
-  return DEFAULT_ABOUT
+const DEFAULT_ABOUT_LV: AboutPageContent = {
+  heroHeading: 'Par Mučas',
+  heroSubtitle: 'Padarām Latvijas upes pieejamas ikvienam kopš 2020. gada',
+  storyHeading: 'Mūsu Stāsts',
+  storyText: "Mučas Laivu Noma sākās ar vienkāršu ideju: Latvijā ir dažas no skaistākajām upēm Baltijā, bet nokļūt uz ūdens nevajadzētu būt sarežģīti. Mēs izveidojām pakalpojumu, kas rūpējas par visu loģistiku — laivām, inventāru, transportu — lai jūs varētu koncentrēties uz galveno: baudīt upi.\n\nMēs atrodamies Cēsīs, Gaujas Nacionālā parka sirdī, un tagad strādājam 21 upē ar vairāk nekā 110 maršrutiem. No mierīgiem ģimenes braucieniem pa Abavu līdz aizraujošām krācēm uz Salacas — mums ir kas piemērots katram prasmju līmenim un piedzīvojumu apetītei.",
+  valuesLabel: 'Vērtības',
+  valuesHeading: 'Ko Mēs Pārstāvam',
+  values: [
+    { icon: '🌍', title: 'Cieņa pret Dabu', description: 'Mēs ievērojam "atstāj bez pēdām" principus un aktīvi uzturām upes un kempinga vietas, ko izmantojam. Katrs brauciens ietver atkritumu maisu.' },
+    { icon: '🤝', title: 'Vietējā Kopiena', description: 'Mēs sadarbojamies ar vietējiem zemniekiem, viesu namiem un gidiem gar katru upi. Jūsu brauciens atbalsta lauku ekonomiku.' },
+    { icon: '🛡️', title: 'Drošība Vienmēr', description: 'Katrs airētājs saņem drošības instruktāžu, glābšanas vesti un ūdensizturīgu ārkārtas kontaktkarti. Mēs katru dienu uzraugām laiku un ūdens līmeņus.' },
+    { icon: '♿', title: 'Pieejamība', description: 'Mēs piedāvājam pielāgotas laivas un palīdzētu palaišanu airētājiem ar mobilitātes izaicinājumiem izvēlētos maršrutos.' },
+  ],
+  numbersLabel: 'Ietekme',
+  numbersHeading: 'Mučas Skaitļos',
+  stats: [
+    { value: '5 000+', label: 'Laimīgi airētāji' },
+    { value: '21', label: 'Upes' },
+    { value: '110', label: 'Maršruti' },
+    { value: '6', label: 'Sezonas' },
+  ],
+  ctaHeading: 'Nāc Airēt Kopā ar Mums',
+  ctaSubtitle: 'Jautājumi? Vēlies plānot grupu braucienu? Mēs labprāt uzklausīsim.',
+  ctaBtn1: 'Sazinies',
+  ctaBtn2: 'Skatīt Upes',
+}
+
+export async function getAboutPage(locale = 'lv'): Promise<AboutPageContent> {
+  return locale === 'en' ? DEFAULT_ABOUT_EN : DEFAULT_ABOUT_LV
 }
 
 // ---- Contact Page ----
@@ -232,7 +302,7 @@ export interface ContactPageContent {
   locationNote: string
 }
 
-const DEFAULT_CONTACT: ContactPageContent = {
+const DEFAULT_CONTACT_EN: ContactPageContent = {
   heroHeading: 'Contact Us',
   heroSubtitle: "We're here to help plan your perfect river adventure",
   formHeading: 'Get in Touch',
@@ -242,8 +312,18 @@ const DEFAULT_CONTACT: ContactPageContent = {
   locationNote: 'Gauja National Park area',
 }
 
-export async function getContactPage(): Promise<ContactPageContent> {
-  return DEFAULT_CONTACT
+const DEFAULT_CONTACT_LV: ContactPageContent = {
+  heroHeading: 'Kontakti',
+  heroSubtitle: 'Esam šeit, lai palīdzētu plānot jūsu perfekto upes piedzīvojumu',
+  formHeading: 'Sazinies ar Mums',
+  formSubtitle: 'Jautājumi par maršrutiem, laivām vai grupu rezervācijām? Atbildam 24 stundu laikā.',
+  phoneNote: 'P–S, 9:00–18:00 · WhatsApp ātrāk',
+  emailNote: 'Atbildam 24 stundu laikā',
+  locationNote: 'Gaujas Nacionālā parka apkārtne',
+}
+
+export async function getContactPage(locale = 'lv'): Promise<ContactPageContent> {
+  return locale === 'en' ? DEFAULT_CONTACT_EN : DEFAULT_CONTACT_LV
 }
 
 // ---- Booking Page ----
@@ -252,13 +332,18 @@ export interface BookingPageContent {
   heroSubtitle: string
 }
 
-const DEFAULT_BOOKING: BookingPageContent = {
+const DEFAULT_BOOKING_EN: BookingPageContent = {
   heroHeading: 'Book Your Trip',
   heroSubtitle: 'Choose your route, pick your boats, and hit the water',
 }
 
-export async function getBookingPage(): Promise<BookingPageContent> {
-  return DEFAULT_BOOKING
+const DEFAULT_BOOKING_LV: BookingPageContent = {
+  heroHeading: 'Rezervēt Braucienu',
+  heroSubtitle: 'Izvēlies maršrutu, ņem laivu un dodies uz ūdens',
+}
+
+export async function getBookingPage(locale = 'lv'): Promise<BookingPageContent> {
+  return locale === 'en' ? DEFAULT_BOOKING_EN : DEFAULT_BOOKING_LV
 }
 
 // ---- Fleet Page ----
@@ -271,7 +356,7 @@ export interface FleetPageContent {
   ctaBtn2: string
 }
 
-const DEFAULT_FLEET: FleetPageContent = {
+const DEFAULT_FLEET_EN: FleetPageContent = {
   heroHeading: 'Our Fleet',
   heroSubtitle: 'All boats available for your river adventure',
   ctaHeading: 'Ready to Hit the Water?',
@@ -280,6 +365,15 @@ const DEFAULT_FLEET: FleetPageContent = {
   ctaBtn2: 'Book Now',
 }
 
-export async function getFleetPage(): Promise<FleetPageContent> {
-  return DEFAULT_FLEET
+const DEFAULT_FLEET_LV: FleetPageContent = {
+  heroHeading: 'Mūsu Flote',
+  heroSubtitle: 'Visas laivas jūsu upes piedzīvojumam',
+  ctaHeading: 'Gatavs Doties Uz Ūdens?',
+  ctaSubtitle: 'Izvēlies maršrutu un rezervē laivu.',
+  ctaBtn1: 'Skatīt Maršrutus',
+  ctaBtn2: 'Rezervēt',
+}
+
+export async function getFleetPage(locale = 'lv'): Promise<FleetPageContent> {
+  return locale === 'en' ? DEFAULT_FLEET_EN : DEFAULT_FLEET_LV
 }

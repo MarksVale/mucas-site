@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getRoutes, getBoats } from '@/lib/airtable'
 import { getAllRivers } from '@/lib/all-rivers'
 import { getHomePage } from '@/lib/content'
+import { getTranslations } from 'next-intl/server'
 import { RiverCard } from '@/components/RiverCard'
 import { IconSafety, IconTransport, IconExpertise, IconSeats, IconSailboat } from '@/components/Icons'
 
@@ -14,9 +15,10 @@ const WHY_ICONS = [
 
 export const revalidate = 60
 
-export default async function Home() {
-  const [allRivers, allRoutes, allBoats, c] = await Promise.all([
-    getAllRivers(), getRoutes(), getBoats(), getHomePage(),
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const [allRivers, allRoutes, allBoats, c, t] = await Promise.all([
+    getAllRivers(), getRoutes(), getBoats(), getHomePage(locale), getTranslations('hero'),
   ])
   const rivers = allRivers.slice(0, 6)
   const routes = allRoutes.slice(0, 4)
@@ -41,10 +43,10 @@ export default async function Home() {
           </div>
         </div>
         <div className="hero-photo-stats">
-          <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">Rivers</span></div>
-          <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">Routes</span></div>
-          <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">Boat Types</span></div>
-          <div className="hps-item"><span className="hps-num">{Math.min(...allBoats.map(b => b.pricePerDay))}€</span><span className="hps-lbl">From / day</span></div>
+          <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">{t('rivers')}</span></div>
+          <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">{t('routes')}</span></div>
+          <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">{t('boatTypes')}</span></div>
+          <div className="hps-item"><span className="hps-num">{Math.min(...allBoats.map(b => b.pricePerDay))}€</span><span className="hps-lbl">{t('fromPerDay')}</span></div>
         </div>
       </section>
 

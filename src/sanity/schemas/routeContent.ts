@@ -5,14 +5,18 @@ export default defineType({
   title: 'Route Content',
   type: 'document',
   fields: [
-    defineField({ name: 'title', title: 'Route Name', type: 'string', description: 'Must match Airtable route name exactly', validation: r => r.required() }),
+    defineField({ name: 'title', title: 'Route Name (EN)', type: 'string', description: 'Must match Airtable route name exactly', validation: r => r.required() }),
+    defineField({ name: 'titleLv', title: 'Route Name (LV)', type: 'string' }),
     defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'title', maxLength: 96 }, validation: r => r.required() }),
-    defineField({ name: 'description', title: 'Description', type: 'text', rows: 4 }),
+    defineField({ name: 'description', title: 'Description (EN)', type: 'text', rows: 4 }),
+    defineField({ name: 'descriptionLv', title: 'Description (LV)', type: 'text', rows: 4 }),
     defineField({
       name: 'highlights', title: 'Highlights', type: 'array',
       of: [{ type: 'object', fields: [
-        { name: 'name', title: 'Name', type: 'string' },
-        { name: 'desc', title: 'Description', type: 'text', rows: 2 },
+        { name: 'name', title: 'Name (EN)', type: 'string' },
+        { name: 'nameLv', title: 'Name (LV)', type: 'string' },
+        { name: 'desc', title: 'Description (EN)', type: 'text', rows: 2 },
+        { name: 'descLv', title: 'Description (LV)', type: 'text', rows: 2 },
       ] }],
     }),
     defineField({ name: 'difficulty', title: 'Difficulty', type: 'string', options: { list: ['Easy', 'Easy-Medium', 'Medium', 'Medium-Hard', 'Hard'] } }),

@@ -5,6 +5,7 @@ import BoatPhoto from '@/components/BoatPhoto'
 import { BoatIcon } from '@/components/Icons'
 import type { Metadata } from 'next'
 import { getFleetPage } from '@/lib/content'
+import { getTranslations } from 'next-intl/server'
 
 export const revalidate = 60
 
@@ -13,10 +14,10 @@ export const metadata: Metadata = {
   description: 'Kayaks, canoes, rafts, and SUPs available for river trips across Latvia.',
 }
 
-export default async function FleetPage() {
-  const [boats, c] = await Promise.all([getBoats(), getFleetPage()])
+export default async function FleetPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const [boats, c, t] = await Promise.all([getBoats(), getFleetPage(locale), getTranslations('fleet')])
 
-  // Group by category
   const categories = boats.reduce<Record<string, typeof boats>>((acc, b) => {
     if (!acc[b.category]) acc[b.category] = []
     acc[b.category].push(b)
@@ -54,8 +55,8 @@ export default async function FleetPage() {
                       <BoatIcon category={b.category} size={20} />
                     </div>
                     <h3>{b.name}</h3>
-                    <div className="bc-price">{b.pricePerDay}€ <span>/ day</span></div>
-                    <div className="bc-meta">{b.seats} {b.seats === 1 ? 'seat' : 'seats'}</div>
+                    <div className="bc-price">{b.pricePerDay}€ <span>/ {t('day')}</span></div>
+                    <div className="bc-meta">{b.seats} {b.seats === 1 ? t('seat') : t('seats')}</div>
                   </div>
                 </div>
               ))}
