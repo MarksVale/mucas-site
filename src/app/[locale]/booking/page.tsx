@@ -1,6 +1,6 @@
 import { getRoutes, getBoats, getBranches } from '@/lib/airtable'
 import PageHero from '@/components/PageHero'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getBookingPage } from '@/lib/content'
