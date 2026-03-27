@@ -196,7 +196,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
           </div>
         )}
         <div className="page-section">
-          <div className="cta-banner">
+          <div className="cta-banner" style={{ paddingTop: 40, paddingBottom: 40 }}>
             {isOnlineBookable ? (
               <>
                 <h2>{t('readyTitle')}</h2>
