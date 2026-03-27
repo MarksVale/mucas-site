@@ -23,7 +23,7 @@ export default async function Home() {
 
   return (
     <>
-      {/* HERO — full-bleed photo */}
+      {/* HERO â full-bleed photo */}
       <section className="hero-photo">
         <img
           src="https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto,w_1920,h_1080,c_fill,g_auto/mucas/rivers/gauja/hero"
@@ -37,14 +37,14 @@ export default async function Home() {
           <p className="hero-photo-sub">{c.heroSubtitle}</p>
           <div className="hero-photo-btns">
             <Link href="/rivers" className="btn btn-white">{c.heroBtn1}</Link>
-            <Link href="#how" className="btn btn-outline">{c.heroBtn2}</Link>
+            <a href="#how" className="btn btn-outline">{c.heroBtn2}</a>
           </div>
         </div>
         <div className="hero-photo-stats">
           <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">Rivers</span></div>
           <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">Routes</span></div>
           <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">Boat Types</span></div>
-          <div className="hps-item"><span className="hps-num">{Math.min(...allBoats.map(b => b.pricePerDay))}€</span><span className="hps-lbl">From / day</span></div>
+          <div className="hps-item"><span className="hps-num">{Math.min(...allBoats.map(b => b.pricePerDay))}â¬</span><span className="hps-lbl">From / day</span></div>
         </div>
       </section>
 
@@ -105,7 +105,7 @@ export default async function Home() {
                 <div className="rtc-body">
                   <h4>{r.name}</h4>
                   <div className="river-name">{r.river}</div>
-                  <div className="meta">{r.km > 0 ? `${r.km} km · ` : ''}{r.days} {r.days === 1 ? 'day' : 'days'} on the water</div>
+                  <div className="meta">{r.km > 0 ? `${r.km} km Â· ` : ''}{r.days} {r.days === 1 ? 'day' : 'days'} on the water</div>
                 </div>
               </Link>
             ))}
@@ -142,7 +142,7 @@ export default async function Home() {
           <div className="testimonial-grid">
             {c.testimonials.map((t, i) => (
               <div className="testimonial" key={i}>
-                <div className="stars">⭐⭐⭐⭐⭐</div>
+                <div className="stars">â­â­â­â­â­</div>
                 <p>&ldquo;{t.text}&rdquo;</p>
                 <div className="author">{t.author}</div>
                 <div className="source">{t.source}</div>
