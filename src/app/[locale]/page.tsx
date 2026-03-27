@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { getRoutes, getBoats } from '@/lib/airtable'
 import { getAllRivers } from '@/lib/all-rivers'
 import { getHomePage } from '@/lib/content'
