@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import PageHero from '@/components/PageHero'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { BLOG_POSTS } from '@/content/blog/posts'
@@ -23,12 +24,7 @@ export default function BlogPage() {
 
   return (
     <>
-      <section className="page-hero">
-        <div className="container">
-          <h1>Blog</h1>
-          <p>Tips, guides, and stories from Latvia&apos;s rivers</p>
-        </div>
-      </section>
+      <PageHero heading="Blog" subtitle="Tips, guides, and stories from Latvia's rivers" />
 
       <section className="section">
         <div className="container">

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import PageHero from '@/components/PageHero'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getAboutPage } from '@/lib/content'
@@ -26,12 +27,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <>
-      <section className="page-hero">
-        <div className="container">
-          <h1>{c.heroHeading}</h1>
-          <p>{c.heroSubtitle}</p>
-        </div>
-      </section>
+      <PageHero heading={c.heroHeading} subtitle={c.heroSubtitle} />
 
       {/* STORY */}
       <section className="section">

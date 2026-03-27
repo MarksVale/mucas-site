@@ -1,3 +1,4 @@
+import PageHero from '@/components/PageHero'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
@@ -30,12 +31,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
 
   return (
     <>
-      <section className="page-hero">
-        <div className="container">
-          <h1>{c.heroHeading}</h1>
-          <p>{c.heroSubtitle}</p>
-        </div>
-      </section>
+      <PageHero heading={c.heroHeading} subtitle={c.heroSubtitle} />
 
       <section className="section">
         <div className="container">

@@ -1,4 +1,5 @@
 import { getAllRivers } from '@/lib/all-rivers'
+import PageHero from '@/components/PageHero'
 import { RiverCard } from '@/components/RiverCard'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
@@ -30,12 +31,7 @@ export default async function RiversPage() {
 
   return (
     <>
-      <section className="page-hero">
-        <div className="container">
-          <h1>Our Rivers</h1>
-          <p>22 rivers across 4 regions with routes for every skill level</p>
-        </div>
-      </section>
+      <PageHero heading="Our Rivers" subtitle="22 rivers across 4 regions with routes for every skill level" />
 
       <section style={{ background: 'var(--white-smoke)', padding: '24px 0' }}>
         <div className="container" style={{ display: 'flex', gap: 32, flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', fontSize: 15, color: 'var(--text-secondary)' }}>

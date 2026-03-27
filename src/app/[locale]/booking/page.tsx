@@ -1,4 +1,5 @@
 import { getRoutes, getBoats, getBranches } from '@/lib/airtable'
+import PageHero from '@/components/PageHero'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
@@ -33,12 +34,7 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
 
   return (
     <>
-      <section className="page-hero">
-        <div className="container">
-          <h1>{c.heroHeading}</h1>
-          <p>{c.heroSubtitle}</p>
-        </div>
-      </section>
+      <PageHero heading={c.heroHeading} subtitle={c.heroSubtitle} />
 
       <section className="section">
         <div className="container">

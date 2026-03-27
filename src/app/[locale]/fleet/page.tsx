@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getBoats } from '@/lib/airtable'
 import BoatCardWithModal from '@/components/BoatCardWithModal'
+import PageHero from '@/components/PageHero'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getFleetPage } from '@/lib/content'
@@ -35,12 +36,7 @@ export default async function FleetPage({ params }: { params: Promise<{ locale: 
 
   return (
     <>
-      <section className="page-hero">
-        <div className="container">
-          <h1>{c.heroHeading}</h1>
-          <p>{c.heroSubtitle}</p>
-        </div>
-      </section>
+      <PageHero heading={c.heroHeading} subtitle={c.heroSubtitle} />
 
       {Object.entries(categories).map(([category, catBoats]) => (
         <section className="section" key={category}>

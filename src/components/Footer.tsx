@@ -1,11 +1,14 @@
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
+import WaveDivider from '@/components/WaveDivider'
 
 export async function Footer() {
   const t = await getTranslations('footer')
 
   return (
-    <footer className="footer">
+    <>
+      <WaveDivider variant="into-dark" />
+      <footer className="footer">
       <div className="footer-inner">
         <div className="footer-grid">
           <div className="footer-col">
@@ -46,5 +49,6 @@ export async function Footer() {
         </div>
       </div>
     </footer>
+    </>
   )
 }
