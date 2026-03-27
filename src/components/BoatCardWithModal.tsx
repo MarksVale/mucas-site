@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { cldBoat, cldBoatFull, CLD_BOAT_FALLBACK, BOAT_SPECS } from '@/lib/cloudinary'
 import { BoatIcon } from '@/components/Icons'
@@ -21,6 +22,7 @@ interface Props {
 
 export default function BoatCardWithModal({ boat, seatLabel, seatsLabel }: Props) {
   const [open, setOpen] = useState(false)
+  const t = useTranslations('fleet')
   const specs = BOAT_SPECS[boat.name]
 
   const close = useCallback(() => setOpen(false), [])
@@ -94,23 +96,23 @@ export default function BoatCardWithModal({ boat, seatLabel, seatsLabel }: Props
               {specs && (
                 <div className="bm-specs">
                   <div className="bm-spec">
-                    <span className="bm-spec-label">Length</span>
+                    {t('specLength')}
                     <span className="bm-spec-value">{specs.lengthCm} cm</span>
                   </div>
                   <div className="bm-spec">
-                    <span className="bm-spec-label">Width</span>
+                    {t('specWidth')}
                     <span className="bm-spec-value">{specs.widthCm} cm</span>
                   </div>
                   <div className="bm-spec">
-                    <span className="bm-spec-label">Capacity</span>
+                    {t('specCapacity')}
                     <span className="bm-spec-value">{specs.capacityKg != null ? `${specs.capacityKg} kg` : '—'}</span>
                   </div>
                   <div className="bm-spec">
-                    <span className="bm-spec-label">Seats</span>
+                    {t('specSeats')}
                     <span className="bm-spec-value">{specs.seats}</span>
                   </div>
                   <div className="bm-spec">
-                    <span className="bm-spec-label">Weight</span>
+                    {t('specWeight')}
                     <span className="bm-spec-value">{specs.weightKg} kg</span>
                   </div>
                 </div>
