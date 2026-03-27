@@ -35,7 +35,7 @@ export default async function RiversPage() {
     <>
       <PageHero heading={t('heading')} subtitle={t('subtitle')} />
 
-      <section style={{ background: 'var(--white-smoke)', padding: '24px 0' }}>
+      <section style={{ background: 'var(--bg)', padding: '24px 0' }}>
         <div className="container" style={{ display: 'flex', gap: 32, flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', fontSize: 15, color: 'var(--text-secondary)' }}>
           <div>
             <strong style={{ color: 'var(--primary)' }}>{t('bookOnlineTitle')}</strong> - {t('bookOnlineDesc')}
