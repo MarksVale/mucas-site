@@ -271,18 +271,18 @@ img { max-width: 100%; display: block; }
   transition: box-shadow 0.2s, transform 0.2s;
 }
 .river-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.rc-img { height: 200px; position: relative; display: flex; align-items: flex-end; padding: 20px; }
+.rc-img { height: 150px; position: relative; display: flex; align-items: flex-end; padding: 16px; }
 .rc-img .overlay { position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(0,0,0,0.55)); }
 .rc-title-row { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; width: 100%; }
-.rc-img h3 { color: white; font-size: 22px; font-weight: 700; margin: 0; }
+.rc-img h3 { color: white; font-size: 17px; font-weight: 700; margin: 0; }
 .rc-badge {
   background: var(--accent); color: white;
   padding: 4px 14px; border-radius: var(--radius-full); font-size: 12px; font-weight: 700;
   white-space: nowrap;
 }
-.rc-body { padding: 20px; }
-.rc-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
-.rc-meta { display: flex; gap: 16px; font-size: 13px; color: var(--text-muted); }
+.rc-body { padding: 14px 16px; }
+.rc-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px; }
+.rc-meta { display: flex; gap: 12px; font-size: 12px; color: var(--text-muted); }
 
 /* ===== CARDS — ROUTE ===== */
 .route-card {
@@ -977,13 +977,13 @@ img { max-width: 100%; display: block; }
 /* ===== BOAT CARDS (fleet page) ===== */
 .boat-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s; }
 .boat-card:hover { border-color: var(--primary); }
-.bc-photo { width: 100%; aspect-ratio: 3/2; overflow: hidden; background: var(--bg); }
+.bc-photo { width: 100%; aspect-ratio: 4/3; overflow: hidden; background: var(--bg); }
 .bc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
 .boat-card:hover .bc-photo img { transform: scale(1.03); }
-.bc-body { padding: 20px 24px 24px; text-align: center; }
+.bc-body { padding: 14px 16px 18px; text-align: center; }
 .bc-icon-wrap { display: flex; justify-content: center; color: var(--primary); margin-bottom: 8px; }
-.boat-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
-.bc-price { font-size: 24px; font-weight: 900; color: var(--primary); margin-bottom: 4px; }
+.boat-card h3 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+.bc-price { font-size: 20px; font-weight: 900; color: var(--primary); margin-bottom: 4px; }
 .bc-price span { font-size: 13px; font-weight: 400; color: var(--text-muted); }
 .bc-meta { font-size: 13px; color: var(--text-muted); }
 .boat-card p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 16px; }

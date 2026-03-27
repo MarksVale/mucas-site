@@ -51,7 +51,7 @@ export default async function FleetPage({ params }: { params: Promise<{ locale: 
               <div className="label">{category}</div>
               <h2>{category}</h2>
             </div>
-            <div className="card-grid-3">
+            <div className="card-grid-4">
               {catBoats.map(b => (
                 <div className="boat-card" key={b.slug}>
                   <div className="bc-photo">

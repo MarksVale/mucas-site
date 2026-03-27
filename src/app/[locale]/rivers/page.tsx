@@ -56,7 +56,7 @@ export default async function RiversPage() {
                 <h2 style={{ marginBottom: 24, fontSize: 24, fontWeight: 700, color: 'var(--text-primary)' }}>
                   {region}
                 </h2>
-                <div className="card-grid-3">
+                <div className="card-grid-4">
                   {riversByRegion[region].map(r => (
                     <RiverCard key={r.slug} {...r} />
                   ))}
