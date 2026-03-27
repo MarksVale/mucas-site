@@ -354,6 +354,9 @@ img { max-width: 100%; display: block; }
 }
 .cta-banner h2 { font-size: 32px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text); }
 .cta-banner p { font-size: 17px; color: var(--text-secondary); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+/* Force all buttons inside white CTA card to be solid green regardless of btn variant */
+.cta-banner .btn { background: var(--primary) !important; color: #FFFFFF !important; border-color: var(--primary) !important; box-shadow: var(--shadow-sm); }
+.cta-banner .btn:hover { background: var(--secondary) !important; border-color: var(--secondary) !important; }
 
 /* ===== FILTER BAR ===== */
 .filter-bar {
