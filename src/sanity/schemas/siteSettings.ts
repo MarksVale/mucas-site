@@ -67,8 +67,20 @@ export default defineType({
               description: 'Used for: all main body text, headings on light backgrounds, nav links. Currently Carbon Black (#191716). Changing this affects ALL text across the site.',
             }),
             defineField({
+              name: 'textInverse',
+              title: 'Text on Dark Backgrounds',
+              type: 'string',
+              description: 'Text color used on green/dark surfaces: nav bar links, footer text, page hero headings, hero subtitles, route/river hero text. Currently warm cream (#ECEAD4). Should always contrast well against the Dark Color above.',
+            }),
+            defineField({
+              name: 'textSecondary',
+              title: 'Secondary Body Text',
+              type: 'string',
+              description: 'Slightly lighter than main body text. Used for: card descriptions, paragraph text inside sections, supporting copy under headings. Currently dark grey (#4A4845).',
+            }),
+            defineField({
               name: 'textMuted',
-              title: 'Muted / Secondary Text',
+              title: 'Muted / Hint Text',
               type: 'string',
               description: 'Used for: supporting text under headings, card descriptions, captions, labels like "Min. age", timestamps, meta info. Currently medium grey (#7A7872).',
             }),

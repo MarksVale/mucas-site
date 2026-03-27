@@ -41,6 +41,8 @@ interface DesignTokenColors {
   bg?: string
   surface?: string
   text?: string
+  textInverse?: string
+  textSecondary?: string
   textMuted?: string
   border?: string
 }
@@ -81,7 +83,9 @@ export function buildDesignTokenCSS(tokens?: DesignTokens): string {
   if (c.bg)           lines.push(`  --color-bg: ${c.bg} !important;`)
   if (c.surface)      lines.push(`  --color-surface: ${c.surface} !important;`)
   if (c.text)         lines.push(`  --color-text: ${c.text} !important;`)
+  if (c.textInverse)  lines.push(`  --color-text-inverse: ${c.textInverse} !important;`)
   if (c.textMuted)    lines.push(`  --color-text-muted: ${c.textMuted} !important;`)
+  if (c.textSecondary)lines.push(`  --color-text-secondary: ${c.textSecondary} !important;`)
   if (c.border)       lines.push(`  --color-border: ${c.border} !important;`)
 
   if (c.primary)      lines.push(`  --primary: ${c.primary} !important;`)
@@ -90,7 +94,9 @@ export function buildDesignTokenCSS(tokens?: DesignTokens): string {
   if (c.bg)           lines.push(`  --bg: ${c.bg} !important;`)
   if (c.surface)      lines.push(`  --card: ${c.surface} !important;`)
   if (c.text)         lines.push(`  --text: ${c.text} !important;`)
+  if (c.textInverse)  lines.push(`  --text-inverse: ${c.textInverse} !important;`)
   if (c.textMuted)    lines.push(`  --text-muted: ${c.textMuted} !important;`)
+  if (c.textSecondary)lines.push(`  --text-secondary: ${c.textSecondary} !important;`)
   if (c.border)       lines.push(`  --border: ${c.border} !important;`)
 
   if (tokens.borderRadius) {
