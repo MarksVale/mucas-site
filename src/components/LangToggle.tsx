@@ -9,10 +9,10 @@ export function LangToggle({ locale }: { locale: string }) {
 
   return (
     <Link
-      href={pathname}
+      href={pathname as any}
       locale={altLocale as 'lv' | 'en'}
       className="lang-toggle"
-      title={locale === 'lv' ? 'Switch to English' : 'Pārslēgties uz Latviešu'}
+      title={locale === 'lv' ? 'Switch to English' : 'PÄrslÄgties uz LatvieÅ¡u'}
     >
       {altLocale.toUpperCase()}
     </Link>
