@@ -182,7 +182,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
               const rc = getRouteContent(r)
               const dur = r.days === 1 && rc.hours ? rc.hours + 'h' : `${r.days} days`
               return (
-                <Link href={`/routes/${r.slug}`} className="route-list-item" key={r.slug}>
+                <Link href={{ pathname: '/routes/[slug]', params: { slug: r.slug } }} className="route-list-item" key={r.slug}>
                   <div className="rli-left">
                     <div>
                       <h4>{r.name}</h4>
