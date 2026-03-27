@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
+import { getSiteSettings, buildDesignTokenCSS } from '@/lib/sanity'
 
 const montserrat = Montserrat({
   subsets: ['latin', 'latin-ext'],
@@ -75,7 +76,10 @@ const jsonLd = {
   image: 'https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto/mucas/rivers/gauja/hero',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const settings = await getSiteSettings()
+  const designTokenCSS = buildDesignTokenCSS(settings.designTokens)
+
   return (
     <html lang="en" className={montserrat.variable}>
       <head>
@@ -83,6 +87,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {designTokenCSS && (
+          <style dangerouslySetInnerHTML={{ __html: designTokenCSS }} />
+        )}
       </head>
       <body>
         <Nav />
