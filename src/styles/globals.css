@@ -1508,6 +1508,9 @@ img { max-width: 100%; display: block; }
 .blog-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
 .blog-cta p { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
 
+@media (max-width: 1024px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px)  { .blog-grid { grid-template-columns: 1fr; } }
+
 /* ===== GALLERY ===== */
 .gal-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; justify-content: center; }
 .gal-tab {
