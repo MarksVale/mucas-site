@@ -18,6 +18,7 @@ export async function Nav({ locale }: { locale: string }) {
       <nav className="nav-transparent nav-desktop">
         <Link href="/" className="logo">{settings.brandNameShort}</Link>
         <div className="menu">
+          <Link href="/">{t('home')}</Link>
           <Link href="/rivers">{t('rivers')}</Link>
           <Link href="/fleet">{t('fleet')}</Link>
           <Link href="/about">{t('about')}</Link>
