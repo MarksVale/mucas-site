@@ -6,7 +6,8 @@ import {
   Info, Package, Sun, AlertTriangle, Navigation, Anchor,
   Wind, Layers, ChevronRight, Phone, Mail, MapPin, Calendar,
   User, Users, ArrowRight, TreePine, Mountain, ShoppingCart,
-  Shield, MessageCircle, Sailboat
+  Shield, MessageCircle, Sailboat,
+  Globe, Handshake, Accessibility
 } from 'lucide-react'
 
 export {
@@ -41,6 +42,9 @@ export {
   Shield as IconSafety,
   MessageCircle as IconExpertise,
   Sailboat as IconSailboat,
+  Globe as IconGlobe,
+  Handshake as IconHandshake,
+  Accessibility as IconAccessibility,
 }
 
 // Boat type icons — consistent throughout the site
