@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { getBoats } from '@/lib/airtable'
 import BoatCardWithModal from '@/components/BoatCardWithModal'
 import PageHero from '@/components/PageHero'
