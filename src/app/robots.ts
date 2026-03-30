@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/'],
+        disallow: ['/api/', '/admin/', '/waiver', '/drosibas-apliecinajums'],
       },
     ],
     sitemap: 'https://mucas-site.vercel.app/sitemap.xml',
