@@ -183,7 +183,7 @@ function DatePicker({
 }
 
 // --- Main BookingForm ---
-export function BookingForm() {
+export function BookingForm({ locale = 'lv' }: { locale?: string }) {
   const searchParams = useSearchParams()
   const [formData, setFormData] = useState<FormData | null>(null)
   const [loading, setLoading] = useState(true)
@@ -203,6 +203,7 @@ export function BookingForm() {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [preselected, setPreselected] = useState(false)
+  const [agreed, setAgreed] = useState(false)
 
   useEffect(() => {
     fetch(API_BASE + '/get-form-data')
@@ -211,16 +212,28 @@ export function BookingForm() {
       .catch(() => { setError('Failed to load form data'); setLoading(false) })
   }, [])
 
-  // Auto-select route from URL param (e.g. /booking?route=valmiera-cesis)
+  // Auto-select from URL params on load
   useEffect(() => {
     if (!formData || preselected) return
+
     const routeSlug = searchParams.get('route')
-    if (!routeSlug) return
-    const match = formData.routes.find(r => slugify(r.name) === routeSlug)
-    if (match) {
-      setRiverId(match.riverId)
-      setRouteId(match.id)
-      setPreselected(true)
+    const riverSlug = searchParams.get('river')
+
+    if (routeSlug) {
+      // ?route=slug → prefill river + route
+      const match = formData.routes.find(r => slugify(r.name) === routeSlug)
+      if (match) {
+        setRiverId(match.riverId)
+        setRouteId(match.id)
+        setPreselected(true)
+      }
+    } else if (riverSlug) {
+      // ?river=slug → prefill river only
+      const match = formData.rivers.find(r => slugify(r.name) === riverSlug)
+      if (match) {
+        setRiverId(match.id)
+        setPreselected(true)
+      }
     }
   }, [formData, searchParams, preselected])
 
@@ -532,10 +545,57 @@ export function BookingForm() {
         </div>
       </div>
 
+      {/* Waiver consent */}
+      <div style={{
+        background: 'var(--tint, #f4faf5)',
+        border: '1.5px solid var(--border, #d4e8d8)',
+        borderRadius: 10,
+        padding: '20px 20px 16px',
+        marginBottom: 20,
+      }}>
+        <p style={{ fontWeight: 700, fontSize: 14, marginBottom: 12, color: 'var(--text, #191716)' }}>
+          {locale === 'en' ? 'Before you book — please read' : 'Pirms rezervācijas — lūdzu izlasiet'}
+        </p>
+        <ul style={{ margin: '0 0 16px 0', paddingLeft: 20, fontSize: 13, color: '#555', lineHeight: 1.7 }}>
+          {locale === 'en' ? [
+            'Life jackets must be worn at all times on the water — no exceptions',
+            'Alcohol and drugs are strictly prohibited before and during the trip',
+            'You are financially responsible for lost or damaged equipment',
+            'Trips are self-guided — no SIA Mučas staff will be on the water with you',
+            'By booking you acknowledge inherent risks including capsizing, cold water, and injury',
+          ] : [
+            'Glābšanas vestes jāvalkā visu laiku uz ūdens — bez izņēmumiem',
+            'Alkohols un narkotikas ir stingri aizliegtas pirms un brauciena laikā',
+            'Jūs esat finansiāli atbildīgi par pazaudētu vai bojātu aprīkojumu',
+            'Braucieni ir pašvadīti — SIA Mučas darbinieki nebūs kopā ar jums uz ūdens',
+            'Rezervējot jūs atzīstat raksturīgos riskus, tostarp apgāšanos, aukstu ūdeni un traumu',
+          ].map((rule, i) => <li key={i}>{rule}</li>)}
+        </ul>
+        <label style={{ display: 'flex', alignItems: 'flex-start', gap: 12, cursor: 'pointer', fontSize: 13, color: 'var(--text, #191716)', lineHeight: 1.5 }}>
+          <input
+            type="checkbox"
+            checked={agreed}
+            onChange={e => setAgreed(e.target.checked)}
+            style={{ marginTop: 3, width: 16, height: 16, flexShrink: 0, cursor: 'pointer', accentColor: 'var(--primary, #24943A)' }}
+          />
+          <span>
+            {locale === 'en' ? 'I have read and agree to the' : 'Esmu izlasījis un piekrītu'}{' '}
+            <a href={locale === 'en' ? '/en/waiver' : '/drosibas-apliecinajums'} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary, #24943A)', fontWeight: 600 }}>
+              {locale === 'en' ? 'Safety Waiver' : 'Drošības apliecinājumam'}
+            </a>
+            {' & '}
+            <a href={locale === 'en' ? '/en/terms' : '/noteikumi'} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary, #24943A)', fontWeight: 600 }}>
+              {locale === 'en' ? 'Terms of Service' : 'Pakalpojumu noteikumiem'}
+            </a>.
+          </span>
+        </label>
+      </div>
+
       <button
         type="submit"
         className="bf-submit-btn"
-        disabled={submitting || !routeId || !startDate || !endDate || !hasBoats || !firstName || !lastName || !email || !phone}
+        disabled={submitting || !agreed || !routeId || !startDate || !endDate || !hasBoats || !firstName || !lastName || !email || !phone}
+        style={{ opacity: agreed ? 1 : 0.45, cursor: agreed ? 'pointer' : 'not-allowed', transition: 'opacity 0.2s' }}
       >
         {submitting ? 'Sending...' : 'Submit Booking'}
       </button>

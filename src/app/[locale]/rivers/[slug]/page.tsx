@@ -170,7 +170,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
               <>
                 <p>{t('readyDesc')}</p>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-                  <Link href="/booking" className="btn btn-white">{c('bookNow')}</Link>
+                  <Link href={{ pathname: '/booking', query: { river: slug } }} className="btn btn-white">{c('bookNow')}</Link>
                   <Link href="/contact" className="btn btn-outline">{t('askQuestion')}</Link>
                 </div>
               </>
