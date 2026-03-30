@@ -15,8 +15,9 @@ export const routing = defineRouting({
     '/blog':            { lv: '/blogs',           en: '/blog' },
     '/blog/[slug]':     { lv: '/blogs/[slug]',    en: '/blog/[slug]' },
     '/routes/[slug]':   { lv: '/marsruti/[slug]', en: '/routes/[slug]' },
-    '/privacy':         { lv: '/privatuma-politika', en: '/privacy' },
-    '/terms':           { lv: '/noteikumi',           en: '/terms' },
+    '/privacy':         { lv: '/privatuma-politika',    en: '/privacy' },
+    '/terms':           { lv: '/noteikumi',             en: '/terms' },
+    '/waiver':          { lv: '/drosibas-apliecinajums', en: '/waiver' },
   },
 })
 

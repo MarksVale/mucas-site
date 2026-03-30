@@ -111,7 +111,21 @@
     "call": "Zvanīt",
     "email2": "E-pasts",
     "browseRivers": "Skatīt visas upes",
-    "toFindTrip": "lai atrastu savu ideālo braucienu."
+    "toFindTrip": "lai atrastu savu ideālo braucienu.",
+    "waiverTitle": "Pirms rezervēšanas — lūdzu izlasiet",
+    "waiverRules": [
+      "Glābšanas veste jāvelk visu laiku uz ūdens — bez izņēmumiem",
+      "Alkohols un narkotikas ir pilnīgi aizliegtas pirms un brauciena laikā",
+      "Jūs esat finansiāli atbildīgs par pazaudētu vai bojātu aprīkojumu",
+      "Brauciens ir pašvadāms — SIA Mučas darbinieki nebūs uz ūdens kopā ar jums",
+      "Rezervējot jūs atzīstat dabiskos riskus, tostarp apgāšanos, aukstu ūdeni un ievainojumus"
+    ],
+    "waiverCheckbox": "Esmu izlasījis(-usi) un piekrītu",
+    "waiverLink": "Drošības Apliecinājumam",
+    "termsLink": "Pakalpojumu Noteikumiem",
+    "submitting": "Iesniedz...",
+    "successTitle": "Rezervācijas Pieteikums Saņemts",
+    "successDesc": "Paldies! Mēs apstiprinās jūsu rezervāciju e-pastā 24 stundu laikā."
   },
   "lang": {
     "lv": "LV",

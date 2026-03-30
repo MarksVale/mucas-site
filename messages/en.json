@@ -111,7 +111,21 @@
     "call": "Call",
     "email2": "Email",
     "browseRivers": "Browse all rivers",
-    "toFindTrip": "to find your perfect trip."
+    "toFindTrip": "to find your perfect trip.",
+    "waiverTitle": "Before you book — please read",
+    "waiverRules": [
+      "Life jackets must be worn at all times on the water — no exceptions",
+      "Alcohol and drugs are strictly prohibited before and during the trip",
+      "You are financially responsible for lost or damaged equipment",
+      "Trips are self-guided — no SIA Mučas staff will be on the water with you",
+      "By booking you acknowledge inherent risks including capsizing, cold water, and injury"
+    ],
+    "waiverCheckbox": "I have read and agree to the",
+    "waiverLink": "Safety Waiver",
+    "termsLink": "Terms of Service",
+    "submitting": "Submitting...",
+    "successTitle": "Booking Request Received",
+    "successDesc": "Thank you! We will confirm your booking by email within 24 hours."
   },
   "lang": {
     "lv": "LV",

@@ -80,6 +80,11 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
           <ul>
             <li>Rezervācijas un maksājumu dati — 5 gadi pēc darījuma (saskaņā ar grāmatvedības prasībām)</li>
             <li>Saziņas vēsture — 2 gadi</li>
+            <li>
+              <strong>Drošības apliecinājuma un piekrišanas ieraksti</strong> — 10 gadi no aktivitātes datuma.
+              Juridiskais pamats: leģitīmās intereses — tiesību aizsardzība tiesas procesā (VDAR 6. pants, 1. pkt. f).
+              Šie ieraksti satur vārdu, e-pastu un IP adresi piekrišanas brīdī.
+            </li>
           </ul>
 
           <h2>7. Jūsu tiesības</h2>
@@ -169,6 +174,11 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         <ul>
           <li>Booking and payment data &mdash; 5 years after transaction (accounting requirements)</li>
           <li>Communication history &mdash; 2 years</li>
+          <li>
+            <strong>Safety waiver and consent records</strong> &mdash; 10 years from the activity date.
+            Legal basis: legitimate interest &mdash; the right to defend legal claims (GDPR Art. 6(1)(f)).
+            These records include name, email address, and IP address at time of consent.
+          </li>
         </ul>
 
         <h2>7. Your Rights</h2>

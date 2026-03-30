@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getBookingPage } from '@/lib/content'
 import { getTranslations } from 'next-intl/server'
+import { BookingFormClient } from '@/components/BookingFormClient'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -31,6 +32,39 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
     getTranslations('booking'),
   ])
   const phoneBranches = allBranches.filter(b => b.bookingType === 'phone')
+
+  // Pass all translation strings to the client component
+  const clientT = {
+    startBooking:    t('startBooking'),
+    startBookingDesc: t('startBookingDesc'),
+    route:           t('route'),
+    selectRoute:     t('selectRoute'),
+    day:             t('day'),
+    days:            t('days'),
+    boatType:        t('boatType'),
+    selectBoat:      t('selectBoat'),
+    seat:            t('seat'),
+    seats:           t('seats'),
+    date:            t('date'),
+    numBoats:        t('numBoats'),
+    startTime:       t('startTime'),
+    name:            t('name'),
+    namePlaceholder: t('namePlaceholder'),
+    email:           t('email'),
+    phone:           t('phone'),
+    notes:           t('notes'),
+    notesPlaceholder: t('notesPlaceholder'),
+    proceedCheckout: t('proceedCheckout'),
+    securePayment:   t('securePayment'),
+    waiverTitle:     t('waiverTitle'),
+    waiverRules:     t.raw('waiverRules') as string[],
+    waiverCheckbox:  t('waiverCheckbox'),
+    waiverLink:      t('waiverLink'),
+    termsLink:       t('termsLink'),
+    submitting:      t('submitting'),
+    successTitle:    t('successTitle'),
+    successDesc:     t('successDesc'),
+  }
 
   return (
     <>
@@ -65,7 +99,7 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
                         )}
                         {b.email && (
                           <a href={`mailto:${b.email}`} className="btn" style={{ fontSize: 13, padding: '7px 14px', border: '1px solid var(--primary)', color: 'var(--primary)' }}>
-                            {t('email')}
+                            {t('email2')}
                           </a>
                         )}
                       </div>
@@ -78,89 +112,14 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
               </div>
             </div>
 
-            {/* RIGHT: Online Booking Form */}
+            {/* RIGHT: Online Booking Form (client component handles interactivity + consent) */}
             <div className="booking-form-col">
-              <div className="booking-card">
-                <h3>{t('startBooking')}</h3>
-                <p style={{ color: '#666', marginBottom: 24 }}>{t('startBookingDesc')}</p>
-
-                <form className="contact-form">
-                  <div className="form-group">
-                    <label>{t('route')}</label>
-                    <select>
-                      <option value="">{t('selectRoute')}</option>
-                      {routes.map(r => (
-                        <option key={r.slug} value={r.slug}>
-                          {r.name} ({r.river} &bull; {r.days} {r.days === 1 ? t('day') : t('days')})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label>{t('boatType')}</label>
-                    <select>
-                      <option value="">{t('selectBoat')}</option>
-                      {boats.map(b => (
-                        <option key={b.slug} value={b.slug}>
-                          {b.name} ({b.seats} {b.seats === 1 ? t('seat') : t('seats')})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                    <div className="form-group">
-                      <label>{t('date')}</label>
-                      <input type="date" />
-                    </div>
-                    <div className="form-group">
-                      <label>{t('numBoats')}</label>
-                      <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5+</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <label>{t('startTime')}</label>
-                    <select>
-                      <option>9:00</option>
-                      <option>11:00</option>
-                      <option>13:00</option>
-                      <option>15:00</option>
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label>{t('name')}</label>
-                    <input type="text" placeholder={t('namePlaceholder')} />
-                  </div>
-                  <div className="form-group">
-                    <label>{t('email')}</label>
-                    <input type="email" placeholder="your@email.com" />
-                  </div>
-                  <div className="form-group">
-                    <label>{t('phone')}</label>
-                    <input type="tel" placeholder="+371..." />
-                  </div>
-                  <div className="form-group">
-                    <label>{t('notes')}</label>
-                    <textarea rows={3} placeholder={t('notesPlaceholder')} />
-                  </div>
-
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%', fontSize: 18, padding: '16px 32px' }}>
-                    {t('proceedCheckout')}
-                  </button>
-                  <p style={{ textAlign: 'center', fontSize: 13, color: '#888', marginTop: 12 }}>
-                    {t('securePayment')}
-                  </p>
-                </form>
-              </div>
+              <BookingFormClient
+                routes={routes}
+                boats={boats}
+                locale={locale}
+                t={clientT}
+              />
             </div>
 
           </div>
