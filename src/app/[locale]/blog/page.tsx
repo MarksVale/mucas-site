@@ -47,11 +47,13 @@ export default async function BlogPage(props: { params: Promise<{ locale: string
         </div>
       </section>
 
-      <section className="cta-fullbleed">
+      <section className="section">
         <div className="container">
-          <h2>{isLv ? 'Gatavs upes piedzīvojumam?' : 'Ready for Your River Adventure?'}</h2>
-          <p>{isLv ? 'Pārlūko marşrutus un rezervē savu braucienu.' : 'Browse our routes and book your trip today.'}</p>
-          <Link href="/booking" className="btn btn-primary btn-lg">{isLv ? 'Rezervēt' : 'Book Now'}</Link>
+          <div className="cta-banner" style={{ textAlign: 'center' }}>
+            <h2>{isLv ? 'Gatavs upes piedzīvojumam?' : 'Ready for Your River Adventure?'}</h2>
+            <p>{isLv ? 'Pārlūko marşrutus un rezervē savu braucienu.' : 'Browse our routes and book your trip today.'}</p>
+            <Link href="/booking" className="btn btn-primary btn-lg">{isLv ? 'Rezervēt' : 'Book Now'}</Link>
+          </div>
         </div>
       </section>
     </>
