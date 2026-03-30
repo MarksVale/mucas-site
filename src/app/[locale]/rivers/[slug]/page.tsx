@@ -45,6 +45,7 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
   const galleryCount = content.galleryCount ?? 0
   const t = await getTranslations('river')
   const c = await getTranslations('common')
+  const boatNames = [...new Set(routes.flatMap(r => r.boats ?? []))].sort()
   return (
     <>
       <section className={`river-hero ${river.gradient} river-hero-photo`} style={{ backgroundImage: `url(${cldHero('rivers', slug)})` }}>
@@ -73,10 +74,10 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
             <div className="fstat-value">{river.routeCount}</div>
             <div className="fstat-label">{c('routes')}</div>
           </div>
-          {river.boatCategories.length > 0 && (
+          {boatNames.length > 0 && (
             <div className="fstat">
               <div className="fstat-icon"><IconBoat size={24} strokeWidth={1.6} /></div>
-              <div className="fstat-value">{river.boatCategories.length}</div>
+              <div className="fstat-value">{boatNames.length}</div>
               <div className="fstat-label">{t('boatTypes')}</div>
             </div>
           )}
@@ -116,17 +117,14 @@ export default async function RiverPage(props: { params: Promise<{ slug: string 
             </div>
           </div>
         )}
-        {river.boatCategories.length > 0 && (
+        {boatNames.length > 0 && (
           <div className="page-section">
             <h2 className="stitle"><span className="stitle-icon"><IconBoat size={22} strokeWidth={1.8} /></span>{t('availableBoats')}</h2>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              {river.boatCategories.map((cat, i) => (
-                <span key={i} style={{ background: 'var(--tint)', color: 'var(--primary)', padding: '10px 20px', borderRadius: 'var(--radius)', fontWeight: 700, fontSize: 14, border: '1px solid var(--border)' }}>{cat}</span>
+              {boatNames.map((name, i) => (
+                <Link key={i} href="/fleet" style={{ background: 'var(--tint)', color: 'var(--primary)', padding: '10px 20px', borderRadius: 'var(--radius)', fontWeight: 700, fontSize: 14, border: '1px solid var(--border)', textDecoration: 'none' }}>{name}</Link>
               ))}
             </div>
-            <p style={{ marginTop: 16, fontSize: 14, color: 'var(--text-secondary)' }}>
-              {t('viewFleetPre')} <Link href="/fleet" style={{ color: 'var(--primary)', fontWeight: 600 }}>{t('viewFleetLink')}</Link>
-            </p>
           </div>
         )}
         {routes.length > 0 && (
