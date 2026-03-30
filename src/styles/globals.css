@@ -432,7 +432,7 @@ main { padding-bottom: 80px; } /* breathing room before footer wave */
 /* ===== STATS BAR ===== */
 .stats-bar {
   display: flex; justify-content: center; gap: 0; max-width: 800px;
-  margin: -40px auto 0; background: #ECEAD4; border-radius: var(--radius-lg);
+  margin: -40px auto 0; background: var(--card); border-radius: var(--radius-lg);
   border: 1px solid var(--border); box-shadow: var(--shadow-md);
   position: relative; z-index: 2; padding: 28px 40px;
 }
@@ -1196,7 +1196,7 @@ main { padding-bottom: 80px; } /* breathing room before footer wave */
 /* Floating stats bar */
 .floating-stats { padding: 0 24px; margin-top: -48px; position: relative; z-index: 10; }
 .floating-stats-inner {
-  max-width: 800px; margin: 0 auto; background: #ECEAD4;
+  max-width: 800px; margin: 0 auto; background: var(--card);
   border-radius: var(--radius-lg); border: 1px solid var(--border);
   box-shadow: var(--shadow-md); display: flex; overflow: hidden;
 }
