@@ -111,6 +111,53 @@ img { max-width: 100%; display: block; }
   padding: 10px 24px; border-radius: var(--radius-full) !important; font-weight: 700 !important;
 }
 
+/* ===== NAV SHELL (scroll-aware, fixed) ===== */
+nav.nav-shell {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: background 0.25s ease, box-shadow 0.25s ease, padding 0.25s ease;
+}
+nav.nav-shell.nav-shell--transparent {
+  padding: 20px 40px; background: transparent; box-shadow: none;
+}
+nav.nav-shell.nav-shell--transparent .logo {
+  color: white; font-weight: 900; font-size: 20px; letter-spacing: 2px; text-decoration: none;
+}
+nav.nav-shell.nav-shell--transparent .menu a {
+  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+}
+nav.nav-shell.nav-shell--transparent .menu a:hover { color: white; }
+nav.nav-shell.nav-shell--transparent .nav-account {
+  background: rgba(255,255,255,0.12);
+}
+nav.nav-shell.nav-shell--transparent .nav-account svg { color: white; }
+nav.nav-shell.nav-shell--transparent .nav-cta {
+  background: white !important; color: var(--primary) !important;
+  padding: 10px 24px; border-radius: var(--radius-full) !important; font-weight: 700 !important;
+}
+nav.nav-shell.nav-shell--solid {
+  padding: 0 40px; height: 64px;
+  background: #ffffff; box-shadow: 0 1px 0 rgba(0,0,0,0.07);
+}
+nav.nav-shell.nav-shell--solid .logo {
+  color: var(--color-primary); font-weight: 800; font-size: 18px; letter-spacing: 3px; text-decoration: none; text-transform: uppercase;
+}
+nav.nav-shell.nav-shell--solid .menu a {
+  color: var(--text-secondary); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: color 0.2s;
+}
+nav.nav-shell.nav-shell--solid .menu a:hover { color: var(--color-primary); }
+nav.nav-shell.nav-shell--solid .nav-account { background: rgba(0,0,0,0.06); }
+nav.nav-shell.nav-shell--solid .nav-account svg { color: var(--text-secondary); }
+nav.nav-shell.nav-shell--solid .nav-cta {
+  background: var(--primary) !important; color: #ffffff !important;
+  padding: 10px 24px; border-radius: var(--radius-full) !important; font-weight: 700 !important;
+}
+nav.nav-shell .nav-account {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%; transition: background 0.2s;
+}
+nav.nav-shell .menu { display: flex; gap: 28px; align-items: center; }
+
 /* ===== HERO ===== */
 .hero-full {
   position: relative; min-height: 100vh;

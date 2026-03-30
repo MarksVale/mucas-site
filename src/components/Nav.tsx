@@ -4,6 +4,7 @@ import { IconAccount } from './Icons'
 import { getSettings } from '@/lib/content'
 import MobileMenu from './MobileMenu'
 import { LangToggle } from './LangToggle'
+import { NavShell } from './NavShell'
 
 const STORE_URL = process.env.NEXT_PUBLIC_WC_STORE_URL || 'https://laivunoma.shop'
 
@@ -15,7 +16,7 @@ export async function Nav({ locale }: { locale: string }) {
 
   return (
     <>
-      <nav className="nav-transparent nav-desktop">
+      <NavShell>
         <Link href="/" className="logo">{settings.brandNameShort}</Link>
         <div className="menu">
           <Link href="/">{t('home')}</Link>
@@ -30,7 +31,7 @@ export async function Nav({ locale }: { locale: string }) {
           </a>
           <Link href="/booking" className="nav-cta">{t('bookNow')}</Link>
         </div>
-      </nav>
+      </NavShell>
       <div className="nav-mobile">
         <MobileMenu brandName={settings.brandNameShort} locale={locale} />
       </div>
