@@ -33,8 +33,10 @@ export default defineConfig({
               ),
             S.divider(),
             S.documentTypeListItem('blogPost').title('Blog Posts'),
-            S.documentTypeListItem('riverContent').title('Rivers'),
-            S.documentTypeListItem('routeContent').title('Routes'),
+            S.divider(),
+            S.listItem()
+              .title('Translations')
+              .child(S.documentTypeList('siteTranslations').title('Site Text & Translations')),
           ]),
     }),
     visionTool({ defaultApiVersion: '2024-01-01' }),
