@@ -367,22 +367,25 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
     }
   }
 
-  if (loading) return <div className="booking-loading"><div className="bf-spinner" />Loading...</div>
+  if (loading) return <div className="booking-card"><div className="booking-loading"><div className="bf-spinner" />Loading...</div></div>
 
   if (submitted) {
     return (
-      <div className="booking-success">
-        <div className="booking-success-icon">&#10003;</div>
-        <h3>Booking Received!</h3>
-        <p>We&apos;ll review your reservation and get back to you at <strong>{email}</strong> with confirmation and payment details.</p>
-        <p className="booking-success-note">Usually within a few hours during business hours (Mon&ndash;Sat, 9:00&ndash;18:00).</p>
+      <div className="booking-card">
+        <div className="booking-success">
+          <div className="booking-success-icon">&#10003;</div>
+          <h3>Booking Received!</h3>
+          <p>We&apos;ll review your reservation and get back to you at <strong>{email}</strong> with confirmation and payment details.</p>
+          <p className="booking-success-note">Usually within a few hours during business hours (Mon&ndash;Sat, 9:00&ndash;18:00).</p>
+        </div>
       </div>
     )
   }
 
-  if (!formData) return <div className="booking-error">Could not load booking data. Please refresh.</div>
+  if (!formData) return <div className="booking-card booking-error">Could not load booking data. Please refresh.</div>
 
   return (
+    <div className="booking-card">
     <form className="booking-form" onSubmit={handleSubmit}>
       {error && <div className="booking-form-error">{error}</div>}
 
@@ -603,5 +606,6 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
         We&apos;ll review your booking and send confirmation with payment details to your email.
       </p>
     </form>
+    </div>
   )
 }
