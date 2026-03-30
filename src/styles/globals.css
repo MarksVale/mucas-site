@@ -1287,7 +1287,10 @@ img { max-width: 100%; display: block; }
 .bf-stepper-btn:hover:not(:disabled) { background: var(--tint); }
 .bf-stepper-btn:active:not(:disabled) { background: #d4edda; }
 .bf-stepper-btn:disabled { color: #ccc; cursor: default; }
-.bf-stepper-count { flex: 1; text-align: center; font-size: 1.1rem; font-weight: 600; color: var(--text); border-left: 1px solid var(--border); border-right: 1px solid var(--border); line-height: 42px; min-width: 0; }
+.bf-stepper-count { flex: 1; text-align: center; font-size: 1.1rem; font-weight: 600; color: var(--text); border-left: 1px solid var(--border); border-right: 1px solid var(--border); line-height: 42px; min-width: 0; height: 42px; padding: 0; background: var(--bg); border-top: none; border-bottom: none; border-radius: 0; font-family: inherit; outline: none; }
+.bf-stepper-count::-webkit-outer-spin-button,
+.bf-stepper-count::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.bf-stepper-count[type=number] { -moz-appearance: textfield; }
 .bf-stepper-zero { color: #bbb; font-weight: 400; }
 
 /* Live Summary Bar */

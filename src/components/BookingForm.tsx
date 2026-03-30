@@ -491,7 +491,14 @@ export function BookingForm() {
                         disabled={qty === 0}
                         aria-label="Decrease"
                       >−</button>
-                      <span className={`bf-stepper-count${qty === 0 ? ' bf-stepper-zero' : ''}`}>{qty}</span>
+                      <input
+                        type="number"
+                        className={`bf-stepper-count${qty === 0 ? ' bf-stepper-zero' : ''}`}
+                        value={qty}
+                        min={0}
+                        onChange={e => setBoatQty(bt.id, Math.max(0, parseInt(e.target.value) || 0))}
+                        aria-label="Quantity"
+                      />
                       <button
                         type="button"
                         className="bf-stepper-btn"
