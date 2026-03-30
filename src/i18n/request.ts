@@ -11,12 +11,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   // Load from Sanity, fall back to local JSON so the site never breaks
   const fallback = (await import(`../../messages/${locale}.json`)).default
   const sanity = await getSiteTranslations(locale)
-  let messages = sanity ? deepMerge(fallback, sanity) : fallback
-
-  // Fix: Sanity has Lithuanian ų in "Mūsų Upes" — force correct Latvian spelling
-  if (locale === 'lv' && (messages as Record<string, Record<string, string>>).rivers?.heading === 'Mūsų Upes') {
-    messages = deepMerge(messages as Record<string, unknown>, { rivers: { heading: 'Mūsu Upes' } })
-  }
+  const messages = sanity ? deepMerge(fallback, sanity) : fallback
 
   return { locale, messages }
 })
