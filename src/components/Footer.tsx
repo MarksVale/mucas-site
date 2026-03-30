@@ -44,7 +44,11 @@ export async function Footer() {
           </div>
           <div className="footer-bottom">
             <span>{t('copyright')}</span>
-            <span>{t('privacyPolicy')} &bull; {t('terms')}</span>
+            <span>
+              <Link href="/privacy">{t('privacyPolicy')}</Link>
+              {' \u2022 '}
+              <Link href="/terms">{t('terms')}</Link>
+            </span>
           </div>
         </div>
       </footer>
