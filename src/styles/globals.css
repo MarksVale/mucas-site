@@ -49,12 +49,10 @@
   --hero-gradient: var(--color-bg-dark);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; max-width: 100%; }
-body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; overflow-x: hidden; }
-/* Carousels are the ONLY elements allowed to scroll horizontally */
-.steps, .hl-cards, .related-3,
-.card-grid-3:has(.river-card),
-.card-grid-4:has(.route-card) { max-width: unset; overflow-x: auto; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { overflow-x: clip; }
+body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; overflow-x: clip; }
+img, video, iframe, svg { max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
@@ -1266,8 +1264,8 @@ img { max-width: 100%; display: block; }
 
 /* Info box */
 .bf-info-box {
-  background: var(--tint); border-left: 3px solid var(--primary);
-  border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 16px; margin-top: 4px;
+  background: var(--tint); border: 1px solid var(--border); border-left: 3px solid var(--primary);
+  border-radius: var(--radius); padding: 16px 18px; margin-top: 20px;
 }
 .bf-info-box-title { font-weight: 700; font-size: 0.88rem; color: var(--primary); margin-bottom: 6px; }
 .bf-info-box-text { font-size: 0.85rem; color: var(--text); line-height: 1.6; margin: 0; }
@@ -1614,3 +1612,38 @@ img { max-width: 100%; display: block; }
 /* ===== PHONE INPUT: rounded corners on each piece ===== */
 .bf-cc-btn { border-radius: var(--radius) 0 0 var(--radius); }
 .bf-phone-wrap input[type=tel] { border-radius: 0 var(--radius) var(--radius) 0; padding: 0 12px; }
+
+/* ===== HL-CARDS: swipe carousel on mobile ===== */
+@media (max-width: 768px) {
+  .hl-cards {
+    display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory;
+    gap: 12px; padding-bottom: 12px; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; grid-template-columns: unset !important;
+  }
+  .hl-cards::-webkit-scrollbar { display: none; }
+  .hl-card { flex: 0 0 75%; scroll-snap-align: start; }
+}
+
+/* ===== RELATED-3: swipe carousel on mobile ===== */
+@media (max-width: 768px) {
+  .related-3 {
+    display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory;
+    gap: 12px; padding-bottom: 12px; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; grid-template-columns: unset !important;
+  }
+  .related-3::-webkit-scrollbar { display: none; }
+  .related-3 > * { flex: 0 0 78%; scroll-snap-align: start; }
+}
+
+/* ===== FLEET BOATS: swipe carousel per category on mobile ===== */
+@media (max-width: 768px) {
+  .card-grid-4:has(.boat-card-clickable) {
+    display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory;
+    gap: 12px; padding-bottom: 12px; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; grid-template-columns: unset !important;
+  }
+  .card-grid-4:has(.boat-card-clickable)::-webkit-scrollbar { display: none; }
+  .card-grid-4:has(.boat-card-clickable) .boat-card-clickable {
+    flex: 0 0 72%; scroll-snap-align: start; min-width: 0;
+  }
+}
