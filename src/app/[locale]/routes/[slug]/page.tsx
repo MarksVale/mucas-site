@@ -1,12 +1,10 @@
 import { Link } from '@/i18n/navigation'
-import { getRoute, getRoutes, getRoutesByRiver, getBoats, getRiver, getBranchForRiver } from '@/lib/airtable'
+import { getRoute, getRoutes, getRoutesByRiver, getRiver, getBranchForRiver } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
-import { cldHero, cldGallery, cldBoat, CLD_BOAT_FALLBACK } from '@/lib/cloudinary'
+import { cldHero, cldGallery } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
-import BoatPhoto from '@/components/BoatPhoto'
-import { BoatIcon } from '@/components/Icons'
 import RouteMap from '@/components/RouteMap'
-import { IconDistance, IconDuration, IconDifficulty, IconHighlight, IconGallery, IconInfo, IconIncluded, IconTransport, IconSeason, IconNote, IconMap, IconRoute, IconNature } from '@/components/Icons'
+import { IconDistance, IconDuration, IconDifficulty, IconHighlight, IconGallery, IconInfo, IconIncluded, IconTransport, IconSeason, IconNote, IconMap, IconRoute, IconNature, IconBoat } from '@/components/Icons'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getTranslations } from 'next-intl/server'
@@ -41,10 +39,9 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
   const { slug } = await props.params
   const route = await getRoute(slug)
   if (!route) return <div className="container" style={{ padding: '80px 0' }}><h1>Route not found</h1></div>
-  const [allBoats, river, branch, riverRoutes] = await Promise.all([
-    getBoats(), getRiver(route.riverSlug), getBranchForRiver(route.riverSlug), getRoutesByRiver(route.riverSlug),
+  const [river, branch, riverRoutes] = await Promise.all([
+    getRiver(route.riverSlug), getBranchForRiver(route.riverSlug), getRoutesByRiver(route.riverSlug),
   ])
-  const availableBoats = allBoats.filter(b => route.boats.includes(b.name))
   const isOnlineBookable = !river || river.bookingType === 'online'
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)
   const content = getRouteContent(route)
@@ -53,7 +50,6 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
   const durationDisplay = route.days === 1 && content.hours ? content.hours + 'h' : `${route.days} days`
   const t = await getTranslations('route')
   const c = await getTranslations('common')
-  const f = await getTranslations('fleet')
   return (
     <>
       <section className={`route-hero ${route.gradient} route-hero-photo`} style={{ backgroundImage: `url(${cldHero('routes', slug)})` }}>
@@ -126,20 +122,18 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
             <PhotoCarousel images={Array.from({ length: galleryCount }, (_, i) => cldGallery('routes', slug, i + 1))} alt={route.name} />
           </div>
         )}
-        {availableBoats.length > 0 && (
+        {route.boats.length > 0 && (
           <div className="page-section">
-            <h2 className="stitle"><span className="stitle-icon"><IconRoute size={22} strokeWidth={1.8} /></span>{t('availableBoats')}</h2>
-            <div className="boats-grid">
-              {availableBoats.map(b => (
-                <div className="bcard" key={b.slug}>
-                  <div className="bcard-photo"><BoatPhoto src={cldBoat(b.slug)} fallback={CLD_BOAT_FALLBACK} alt={b.name} /></div>
-                  <div className="bcard-body">
-                    <div className="bcard-icon"><BoatIcon category={b.category} size={18} /></div>
-                    <h4>{b.name}</h4>
-                    <div className="bcard-cap">{b.seats} {b.seats === 1 ? f('seat') : f('seats')} · {b.category}</div>
-                  </div>
-                </div>
-              ))}
+            <h2 className="stitle"><span className="stitle-icon"><IconBoat size={22} strokeWidth={1.8} /></span>{t('availableBoats')}</h2>
+            <div className="boat-ticker">
+              <div className="boat-ticker-inner">
+                {route.boats.map((name, i) => (
+                  <Link key={i} href="/fleet" className="boat-pill">{name}</Link>
+                ))}
+                {route.boats.map((name, i) => (
+                  <Link key={'r' + i} href="/fleet" className="boat-pill" aria-hidden="true">{name}</Link>
+                ))}
+              </div>
             </div>
           </div>
         )}
