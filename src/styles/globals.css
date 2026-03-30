@@ -1360,6 +1360,12 @@ img { max-width: 100%; display: block; }
 .booking-success p { color: var(--text-secondary); max-width: 400px; margin: 0 auto 8px; }
 .booking-success-note { font-size: 0.85rem; color: var(--text-muted); }
 
+/* Payment options */
+.bf-payment-options { display: flex; gap: 10px; flex-wrap: wrap; }
+.bf-payment-option { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; font-size: 0.88rem; font-weight: 600; color: var(--text); background: var(--bg); transition: border-color 0.15s, background 0.15s; }
+.bf-payment-option input[type=radio] { accent-color: var(--primary); width: 15px; height: 15px; }
+.bf-payment-option.bf-payment-selected { border-color: var(--primary); background: var(--tint); color: var(--primary); }
+
 /* Waiver block */
 .bf-waiver { background: var(--tint); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; }
 .bf-waiver-title { font-weight: 700; font-size: 0.85rem; color: var(--text); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }

@@ -132,6 +132,7 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
   const [availability, setAvailability] = useState<Record<string, { available: number; total: number }>>({})
   const [availLoading, setAvailLoading] = useState(false)
   const [notes, setNotes] = useState('')
+  const [paymentMethod, setPaymentMethod] = useState('Cash')
   const [agreed, setAgreed] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -250,7 +251,7 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
       const res = await fetch(API_BASE + '/submit-booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email, phone: phonePrefix + ' ' + phone, riverId, routeId, startDate, endDate, boatSelections, transportCost, startTime, notes, paymentMethod: 'Cash' }),
+        body: JSON.stringify({ firstName, lastName, email, phone: phonePrefix + ' ' + phone, riverId, routeId, startDate, endDate, boatSelections, transportCost, startTime, notes, paymentMethod }),
       })
       const data = await res.json()
       if (res.ok && data.success) setSubmitted(true)
@@ -426,6 +427,20 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
         <div className="bf-field">
           <label>{isLv ? 'Piezīmes (nav obligāti)' : 'Notes (optional)'}</label>
           <textarea rows={3} value={notes} onChange={e => setNotes(e.target.value)} placeholder={isLv ? 'Īpašas prasības, grupas lielums, u.c.' : 'Special requests, group size, etc.'} />
+        </div>
+        <div className="bf-field">
+          <label>{isLv ? 'Maksājuma veids' : 'Payment Method'} <span className="bf-req">*</span></label>
+          <div className="bf-payment-options">
+            {([
+              { value: 'Cash', lv: 'Skaidra nauda', en: 'Cash on arrival' },
+              { value: 'Transfer', lv: 'Bankas pārskaitījums', en: 'Bank transfer' },
+            ] as { value: string; lv: string; en: string }[]).map(opt => (
+              <label key={opt.value} className={`bf-payment-option${paymentMethod === opt.value ? ' bf-payment-selected' : ''}`}>
+                <input type="radio" name="paymentMethod" value={opt.value} checked={paymentMethod === opt.value} onChange={() => setPaymentMethod(opt.value)} />
+                <span>{isLv ? opt.lv : opt.en}</span>
+              </label>
+            ))}
+          </div>
         </div>
       </div>
 
