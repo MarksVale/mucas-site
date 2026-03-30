@@ -1554,3 +1554,36 @@ img { max-width: 100%; display: block; }
 @media (max-width: 480px) {
   .page-hero { padding: 84px 16px 40px !important; }
 }
+
+/* ===== FOOTER: grid-template-areas layout (mobile) ===== */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-areas:
+      "brand brand"
+      "upes company"
+      "contact contact" !important;
+    gap: 28px !important;
+  }
+  .footer-col:nth-child(1) { grid-area: brand; }
+  .footer-col:nth-child(2) { grid-area: upes; }
+  .footer-col:nth-child(3) { grid-area: company; }
+  .footer-col:nth-child(4) { grid-area: contact; }
+  .footer { padding-top: 28px !important; }
+}
+
+/* ===== CONTAINER: reduce side padding on mobile ===== */
+@media (max-width: 768px) {
+  .container { padding: 0 14px !important; }
+  .section { padding: 48px 0 !important; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 12px !important; }
+}
+
+/* ===== BF-ROW: cascade fix — force 1-col on mobile ===== */
+@media (max-width: 768px) {
+  .bf-row { grid-template-columns: 1fr !important; }
+  .bf-date-row { grid-template-columns: 1fr !important; }
+  .bf-cc-btn { min-width: 80px; max-width: 90px; }
+}

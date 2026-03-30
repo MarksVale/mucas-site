@@ -180,6 +180,12 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
   const [email, setEmail] = useState('')
   const [phonePrefix, setPhonePrefix] = useState('+371')
   const [phone, setPhone] = useState('')
+  const refLastName = useRef<HTMLInputElement>(null)
+  const refEmail = useRef<HTMLInputElement>(null)
+  const refPhone = useRef<HTMLInputElement>(null)
+  function advanceOn(next: React.RefObject<HTMLInputElement | null>) {
+    return (e: React.KeyboardEvent) => { if (e.key === 'Enter') { e.preventDefault(); next.current?.focus() } }
+  }
   const [riverId, setRiverId] = useState('')
   const [routeId, setRouteId] = useState('')
   const [startTime, setStartTime] = useState('11:00')
@@ -340,23 +346,23 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
         <div className="bf-row">
           <div className="bf-field">
             <label>{isLv ? 'Vārds' : 'First Name'} <span className="bf-req">*</span></label>
-            <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder={isLv ? 'Jūsu vārds' : 'Your first name'} required />
+            <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder={isLv ? 'Jūsu vārds' : 'Your first name'} required onKeyDown={advanceOn(refLastName)} />
           </div>
           <div className="bf-field">
             <label>{isLv ? 'Uzvārds' : 'Last Name'} <span className="bf-req">*</span></label>
-            <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} placeholder={isLv ? 'Jūsu uzvārds' : 'Your last name'} required />
+            <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} placeholder={isLv ? 'Jūsu uzvārds' : 'Your last name'} required ref={refLastName} onKeyDown={advanceOn(refEmail)} />
           </div>
         </div>
         <div className="bf-row">
           <div className="bf-field">
             <label>{isLv ? 'E-pasts' : 'Email'} <span className="bf-req">*</span></label>
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com" required />
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com" required ref={refEmail} onKeyDown={advanceOn(refPhone)} />
           </div>
           <div className="bf-field">
             <label>{isLv ? 'Tālrunis' : 'Phone'} <span className="bf-req">*</span></label>
             <div className="bf-phone-wrap">
               <CountryCodePicker value={phonePrefix} onChange={setPhonePrefix} />
-              <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="20000000" required />
+              <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="20000000" required ref={refPhone} />
             </div>
           </div>
         </div>
