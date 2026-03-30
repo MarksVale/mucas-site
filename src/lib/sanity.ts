@@ -335,3 +335,17 @@ export async function getFleetPageSanity(locale = 'lv'): Promise<FleetPageData |
     ctaBtn2:      t(raw, 'ctaBtn2',      locale) ?? '',
   }
 }
+
+// ─── Site Translations ───────────────────────────────────────────────────────
+
+export async function getSiteTranslations(locale: string): Promise<Record<string, unknown> | null> {
+  const raw = await sanityFetch<Record<string, unknown> | null>(
+    `*[_type == "siteTranslations" && locale == "${locale}" && !(_id in path("drafts.**"))][0]`,
+    null
+  )
+  if (!raw) return null
+  // Remove Sanity metadata fields, return clean translation object
+  const { _id, _type, _rev, _createdAt, _updatedAt, locale: _locale, ...translations } = raw
+  void _id; void _type; void _rev; void _createdAt; void _updatedAt; void _locale
+  return translations
+}

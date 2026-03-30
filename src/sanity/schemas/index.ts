@@ -7,6 +7,7 @@ import aboutPage from './aboutPage'
 import contactPage from './contactPage'
 import bookingPage from './bookingPage'
 import fleetPage from './fleetPage'
+import siteTranslations from './siteTranslations'
 
 export const schemaTypes = [
   siteSettings,
@@ -15,6 +16,7 @@ export const schemaTypes = [
   contactPage,
   bookingPage,
   fleetPage,
+  siteTranslations,
   blogPost,
   riverContent,
   routeContent,
