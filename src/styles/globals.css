@@ -139,9 +139,6 @@ img { max-width: 100%; display: block; }
 }
 .hero-stat .num { font-size: 32px; font-weight: 800; color: var(--color-text-inverse); }
 .hero-stat .lbl { font-size: 13px; opacity: 0.5; margin-top: 4px; }
-/* About page numbers section — light background, need dark text */
-.section .hero-stat .num { color: var(--primary); }
-.section .hero-stat .lbl { color: var(--text); opacity: 0.65; }
 
 .hero-sm {
   background: var(--color-bg-dark); padding: 96px 24px 72px; text-align: center; color: white;
@@ -818,22 +815,8 @@ img { max-width: 100%; display: block; }
   .section { padding: 36px 12px; }
   .section-head h2 { font-size: 22px; }
 
-  .card-grid-4 { grid-template-columns: repeat(2, 1fr); }
-  .steps, .extras-grid { grid-template-columns: 1fr; }
-  /* Footer: MUČAS full width → 2 link cols → KONTAKTI full width */
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    gap: 20px 16px;
-    grid-template-areas:
-      "brand brand"
-      "upes  company"
-      "contact contact";
-  }
-  .footer-col:nth-child(1) { grid-area: brand; }
-  .footer-col:nth-child(2) { grid-area: upes; }
-  .footer-col:nth-child(3) { grid-area: company; }
-  .footer-col:nth-child(4) { grid-area: contact; }
+  .card-grid-4, .steps, .extras-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 
   .page-hero { padding: 88px 16px 36px; }
@@ -1209,9 +1192,6 @@ img { max-width: 100%; display: block; }
   .bf-boat-grid { grid-template-columns: 1fr; }
   .bf-summary-bar { flex-wrap: wrap; gap: 8px; }
   .bf-summary-item { min-width: 45%; }
-  /* contact-grid defined after earlier 768px block — override here */
-  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
-  .form-row { grid-template-columns: 1fr; }
 }
 
 /* ===== BOOKING FORM ===== */
@@ -1518,138 +1498,59 @@ img { max-width: 100%; display: block; }
   .gal-lb-prev, .gal-lb-next { font-size: 32px; }
 }
 
-/* ===== BRANCH CARDS ===== */
-.branch-card {
-  background: white; border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 20px;
+/* ===== BOOKING PAGE: form first on mobile ===== */
+@media (max-width: 1024px) {
+  .booking-form-col { order: -1; }
+  .booking-branches-col { order: 1; }
+  .booking-card { padding: 20px 16px; box-sizing: border-box; width: 100%; overflow-x: hidden; }
+  .bf-cc-dropdown { max-width: calc(100vw - 40px); }
+  .bf-field input, .bf-field select, .bf-field textarea {
+    width: 100%; box-sizing: border-box; max-width: 100%;
+  }
+  .bf-phone-wrap { width: 100%; box-sizing: border-box; }
 }
-.branch-header {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: 12px;
-}
-.branch-header h3 { font-size: 16px; font-weight: 700; margin: 0; }
-.branch-person { font-size: 13px; color: var(--text-secondary); font-weight: 500; text-align: right; }
-.branch-region { font-size: 13px; color: var(--text-muted); margin: 0 0 12px; }
-.branch-contacts { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-.branch-contacts a {
-  display: flex; align-items: center; gap: 6px;
-  color: var(--primary); text-decoration: none; font-size: 14px;
-}
-.branch-footer { border-top: 1px solid var(--border); padding-top: 10px; }
-.branch-footer p { font-size: 13px; margin: 0; }
 
-/* ===== LATE MOBILE OVERRIDES (must come after desktop declarations) ===== */
-/* page-hero defined at line ~877 after earlier media queries — override here */
+/* ===== RIVER STATS: stay horizontal on mobile ===== */
 @media (max-width: 768px) {
-  .page-hero { padding: 88px 16px 28px; }
-  .page-hero h1 { font-size: 26px; }
-  .page-hero p { font-size: 15px; }
-  .route-hero, .river-hero { padding: 88px 16px 28px; }
-  .route-hero h1, .river-hero h1 { font-size: 26px; }
-  .footer { padding: 28px 16px 20px; }
+  .floating-stats-inner {
+    flex-direction: row !important;
+    gap: 0;
+  }
+  .fstat {
+    flex: 1; padding: 12px 6px !important;
+    border-right: 1px solid var(--border) !important;
+    border-bottom: none !important;
+  }
+  .fstat:last-child { border-right: none !important; }
+  .fstat-icon { display: none; }
+  .fstat-value { font-size: 14px !important; }
+  .fstat-label { font-size: 9px !important; letter-spacing: 0.5px; }
 }
+
+/* ===== RIVER CARDS: list layout on mobile ===== */
+@media (max-width: 768px) {
+  .card-grid-3:has(.river-card) {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .river-card {
+    display: flex; flex-direction: row; align-items: stretch;
+    border-radius: 10px; overflow: hidden; min-height: unset;
+  }
+  .river-card .rc-img {
+    width: 88px; min-width: 88px; height: auto; flex-shrink: 0;
+    border-radius: 0; padding: 10px 8px;
+    align-items: flex-start;
+  }
+  .river-card .rc-img h3 { font-size: 13px; line-height: 1.2; }
+  .river-card .rc-badge { font-size: 10px; padding: 2px 6px; }
+  .river-card .rc-body {
+    padding: 12px 14px; display: flex; flex-direction: column; justify-content: center;
+  }
+  .river-card .rc-body p { display: none; }
+  .river-card .rc-meta { font-size: 12px; }
+}
+
+/* ===== PAGE-HERO bottom padding fix ===== */
 @media (max-width: 480px) {
-  .page-hero { padding: 84px 16px 20px; }
-  .page-hero h1 { font-size: 22px; }
-}
-
-/* ===== CTA BUTTONS ===== */
-.cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-@media (max-width: 480px) {
-  .cta-btns { flex-direction: column; align-items: stretch; }
-  .cta-btns .btn { width: 100%; text-align: center; }
-  .cta-banner h2 { font-size: 20px; }
-}
-
-/* ===== STEPS SWIPE CAROUSEL (mobile) ===== */
-@media (max-width: 768px) {
-  .steps {
-    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-    gap: 12px; padding-bottom: 12px; -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .steps::-webkit-scrollbar { display: none; }
-  .step {
-    flex: 0 0 72%; scroll-snap-align: start;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 24px 20px;
-  }
-}
-
-/* ===== BOAT CARD MODAL ===== */
-.boat-card-clickable { cursor: pointer; }
-.bc-hint { display: none; } /* removed per user request */
-
-.bm-overlay {
-  position: fixed; inset: 0; z-index: 1000;
-  background: rgba(0,0,0,0.6); display: flex;
-  align-items: flex-end; justify-content: center;
-  padding: 0;
-}
-@media (min-width: 600px) {
-  .bm-overlay { align-items: center; padding: 24px; }
-}
-.bm-panel {
-  background: #fff; border-radius: 20px 20px 0 0;
-  width: 100%; max-width: 560px; max-height: 90vh;
-  overflow-y: auto; position: relative;
-  -webkit-overflow-scrolling: touch;
-}
-@media (min-width: 600px) {
-  .bm-panel { border-radius: var(--radius); }
-}
-.bm-close {
-  position: absolute; top: 14px; right: 16px; z-index: 10;
-  background: rgba(0,0,0,0.12); border: none; cursor: pointer;
-  width: 32px; height: 32px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; color: #fff; line-height: 1;
-}
-.bm-image { width: 100%; aspect-ratio: 3/2; overflow: hidden; background: var(--bg); }
-.bm-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.bm-content { padding: 20px 24px 32px; }
-.bm-header { margin-bottom: 16px; }
-.bm-badge {
-  display: inline-block; font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px;
-  background: var(--tint); color: var(--primary);
-  padding: 4px 10px; border-radius: 20px; margin-bottom: 8px;
-}
-.bm-title { font-size: 24px; font-weight: 800; margin: 0; }
-.bm-specs {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 10px; margin-top: 16px;
-}
-.bm-spec {
-  background: var(--bg); border-radius: var(--radius);
-  padding: 12px; font-size: 12px; color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: 0.5px;
-  display: flex; flex-direction: column; gap: 4px;
-}
-.bm-spec-value { font-size: 16px; font-weight: 700; color: var(--text); }
-
-/* ===== HL-CARDS SWIPE CAROUSEL (mobile) ===== */
-@media (max-width: 768px) {
-  .hl-cards {
-    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-    gap: 12px; padding-bottom: 12px; -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; grid-template-columns: unset;
-  }
-  .hl-cards::-webkit-scrollbar { display: none; }
-  .hl-card {
-    flex: 0 0 75%; scroll-snap-align: start;
-  }
-}
-
-/* ===== RELATED-3 SWIPE CAROUSEL (mobile) ===== */
-@media (max-width: 768px) {
-  .related-3 {
-    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-    gap: 12px; padding-bottom: 12px; -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; grid-template-columns: unset;
-  }
-  .related-3::-webkit-scrollbar { display: none; }
-  .related-3 > * {
-    flex: 0 0 78%; scroll-snap-align: start;
-  }
+  .page-hero { padding: 84px 16px 40px !important; }
 }
