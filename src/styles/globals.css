@@ -13,7 +13,7 @@
   --color-text:         #191716;
   --color-text-muted:   #7A7872;
   --color-text-inverse: #ECEAD4;
-  --color-border:       #E8E8E6;
+  --color-border:       rgba(0,0,0,0.08);
 
   /* === Legacy aliases (existing classes use these) === */
   --primary:        var(--color-primary);
