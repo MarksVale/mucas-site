@@ -65,7 +65,6 @@ export default function BoatCardWithModal({ boat, seatLabel, seatsLabel }: Props
           </div>
           <h3>{boat.name}</h3>
           <div className="bc-meta">{boat.seats} {boat.seats === 1 ? seatLabel : seatsLabel}</div>
-          <div className="bc-hint">Tap to see details</div>
         </div>
       </div>
 

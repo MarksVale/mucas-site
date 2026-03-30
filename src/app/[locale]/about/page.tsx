@@ -93,7 +93,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <div className="cta-banner">
             <h2>{c.ctaHeading}</h2>
             <p>{c.ctaSubtitle}</p>
-            <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
+            <div className="cta-btns">
               <Link href="/contact" className="btn btn-white">{c.ctaBtn1}</Link>
               <Link href="/rivers" className="btn btn-outline">{c.ctaBtn2}</Link>
             </div>
