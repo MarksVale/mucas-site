@@ -129,6 +129,8 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [boatSelections, setBoatSelections] = useState<Record<string, number>>({})
+  const [availability, setAvailability] = useState<Record<string, { available: number; total: number }>>({})
+  const [availLoading, setAvailLoading] = useState(false)
   const [notes, setNotes] = useState('')
   const [agreed, setAgreed] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -201,7 +203,35 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
   const transportCost = selectedRoute?.transportCost || 0
   const hasBoats = Object.values(boatSelections).some(q => q > 0)
 
-  function handleRiverChange(id: string) { setRiverId(id); setRouteId(''); setBoatSelections({}); setStartDate(''); setEndDate('') }
+  useEffect(() => {
+    if (!startDate || !endDate) { setAvailability({}); return }
+    setAvailLoading(true)
+    fetch(`${API_BASE}/check-availability?start_date=${startDate}&end_date=${endDate}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.availability) {
+          const map: Record<string, { available: number; total: number }> = {}
+          for (const [id, v] of Object.entries(data.availability as Record<string, { available: number; total: number }>)) {
+            map[id] = { available: v.available, total: v.total }
+          }
+          setAvailability(map)
+          // clamp existing selections to new availability
+          setBoatSelections(prev => {
+            const next = { ...prev }
+            for (const [id, qty] of Object.entries(next)) {
+              const avail = map[id]?.available ?? 0
+              if (qty > avail) next[id] = avail
+              if (next[id] <= 0) delete next[id]
+            }
+            return next
+          })
+        }
+      })
+      .catch(() => setAvailability({}))
+      .finally(() => setAvailLoading(false))
+  }, [startDate, endDate])
+
+  function handleRiverChange(id: string) { setRiverId(id); setRouteId(''); setBoatSelections({}); setAvailability({}); setStartDate(''); setEndDate('') }
   function handleRouteChange(id: string) { setRouteId(id); setBoatSelections({}) }
   function setBoatQty(boatId: string, val: number) {
     setBoatSelections(prev => {
@@ -327,21 +357,35 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
         {selectedRoute && startDate && endDate && (
           <div className="bf-field">
             <label>{isLv ? 'Laivas' : 'Boats'} <span className="bf-req">*</span></label>
+            {availLoading && <small className="bf-hint">{isLv ? 'Pārbauda pieejamību...' : 'Checking availability...'}</small>}
             <div className="bf-boat-grid">
               {availableBoats.map(bt => {
                 const qty = boatSelections[bt.id] || 0
+                const avail = availability[bt.id]
+                const maxQty = avail ? avail.available : 99
+                const soldOut = avail ? avail.available === 0 : false
                 return (
-                  <div key={bt.id} className={`bf-boat-card${qty > 0 ? ' bf-boat-selected' : ''}`}>
+                  <div key={bt.id} className={`bf-boat-card${qty > 0 ? ' bf-boat-selected' : ''}${soldOut ? ' bf-boat-soldout' : ''}`}>
                     <div className="bf-boat-header">
                       <div className="bf-boat-name">{bt.name}</div>
                       <div className="bf-boat-price">&euro;{bt.price}/{isLv ? 'dienā' : 'day'}</div>
                     </div>
                     <div className="bf-boat-desc">{bt.capacity} {bt.capacity === 1 ? (isLv ? 'vieta' : 'seat') : (isLv ? 'vietas' : 'seats')}</div>
+                    {avail && (
+                      <div className={`bf-boat-avail${soldOut ? ' bf-boat-avail-none' : ''}`}>
+                        {soldOut
+                          ? (isLv ? 'Nav pieejams' : 'Not available')
+                          : `${avail.available} ${isLv ? 'pieejams' : 'available'}`}
+                      </div>
+                    )}
                     <div className="bf-stepper">
-                      <button type="button" className="bf-stepper-btn" onClick={() => setBoatQty(bt.id, qty - 1)} disabled={qty === 0} aria-label="Decrease">−</button>
+                      <button type="button" className="bf-stepper-btn" onClick={() => setBoatQty(bt.id, qty - 1)} disabled={qty === 0 || soldOut} aria-label="Decrease">−</button>
                       <input type="number" className={`bf-stepper-count${qty === 0 ? ' bf-stepper-zero' : ''}`}
-                        value={qty} min={0} onChange={e => setBoatQty(bt.id, Math.max(0, parseInt(e.target.value) || 0))} aria-label="Quantity" />
-                      <button type="button" className="bf-stepper-btn" onClick={() => setBoatQty(bt.id, qty + 1)} aria-label="Increase">+</button>
+                        value={qty} min={0} max={maxQty}
+                        onFocus={e => e.target.select()}
+                        onChange={e => setBoatQty(bt.id, Math.min(maxQty, Math.max(0, parseInt(e.target.value) || 0)))}
+                        aria-label="Quantity" disabled={soldOut} />
+                      <button type="button" className="bf-stepper-btn" onClick={() => setBoatQty(bt.id, qty + 1)} disabled={qty >= maxQty || soldOut} aria-label="Increase">+</button>
                     </div>
                   </div>
                 )

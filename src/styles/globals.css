@@ -1283,7 +1283,10 @@ img { max-width: 100%; display: block; }
 .bf-boat-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
 .bf-boat-name { font-weight: 600; font-size: 0.9rem; color: var(--primary); line-height: 1.2; }
 .bf-boat-price { font-size: 0.8rem; color: var(--accent); font-weight: 600; white-space: nowrap; }
-.bf-boat-desc { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; }
+.bf-boat-desc { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
+.bf-boat-avail { font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-bottom: 8px; }
+.bf-boat-avail-none { color: #c00; }
+.bf-boat-card.bf-boat-soldout { opacity: 0.55; pointer-events: none; }
 .bf-stepper { display: flex; align-items: center; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
 .bf-stepper-btn {
   flex: 0 0 42px; height: 42px; background: var(--bg); border: none; cursor: pointer;
