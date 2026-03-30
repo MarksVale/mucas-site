@@ -139,6 +139,9 @@ img { max-width: 100%; display: block; }
 }
 .hero-stat .num { font-size: 32px; font-weight: 800; color: var(--color-text-inverse); }
 .hero-stat .lbl { font-size: 13px; opacity: 0.5; margin-top: 4px; }
+/* About page numbers section — light background, need dark text */
+.section .hero-stat .num { color: var(--primary); }
+.section .hero-stat .lbl { color: var(--text); opacity: 0.65; }
 
 .hero-sm {
   background: var(--color-bg-dark); padding: 96px 24px 72px; text-align: center; color: white;
