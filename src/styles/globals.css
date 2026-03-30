@@ -332,11 +332,15 @@ img { max-width: 100%; display: block; }
 
 /* ===== CTA BANNER ===== */
 .cta-banner {
-  background: var(--color-bg-dark);
-  border-radius: var(--radius); padding: 64px 48px; text-align: center; color: var(--color-text-inverse);
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-xl); padding: 64px 48px; text-align: center; color: var(--text);
 }
 .cta-banner h2 { font-size: 32px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-.cta-banner p { font-size: 17px; opacity: 0.75; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+.cta-banner p { font-size: 17px; color: var(--text-secondary); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+.cta-banner .btn-outline { color: var(--primary); border-color: var(--primary); }
+.cta-banner .btn-outline:hover { background: var(--primary); color: #fff; }
 
 /* ===== FILTER BAR ===== */
 .filter-bar {
