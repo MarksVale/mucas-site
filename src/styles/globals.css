@@ -1195,6 +1195,9 @@ img { max-width: 100%; display: block; }
   .bf-boat-grid { grid-template-columns: 1fr; }
   .bf-summary-bar { flex-wrap: wrap; gap: 8px; }
   .bf-summary-item { min-width: 45%; }
+  /* contact-grid defined after earlier 768px block — override here */
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .form-row { grid-template-columns: 1fr; }
 }
 
 /* ===== BOOKING FORM ===== */

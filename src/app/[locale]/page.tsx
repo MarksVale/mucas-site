@@ -44,7 +44,6 @@ export default async function Home() {
           <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">Rivers</span></div>
           <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">Routes</span></div>
           <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">Boat Types</span></div>
-          <div className="hps-item"><span className="hps-num">{Math.min(...allBoats.map(b => b.pricePerDay))}€</span><span className="hps-lbl">From / day</span></div>
         </div>
       </section>
 
