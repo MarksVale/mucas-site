@@ -22,6 +22,66 @@ interface FormData {
 
 const DOW = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU']
 
+const TRANSLATIONS = {
+  en: {
+    contactSection: 'Your Contact Information',
+    firstName: 'First Name', firstNamePh: 'Your first name',
+    lastName: 'Last Name', lastNamePh: 'Your last name',
+    email: 'Email', phone: 'Phone',
+    reservationSection: 'Reservation Details',
+    river: 'River', selectRiver: '- Select river -',
+    route: 'Route', selectRoute: '- Select route -', selectRiverFirst: '- Select river first -',
+    startTime: 'Preferred Start Time', otherTime: 'Other time',
+    dates: 'Dates', oneDayHint: 'For a one-day trip, select the same start and end date.',
+    selectDate: 'Select date', startDate: 'Start date', endDate: 'End date',
+    available: 'Available', unavailable: 'Unavailable',
+    boats: 'Boats', seat: 'seat', seats: 'seats',
+    totalPeople: 'Total people', days: 'Days', price: 'Price', transport: 'Transport',
+    transportNote: '* Transport cost is an estimate and may be adjusted after your booking request based on group size, fuel costs, and other external factors. Final price will be confirmed in your confirmation email.',
+    notes: 'Notes (optional)', notesPh: 'Special requests, group size, etc.',
+    submit: 'Submit Booking', submitting: 'Sending...',
+    footerNote: "We'll review your booking and send confirmation with payment details to your email.",
+    successTitle: 'Booking Received!',
+    successDesc: (email: string) => `We'll review your reservation and get back to you at ${email} with confirmation and payment details.`,
+    successNote: 'Usually within a few hours during business hours (Mon–Sat, 9:00–18:00).',
+    loadError: 'Could not load booking data. Please refresh.',
+    fetchError: 'Failed to load form data',
+    seasonError: 'Selected dates are outside the booking season.',
+    connError: 'Connection error. Please try again.',
+    submitError: 'Something went wrong. Please try again.',
+    loading: 'Loading...',
+  },
+  lv: {
+    contactSection: 'Kontaktinformācija',
+    firstName: 'Vārds', firstNamePh: 'Jūsu vārds',
+    lastName: 'Uzvārds', lastNamePh: 'Jūsu uzvārds',
+    email: 'E-pasts', phone: 'Tālrunis',
+    reservationSection: 'Rezervācijas informācija',
+    river: 'Upe', selectRiver: '- Izvēlies upi -',
+    route: 'Maršruts', selectRoute: '- Izvēlies maršrutu -', selectRiverFirst: '- Vispirms izvēlies upi -',
+    startTime: 'Vēlamais sākuma laiks', otherTime: 'Cits laiks',
+    dates: 'Datumi', oneDayHint: 'Vienas dienas braucienam izvēlies vienādus sākuma un beigu datumus.',
+    selectDate: 'Izvēlies datumu', startDate: 'Sākuma datums', endDate: 'Beigu datums',
+    available: 'Pieejams', unavailable: 'Nav pieejams',
+    boats: 'Laivas', seat: 'vieta', seats: 'vietas',
+    totalPeople: 'Kopā cilvēki', days: 'Dienas', price: 'Cena', transport: 'Transports',
+    transportNote: '* Transporta izmaksas ir aptuvenas un var tikt koriģētas pēc rezervācijas pieprasījuma saņemšanas atkarībā no grupu lieluma, degvielas cenām un citiem faktoriem. Galīgā cena tiks apstiprināta apstiprinājuma e-pastā.',
+    notes: 'Piezīmes (neobligāti)', notesPh: 'Īpaši pieprasījumi, grupas lielums u.c.',
+    submit: 'Iesniegt rezervāciju', submitting: 'Sūta...',
+    footerNote: 'Mēs izskatīsim jūsu rezervāciju un nosūtīsim apstiprinājumu ar maksājuma informāciju uz jūsu e-pastu.',
+    successTitle: 'Rezervācija saņemta!',
+    successDesc: (email: string) => `Mēs izskatīsim jūsu rezervāciju un sazināsimies ar jums uz ${email} ar apstiprinājumu un maksājuma informāciju.`,
+    successNote: 'Parasti dažu stundu laikā darba laikā (P–S, 9:00–18:00).',
+    loadError: 'Neizdevās ielādēt rezervācijas datus. Lūdzu atsvaidziniet lapu.',
+    fetchError: 'Neizdevās ielādēt datus',
+    seasonError: 'Izvēlētie datumi atrodas ārpus rezervācijas sezonas.',
+    connError: 'Savienojuma kļūda. Lūdzu mēģiniet vēlreiz.',
+    submitError: 'Kaut kas nogāja greizi. Lūdzu mēģiniet vēlreiz.',
+    loading: 'Ielādē...',
+  },
+}
+function getT(locale: string) { return locale === 'en' ? TRANSLATIONS.en : TRANSLATIONS.lv }
+
 function slugify(s: string) {
   return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
@@ -43,6 +103,7 @@ function Calendar({
   isDateAllowed,
   startDate,
   endDate,
+  locale,
 }: {
   value: string
   onChange: (iso: string) => void
@@ -51,6 +112,7 @@ function Calendar({
   isDateAllowed: (d: string) => boolean
   startDate?: string
   endDate?: string
+  locale?: string
 }) {
   const today = new Date()
   const initMonth = value ? new Date(value + 'T00:00:00') : new Date(minDate ? minDate + 'T00:00:00' : Date.now())
@@ -123,8 +185,8 @@ function Calendar({
         ))}
       </div>
       <div className="cal-legend">
-        <div className="cal-legend-item"><div className="cal-legend-dot" style={{ background: '#24943A' }} /> Available</div>
-        <div className="cal-legend-item"><div className="cal-legend-dot" style={{ background: '#ddd' }} /> Unavailable</div>
+        <div className="cal-legend-item"><div className="cal-legend-dot" style={{ background: '#24943A' }} /> {locale === 'en' ? 'Available' : 'Pieejams'}</div>
+        <div className="cal-legend-item"><div className="cal-legend-dot" style={{ background: '#ddd' }} /> {locale === 'en' ? 'Unavailable' : 'Nav pieejams'}</div>
       </div>
     </div>
   )
@@ -140,6 +202,7 @@ function DatePicker({
   placeholder,
   startDate,
   endDate,
+  locale,
 }: {
   value: string
   onChange: (iso: string) => void
@@ -149,6 +212,7 @@ function DatePicker({
   placeholder: string
   startDate?: string
   endDate?: string
+  locale?: string
 }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -176,6 +240,7 @@ function DatePicker({
           isDateAllowed={isDateAllowed}
           startDate={startDate}
           endDate={endDate}
+          locale={locale}
         />
       )}
     </div>
@@ -204,12 +269,13 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
   const [submitted, setSubmitted] = useState(false)
   const [preselected, setPreselected] = useState(false)
   const [agreed, setAgreed] = useState(false)
+  const t = getT(locale)
 
   useEffect(() => {
     fetch(API_BASE + '/get-form-data')
       .then(r => r.json())
       .then(data => { setFormData(data); setLoading(false) })
-      .catch(() => { setError('Failed to load form data'); setLoading(false) })
+      .catch(() => { setError(t.fetchError); setLoading(false) })
   }, [])
 
   // Auto-select from URL params on load
@@ -337,7 +403,7 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
     e.preventDefault()
     if (!routeId || !startDate || !endDate || !hasBoats) return
     if (!isDateAllowed(startDate) || !isDateAllowed(endDate)) {
-      setError('Selected dates are outside the booking season.')
+      setError(t.seasonError)
       return
     }
     setSubmitting(true)
@@ -358,31 +424,31 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
       if (res.ok && data.success) {
         setSubmitted(true)
       } else {
-        setError(data.error || 'Something went wrong. Please try again.')
+        setError(data.error || t.submitError)
       }
     } catch {
-      setError('Connection error. Please try again.')
+      setError(t.connError)
     } finally {
       setSubmitting(false)
     }
   }
 
-  if (loading) return <div className="booking-card"><div className="booking-loading"><div className="bf-spinner" />Loading...</div></div>
+  if (loading) return <div className="booking-card"><div className="booking-loading"><div className="bf-spinner" />{t.loading}</div></div>
 
   if (submitted) {
     return (
       <div className="booking-card">
         <div className="booking-success">
           <div className="booking-success-icon">&#10003;</div>
-          <h3>Booking Received!</h3>
-          <p>We&apos;ll review your reservation and get back to you at <strong>{email}</strong> with confirmation and payment details.</p>
-          <p className="booking-success-note">Usually within a few hours during business hours (Mon&ndash;Sat, 9:00&ndash;18:00).</p>
+          <h3>{t.successTitle}</h3>
+          <p>{t.successDesc(email)}</p>
+          <p className="booking-success-note">{t.successNote}</p>
         </div>
       </div>
     )
   }
 
-  if (!formData) return <div className="booking-card booking-error">Could not load booking data. Please refresh.</div>
+  if (!formData) return <div className="booking-card booking-error">{t.loadError}</div>
 
   return (
     <div className="booking-card">
@@ -391,24 +457,24 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
 
       {/* Contact */}
       <div className="bf-section">
-        <div className="bf-section-title">Your Contact Information</div>
+        <div className="bf-section-title">{t.contactSection}</div>
         <div className="bf-row">
           <div className="bf-field">
-            <label>First Name <span className="bf-req">*</span></label>
-            <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="Your first name" required />
+            <label>{t.firstName} <span className="bf-req">*</span></label>
+            <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder={t.firstNamePh} required />
           </div>
           <div className="bf-field">
-            <label>Last Name <span className="bf-req">*</span></label>
-            <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Your last name" required />
+            <label>{t.lastName} <span className="bf-req">*</span></label>
+            <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} placeholder={t.lastNamePh} required />
           </div>
         </div>
         <div className="bf-row">
           <div className="bf-field">
-            <label>Email <span className="bf-req">*</span></label>
+            <label>{t.email} <span className="bf-req">*</span></label>
             <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com" required />
           </div>
           <div className="bf-field">
-            <label>Phone <span className="bf-req">*</span></label>
+            <label>{t.phone} <span className="bf-req">*</span></label>
             <div className="bf-phone-wrap">
               <span className="bf-phone-prefix">+371</span>
               <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="20000000" required />
@@ -419,19 +485,19 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
 
       {/* Reservation Details */}
       <div className="bf-section">
-        <div className="bf-section-title">Reservation Details</div>
+        <div className="bf-section-title">{t.reservationSection}</div>
         <div className="bf-row">
           <div className="bf-field">
-            <label>River <span className="bf-req">*</span></label>
+            <label>{t.river} <span className="bf-req">*</span></label>
             <select value={riverId} onChange={e => handleRiverChange(e.target.value)} required>
-              <option value="">- Select river -</option>
+              <option value="">{t.selectRiver}</option>
               {formData.rivers.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
           </div>
           <div className="bf-field">
-            <label>Route <span className="bf-req">*</span></label>
+            <label>{t.route} <span className="bf-req">*</span></label>
             <select value={routeId} onChange={e => handleRouteChange(e.target.value)} required disabled={!riverId}>
-              <option value="">{riverId ? '- Select route -' : '- Select river first -'}</option>
+              <option value="">{riverId ? t.selectRoute : t.selectRiverFirst}</option>
               {filteredRoutes.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
           </div>
@@ -439,12 +505,12 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
 
         {selectedRoute && (
           <div className="bf-field" style={{ marginBottom: 20 }}>
-            <label>Preferred Start Time</label>
+            <label>{t.startTime}</label>
             <select value={startTime} onChange={e => setStartTime(e.target.value)}>
               {selectedRoute.startTimes
-                .filter(t => t !== 'Cits laiks')
-                .map(t => <option key={t} value={t}>{t}</option>)}
-              <option value="cits">Other time</option>
+                .filter(st => st !== 'Cits laiks')
+                .map(st => <option key={st} value={st}>{st}</option>)}
+              <option value="cits">{t.otherTime}</option>
             </select>
           </div>
         )}
@@ -452,8 +518,8 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
         {/* Dates - custom calendar */}
         {selectedRoute && (
           <div className="bf-field" style={{ marginBottom: 20 }}>
-            <label>Dates <span className="bf-req">*</span></label>
-            <small className="bf-hint">For a one-day trip, select the same start and end date.</small>
+            <label>{t.dates} <span className="bf-req">*</span></label>
+            <small className="bf-hint">{t.oneDayHint}</small>
             <div className="bf-date-row">
               <div className="bf-field">
                 <DatePicker
@@ -462,11 +528,12 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
                   minDate={minDate}
                   maxDate={maxDate}
                   isDateAllowed={isDateAllowed}
-                  placeholder="Select date"
+                  placeholder={t.selectDate}
                   startDate={startDate}
                   endDate={endDate}
+                  locale={locale}
                 />
-                <small className="bf-hint">Start date</small>
+                <small className="bf-hint">{t.startDate}</small>
               </div>
               <div className="bf-field">
                 <DatePicker
@@ -475,20 +542,21 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
                   minDate={startDate || minDate}
                   maxDate={maxDate}
                   isDateAllowed={isDateAllowed}
-                  placeholder="Select date"
+                  placeholder={t.selectDate}
                   startDate={startDate}
                   endDate={endDate}
+                  locale={locale}
                 />
-                <small className="bf-hint">End date</small>
+                <small className="bf-hint">{t.endDate}</small>
               </div>
             </div>
           </div>
         )}
 
-        {/* Boat Selection - card layout matching standalone */}
+        {/* Boat Selection */}
         {selectedRoute && startDate && endDate && (
           <div className="bf-field">
-            <label>Boats <span className="bf-req">*</span></label>
+            <label>{t.boats} <span className="bf-req">*</span></label>
             <div className="bf-boat-grid">
               {availableBoats.map(bt => {
                 const qty = boatSelections[bt.id] || 0
@@ -497,7 +565,7 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
                     <div className="bf-boat-header">
                       <div className="bf-boat-name">{bt.name}</div>
                     </div>
-                    <div className="bf-boat-desc">{bt.capacity} {bt.capacity === 1 ? 'seat' : 'seats'}</div>
+                    <div className="bf-boat-desc">{bt.capacity} {bt.capacity === 1 ? t.seat : t.seats}</div>
                     <input
                       type="number"
                       className="bf-boat-input"
@@ -517,34 +585,32 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
       {selectedRoute && (
         <div className="bf-summary-bar">
           <div className="bf-summary-item">
-            <div className="bf-summary-label">Total people</div>
+            <div className="bf-summary-label">{t.totalPeople}</div>
             <div className="bf-summary-value">{totalPeople}</div>
           </div>
           <div className="bf-summary-item">
-            <div className="bf-summary-label">Days</div>
+            <div className="bf-summary-label">{t.days}</div>
             <div className="bf-summary-value">{days || '--'}</div>
           </div>
           <div className="bf-summary-item">
-            <div className="bf-summary-label">Price</div>
+            <div className="bf-summary-label">{t.price}</div>
             <div className="bf-summary-value">&euro;{boatCost}</div>
           </div>
           <div className="bf-summary-item">
-            <div className="bf-summary-label">Transport</div>
+            <div className="bf-summary-label">{t.transport}</div>
             <div className="bf-summary-value">&euro;{transportCost}</div>
           </div>
         </div>
       )}
       {selectedRoute && (
-        <p className="bf-transport-note">
-          * Transport cost is an estimate and may be adjusted after your booking request based on group size, fuel costs, and other external factors. Final price will be confirmed in your confirmation email.
-        </p>
+        <p className="bf-transport-note">{t.transportNote}</p>
       )}
 
       {/* Notes */}
       <div className="bf-section">
         <div className="bf-field">
-          <label>Notes (optional)</label>
-          <textarea rows={3} value={notes} onChange={e => setNotes(e.target.value)} placeholder="Special requests, group size, etc." />
+          <label>{t.notes}</label>
+          <textarea rows={3} value={notes} onChange={e => setNotes(e.target.value)} placeholder={t.notesPh} />
         </div>
       </div>
 
@@ -600,11 +666,9 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
         disabled={submitting || !agreed || !routeId || !startDate || !endDate || !hasBoats || !firstName || !lastName || !email || !phone}
         style={{ opacity: agreed ? 1 : 0.45, cursor: agreed ? 'pointer' : 'not-allowed', transition: 'opacity 0.2s' }}
       >
-        {submitting ? 'Sending...' : 'Submit Booking'}
+        {submitting ? t.submitting : t.submit}
       </button>
-      <p className="bf-footer-note">
-        We&apos;ll review your booking and send confirmation with payment details to your email.
-      </p>
+      <p className="bf-footer-note">{t.footerNote}</p>
     </form>
     </div>
   )
