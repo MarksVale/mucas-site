@@ -819,8 +819,9 @@ img { max-width: 100%; display: block; }
   .section-head h2 { font-size: 22px; }
 
   .card-grid-4, .steps, .extras-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 16px; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .footer { padding: 40px 16px 24px; }
 
   .page-hero { padding: 88px 16px 36px; }
   .page-hero h1 { font-size: 26px; }
