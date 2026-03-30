@@ -3,8 +3,7 @@ import { getRoute, getRoutes, getRoutesByRiver, getRiver, getBranchForRiver } fr
 import { getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
-import RouteMap from '@/components/RouteMap'
-import { IconDistance, IconDuration, IconDifficulty, IconHighlight, IconGallery, IconInfo, IconIncluded, IconTransport, IconSeason, IconNote, IconMap, IconRoute, IconNature, IconBoat } from '@/components/Icons'
+import { IconDistance, IconDuration, IconDifficulty, IconHighlight, IconGallery, IconInfo, IconIncluded, IconTransport, IconSeason, IconNote, IconRoute, IconNature, IconBoat } from '@/components/Icons'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { getTranslations } from 'next-intl/server'
@@ -138,25 +137,6 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
           </div>
         )}
         <div className="page-section">
-          <h2 className="stitle"><span className="stitle-icon"><IconMap size={22} strokeWidth={1.8} /></span>{t('mapTitle')}</h2>
-          {content.startLat && content.startLng && content.endLat && content.endLng ? (
-            <div className="map-container map-container-live">
-              <RouteMap startLat={content.startLat!} startLng={content.startLng!} endLat={content.endLat!} endLng={content.endLng!} label={route.name} riverSlug={route.riverSlug} />
-              <div className="map-legend">
-                <div className="map-point"><span className="map-dot start"></span><span>{t('mapStart')}: {route.name.split('–')[0]?.trim() || route.river}</span></div>
-                <div className="map-point"><span className="map-dot end"></span><span>{t('mapFinish')}: {route.name.split('–').pop()?.trim() || route.river}</span></div>
-              </div>
-            </div>
-          ) : (
-            <div className="map-container">
-              <div style={{ textAlign: 'center' }}>
-                <IconMap size={40} strokeWidth={1.2} style={{ color: 'var(--text-muted)', marginBottom: 10 }} />
-                <p style={{ fontSize: 15, color: 'var(--text-muted)', fontWeight: 500 }}>{t('mapComingSoon')}</p>
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="page-section">
           <h2 className="stitle"><span className="stitle-icon"><IconInfo size={22} strokeWidth={1.8} /></span>{c('usefulInfo')}</h2>
           <div className="info-cards-grid">
             <div className="icard">
@@ -230,7 +210,7 @@ export default async function RoutePage(props: { params: Promise<{ slug: string 
                 const daysValue = typeof r.days === 'string' ? parseInt(r.days) : r.days
                 return (
                   <Link href={{ pathname: '/routes/[slug]', params: { slug: r.slug } }} className="rel-card" key={r.slug}>
-                    <div className="rel-img"><IconMap size={36} strokeWidth={1.2} style={{ color: 'var(--primary)', opacity: 0.4 }} /></div>
+                    <div className="rel-img"><IconRoute size={36} strokeWidth={1.2} style={{ color: 'var(--primary)', opacity: 0.4 }} /></div>
                     <div className="rel-body">
                       <h4>{r.name}</h4>
                       <div className="rel-meta">

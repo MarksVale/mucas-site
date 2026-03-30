@@ -1,6 +1,4 @@
 import blogPost from './blogPost'
-import routeContent from './routeContent'
-import riverContent from './riverContent'
 import siteSettings from './siteSettings'
 import homePage from './homePage'
 import aboutPage from './aboutPage'
@@ -18,6 +16,4 @@ export const schemaTypes = [
   fleetPage,
   siteTranslations,
   blogPost,
-  riverContent,
-  routeContent,
 ]

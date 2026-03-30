@@ -63,10 +63,6 @@ export interface RouteContent {
   photoUrl: string
   photos?: string[]
   galleryCount?: number
-  startLat?: number
-  startLng?: number
-  endLat?: number
-  endLng?: number
 }
 
 export function getRiverContent(river: River): RiverContent {
@@ -91,10 +87,6 @@ export function getRouteContent(route: Route): RouteContent {
     hours: route.hours,
     photoUrl: '',
     galleryCount: 0,
-    startLat: route.startLat || undefined,
-    startLng: route.startLng || undefined,
-    endLat: route.endLat || undefined,
-    endLng: route.endLng || undefined,
   }
 }
 
