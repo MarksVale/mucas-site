@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-const API_BASE = 'https://boat-availability.vercel.app/api'
+const API_BASE = '/api'
 
 interface River { id: string; name: string }
 interface Route {
