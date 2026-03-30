@@ -290,8 +290,16 @@ const DEFAULT_ABOUT_LV: AboutPageContent = {
 
 export async function getAboutPage(locale = 'lv'): Promise<AboutPageContent> {
   const sanity = await getAboutPageSanity(locale)
-  if (sanity && sanity.heroHeading) return sanity
-  return locale === 'en' ? DEFAULT_ABOUT_EN : DEFAULT_ABOUT_LV
+  const def = locale === 'en' ? DEFAULT_ABOUT_EN : DEFAULT_ABOUT_LV
+  if (!sanity || !sanity.heroHeading) return def
+  // Merge: use Sanity data but fall back to defaults for empty fields
+  return {
+    ...sanity,
+    stats: sanity.stats?.length ? sanity.stats : def.stats,
+    values: sanity.values?.length ? sanity.values : def.values,
+    ctaBtn1: sanity.ctaBtn1 || def.ctaBtn1,
+    ctaBtn2: sanity.ctaBtn2 || def.ctaBtn2,
+  }
 }
 
 // ---- Contact Page ----

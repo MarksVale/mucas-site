@@ -5,6 +5,63 @@ import { useSearchParams } from 'next/navigation'
 
 const API_BASE = '/api'
 
+const COUNTRY_CODES = [
+  { code: '+371', name: 'Latvia',      flag: '🇱🇻' },
+  { code: '+370', name: 'Lithuania',   flag: '🇱🇹' },
+  { code: '+372', name: 'Estonia',     flag: '🇪🇪' },
+  { code: '+358', name: 'Finland',     flag: '🇫🇮' },
+  { code: '+46',  name: 'Sweden',      flag: '🇸🇪' },
+  { code: '+47',  name: 'Norway',      flag: '🇳🇴' },
+  { code: '+45',  name: 'Denmark',     flag: '🇩🇰' },
+  { code: '+49',  name: 'Germany',     flag: '🇩🇪' },
+  { code: '+44',  name: 'UK',          flag: '🇬🇧' },
+  { code: '+33',  name: 'France',      flag: '🇫🇷' },
+  { code: '+31',  name: 'Netherlands', flag: '🇳🇱' },
+  { code: '+48',  name: 'Poland',      flag: '🇵🇱' },
+  { code: '+7',   name: 'Russia',      flag: '🇷🇺' },
+  { code: '+380', name: 'Ukraine',     flag: '🇺🇦' },
+  { code: '+1',   name: 'USA / Canada',flag: '🇺🇸' },
+]
+
+function CountryCodePicker({ value, onChange }: { value: string; onChange: (code: string) => void }) {
+  const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    function h(e: MouseEvent) { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false) }
+    document.addEventListener('mousedown', h)
+    return () => document.removeEventListener('mousedown', h)
+  }, [])
+  const selected = COUNTRY_CODES.find(c => c.code === value) || COUNTRY_CODES[0]
+  const filtered = COUNTRY_CODES.filter(c => c.name.toLowerCase().includes(search.toLowerCase()) || c.code.includes(search))
+  return (
+    <div className="bf-cc-wrap" ref={ref}>
+      <button type="button" className="bf-cc-btn" onClick={() => setOpen(o => !o)}>
+        <span className="bf-cc-flag">{selected.flag}</span>
+        <span className="bf-cc-code">{selected.code}</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </button>
+      {open && (
+        <div className="bf-cc-dropdown">
+          <div className="bf-cc-search-wrap">
+            <input className="bf-cc-search" type="text" placeholder="Search country..." value={search} onChange={e => setSearch(e.target.value)} autoFocus />
+          </div>
+          <div className="bf-cc-list">
+            {filtered.map(c => (
+              <div key={c.code} className={`bf-cc-item${c.code === value ? ' bf-cc-item-active' : ''}`}
+                onClick={() => { onChange(c.code); setOpen(false); setSearch('') }}>
+                <span className="bf-cc-flag">{c.flag}</span>
+                <span className="bf-cc-name">{c.name}</span>
+                <span className="bf-cc-num">{c.code}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 interface River { id: string; name: string }
 interface Route {
   id: string; name: string; riverId: string; hubName: string
@@ -132,7 +189,7 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
   const [availability, setAvailability] = useState<Record<string, { available: number; total: number }>>({})
   const [availLoading, setAvailLoading] = useState(false)
   const [notes, setNotes] = useState('')
-  const [paymentMethod, setPaymentMethod] = useState('Cash')
+  const [paymentMethod, setPaymentMethod] = useState('Online')
   const [agreed, setAgreed] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -298,7 +355,7 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
           <div className="bf-field">
             <label>{isLv ? 'Tālrunis' : 'Phone'} <span className="bf-req">*</span></label>
             <div className="bf-phone-wrap">
-              <input type="text" className="bf-phone-prefix-input" value={phonePrefix} onChange={e => setPhonePrefix(e.target.value)} aria-label="Country code" />
+              <CountryCodePicker value={phonePrefix} onChange={setPhonePrefix} />
               <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="20000000" required />
             </div>
           </div>
@@ -432,8 +489,8 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
           <label>{isLv ? 'Maksājuma veids' : 'Payment Method'} <span className="bf-req">*</span></label>
           <div className="bf-payment-options">
             {([
-              { value: 'Cash', lv: 'Skaidra nauda', en: 'Cash on arrival' },
-              { value: 'Transfer', lv: 'Bankas pārskaitījums', en: 'Bank transfer' },
+              { value: 'Online', lv: 'Apmaksāt tiešsaistē', en: 'Pay online' },
+              { value: 'Cash',   lv: 'Norēķini laivošanas dienā', en: 'Settle on the day' },
             ] as { value: string; lv: string; en: string }[]).map(opt => (
               <label key={opt.value} className={`bf-payment-option${paymentMethod === opt.value ? ' bf-payment-selected' : ''}`}>
                 <input type="radio" name="paymentMethod" value={opt.value} checked={paymentMethod === opt.value} onChange={() => setPaymentMethod(opt.value)} />
@@ -441,6 +498,12 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
               </label>
             ))}
           </div>
+        </div>
+        <div className="bf-info-box">
+          <p className="bf-info-box-title">{isLv ? 'Kā notiek rezervācija?' : 'How does booking work?'}</p>
+          <p className="bf-info-box-text">{isLv
+            ? 'Pēc pieteikuma iesniegšanas mēs to izskatīsim un sazināsimies ar jums tuvākajā laikā. Jūs saņemsiet e-pasta apstiprinājumu ar maksājuma norādījumiem vai zvanu no mums, lai vienotos par detaļām.'
+            : 'After submitting your request, we\'ll review it and get back to you shortly. You\'ll receive an email confirmation with payment details or a call from us to confirm.'}</p>
         </div>
       </div>
 
