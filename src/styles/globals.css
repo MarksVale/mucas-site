@@ -1270,7 +1270,7 @@ main { padding-bottom: 80px; } /* breathing room before footer wave */
 
 /* ===== BOAT PILL TICKER (routes page) ===== */
 .boat-ticker { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); }
-.boat-ticker-inner { display: flex; gap: 10px; width: max-content; animation: boat-scroll 22s linear infinite; }
+.boat-ticker-inner { display: flex; gap: 10px; width: max-content; animation: boat-scroll 44s linear infinite; }
 .boat-ticker-inner:hover { animation-play-state: paused; }
 @keyframes boat-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .boat-pill { display: inline-block; background: var(--tint); color: var(--primary); padding: 8px 18px; border-radius: var(--radius-full); font-weight: 700; font-size: 13px; border: 1px solid var(--border); text-decoration: none; white-space: nowrap; transition: background 0.15s, border-color 0.15s; }
