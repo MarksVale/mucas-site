@@ -5,7 +5,7 @@ import { cldHero, cldGallery } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import { IconDistance, IconDuration, IconDifficulty, IconHighlight, IconGallery, IconInfo, IconIncluded, IconTransport, IconSeason, IconNote, IconRoute, IconNature, IconBoat } from '@/components/Icons'
 import type { Metadata } from 'next'
-import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME, buildRouteLD } from '@/lib/seo'
 import { getTranslations } from 'next-intl/server'
 
 export async function generateStaticParams() {
@@ -25,11 +25,12 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
   const description = content.description || (isLv
     ? `${route.name} uz ${route.river} upes. ${route.days} dienu brauciens.`
     : `${route.name} on the ${route.river} river. ${route.days}-day trip.`)
+  const heroImg = `https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto,w_1200,h_630,c_fill,g_auto/mucas/rivers/${route.riverSlug}/hero`
   return {
     title,
     description,
     alternates: buildAlternates(`/routes/${slug}`),
-    openGraph: buildOpenGraph({ locale, title, description, path: `/routes/${slug}` }),
+    openGraph: buildOpenGraph({ locale, title, description, path: `/routes/${slug}`, image: heroImg }),
     twitter: twitterCard,
   }
 }
@@ -49,8 +50,23 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
   const durationDisplay = route.days === 1 && content.hours ? content.hours + 'h' : `${route.days} days`
   const t = await getTranslations('route')
   const c = await getTranslations('common')
+  const routeLD = buildRouteLD({
+    locale,
+    name: route.name,
+    slug,
+    river: route.river,
+    riverSlug: route.riverSlug,
+    description: content.description || '',
+    days: route.days,
+    km: route.km ?? 0,
+    difficulty: route.difficulty,
+    priceFrom: river?.priceFrom,
+    hours: content.hours,
+  })
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(routeLD) }} />
       <section className={`route-hero ${route.gradient} route-hero-photo`} style={{ backgroundImage: `url(${cldHero('routes', slug)})` }}>
         <div className="hero-overlay" />
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>

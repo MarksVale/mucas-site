@@ -5,7 +5,7 @@ import { cldHero, cldGallery } from '@/lib/cloudinary'
 import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery, IconPhone, IconEmail, IconNature } from '@/components/Icons'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import type { Metadata } from 'next'
-import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME, canonicalUrl } from '@/lib/seo'
+import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME, canonicalUrl, buildRiverLD } from '@/lib/seo'
 import { getTranslations } from 'next-intl/server'
 
 export async function generateStaticParams() {
@@ -45,8 +45,21 @@ export default async function RiverPage(props: { params: Promise<{ locale: strin
   const galleryCount = content.galleryCount ?? 0
   const t = await getTranslations('river')
   const c = await getTranslations('common')
+  const riverLD = buildRiverLD({
+    locale,
+    name: river.name,
+    slug,
+    description: content.description || river.description || '',
+    region: content.region,
+    season: content.season || river.season,
+    routeCount: river.routeCount,
+    priceFrom: river.priceFrom,
+    totalLength: river.totalLength,
+  })
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(riverLD) }} />
       <section className={`river-hero ${river.gradient} river-hero-photo`} style={{ backgroundImage: `url(${cldHero('rivers', slug)})` }}>
         <div className="hero-overlay" />
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
