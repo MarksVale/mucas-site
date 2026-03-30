@@ -1503,3 +1503,37 @@ img { max-width: 100%; display: block; }
   .gal-masonry { columns: 1; }
   .gal-lb-prev, .gal-lb-next { font-size: 32px; }
 }
+
+/* ===== BRANCH CARDS ===== */
+.branch-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+}
+.branch-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 12px;
+}
+.branch-header h3 { font-size: 16px; font-weight: 700; margin: 0; }
+.branch-person { font-size: 13px; color: var(--text-secondary); font-weight: 500; text-align: right; }
+.branch-region { font-size: 13px; color: var(--text-muted); margin: 0 0 12px; }
+.branch-contacts { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.branch-contacts a {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--primary); text-decoration: none; font-size: 14px;
+}
+.branch-footer { border-top: 1px solid var(--border); padding-top: 10px; }
+.branch-footer p { font-size: 13px; margin: 0; }
+
+/* ===== LATE MOBILE OVERRIDES (must come after desktop declarations) ===== */
+/* page-hero defined at line ~877 after earlier media queries — override here */
+@media (max-width: 768px) {
+  .page-hero { padding: 72px 16px 28px; }
+  .page-hero h1 { font-size: 26px; }
+  .page-hero p { font-size: 15px; }
+  .route-hero, .river-hero { padding: 72px 16px 28px; }
+  .route-hero h1, .river-hero h1 { font-size: 26px; }
+}
+@media (max-width: 480px) {
+  .page-hero { padding: 64px 16px 24px; }
+  .page-hero h1 { font-size: 22px; }
+}

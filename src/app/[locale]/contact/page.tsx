@@ -116,39 +116,21 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
       <section className="section" style={{ backgroundColor: 'var(--bg-secondary)' }}>
         <div className="container">
           <h2 style={{ marginBottom: 40, fontSize: 28, fontWeight: 700, textAlign: 'center' }}>{t('ourBranches')}</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
             {branches.map(branch => (
-              <div
-                key={branch.slug}
-                style={{
-                  backgroundColor: 'white',
-                  border: '1px solid var(--border)',
-                  borderRadius: 'var(--radius)',
-                  padding: 24,
-                }}
-              >
-                <h3 style={{ marginBottom: 4 }}>{branch.name}</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: 14, marginBottom: 16 }}>
-                  {branch.region}
-                </p>
-                <div style={{ marginBottom: 16 }}>
-                  <p style={{ margin: '0 0 4px', fontWeight: 600 }}>{branch.contactPerson}</p>
-                  <a href={`tel:${branch.phone}`} style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--primary)', textDecoration: 'none', marginBottom: 8, fontSize: 14 }}>
-                    <Phone size={16} />
-                    {branch.phone}
-                  </a>
-                  <a href={`mailto:${branch.email}`} style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--primary)', textDecoration: 'none', fontSize: 14 }}>
-                    <Mail size={16} />
-                    {branch.email}
-                  </a>
+              <div key={branch.slug} className="branch-card">
+                <div className="branch-header">
+                  <h3>{branch.name}</h3>
+                  <span className="branch-person">{branch.contactPerson}</span>
                 </div>
-                <div style={{ borderTop: '1px solid var(--border)', paddingTop: 12 }}>
-                  {branch.bookingType === 'online' && (
-                    <p style={{ fontSize: 13, color: 'var(--primary)', margin: '4px 0 0' }}>{t('onlineBooking')}</p>
-                  )}
-                  {branch.bookingType === 'phone' && (
-                    <p style={{ fontSize: 13, color: 'var(--accent)', margin: '4px 0 0' }}>{t('phoneBooking')}</p>
-                  )}
+                <p className="branch-region">{branch.region}</p>
+                <div className="branch-contacts">
+                  <a href={`tel:${branch.phone}`}><Phone size={14} />{branch.phone}</a>
+                  <a href={`mailto:${branch.email}`}><Mail size={14} />{branch.email}</a>
+                </div>
+                <div className="branch-footer">
+                  {branch.bookingType === 'online' && <p style={{ color: 'var(--primary)' }}>{t('onlineBooking')}</p>}
+                  {branch.bookingType === 'phone' && <p style={{ color: 'var(--accent)' }}>{t('phoneBooking')}</p>}
                 </div>
               </div>
             ))}
