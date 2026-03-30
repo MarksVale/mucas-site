@@ -123,8 +123,8 @@ function Calendar({
         ))}
       </div>
       <div className="cal-legend">
-        <div className="cal-legend-item"><div className="cal-legend-dot" style={{ background: '#24943A' }} /> Available</div>
-        <div className="cal-legend-item"><div className="cal-legend-dot" style={{ background: '#ddd' }} /> Unavailable</div>
+        <div className="cal-legend-item"><div className="cal-legend-dot" style={{ background: 'var(--primary)' }} /> Available</div>
+        <div className="cal-legend-item"><div className="cal-legend-dot" style={{ background: 'var(--border)' }} /> Unavailable</div>
       </div>
     </div>
   )
