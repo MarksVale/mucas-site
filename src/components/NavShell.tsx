@@ -36,7 +36,7 @@ export function NavShell({ children }: { children: React.ReactNode }) {
   const solid = pageNeedsLightNav(pathname) || scrolled
 
   return (
-    <nav className={`nav-shell nav-desktop ${solid ? 'nav-shell--solid' : 'nav-shell--transparent'}`}>
+    <nav className={`nav-desktop ${solid ? 'nav' : 'nav-transparent'}`}>
       {children}
     </nav>
   )
