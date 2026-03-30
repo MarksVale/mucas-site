@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await props.params
-  const route = await getRoute(slug)
+  const route = await getRoute(slug, locale)
   if (!route) return { title: 'Route Not Found' }
   const content = getRouteContent(route)
   const isLv = locale !== 'en'
@@ -34,12 +34,12 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
   }
 }
 
-export default async function RoutePage(props: { params: Promise<{ slug: string }> }) {
-  const { slug } = await props.params
-  const route = await getRoute(slug)
+export default async function RoutePage(props: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale, slug } = await props.params
+  const route = await getRoute(slug, locale)
   if (!route) return <div className="container" style={{ padding: '80px 0' }}><h1>Route not found</h1></div>
   const [river, branch, riverRoutes] = await Promise.all([
-    getRiver(route.riverSlug), getBranchForRiver(route.riverSlug), getRoutesByRiver(route.riverSlug),
+    getRiver(route.riverSlug, locale), getBranchForRiver(route.riverSlug), getRoutesByRiver(route.riverSlug, locale),
   ])
   const isOnlineBookable = !river || river.bookingType === 'online'
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)

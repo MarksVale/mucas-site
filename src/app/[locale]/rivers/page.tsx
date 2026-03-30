@@ -21,8 +21,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
 }
 
-export default async function RiversPage() {
-  const allRivers = await getAllRivers()
+export default async function RiversPage(props: { params: Promise<{ locale: string }> }) {
+  const { locale } = await props.params
+  const allRivers = await getAllRivers(locale)
 
   const regionOrder = ['Vidzeme', 'Kurzeme', 'Zemgale', 'Latgale']
   const t = await getTranslations('rivers')

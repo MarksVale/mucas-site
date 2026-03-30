@@ -11,8 +11,8 @@ export interface UnifiedRiver {
   galleryCount: number
 }
 
-export async function getAllRivers(): Promise<UnifiedRiver[]> {
-  const rivers = await getRivers()
+export async function getAllRivers(locale?: string): Promise<UnifiedRiver[]> {
+  const rivers = await getRivers(locale)
   return rivers.map(r => ({
     slug: r.slug,
     name: r.name,

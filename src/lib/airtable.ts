@@ -202,9 +202,10 @@ function resolveName(val: any): string {
 }
 
 // Data fetchers
-export async function getRivers(): Promise<River[]> {
+export async function getRivers(locale?: string): Promise<River[]> {
   if (!AIRTABLE_API_KEY) return FALLBACK_RIVERS
 
+  const lv = locale === 'lv'
   const records = await fetchTable('Rivers')
   return records
     .map((r: any) => {
@@ -223,10 +224,10 @@ export async function getRivers(): Promise<River[]> {
         gradient: `g-${toSlug(name)}`,
         region: r.fields['Region']?.name || r.fields['Region'] || '',
         bookingType: (r.fields['Booking Type']?.name || r.fields['Booking Type'] || 'online') as 'online' | 'phone',
-        description: r.fields['Description'] || '',
+        description: lv ? (r.fields['Description LV'] || r.fields['Description'] || '') : (r.fields['Description'] || ''),
         galleryCount: r.fields['Gallery Count'] || 0,
-        highlights: parseHighlights(r.fields['Highlights']),
-        season: r.fields['Season'] || '',
+        highlights: parseHighlights(lv ? (r.fields['Highlights LV'] || r.fields['Highlights']) : r.fields['Highlights']),
+        season: lv ? (r.fields['Season LV'] || r.fields['Season'] || '') : (r.fields['Season'] || ''),
         totalLength: r.fields['Total Length km'] || 0,
         priceFrom: r.fields['Price From'] || 0,
         lat: r.fields['Latitude'] || 0,
@@ -235,13 +236,14 @@ export async function getRivers(): Promise<River[]> {
     })
 }
 
-export async function getRiver(slug: string): Promise<River | undefined> {
-  const rivers = await getRivers()
+export async function getRiver(slug: string, locale?: string): Promise<River | undefined> {
+  const rivers = await getRivers(locale)
   return rivers.find(r => r.slug === slug)
 }
 
-export async function getRoutes(): Promise<Route[]> {
+export async function getRoutes(locale?: string): Promise<Route[]> {
   if (!AIRTABLE_API_KEY) return FALLBACK_ROUTES.filter(r => r.active)
+  const lv = locale === 'lv'
 
   // Fetch rivers first so we can resolve linked record IDs → river name/slug
   const riverRecords = await fetchTable('Rivers')
@@ -293,9 +295,10 @@ export async function getRoutes(): Promise<Route[]> {
         .map(resolveName)
         .filter((n: string) => n && n !== 'Cits laiks')
 
+      const enName = r.fields['Route name'] || ''
       return {
-        slug: toSlug(r.fields['Route name'] || ''),
-        name: r.fields['Route name'] || '',
+        slug: toSlug(enName), // slug always from English name for stable URLs
+        name: lv ? (r.fields['Route name LV'] || enName) : enName,
         river: riverName,
         riverSlug,
         days: r.fields['Days'] || 1,
@@ -314,20 +317,20 @@ export async function getRoutes(): Promise<Route[]> {
         gradient: `g-${riverSlug || 'gauja'}`,
         km: r.fields['km'] || 0,
         difficulty: r.fields['Difficulty']?.name || r.fields['Difficulty'] || '',
-        description: r.fields['Description'] || '',
-        highlights: parseHighlights(r.fields['Highlights']),
+        description: lv ? (r.fields['Description LV'] || r.fields['Description'] || '') : (r.fields['Description'] || ''),
+        highlights: parseHighlights(lv ? (r.fields['Highlights LV'] || r.fields['Highlights']) : r.fields['Highlights']),
         hours: r.fields['Hours'] || '',
       }
     })
 }
 
-export async function getRoute(slug: string): Promise<Route | undefined> {
-  const routes = await getRoutes()
+export async function getRoute(slug: string, locale?: string): Promise<Route | undefined> {
+  const routes = await getRoutes(locale)
   return routes.find(r => r.slug === slug)
 }
 
-export async function getRoutesByRiver(riverSlug: string): Promise<Route[]> {
-  const routes = await getRoutes()
+export async function getRoutesByRiver(riverSlug: string, locale?: string): Promise<Route[]> {
+  const routes = await getRoutes(locale)
   return routes.filter(r => r.riverSlug === riverSlug)
 }
 

@@ -14,9 +14,10 @@ const WHY_ICONS = [
 
 export const revalidate = 60
 
-export default async function Home() {
+export default async function Home(props: { params: Promise<{ locale: string }> }) {
+  const { locale } = await props.params
   const [allRivers, allRoutes, allBoats, c] = await Promise.all([
-    getAllRivers(), getRoutes(), getBoats(), getHomePage(),
+    getAllRivers(locale), getRoutes(locale), getBoats(), getHomePage(),
   ])
   const rivers = allRivers.slice(0, 6)
   const routes = allRoutes.slice(0, 4)

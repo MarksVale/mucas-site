@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await props.params
-  const river = await getRiver(slug)
+  const river = await getRiver(slug, locale)
   if (!river) return { title: 'River Not Found' }
   const content = getRiverContent(river)
   const isLv = locale !== 'en'
@@ -35,11 +35,11 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
   }
 }
 
-export default async function RiverPage(props: { params: Promise<{ slug: string }> }) {
-  const { slug } = await props.params
-  const river = await getRiver(slug)
+export default async function RiverPage(props: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale, slug } = await props.params
+  const river = await getRiver(slug, locale)
   if (!river) return <div className="container" style={{ padding: '80px 0' }}><h1>River not found</h1></div>
-  const routes = await getRoutesByRiver(slug)
+  const routes = await getRoutesByRiver(slug, locale)
   const content = getRiverContent(river)
   const branch = await getBranchForRiver(slug)
   const galleryCount = content.galleryCount ?? 0
