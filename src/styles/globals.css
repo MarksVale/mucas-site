@@ -974,7 +974,7 @@ img { max-width: 100%; display: block; }
 .river-hero-sub { font-size: 18px; color: rgba(255,255,255,0.75); margin-bottom: 32px; }
 
 /* ===== ROUTE DETAIL GRID ===== */
-.route-grid { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+.route-grid { display: grid; grid-template-columns: 1fr 420px; gap: 48px; align-items: start; }
 .route-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
 .section-sub-title { font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
 .route-main h2 { font-size: 26px; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; color: var(--text); }
