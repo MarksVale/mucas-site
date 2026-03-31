@@ -2,26 +2,30 @@
 
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { DatePicker } from './SharedDatePicker'
 
 const API_BASE = '/api'
 
 const COUNTRY_CODES = [
-  { code: '+371', name: 'Latvia',      flag: '🇱🇻' },
-  { code: '+370', name: 'Lithuania',   flag: '🇱🇹' },
-  { code: '+372', name: 'Estonia',     flag: '🇪🇪' },
-  { code: '+358', name: 'Finland',     flag: '🇫🇮' },
-  { code: '+46',  name: 'Sweden',      flag: '🇸🇪' },
-  { code: '+47',  name: 'Norway',      flag: '🇳🇴' },
-  { code: '+45',  name: 'Denmark',     flag: '🇩🇰' },
-  { code: '+49',  name: 'Germany',     flag: '🇩🇪' },
-  { code: '+44',  name: 'UK',          flag: '🇬🇧' },
-  { code: '+33',  name: 'France',      flag: '🇫🇷' },
-  { code: '+31',  name: 'Netherlands', flag: '🇳🇱' },
-  { code: '+48',  name: 'Poland',      flag: '🇵🇱' },
-  { code: '+7',   name: 'Russia',      flag: '🇷🇺' },
-  { code: '+380', name: 'Ukraine',     flag: '🇺🇦' },
-  { code: '+1',   name: 'USA / Canada',flag: '🇺🇸' },
+  { code: '+371', name: 'Latvia',      iso: 'lv' },
+  { code: '+370', name: 'Lithuania',   iso: 'lt' },
+  { code: '+372', name: 'Estonia',     iso: 'ee' },
+  { code: '+358', name: 'Finland',     iso: 'fi' },
+  { code: '+46',  name: 'Sweden',      iso: 'se' },
+  { code: '+47',  name: 'Norway',      iso: 'no' },
+  { code: '+45',  name: 'Denmark',     iso: 'dk' },
+  { code: '+49',  name: 'Germany',     iso: 'de' },
+  { code: '+44',  name: 'UK',          iso: 'gb' },
+  { code: '+33',  name: 'France',      iso: 'fr' },
+  { code: '+31',  name: 'Netherlands', iso: 'nl' },
+  { code: '+48',  name: 'Poland',      iso: 'pl' },
+  { code: '+7',   name: 'Russia',      iso: 'ru' },
+  { code: '+380', name: 'Ukraine',     iso: 'ua' },
+  { code: '+1',   name: 'USA / Canada',iso: 'us' },
 ]
+function FlagImg({ iso, name }: { iso: string; name: string }) {
+  return <img src={`https://flagcdn.com/20x15/${iso}.png`} width={20} height={15} alt={name} style={{ borderRadius: 2, objectFit: 'cover', display: 'inline-block', verticalAlign: 'middle' }} />
+}
 
 function CountryCodePicker({ value, onChange }: { value: string; onChange: (code: string) => void }) {
   const [open, setOpen] = useState(false)
@@ -37,7 +41,7 @@ function CountryCodePicker({ value, onChange }: { value: string; onChange: (code
   return (
     <div className="bf-cc-wrap" ref={ref}>
       <button type="button" className="bf-cc-btn" onClick={() => setOpen(o => !o)}>
-        <span className="bf-cc-flag">{selected.flag}</span>
+        <FlagImg iso={selected.iso} name={selected.name} />
         <span className="bf-cc-code">{selected.code}</span>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
       </button>
@@ -50,7 +54,7 @@ function CountryCodePicker({ value, onChange }: { value: string; onChange: (code
             {filtered.map(c => (
               <div key={c.code} className={`bf-cc-item${c.code === value ? ' bf-cc-item-active' : ''}`}
                 onClick={() => { onChange(c.code); setOpen(false); setSearch('') }}>
-                <span className="bf-cc-flag">{c.flag}</span>
+                <FlagImg iso={c.iso} name={c.name} />
                 <span className="bf-cc-name">{c.name}</span>
                 <span className="bf-cc-num">{c.code}</span>
               </div>
