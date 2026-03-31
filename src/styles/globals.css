@@ -1453,7 +1453,7 @@ img { max-width: 100%; display: block; }
 .bf-payment-option.bf-payment-selected { border-color: var(--primary); background: var(--tint); color: var(--primary); }
 
 /* Waiver block */
-.bf-waiver { background: var(--tint); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; }
+.bf-waiver { background: var(--tint); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-top: 24px; margin-bottom: 20px; }
 .bf-waiver-title { font-weight: 700; font-size: 0.85rem; color: var(--text); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .bf-waiver-list { margin: 0 0 14px 0; padding-left: 18px; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7; }
 .bf-waiver-label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 0.83rem; color: var(--text); line-height: 1.5; }
