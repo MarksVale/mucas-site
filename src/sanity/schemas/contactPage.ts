@@ -19,6 +19,15 @@ export default defineType({
     defineField({ name: 'emailNoteLv', title: 'Email Note (LV)', type: 'string' }),
     defineField({ name: 'locationNote', title: 'Location Note (EN)', type: 'string' }),
     defineField({ name: 'locationNoteLv', title: 'Location Note (LV)', type: 'string' }),
+    // CONTACT DETAILS
+    defineField({ name: 'phone', title: 'Phone Number', type: 'string' }),
+    defineField({ name: 'email', title: 'Email Address', type: 'string' }),
+    defineField({ name: 'address', title: 'Physical Address', type: 'string' }),
+    // BUSINESS INFO
+    defineField({ name: 'businessName', title: 'Business Name', type: 'string' }),
+    defineField({ name: 'regNr', title: 'Registration Number', type: 'string' }),
+    defineField({ name: 'bankBic', title: 'Bank BIC', type: 'string' }),
+    defineField({ name: 'iban', title: 'IBAN', type: 'string' }),
   ],
   preview: { prepare() { return { title: 'Contact Page' } } },
 })
