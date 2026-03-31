@@ -1282,7 +1282,7 @@ img { max-width: 100%; display: block; }
 /* Country code picker */
 .bf-cc-wrap { position: relative; flex-shrink: 0; }
 .bf-cc-btn {
-  display: flex; align-items: center; gap: 6px; padding: 0 12px; height: 100%;
+  display: flex; align-items: center; gap: 6px; padding: 10px 12px;
   background: var(--bg); border: none; cursor: pointer; font-size: 0.95rem;
   font-weight: 600; color: var(--text); white-space: nowrap; font-family: inherit;
 }
@@ -1663,7 +1663,7 @@ img { max-width: 100%; display: block; }
 
 /* ===== PHONE INPUT: rounded corners on each piece ===== */
 .bf-cc-btn { border-radius: var(--radius) 0 0 var(--radius); }
-.bf-phone-wrap input[type=tel] { border-radius: 0 var(--radius) var(--radius) 0; padding: 0 12px; }
+.bf-phone-wrap input[type=tel] { border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 12px; }
 
 /* ===== HL-CARDS: swipe carousel on mobile ===== */
 @media (max-width: 768px) {
