@@ -252,7 +252,16 @@ img { max-width: 100%; display: block; }
 .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
 .section { padding: 80px 24px; }
 .section.gray { background: var(--bg); }
-.section.green { background: var(--color-bg-dark); color: white; }
+.section.green {
+  background: var(--color-bg-dark); color: white;
+  position: relative; padding-top: 110px; padding-bottom: 110px;
+}
+.section.green::before, .section.green::after {
+  content: ''; position: absolute; left: 0; right: 0; height: 60px;
+  background: var(--color-bg); z-index: 1;
+}
+.section.green::before { top: 0; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.section.green::after  { bottom: 0; clip-path: polygon(0 100%, 100% 100%, 50% 0); }
 .section-head { text-align: center; margin-bottom: 48px; }
 .section-head .label {
   font-size: 12px; font-weight: 700; letter-spacing: 3px;
