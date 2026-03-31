@@ -224,8 +224,13 @@ const DEFAULT_HOME_LV: HomePageContent = {
 
 export async function getHomePage(locale = 'lv'): Promise<HomePageContent> {
   const sanity = await getHomePageSanity(locale)
-  if (sanity && sanity.heroHeading) return sanity
-  return locale === 'en' ? DEFAULT_HOME_EN : DEFAULT_HOME_LV
+  const def = locale === 'en' ? DEFAULT_HOME_EN : DEFAULT_HOME_LV
+  if (!sanity || !sanity.heroHeading) return def
+  // Merge: Sanity wins for fields it has, fall back to defaults for missing fields
+  return {
+    ...def,
+    ...Object.fromEntries(Object.entries(sanity).filter(([, v]) => v !== undefined && v !== null && v !== '')),
+  } as HomePageContent
 }
 
 // ---- About Page ----

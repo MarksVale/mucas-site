@@ -8,7 +8,7 @@ export function HeroCarousel({ images }: { images: string[] }) {
     if (images.length <= 1) return
     const timer = setInterval(() => {
       setCurrent(prev => (prev + 1) % images.length)
-    }, 3000)
+    }, 6000)
     return () => clearInterval(timer)
   }, [images.length])
 

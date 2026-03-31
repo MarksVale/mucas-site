@@ -19,7 +19,7 @@ export const revalidate = 60
 export default async function Home(props: { params: Promise<{ locale: string }> }) {
   const { locale } = await props.params
   const [allRivers, allRoutes, allBoats, c, heroImages] = await Promise.all([
-    getAllRivers(locale), getRoutes(locale), getBoats(), getHomePage(), getHeroImages(),
+    getAllRivers(locale), getRoutes(locale), getBoats(), getHomePage(locale), getHeroImages(),
   ])
   const rivers = allRivers.slice(0, 6)
   const routes = allRoutes.slice(0, 4)
