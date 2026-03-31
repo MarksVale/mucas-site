@@ -1325,9 +1325,14 @@ img { max-width: 100%; display: block; }
   background: var(--bg); font-family: inherit; font-size: 0.95rem; color: var(--text);
   cursor: pointer; transition: border-color 0.2s; text-align: left;
 }
-.datepicker-btn:hover, .datepicker-btn:focus { border-color: var(--primary); outline: none; }
+.datepicker-btn:hover:not(.datepicker-disabled), .datepicker-btn:focus:not(.datepicker-disabled) { border-color: var(--primary); outline: none; }
 .datepicker-btn span { flex: 1; }
 .datepicker-btn .placeholder { color: var(--text-muted); }
+.datepicker-disabled { opacity: 0.45; cursor: not-allowed; }
+/* Widget overrides: match hw-select sizing */
+.hw-widget .datepicker-btn { padding: 10px 13px; font-size: 13px; border-radius: 10px; border: 1.5px solid var(--border); }
+.hw-widget .datepicker-btn:hover:not(.datepicker-disabled) { border-color: var(--primary); }
+.hw-widget .cal-popup { left: auto; right: 0; }
 
 .cal-popup {
   position: absolute; top: calc(100% + 6px); left: 0;
