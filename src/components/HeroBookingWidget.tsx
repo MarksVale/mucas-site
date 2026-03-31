@@ -1,12 +1,14 @@
 'use client'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useRouter } from '@/i18n/navigation'
 import { useLocale } from 'next-intl'
+import { DatePicker } from './SharedDatePicker'
 
 interface River { id: string; name: string }
-interface Route { id: string; name: string; riverId: string }
+interface Route { id: string; name: string; riverId: string; boatTypeIds: string[] }
+interface BoatType { id: string; name: string }
 interface BookingWindow { riverId: string; seasonOpen: string; seasonClose: string; type: string }
-interface FormData { rivers: River[]; routes: Route[]; bookingWindows: BookingWindow[] }
+interface FormData { rivers: River[]; routes: Route[]; boatTypes: BoatType[]; bookingWindows: BookingWindow[] }
 
 function slugify(s: string) {
   return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
@@ -14,7 +16,8 @@ function slugify(s: string) {
 
 function todayIso() {
   const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
+  const pad = (n: number) => n < 10 ? '0' + n : '' + n
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`
 }
 
 export function HeroBookingWidget() {
@@ -25,6 +28,7 @@ export function HeroBookingWidget() {
   const [data, setData] = useState<FormData | null>(null)
   const [riverId, setRiverId] = useState('')
   const [routeId, setRouteId] = useState('')
+  const [boatTypeId, setBoatTypeId] = useState('')
   const [date, setDate] = useState('')
 
   useEffect(() => {
@@ -39,26 +43,48 @@ export function HeroBookingWidget() {
     [data, riverId]
   )
 
-  const minDate = useMemo(() => {
-    if (!data || !riverId) return todayIso()
-    const windows = data.bookingWindows.filter(w => w.riverId === riverId && w.type === 'Open')
-    if (!windows.length) return todayIso()
-    const today = todayIso()
-    const earliest = windows.reduce((min, w) => w.seasonOpen < min ? w.seasonOpen : min, windows[0].seasonOpen)
-    return earliest > today ? earliest : today
+  const selectedRoute = useMemo(() =>
+    data && routeId ? data.routes.find(r => r.id === routeId) : null,
+    [data, routeId]
+  )
+
+  const filteredBoats = useMemo(() => {
+    if (!data || !selectedRoute) return []
+    return data.boatTypes.filter(b => selectedRoute.boatTypeIds.includes(b.id))
+  }, [data, selectedRoute])
+
+  const activeWindows = useMemo(() => {
+    if (!data || !riverId) return []
+    return data.bookingWindows.filter(w => w.riverId === riverId && w.type === 'Open')
   }, [data, riverId])
 
+  const minDate = useMemo(() => {
+    if (!activeWindows.length) return todayIso()
+    const today = todayIso()
+    const earliest = activeWindows.reduce((min, w) => w.seasonOpen < min ? w.seasonOpen : min, activeWindows[0].seasonOpen)
+    return earliest > today ? earliest : today
+  }, [activeWindows])
+
   const maxDate = useMemo(() => {
-    if (!data || !riverId) return ''
-    const windows = data.bookingWindows.filter(w => w.riverId === riverId && w.type === 'Open')
-    if (!windows.length) return ''
-    return windows.reduce((max, w) => w.seasonClose > max ? w.seasonClose : max, windows[0].seasonClose)
-  }, [data, riverId])
+    if (!activeWindows.length) return ''
+    return activeWindows.reduce((max, w) => w.seasonClose > max ? w.seasonClose : max, activeWindows[0].seasonClose)
+  }, [activeWindows])
+
+  const isDateAllowed = useCallback((d: string) =>
+    activeWindows.some(w => d >= w.seasonOpen && d <= w.seasonClose),
+    [activeWindows]
+  )
 
   function handleRiverChange(id: string) {
     setRiverId(id)
     setRouteId('')
+    setBoatTypeId('')
     setDate('')
+  }
+
+  function handleRouteChange(id: string) {
+    setRouteId(id)
+    setBoatTypeId('')
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -77,17 +103,19 @@ export function HeroBookingWidget() {
   }
 
   const t = {
-    title:       isLv ? 'Rezervē Braucienu'          : 'Book Your Trip',
-    sub:         isLv ? 'Izvēlies upi, maršrutu un datumu' : 'Pick a river, route and date',
-    river:       isLv ? 'Upe'                          : 'River',
-    riverPh:     isLv ? 'Izvēlies upi...'              : 'Select river...',
-    route:       isLv ? 'Maršruts'                     : 'Route',
-    routePh:     isLv ? 'Izvēlies maršrutu...'         : 'Select route...',
-    routeFirst:  isLv ? 'Vispirms izvēlies upi'        : 'Select a river first',
-    date:        isLv ? 'Datums'                       : 'Date',
-    cta:         isLv ? 'Skatīt Pieejamību →'          : 'Check Availability →',
-    trust1:      isLv ? 'Bezmaksas atcelšana'          : 'Free cancellation',
-    trust2:      isLv ? 'Tūlītējs apstiprinājums'      : 'Instant confirmation',
+    title:      isLv ? 'Rezervē Braucienu'                : 'Book Your Trip',
+    sub:        isLv ? 'Izvēlies upi, maršrutu un datumu' : 'Pick a river, route and date',
+    river:      isLv ? 'Upe'                              : 'River',
+    riverPh:    isLv ? 'Izvēlies upi...'                  : 'Select river...',
+    route:      isLv ? 'Maršruts'                         : 'Route',
+    routePh:    isLv ? 'Izvēlies maršrutu...'             : 'Select route...',
+    routeFirst: isLv ? 'Vispirms izvēlies upi'            : 'Select a river first',
+    boat:       isLv ? 'Laiva'                            : 'Boat',
+    boatPh:     isLv ? 'Izvēlies laivu...'                : 'Select boat...',
+    boatFirst:  isLv ? 'Vispirms izvēlies maršrutu'       : 'Select a route first',
+    date:       isLv ? 'Datums'                           : 'Date',
+    datePh:     isLv ? 'Izvēlies datumu...'               : 'Pick a date...',
+    cta:        isLv ? 'Skatīt Pieejamību \u2192'         : 'Check Availability \u2192',
   }
 
   return (
@@ -105,21 +133,29 @@ export function HeroBookingWidget() {
 
       <div className="hw-field">
         <label className="hw-label">{t.route}</label>
-        <select className="hw-select" value={routeId} onChange={e => setRouteId(e.target.value)} disabled={!riverId}>
+        <select className="hw-select" value={routeId} onChange={e => handleRouteChange(e.target.value)} disabled={!riverId}>
           <option value="">{riverId ? t.routePh : t.routeFirst}</option>
           {filteredRoutes.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
         </select>
       </div>
 
       <div className="hw-field">
+        <label className="hw-label">{t.boat}</label>
+        <select className="hw-select" value={boatTypeId} onChange={e => setBoatTypeId(e.target.value)} disabled={!routeId}>
+          <option value="">{routeId ? t.boatPh : t.boatFirst}</option>
+          {filteredBoats.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
+        </select>
+      </div>
+
+      <div className="hw-field">
         <label className="hw-label">{t.date}</label>
-        <input
-          className="hw-input"
-          type="date"
+        <DatePicker
           value={date}
-          min={minDate}
-          max={maxDate || undefined}
-          onChange={e => setDate(e.target.value)}
+          onChange={setDate}
+          minDate={minDate}
+          maxDate={maxDate}
+          isDateAllowed={isDateAllowed}
+          placeholder={t.datePh}
           disabled={!riverId}
         />
       </div>
