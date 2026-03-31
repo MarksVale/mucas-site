@@ -328,6 +328,13 @@ export interface ContactPageContent {
   phoneNote: string
   emailNote: string
   locationNote: string
+  phone: string
+  email: string
+  address: string
+  businessName: string
+  regNr: string
+  bankBic: string
+  iban: string
 }
 
 const DEFAULT_CONTACT_EN: ContactPageContent = {
@@ -338,6 +345,13 @@ const DEFAULT_CONTACT_EN: ContactPageContent = {
   phoneNote: 'Mon–Sat, 9:00–18:00 · WhatsApp fastest',
   emailNote: 'We reply within 24h',
   locationNote: 'Gauja National Park area',
+  phone: '+371 29211634',
+  email: 'info@laivunoma.com',
+  address: 'Jāņa Čakstes 1-41, Sigulda, LV-2150',
+  businessName: 'SIA "Mučas"',
+  regNr: 'LV40103263487',
+  bankBic: 'UNLALV2X',
+  iban: 'LV90UNLA0055005842535',
 }
 
 const DEFAULT_CONTACT_LV: ContactPageContent = {
@@ -348,6 +362,13 @@ const DEFAULT_CONTACT_LV: ContactPageContent = {
   phoneNote: 'P–S, 9:00–18:00 · WhatsApp ātrāk',
   emailNote: 'Atbildam 24 stundu laikā',
   locationNote: 'Gaujas Nacionālā parka apkārtne',
+  phone: '+371 29211634',
+  email: 'info@laivunoma.com',
+  address: 'Jāņa Čakstes 1-41, Sigulda, LV-2150',
+  businessName: 'SIA "Mučas"',
+  regNr: 'LV40103263487',
+  bankBic: 'UNLALV2X',
+  iban: 'LV90UNLA0055005842535',
 }
 
 export async function getContactPage(locale = 'lv'): Promise<ContactPageContent> {
