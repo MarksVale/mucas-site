@@ -1246,7 +1246,7 @@ img { max-width: 100%; display: block; }
 /* ===== BOOKING FORM ===== */
 .booking-form { display: flex; flex-direction: column; gap: 0; }
 
-.bf-section { padding: 24px 0; border-bottom: 1px solid var(--border); }
+.bf-section { padding: 24px 0; border-bottom: 1px solid var(--primary); }
 .bf-section:first-of-type { padding-top: 0; }
 
 .bf-section-title {
