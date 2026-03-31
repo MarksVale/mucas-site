@@ -268,6 +268,13 @@ export interface ContactPageData {
   phoneNote: string
   emailNote: string
   locationNote: string
+  phone: string
+  email: string
+  address: string
+  businessName: string
+  regNr: string
+  bankBic: string
+  iban: string
 }
 
 export async function getContactPageSanity(locale = 'lv'): Promise<ContactPageData | null> {
@@ -285,6 +292,13 @@ export async function getContactPageSanity(locale = 'lv'): Promise<ContactPageDa
     phoneNote:    t(raw, 'phoneNote',    locale) ?? '',
     emailNote:    t(raw, 'emailNote',    locale) ?? '',
     locationNote: t(raw, 'locationNote', locale) ?? '',
+    phone:        raw.phone        ?? '',
+    email:        raw.email        ?? '',
+    address:      raw.address      ?? '',
+    businessName: raw.businessName ?? '',
+    regNr:        raw.regNr        ?? '',
+    bankBic:      raw.bankBic      ?? '',
+    iban:         raw.iban         ?? '',
   }
 }
 
