@@ -2,7 +2,9 @@ import { Link } from '@/i18n/navigation'
 import { getRoutes, getBoats } from '@/lib/airtable'
 import { getAllRivers } from '@/lib/all-rivers'
 import { getHomePage } from '@/lib/content'
+import { getHeroImages } from '@/lib/cloudinary'
 import { RiverCard } from '@/components/RiverCard'
+import { HeroCarousel } from '@/components/HeroCarousel'
 import { IconSafety, IconTransport, IconExpertise, IconSeats, IconSailboat } from '@/components/Icons'
 
 const WHY_ICONS = [
@@ -16,8 +18,8 @@ export const revalidate = 60
 
 export default async function Home(props: { params: Promise<{ locale: string }> }) {
   const { locale } = await props.params
-  const [allRivers, allRoutes, allBoats, c] = await Promise.all([
-    getAllRivers(locale), getRoutes(locale), getBoats(), getHomePage(),
+  const [allRivers, allRoutes, allBoats, c, heroImages] = await Promise.all([
+    getAllRivers(locale), getRoutes(locale), getBoats(), getHomePage(), getHeroImages(),
   ])
   const rivers = allRivers.slice(0, 6)
   const routes = allRoutes.slice(0, 4)
@@ -26,11 +28,7 @@ export default async function Home(props: { params: Promise<{ locale: string }> 
     <>
       {/* HERO — full-bleed photo */}
       <section className="hero-photo">
-        <img
-          src="https://res.cloudinary.com/mucas/image/upload/q_auto,f_auto,w_1920,h_1080,c_fill,g_auto/mucas/rivers/gauja/hero"
-          alt="Kayaking on the Gauja river in Latvia"
-          className="hero-photo-bg"
-        />
+        <HeroCarousel images={heroImages} />
         <div className="hero-photo-overlay" />
         <div className="hero-photo-inner">
           <span className="hero-photo-badge">{c.heroBadge}</span>
@@ -42,9 +40,9 @@ export default async function Home(props: { params: Promise<{ locale: string }> 
           </div>
         </div>
         <div className="hero-photo-stats">
-          <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">Rivers</span></div>
-          <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">Routes</span></div>
-          <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">Boat Types</span></div>
+          <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">{c.statRiversLabel}</span></div>
+          <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">{c.statRoutesLabel}</span></div>
+          <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">{c.statBoatTypesLabel}</span></div>
         </div>
       </section>
 

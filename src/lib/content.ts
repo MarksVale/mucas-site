@@ -101,6 +101,10 @@ export interface HomePageContent {
   heroSubtitle: string
   heroBtn1: string
   heroBtn2: string
+  statRiversLabel: string
+  statRoutesLabel: string
+  statBoatTypesLabel: string
+  statFromLabel: string
   riversLabel: string
   riversHeading: string
   riversSubtitle: string
@@ -130,6 +134,10 @@ const DEFAULT_HOME_EN: HomePageContent = {
   heroSubtitle: 'Rent kayaks, canoes, and rafts for unforgettable river adventures across Latvia.',
   heroBtn1: 'Browse Routes',
   heroBtn2: 'How It Works',
+  statRiversLabel: 'Rivers',
+  statRoutesLabel: 'Routes',
+  statBoatTypesLabel: 'Boat Types',
+  statFromLabel: 'From / day',
   riversLabel: 'Discover',
   riversHeading: 'Our Rivers',
   riversSubtitle: 'Choose your river and find the perfect route',
@@ -173,6 +181,10 @@ const DEFAULT_HOME_LV: HomePageContent = {
   heroSubtitle: 'Izīrē kajaki, kanoe un plostus neaizmirstamām upes braucienu pieredzēm visā Latvijā.',
   heroBtn1: 'Skatīt Maršrutus',
   heroBtn2: 'Kā Tas Darbojas',
+  statRiversLabel: 'Upes',
+  statRoutesLabel: 'Maršruti',
+  statBoatTypesLabel: 'Laivu Veidi',
+  statFromLabel: 'No / dienā',
   riversLabel: 'Atklāj',
   riversHeading: 'Mūsu Upes',
   riversSubtitle: 'Izvēlies savu upi un atrodi ideālo maršrutu',

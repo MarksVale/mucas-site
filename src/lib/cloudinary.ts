@@ -57,3 +57,33 @@ export function cldCard(slug: string): string {
 }
 
 export const CLD_FALLBACK_URL = `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/routes/abavas-rumba-renda/hero`
+
+/** Fetch all images from the mucas/hero images Cloudinary folder (server-side only).
+ *  Uses the Search API so it works with Cloudinary's asset_folder system.
+ *  Falls back to the Gauja hero if credentials are missing or folder is empty. */
+export async function getHeroImages(): Promise<string[]> {
+  const fallback = [`${BASE}/c_fill,g_auto,w_1920,h_1080,q_auto,f_auto/mucas/rivers/gauja/hero`]
+  const apiKey = process.env.CLOUDINARY_API_KEY
+  const apiSecret = process.env.CLOUDINARY_API_SECRET
+  if (!apiKey || !apiSecret) return fallback
+
+  try {
+    const url = `https://api.cloudinary.com/v1_1/${CLOUD}/resources/search`
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${Buffer.from(`${apiKey}:${apiSecret}`).toString('base64')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ expression: 'asset_folder="mucas/hero images"', max_results: 20, sort_by: [{ created_at: 'asc' }] }),
+      next: { revalidate: 300 },
+    })
+    if (!res.ok) return fallback
+    const data = await res.json()
+    const resources: { public_id: string }[] = data.resources ?? []
+    if (!resources.length) return fallback
+    return resources.map(r => `${BASE}/c_fill,g_auto,w_1920,h_1080,q_auto,f_auto/${r.public_id}`)
+  } catch {
+    return fallback
+  }
+}
