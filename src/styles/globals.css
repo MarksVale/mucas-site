@@ -1460,6 +1460,27 @@ img { max-width: 100%; display: block; }
 .bf-waiver-check { margin-top: 2px; width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; accent-color: var(--primary); }
 .bf-waiver-link { color: var(--primary); font-weight: 600; text-decoration: underline; }
 
+
+/* ===== BRANCH CARDS (Filiāles) ===== */
+.branch-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px 22px; display: flex; flex-direction: column; gap: 6px;
+  transition: box-shadow 0.2s;
+}
+.branch-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.branch-header { margin-bottom: 2px; }
+.branch-header h3 { font-size: 1rem; font-weight: 700; margin: 0 0 2px; color: var(--text); }
+.branch-person { font-size: 0.88rem; color: var(--text-secondary); }
+.branch-region { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px; }
+.branch-contacts { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.branch-contacts a {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.88rem; color: var(--text); text-decoration: none;
+  transition: color 0.15s;
+}
+.branch-contacts a:hover { color: var(--primary); }
+.branch-footer { margin-top: 4px; font-size: 0.83rem; font-weight: 500; }
+
 /* ===== WEATHER WIDGET ===== */
 .weather-widget { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
 .weather-header {
