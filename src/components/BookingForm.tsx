@@ -212,6 +212,7 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
     if (!formData || preselected) return
     const routeSlug = searchParams.get('route')
     const riverSlug = searchParams.get('river')
+    const dateParam = searchParams.get('date')
     if (routeSlug) {
       const match = formData.routes.find(r => slugify(r.name) === routeSlug)
       if (match) { setRiverId(match.riverId); setRouteId(match.id); setPreselected(true) }
@@ -219,6 +220,7 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
       const match = formData.rivers.find(r => slugify(r.name) === riverSlug)
       if (match) { setRiverId(match.id); setPreselected(true) }
     }
+    if (dateParam) setStartDate(dateParam)
   }, [formData, searchParams, preselected])
 
   const filteredRoutes = useMemo(() => formData && riverId ? formData.routes.filter(r => r.riverId === riverId) : [], [formData, riverId])

@@ -5,6 +5,7 @@ import { getHomePage } from '@/lib/content'
 import { getHeroImages } from '@/lib/cloudinary'
 import { RiverCard } from '@/components/RiverCard'
 import { HeroCarousel } from '@/components/HeroCarousel'
+import { HeroBookingWidget } from '@/components/HeroBookingWidget'
 import { IconSafety, IconTransport, IconExpertise, IconSeats, IconSailboat } from '@/components/Icons'
 
 const WHY_ICONS = [
@@ -31,18 +32,21 @@ export default async function Home(props: { params: Promise<{ locale: string }> 
         <HeroCarousel images={heroImages} />
         <div className="hero-photo-overlay" />
         <div className="hero-photo-inner">
-          <span className="hero-photo-badge">{c.heroBadge}</span>
-          <h1 className="hero-photo-title">{c.heroHeading}</h1>
-          <p className="hero-photo-sub">{c.heroSubtitle}</p>
-          <div className="hero-photo-btns">
-            <Link href="/rivers" className="btn btn-white">{c.heroBtn1}</Link>
-            <a href="#how" className="btn btn-outline">{c.heroBtn2}</a>
+          <div className="hero-photo-left">
+            <span className="hero-photo-badge">{c.heroBadge}</span>
+            <h1 className="hero-photo-title">{c.heroHeading}</h1>
+            <p className="hero-photo-sub">{c.heroSubtitle}</p>
+            <div className="hero-photo-btns">
+              <Link href="/rivers" className="btn btn-white">{c.heroBtn1}</Link>
+              <a href="#how" className="btn btn-outline">{c.heroBtn2}</a>
+            </div>
+            <div className="hero-photo-stats">
+              <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">{c.statRiversLabel}</span></div>
+              <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">{c.statRoutesLabel}</span></div>
+              <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">{c.statBoatTypesLabel}</span></div>
+            </div>
           </div>
-        </div>
-        <div className="hero-photo-stats">
-          <div className="hps-item"><span className="hps-num">{allRivers.length}</span><span className="hps-lbl">{c.statRiversLabel}</span></div>
-          <div className="hps-item"><span className="hps-num">{allRoutes.length}</span><span className="hps-lbl">{c.statRoutesLabel}</span></div>
-          <div className="hps-item"><span className="hps-num">{allBoats.length}</span><span className="hps-lbl">{c.statBoatTypesLabel}</span></div>
+          <HeroBookingWidget />
         </div>
       </section>
 
