@@ -178,7 +178,7 @@ img { max-width: 100%; display: block; }
   padding: 100px 40px 40px;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: 1fr 420px;
   gap: 48px;
   align-items: center;
 }
@@ -236,10 +236,6 @@ img { max-width: 100%; display: block; }
 }
 .hw-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .hw-btn:not(:disabled):hover { background: #1d7a2f; }
-.hw-trust {
-  display: flex; justify-content: space-between;
-  margin-top: 12px; font-size: 11px; color: #888; font-weight: 600;
-}
 
 /* Hero photo responsive */
 @media (max-width: 900px) {
@@ -1280,17 +1276,17 @@ img { max-width: 100%; display: block; }
   display: flex; align-items: stretch; border: 1px solid var(--border);
   border-radius: var(--radius); overflow: visible; background: var(--bg); position: relative;
 }
-.bf-phone-wrap input[type=tel] { border: none; border-radius: 0; flex: 1; min-width: 0; border-left: 1px solid var(--border); }
+.bf-phone-wrap input[type=tel] { border: none; border-radius: 0; flex: 1; min-width: 0; border-left: 1px solid var(--border); font-size: 0.95rem; font-family: inherit; }
 .bf-phone-wrap input[type=tel]:focus { outline: none; }
 
 /* Country code picker */
 .bf-cc-wrap { position: relative; flex-shrink: 0; }
 .bf-cc-btn {
   display: flex; align-items: center; gap: 6px; padding: 0 12px; height: 100%;
-  background: var(--tint); border: none; cursor: pointer; font-size: 0.88rem;
-  font-weight: 600; color: var(--text); white-space: nowrap;
+  background: var(--bg); border: none; cursor: pointer; font-size: 0.95rem;
+  font-weight: 600; color: var(--text); white-space: nowrap; font-family: inherit;
 }
-.bf-cc-btn:hover { background: var(--border); }
+.bf-cc-btn:hover { background: var(--tint); }
 .bf-cc-flag { font-size: 1.1rem; line-height: 1; }
 .bf-cc-code { font-weight: 700; }
 .bf-cc-dropdown {

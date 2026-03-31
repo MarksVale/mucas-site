@@ -127,11 +127,6 @@ export function HeroBookingWidget() {
       <button className="hw-btn" type="submit" disabled={!riverId}>
         {t.cta}
       </button>
-
-      <div className="hw-trust">
-        <span>✓ {t.trust1}</span>
-        <span>✓ {t.trust2}</span>
-      </div>
     </form>
   )
 }
