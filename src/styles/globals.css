@@ -893,6 +893,7 @@ img { max-width: 100%; display: block; }
   .cta-banner { padding: 32px 16px; }
   .cta-banner h2 { font-size: 22px; }
   .cta-banner p { font-size: 14px; }
+  .cta-banner .btn { width: 100% !important; box-sizing: border-box; }
 
   .btn { padding: 12px 24px; font-size: 13px; }
   .btn-lg { padding: 14px 32px; font-size: 0.95rem; }
