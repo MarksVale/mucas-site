@@ -154,7 +154,7 @@ export default async function Home(props: { params: Promise<{ locale: string }> 
       </section>
 
       {/* CTA */}
-      <section className="section">
+      <section className="section" style={{ background: '#F6F6F4' }}>
         <div className="container">
           <div className="cta-banner">
             <h2>{c.ctaHeading}</h2>
