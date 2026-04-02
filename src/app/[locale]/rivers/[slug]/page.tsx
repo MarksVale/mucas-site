@@ -100,6 +100,11 @@ export default async function RiverPage(props: { params: Promise<{ locale: strin
           <div className="page-section">
             <h2 className="stitle"><span className="stitle-icon"><IconWater size={22} strokeWidth={1.8} /></span>{t('about', { name: river.name })}</h2>
             <p style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--text-secondary)', maxWidth: 800 }}>{content.description || river.description}</p>
+            {river.upesogaUrl && (
+              <a href={river.upesogaUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ marginTop: 16, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                {t('moreInfo')} ↗
+              </a>
+            )}
           </div>
         )}
         {galleryCount > 0 && (

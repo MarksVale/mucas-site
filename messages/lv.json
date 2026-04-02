@@ -165,7 +165,8 @@
     "askQuestion": "Uzdot Jautājumu",
     "contactBranch": "Sazinieties ar mūsu filiāli {name}, lai rezervētu braucienu.",
     "callToBook": "Zvanīt un Rezervēt",
-    "writeToUs": "Rakstīt Mums"
+    "writeToUs": "Rakstīt Mums",
+    "moreInfo": "Vairāk par šo upi"
   },
   "route": {
     "allRivers": "Upes",
@@ -198,7 +199,8 @@
     "callPhone": "Zvanīt {phone}",
     "emailUs": "Rakstīt Mums",
     "contactUs": "Sazināties",
-    "otherRoutes": "Citi {river} Maršruti"
+    "otherRoutes": "Citi {river} Maršruti",
+    "moreInfo": "Vairāk par šo upi"
   },
   "rivers": {
     "heading": "Mūsu Upes",

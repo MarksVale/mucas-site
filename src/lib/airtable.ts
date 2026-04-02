@@ -56,6 +56,7 @@ export interface River {
   priceFrom: number
   lat: number
   lng: number
+  upesogaUrl: string
 }
 
 export interface Route {
@@ -109,7 +110,7 @@ export interface Hub {
 // =============================================
 
 const FALLBACK_RIVERS: River[] = [
-  { slug: 'gauja', name: 'Gauja', active: true, routeCount: 11, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-gauja', region: 'Vidzeme', bookingType: 'online', description: '', galleryCount: 0, highlights: [], season: 'May – September', totalLength: 452, priceFrom: 15, lat: 0, lng: 0 },
+  { slug: 'gauja', name: 'Gauja', active: true, routeCount: 11, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-gauja', region: 'Vidzeme', bookingType: 'online', description: '', galleryCount: 0, highlights: [], season: 'May – September', totalLength: 452, priceFrom: 15, lat: 0, lng: 0, upesogaUrl: '' },
   { slug: 'amata', name: 'Amata', active: true, routeCount: 2, boatCategories: ['Rafts'], gradient: 'g-amata', region: 'Vidzeme', bookingType: 'online', description: '', galleryCount: 0, highlights: [], season: 'May – September', totalLength: 40, priceFrom: 15, lat: 0, lng: 0 },
   { slug: 'salaca', name: 'Salaca', active: true, routeCount: 5, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-salaca', region: 'Vidzeme', bookingType: 'online', description: '', galleryCount: 0, highlights: [], season: 'May – September', totalLength: 95, priceFrom: 15, lat: 0, lng: 0 },
   { slug: 'brasla', name: 'Brasla', active: true, routeCount: 11, boatCategories: ['Kayaks', 'Canoes'], gradient: 'g-brasla', region: 'Vidzeme', bookingType: 'online', description: '', galleryCount: 0, highlights: [], season: 'May – September', totalLength: 55, priceFrom: 15, lat: 0, lng: 0 },
@@ -232,6 +233,7 @@ export async function getRivers(locale?: string): Promise<River[]> {
         priceFrom: r.fields['Price From'] || 0,
         lat: r.fields['Latitude'] || 0,
         lng: r.fields['Longitude'] || 0,
+        upesogaUrl: r.fields['Upesoga'] || '',
       }
     })
 }

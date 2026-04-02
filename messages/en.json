@@ -165,7 +165,8 @@
     "askQuestion": "Ask a Question",
     "contactBranch": "Contact our {name} branch to book your trip.",
     "callToBook": "Call to Book",
-    "writeToUs": "Write to Us"
+    "writeToUs": "Write to Us",
+    "moreInfo": "More about this river"
   },
   "route": {
     "allRivers": "Rivers",
@@ -198,7 +199,8 @@
     "callPhone": "Call {phone}",
     "emailUs": "Email Us",
     "contactUs": "Contact Us",
-    "otherRoutes": "Other {river} Routes"
+    "otherRoutes": "Other {river} Routes",
+    "moreInfo": "More about this river"
   },
   "rivers": {
     "heading": "Our Rivers",
