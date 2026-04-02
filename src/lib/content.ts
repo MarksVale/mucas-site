@@ -373,8 +373,12 @@ const DEFAULT_CONTACT_LV: ContactPageContent = {
 
 export async function getContactPage(locale = 'lv'): Promise<ContactPageContent> {
   const sanity = await getContactPageSanity(locale)
-  if (sanity && sanity.heroHeading) return sanity
-  return locale === 'en' ? DEFAULT_CONTACT_EN : DEFAULT_CONTACT_LV
+  const defaults = locale === 'en' ? DEFAULT_CONTACT_EN : DEFAULT_CONTACT_LV
+  if (!sanity || !sanity.heroHeading) return defaults
+  // Merge: Sanity wins for non-empty values, defaults fill in blanks
+  return Object.fromEntries(
+    Object.entries(defaults).map(([k, v]) => [k, (sanity as Record<string, string>)[k] || v])
+  ) as ContactPageContent
 }
 
 // ---- Booking Page ----

@@ -756,9 +756,10 @@ img { max-width: 100%; display: block; }
 .mob-nav a:hover { background: rgba(245,240,232,0.07); color: var(--color-text-inverse); }
 .mob-account { display: flex; align-items: center; gap: 10px; }
 .mob-cta {
-  background: var(--primary) !important; color: var(--color-text-inverse) !important;
+  background: #F6F6F4 !important; color: var(--primary) !important;
   text-align: center; border-radius: var(--radius) !important; margin-top: 12px;
-  padding: 16px !important;
+  padding: 16px !important; font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
 }
 
 /* ===== RESPONSIVE ===== */

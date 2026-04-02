@@ -48,6 +48,8 @@ export async function Footer() {
               <Link href="/privacy">{t('privacyPolicy')}</Link>
               {' \u2022 '}
               <Link href="/terms">{t('terms')}</Link>
+              {' \u2022 '}
+              <Link href="/waiver">{t('waiver')}</Link>
             </span>
           </div>
         </div>
