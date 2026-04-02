@@ -105,7 +105,7 @@ export default async function RiverPage(props: { params: Promise<{ locale: strin
         {galleryCount > 0 && (
           <div className="page-section">
             <h2 className="stitle"><span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>{c('gallery')}</h2>
-            <PhotoCarousel images={Array.from({ length: galleryCount }, (_, i) => cldGallery('rivers', slug, i + 1))} alt={`${river.name} river`} />
+            <PhotoCarousel images={Array.from({ length: galleryCount }, (_, i) => cldGallery(slug, i + 1))} alt={`${river.name} river`} />
           </div>
         )}
         {content.highlights.length > 0 && (

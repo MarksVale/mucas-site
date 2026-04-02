@@ -66,7 +66,7 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(routeLD) }} />
-      <section className={`route-hero ${route.gradient} route-hero-photo`} style={{ backgroundImage: `url(${cldHero('routes', slug)})` }}>
+      <section className={`route-hero ${route.gradient} route-hero-photo`} style={{ backgroundImage: `url(${cldHero('rivers', route.riverSlug)})` }}>
         <div className="hero-overlay" />
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div className="route-hero-inner">

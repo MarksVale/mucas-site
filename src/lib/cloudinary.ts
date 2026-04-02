@@ -1,7 +1,7 @@
 // Cloudinary URL helpers — cloud: mucas
 const CLOUD = 'mucas'
 const BASE = `https://res.cloudinary.com/${CLOUD}/image/upload`
-const FALLBACK = 'd_mucas:routes:abavas-rumba-renda:hero'
+const FALLBACK = 'd_mucas:rivers:gauja:hero'
 
 /** Boat card thumbnail (640×420) — cloudinaryId comes from Airtable */
 export function cldBoat(cloudinaryId: string): string {
@@ -42,13 +42,13 @@ export const BOAT_SPECS: Record<string, BoatSpecs> = {
 }
 
 /** Full-width hero (1400×600, smart-cropped) */
-export function cldHero(type: 'rivers' | 'routes', slug: string): string {
+export function cldHero(type: 'rivers', slug: string): string {
   return `${BASE}/${FALLBACK}/c_fill,g_auto,w_1400,h_600,q_auto,f_auto/mucas/${type}/${slug}/hero`
 }
 
 /** Gallery thumbnail (800×560, smart-cropped) */
-export function cldGallery(type: 'rivers' | 'routes', slug: string, n: number): string {
-  return `${BASE}/${FALLBACK}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/${type}/${slug}/gallery-${n}`
+export function cldGallery(slug: string, n: number): string {
+  return `${BASE}/${FALLBACK}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/rivers/${slug}/gallery-${n}`
 }
 
 /** River card thumbnail (600×340, smart-cropped) */
@@ -56,7 +56,7 @@ export function cldCard(slug: string): string {
   return `${BASE}/${FALLBACK}/c_fill,g_auto,w_600,h_340,q_auto,f_auto/mucas/rivers/${slug}/hero`
 }
 
-export const CLD_FALLBACK_URL = `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/routes/abavas-rumba-renda/hero`
+export const CLD_FALLBACK_URL = `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/rivers/gauja/hero`
 
 /** Fetch all images from the mucas/hero images Cloudinary folder (server-side only).
  *  Uses the Search API so it works with Cloudinary's asset_folder system.
