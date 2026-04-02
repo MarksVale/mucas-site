@@ -33,7 +33,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
 
           <h2>1. Vispārīgi noteikumi</h2>
           <p>
-            Šie noteikumi regulē attiecības starp SIA „Mučas" (turpmāk — Uzņēmums) un klientiem,
+            Šie noteikumi regulē attiecības starp SIA „Mučas" (turpmāk - Uzņēmums) un klientiem,
             kas izmanto laivas nomas pakalpojumus vietnē <a href="https://laivunoma.com">laivunoma.com</a>.
             Veicot rezervāciju vai apmaksājot pakalpojumu, klients apliecina, ka ir iepazinies ar šiem
             noteikumiem un tiem piekrīt.

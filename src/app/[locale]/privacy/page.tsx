@@ -51,13 +51,13 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
           <h2>3. Datu apstrādes mērķi un pamats</h2>
           <p>Mēs apstrādājam personas datus šādiem mērķiem:</p>
           <ul>
-            <li><strong>Rezervācijas izpilde</strong> — līguma izpilde (VDAR 6. pants, 1. pkt. b)</li>
-            <li><strong>Maksājuma apstrāde</strong> — līguma izpilde (VDAR 6. pants, 1. pkt. b)</li>
-            <li><strong>Saziņa par rezervāciju</strong> — leģitīmās intereses (VDAR 6. pants, 1. pkt. f)</li>
-            <li><strong>Juridisko pienākumu izpilde</strong> — tiesību aktu prasību ievērošana (VDAR 6. pants, 1. pkt. c)</li>
+            <li><strong>Rezervācijas izpilde</strong> - līguma izpilde (VDAR 6. pants, 1. pkt. b)</li>
+            <li><strong>Maksājuma apstrāde</strong> - līguma izpilde (VDAR 6. pants, 1. pkt. b)</li>
+            <li><strong>Saziņa par rezervāciju</strong> - leģitīmās intereses (VDAR 6. pants, 1. pkt. f)</li>
+            <li><strong>Juridisko pienākumu izpilde</strong> - tiesību aktu prasību ievērošana (VDAR 6. pants, 1. pkt. c)</li>
           </ul>
 
-          <h2>4. Maksājumu apstrāde — MakeCommerce</h2>
+          <h2>4. Maksājumu apstrāde - MakeCommerce</h2>
           <p>
             Maksājumu apstrādi nodrošina maksājumu platforma <a href="https://makecommerce.lv" target="_blank" rel="noopener noreferrer">makecommerce.lv</a>,
             tādēļ mūsu uzņēmums nodod maksājuma izpildei nepieciešamos personas datus platformas
@@ -70,19 +70,19 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
           <h2>5. Datu saņēmēji</h2>
           <p>Jūsu personas datus var saņemt:</p>
           <ul>
-            <li>Maksekeskus AS — maksājumu apstrādei</li>
-            <li>Grāmatvedības pakalpojumu sniedzēji — finanšu uzskaites vajadzībām</li>
-            <li>Valsts iestādes — ja to pieprasa tiesību akti</li>
+            <li>Maksekeskus AS - maksājumu apstrādei</li>
+            <li>Grāmatvedības pakalpojumu sniedzēji - finanšu uzskaites vajadzībām</li>
+            <li>Valsts iestādes - ja to pieprasa tiesību akti</li>
           </ul>
           <p>Mēs nenododam jūsu datus trešajām personām mārketinga nolūkos.</p>
 
           <h2>6. Datu glabāšanas termiņi</h2>
           <ul>
-            <li>Rezervācijas un maksājumu dati — 5 gadi pēc darījuma (saskaņā ar grāmatvedības prasībām)</li>
-            <li>Saziņas vēsture — 2 gadi</li>
+            <li>Rezervācijas un maksājumu dati - 5 gadi pēc darījuma (saskaņā ar grāmatvedības prasībām)</li>
+            <li>Saziņas vēsture - 2 gadi</li>
             <li>
-              <strong>Drošības apliecinājuma un piekrišanas ieraksti</strong> — 10 gadi no aktivitātes datuma.
-              Juridiskais pamats: leģitīmās intereses — tiesību aizsardzība tiesas procesā (VDAR 6. pants, 1. pkt. f).
+              <strong>Drošības apliecinājuma un piekrišanas ieraksti</strong> - 10 gadi no aktivitātes datuma.
+              Juridiskais pamats: leģitīmās intereses - tiesību aizsardzība tiesas procesā (VDAR 6. pants, 1. pkt. f).
               Šie ieraksti satur vārdu, e-pastu un IP adresi piekrišanas brīdī.
             </li>
           </ul>
@@ -143,10 +143,10 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         <h2>3. Purposes and Legal Basis</h2>
         <p>We process personal data for the following purposes:</p>
         <ul>
-          <li><strong>Booking fulfilment</strong> — performance of contract (GDPR Art. 6(1)(b))</li>
-          <li><strong>Payment processing</strong> — performance of contract (GDPR Art. 6(1)(b))</li>
-          <li><strong>Booking communication</strong> — legitimate interests (GDPR Art. 6(1)(f))</li>
-          <li><strong>Legal obligations</strong> — compliance with applicable law (GDPR Art. 6(1)(c))</li>
+          <li><strong>Booking fulfilment</strong> - performance of contract (GDPR Art. 6(1)(b))</li>
+          <li><strong>Payment processing</strong> - performance of contract (GDPR Art. 6(1)(b))</li>
+          <li><strong>Booking communication</strong> - legitimate interests (GDPR Art. 6(1)(f))</li>
+          <li><strong>Legal obligations</strong> - compliance with applicable law (GDPR Art. 6(1)(c))</li>
         </ul>
 
         <h2>4. Payment Processing &mdash; MakeCommerce</h2>

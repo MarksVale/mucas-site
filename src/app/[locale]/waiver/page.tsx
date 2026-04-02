@@ -87,7 +87,7 @@ export default async function WaiverPage({ params }: { params: Promise<{ locale:
           <p>
             Dalībnieks ir pilnīgi finansiāli atbildīgs par bojātu, pazaudētu vai iznīcinātu
             SIA „Mučas" aprīkojumu, tostarp laivām, airiem, glābšanas vestēm un citiem piederumiem.
-            Atlīdzība tiek noteikta pēc tirgus cenas vai remonta izmaksām — atkarībā no tā, kurš ir
+            Atlīdzība tiek noteikta pēc tirgus cenas vai remonta izmaksām - atkarībā no tā, kurš ir
             mazāks.
           </p>
 

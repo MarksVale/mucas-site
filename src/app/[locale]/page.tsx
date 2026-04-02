@@ -154,14 +154,14 @@ export default async function Home(props: { params: Promise<{ locale: string }> 
       </section>
 
       {/* CTA */}
-      <section className="section" style={{ background: '#F8F2F2' }}>
+      <section className="section" style={{ background: '#F8F2F2', paddingTop: 100, paddingBottom: 100 }}>
         <div className="container">
           <div className="cta-banner">
             <h2>{c.ctaHeading}</h2>
             <p>{c.ctaSubtitle}</p>
             <div className="cta-btns">
-              <Link href="/rivers" className="btn btn-white">{c.ctaBtn1}</Link>
-              <Link href="/booking" className="btn btn-outline">{c.ctaBtn2}</Link>
+              <Link href="/booking" className="btn btn-white">{c.ctaBtn2}</Link>
+              <Link href="/rivers" className="btn btn-outline">{c.ctaBtn1}</Link>
             </div>
           </div>
         </div>

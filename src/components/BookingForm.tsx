@@ -281,14 +281,14 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
           <div className="bf-field">
             <label>{isLv ? 'Upe' : 'River'} <span className="bf-req">*</span></label>
             <select value={riverId} onChange={e => handleRiverChange(e.target.value)} required>
-              <option value="">{isLv ? '— Izvēlieties upi —' : '— Select river —'}</option>
+              <option value="">{isLv ? '- Izvēlieties upi -' : '- Select river -'}</option>
               {formData.rivers.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
           </div>
           <div className="bf-field">
             <label>{isLv ? 'Maršruts' : 'Route'} <span className="bf-req">*</span></label>
             <select value={routeId} onChange={e => handleRouteChange(e.target.value)} required disabled={!riverId}>
-              <option value="">{riverId ? (isLv ? '— Izvēlieties maršrutu —' : '— Select route —') : (isLv ? '— Vispirms izvēlieties upi —' : '— Select river first —')}</option>
+              <option value="">{riverId ? (isLv ? '- Izvēlieties maršrutu -' : '- Select route -') : (isLv ? '- Vispirms izvēlieties upi -' : '- Select river first -')}</option>
               {filteredRoutes.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
           </div>
@@ -421,19 +421,19 @@ export function BookingForm({ locale = 'lv' }: { locale?: string }) {
       </div>
 
       <div className="bf-waiver">
-        <p className="bf-waiver-title">{isLv ? 'Pirms rezervācijas — lūdzu izlasiet' : 'Before you book — please read'}</p>
+        <p className="bf-waiver-title">{isLv ? 'Pirms rezervācijas - lūdzu izlasiet' : 'Before you book - please read'}</p>
         <ul className="bf-waiver-list">
           {(isLv ? [
-            'Glābšanas vestes jāvalkā visu laiku uz ūdens — bez izņēmumiem',
+            'Glābšanas vestes jāvalkā visu laiku uz ūdens - bez izņēmumiem',
             'Alkohols un narkotikas ir stingri aizliegtas pirms un brauciena laikā',
             'Jūs esat finansiāli atbildīgi par pazaudētu vai bojātu aprīkojumu',
-            'Braucieni ir pašvadīti — SIA Mučas darbinieki nebūs kopā ar jums uz ūdens',
+            'Braucieni ir pašvadīti - SIA Mučas darbinieki nebūs kopā ar jums uz ūdens',
             'Rezervējot jūs atzīstat raksturīgos riskus, tostarp apgāšanos, aukstu ūdeni un traumu',
           ] : [
-            'Life jackets must be worn at all times on the water — no exceptions',
+            'Life jackets must be worn at all times on the water - no exceptions',
             'Alcohol and drugs are strictly prohibited before and during the trip',
             'You are financially responsible for lost or damaged equipment',
-            'Trips are self-guided — no SIA Mučas staff will be on the water with you',
+            'Trips are self-guided - no SIA Mučas staff will be on the water with you',
             'By booking you acknowledge inherent risks including capsizing, cold water, and injury',
           ]).map((rule, i) => <li key={i}>{rule}</li>)}
         </ul>
