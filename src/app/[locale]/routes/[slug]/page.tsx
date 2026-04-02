@@ -114,16 +114,6 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
           <div className="page-section">
             <h2 className="stitle"><span className="stitle-icon"><IconRoute size={22} strokeWidth={1.8} /></span>{t('aboutRoute')}</h2>
             <p style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--text-secondary)', maxWidth: 800 }}>{content.description}</p>
-            {river?.upesogaUrl && (
-              <div style={{ marginTop: 24, background: 'var(--tint)', border: '1px solid var(--border)', borderLeft: '4px solid var(--primary)', borderRadius: 'var(--radius)', padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-                <IconMap size={28} strokeWidth={1.6} style={{ color: 'var(--primary)', flexShrink: 0 }} />
-                <div style={{ flex: 1, minWidth: 200 }}>
-                  <h4 style={{ margin: '0 0 4px', fontSize: 16 }}>{t('upesogaTitle')}</h4>
-                  <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{t('upesogaDesc')}</p>
-                </div>
-                <a href={river.upesogaUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ flexShrink: 0, whiteSpace: 'nowrap' }}>{t('upesogaLink')} ↗</a>
-              </div>
-            )}
           </div>
         )}
         {topHighlights.length > 0 && (
@@ -137,6 +127,18 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
                   <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: '6px 0 0' }}>{h.desc}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+        {river?.upesogaUrl && (
+          <div className="page-section">
+            <div style={{ background: 'var(--tint)', border: '1px solid var(--border)', borderLeft: '4px solid var(--primary)', borderRadius: 'var(--radius)', padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
+              <IconMap size={28} strokeWidth={1.6} style={{ color: 'var(--primary)', flexShrink: 0 }} />
+              <div style={{ flex: 1, minWidth: 200 }}>
+                <h4 style={{ margin: '0 0 4px', fontSize: 16 }}>{t('upesogaTitle')}</h4>
+                <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{t('upesogaDesc')}</p>
+              </div>
+              <a href={river.upesogaUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ flexShrink: 0, whiteSpace: 'nowrap' }}>{t('upesogaLink')} ↗</a>
             </div>
           </div>
         )}
