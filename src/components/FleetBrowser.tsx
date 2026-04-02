@@ -27,7 +27,6 @@ interface Props {
     specSeats: string
     specWeight: string
     noResults: string
-    seatsLabel: (n: number) => string
   }
 }
 

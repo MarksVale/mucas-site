@@ -1089,13 +1089,12 @@ img { max-width: 100%; display: block; }
 }
 @media (max-width: 768px) {
   .fleet-layout { flex-direction: column; gap: 20px; }
-  .fleet-sidebar { width: 100%; position: static; flex-direction: row; flex-wrap: wrap; gap: 16px; }
-  .fleet-filter-group { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 6px; }
-  .fleet-filter-label { margin-bottom: 0; white-space: nowrap; }
-  .fleet-filter-btn { padding: 6px 12px; font-size: 13px; }
-}
-@media (max-width: 480px) {
-  .fleet-card-grid { grid-template-columns: 1fr; }
+  /* Sidebar becomes a top filter bar with horizontal scroll rows */
+  .fleet-sidebar { width: 100%; position: static; flex-direction: column; gap: 8px; }
+  .fleet-filter-group { flex-direction: row; align-items: center; gap: 6px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .fleet-filter-group::-webkit-scrollbar { display: none; }
+  .fleet-filter-label { font-size: 11px; white-space: nowrap; flex-shrink: 0; margin-bottom: 0; }
+  .fleet-filter-btn { padding: 6px 12px; font-size: 13px; white-space: nowrap; flex-shrink: 0; }
 }
 
 /* ===== BOAT CARDS (fleet page) ===== */

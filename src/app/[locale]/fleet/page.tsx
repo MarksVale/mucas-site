@@ -50,7 +50,6 @@ export default async function FleetPage({ params }: { params: Promise<{ locale: 
               specSeats: t('specSeats'),
               specWeight: t('specWeight'),
               noResults: isLv ? 'Nav rezultātu' : 'No results',
-              seatsLabel: (n: number) => `${n} ${n === 1 ? t('seat') : t('seats')}`,
             }}
           />
         </div>
