@@ -68,7 +68,6 @@ export default async function RiverPage(props: { params: Promise<{ locale: strin
               <Link href="/rivers" style={{ color: 'rgba(255,255,255,0.7)' }}>{t('allRivers')}</Link>
             </p>
             <h1>{t('title', { name: river.name })}</h1>
-            {content.region && <p className="river-hero-sub">{content.region} · {content.season}</p>}
           </div>
         </div>
       </section>

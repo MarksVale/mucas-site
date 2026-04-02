@@ -134,7 +134,7 @@
     "switchTo": "Switch to English"
   },
   "river": {
-    "title": "{name} upe",
+    "title": "{name}",
     "allRivers": "← Visas Upes",
     "totalLength": "Kopējais Garums",
     "boatTypes": "Laivu Veidi",

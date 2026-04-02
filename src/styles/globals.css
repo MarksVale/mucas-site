@@ -321,10 +321,11 @@ img { max-width: 100%; display: block; }
 .card-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .river-card {
   background: var(--card); border-radius: var(--radius-lg); overflow: hidden;
-  text-decoration: none; color: inherit; display: block;
+  color: inherit; display: flex; flex-direction: column;
   border: 1px solid var(--border); transition: border-color 0.2s;
 }
 .river-card:hover { border-color: var(--primary); }
+.rc-img-link { display: block; text-decoration: none; }
 .rc-img { height: 200px; position: relative; display: flex; align-items: flex-end; padding: 20px; }
 .rc-img .overlay { position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(0,0,0,0.55)); }
 .rc-title-row { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; width: 100%; }
@@ -334,9 +335,17 @@ img { max-width: 100%; display: block; }
   padding: 4px 14px; border-radius: var(--radius); font-size: 12px; font-weight: 700;
   white-space: nowrap;
 }
-.rc-body { padding: 20px; }
+.rc-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
 .rc-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
-.rc-meta { display: flex; gap: 16px; font-size: 13px; color: var(--text-muted); }
+.rc-meta { display: flex; gap: 16px; font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+.rc-book-btn {
+  display: block; text-align: center; margin-top: auto;
+  padding: 10px 16px; border-radius: var(--radius);
+  background: var(--primary); color: white;
+  font-size: 13px; font-weight: 700; text-decoration: none;
+  transition: background 0.2s;
+}
+.rc-book-btn:hover { background: var(--secondary); }
 
 /* ===== CARDS — ROUTE ===== */
 .route-card {
