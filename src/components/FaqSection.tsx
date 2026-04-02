@@ -19,7 +19,7 @@ export function FaqSection() {
         {FAQ_KEYS.map((k) => {
           const isOpen = open === k
           return (
-            <div className="faq-item" key={k}>
+            <div className={`faq-item${isOpen ? ' faq-item-open' : ''}`} key={k}>
               <button
                 className="faq-btn"
                 onClick={() => setOpen(isOpen ? '' : k)}
@@ -29,13 +29,12 @@ export function FaqSection() {
                 <ChevronDown
                   size={18}
                   strokeWidth={2}
-                  className="faq-chevron"
-                  style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s', color: 'var(--primary)', flexShrink: 0 }}
+                  style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.25s', color: 'var(--primary)', flexShrink: 0 }}
                 />
               </button>
-              {isOpen && (
-                <div className="faq-answer">{t(`a${k}`)}</div>
-              )}
+              <div className="faq-answer" aria-hidden={!isOpen}>
+                {t(`a${k}`)}
+              </div>
             </div>
           )
         })}

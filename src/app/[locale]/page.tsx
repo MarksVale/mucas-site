@@ -156,7 +156,7 @@ export default async function Home(props: { params: Promise<{ locale: string }> 
 
       {/* FAQ */}
       <section className="section" style={{ background: '#F8F2F2' }}>
-        <div className="container" style={{ maxWidth: 760 }}>
+        <div className="container">
           <FaqSection />
         </div>
       </section>
