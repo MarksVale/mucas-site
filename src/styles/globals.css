@@ -1049,6 +1049,55 @@ img { max-width: 100%; display: block; }
 .diff-badge-sm.diff-hard { background: #e8c8c8; color: #6b1a1a; }
 .diff-badge-sm.diff-easymedium { background: #d6e8c8; color: #2a4d1a; }
 
+/* ===== FLEET BROWSER (filter sidebar + cards) ===== */
+.fleet-layout { display: flex; gap: 36px; align-items: flex-start; }
+
+/* Sidebar */
+.fleet-sidebar { width: 200px; flex-shrink: 0; position: sticky; top: 100px; display: flex; flex-direction: column; gap: 28px; }
+.fleet-filter-group { display: flex; flex-direction: column; gap: 6px; }
+.fleet-filter-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+.fleet-filter-btn { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text-secondary); font-size: 14px; font-weight: 500; cursor: pointer; text-align: left; transition: border-color 0.15s, background 0.15s, color 0.15s; }
+.fleet-filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.fleet-filter-btn.active { border-color: var(--primary); background: var(--tint); color: var(--primary); font-weight: 600; }
+
+/* Card grid */
+.fleet-grid-wrap { flex: 1; min-width: 0; }
+.fleet-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.fleet-no-results { color: var(--text-muted); font-size: 15px; padding: 40px 0; }
+
+/* Individual cards */
+.fleet-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; }
+.fleet-card:hover { border-color: var(--primary); box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+.fleet-card-photo { width: 100%; aspect-ratio: 4/3; overflow: hidden; background: var(--bg); }
+.fleet-card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+.fleet-card:hover .fleet-card-photo img { transform: scale(1.03); }
+.fleet-card-body { padding: 16px 18px 20px; }
+.fleet-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.fleet-card-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); background: var(--tint); padding: 3px 8px; border-radius: 4px; }
+.fleet-card-icon { color: var(--primary); display: flex; }
+.fleet-card-name { font-size: 15px; font-weight: 800; color: var(--text-primary); margin-bottom: 14px; line-height: 1.3; }
+
+/* Specs grid */
+.fleet-card-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0; }
+.fleet-spec { background: var(--bg); border-radius: 6px; padding: 8px 10px; }
+.fleet-spec dt { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 3px; }
+.fleet-spec dd { font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0; }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .fleet-card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .fleet-layout { flex-direction: column; gap: 20px; }
+  .fleet-sidebar { width: 100%; position: static; flex-direction: row; flex-wrap: wrap; gap: 16px; }
+  .fleet-filter-group { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .fleet-filter-label { margin-bottom: 0; white-space: nowrap; }
+  .fleet-filter-btn { padding: 6px 12px; font-size: 13px; }
+}
+@media (max-width: 480px) {
+  .fleet-card-grid { grid-template-columns: 1fr; }
+}
+
 /* ===== BOAT CARDS (fleet page) ===== */
 .boat-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s; }
 .boat-card:hover { border-color: var(--primary); }
