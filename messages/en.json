@@ -166,7 +166,9 @@
     "contactBranch": "Contact our {name} branch to book your trip.",
     "callToBook": "Call to Book",
     "writeToUs": "Write to Us",
-    "moreInfo": "More about this river"
+    "upesogaTitle": "Detailed River Information",
+    "upesogaDesc": "Upes Oga is the best online source for Latvian river maps, GPS coordinates, entry & exit points, and paddling route details.",
+    "upesogaLink": "Open on Upes Oga"
   },
   "route": {
     "allRivers": "Rivers",
@@ -200,7 +202,9 @@
     "emailUs": "Email Us",
     "contactUs": "Contact Us",
     "otherRoutes": "Other {river} Routes",
-    "moreInfo": "More about this river"
+    "upesogaTitle": "Detailed River Information",
+    "upesogaDesc": "Upes Oga is the best online source for Latvian river maps, GPS coordinates, entry & exit points, and paddling route details.",
+    "upesogaLink": "Open on Upes Oga"
   },
   "rivers": {
     "heading": "Our Rivers",

@@ -2,7 +2,7 @@ import { Link } from '@/i18n/navigation'
 import { getRiver, getRivers, getRoutesByRiver, getBranchForRiver } from '@/lib/airtable'
 import { getRiverContent, getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery } from '@/lib/cloudinary'
-import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery, IconPhone, IconEmail, IconNature } from '@/components/Icons'
+import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery, IconPhone, IconEmail, IconNature, IconMap } from '@/components/Icons'
 import { FaqSection } from '@/components/FaqSection'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import type { Metadata } from 'next'
@@ -101,9 +101,14 @@ export default async function RiverPage(props: { params: Promise<{ locale: strin
             <h2 className="stitle"><span className="stitle-icon"><IconWater size={22} strokeWidth={1.8} /></span>{t('about', { name: river.name })}</h2>
             <p style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--text-secondary)', maxWidth: 800 }}>{content.description || river.description}</p>
             {river.upesogaUrl && (
-              <a href={river.upesogaUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ marginTop: 16, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                {t('moreInfo')} ↗
-              </a>
+              <div style={{ marginTop: 24, background: 'var(--tint)', border: '1px solid var(--border)', borderLeft: '4px solid var(--primary)', borderRadius: 'var(--radius)', padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
+                <IconMap size={28} strokeWidth={1.6} style={{ color: 'var(--primary)', flexShrink: 0 }} />
+                <div style={{ flex: 1, minWidth: 200 }}>
+                  <h4 style={{ margin: '0 0 4px', fontSize: 16 }}>{t('upesogaTitle')}</h4>
+                  <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{t('upesogaDesc')}</p>
+                </div>
+                <a href={river.upesogaUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ flexShrink: 0, whiteSpace: 'nowrap' }}>{t('upesogaLink')} ↗</a>
+              </div>
             )}
           </div>
         )}

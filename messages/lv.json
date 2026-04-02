@@ -166,7 +166,9 @@
     "contactBranch": "Sazinieties ar mūsu filiāli {name}, lai rezervētu braucienu.",
     "callToBook": "Zvanīt un Rezervēt",
     "writeToUs": "Rakstīt Mums",
-    "moreInfo": "Vairāk par šo upi"
+    "upesogaTitle": "Detalizēta upes informācija",
+    "upesogaDesc": "Upes Oga ir labākais tiešsaistes avots Latvijas upju kartēm, GPS koordinātēm, ieiešanas un iziešanas punktiem un airēšanas maršrutu detaļām.",
+    "upesogaLink": "Atvērt Upes Oga"
   },
   "route": {
     "allRivers": "Upes",
@@ -200,7 +202,9 @@
     "emailUs": "Rakstīt Mums",
     "contactUs": "Sazināties",
     "otherRoutes": "Citi {river} Maršruti",
-    "moreInfo": "Vairāk par šo upi"
+    "upesogaTitle": "Detalizēta upes informācija",
+    "upesogaDesc": "Upes Oga ir labākais tiešsaistes avots Latvijas upju kartēm, GPS koordinātēm, ieiešanas un iziešanas punktiem un airēšanas maršrutu detaļām.",
+    "upesogaLink": "Atvērt Upes Oga"
   },
   "rivers": {
     "heading": "Mūsu Upes",
