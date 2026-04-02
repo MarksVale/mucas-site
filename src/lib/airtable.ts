@@ -225,7 +225,7 @@ export async function getRivers(locale?: string): Promise<River[]> {
         region: r.fields['Region']?.name || r.fields['Region'] || '',
         bookingType: (r.fields['Booking Type']?.name || r.fields['Booking Type'] || 'online') as 'online' | 'phone',
         description: lv ? (r.fields['Description LV'] || r.fields['Description'] || '') : (r.fields['Description'] || ''),
-        galleryCount: r.fields['Gallery Count'] || 0,
+        galleryCount: r.fields['Gallery Count'] || 4,
         highlights: parseHighlights(lv ? (r.fields['Highlights LV'] || r.fields['Highlights']) : r.fields['Highlights']),
         season: lv ? (r.fields['Season LV'] || r.fields['Season'] || '') : (r.fields['Season'] || ''),
         totalLength: r.fields['Total Length km'] || 0,

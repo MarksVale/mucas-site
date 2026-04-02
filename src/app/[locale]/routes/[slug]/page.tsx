@@ -1,7 +1,7 @@
 import { Link } from '@/i18n/navigation'
 import { getRoute, getRoutes, getRoutesByRiver, getRiver, getBranchForRiver } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
-import { cldHero, cldGallery } from '@/lib/cloudinary'
+import { cldHero, cldGallery, cldCard } from '@/lib/cloudinary'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import { IconDistance, IconDuration, IconDifficulty, IconHighlight, IconGallery, IconInfo, IconIncluded, IconTransport, IconSeason, IconNote, IconRoute, IconNature, IconBoat } from '@/components/Icons'
 import type { Metadata } from 'next'
@@ -47,7 +47,7 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)
   const content = getRouteContent(route)
   const topHighlights = content.highlights.slice(0, 3)
-  const galleryCount = content.galleryCount ?? 0
+  const galleryCount = river?.galleryCount ?? content.galleryCount ?? 0
   const durationDisplay = route.days === 1 && content.hours ? content.hours + 'h' : `${route.days} days`
   const t = await getTranslations('route')
   const c = await getTranslations('common')
@@ -135,7 +135,7 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
         {galleryCount > 0 && (
           <div className="page-section">
             <h2 className="stitle"><span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>{c('gallery')}</h2>
-            <PhotoCarousel images={Array.from({ length: galleryCount }, (_, i) => cldGallery('routes', slug, i + 1))} alt={route.name} />
+            <PhotoCarousel images={Array.from({ length: galleryCount }, (_, i) => cldGallery('rivers', route.riverSlug, i + 1))} alt={route.name} />
           </div>
         )}
         {route.boats.length > 0 && (
@@ -228,7 +228,7 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
                 const daysValue = typeof r.days === 'string' ? parseInt(r.days) : r.days
                 return (
                   <Link href={{ pathname: '/routes/[slug]', params: { slug: r.slug } }} className="rel-card" key={r.slug}>
-                    <div className="rel-img"><IconRoute size={36} strokeWidth={1.2} style={{ color: 'var(--primary)', opacity: 0.4 }} /></div>
+                    <div className="rel-img" style={{ backgroundImage: `url(${cldCard(r.riverSlug)})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
                     <div className="rel-body">
                       <h4>{r.name}</h4>
                       <div className="rel-meta">
