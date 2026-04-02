@@ -43,17 +43,17 @@ export const BOAT_SPECS: Record<string, BoatSpecs> = {
 
 /** Full-width hero (1400×600, smart-cropped) */
 export function cldHero(type: 'rivers' | 'routes', slug: string): string {
-  return `${BASE}/c_fill,g_auto,w_1400,h_600,q_auto,f_auto,${FALLBACK}/mucas/${type}/${slug}/hero`
+  return `${BASE}/${FALLBACK}/c_fill,g_auto,w_1400,h_600,q_auto,f_auto/mucas/${type}/${slug}/hero`
 }
 
 /** Gallery thumbnail (800×560, smart-cropped) */
 export function cldGallery(type: 'rivers' | 'routes', slug: string, n: number): string {
-  return `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto,${FALLBACK}/mucas/${type}/${slug}/gallery-${n}`
+  return `${BASE}/${FALLBACK}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/${type}/${slug}/gallery-${n}`
 }
 
 /** River card thumbnail (600×340, smart-cropped) */
 export function cldCard(slug: string): string {
-  return `${BASE}/c_fill,g_auto,w_600,h_340,q_auto,f_auto,${FALLBACK}/mucas/rivers/${slug}/hero`
+  return `${BASE}/${FALLBACK}/c_fill,g_auto,w_600,h_340,q_auto,f_auto/mucas/rivers/${slug}/hero`
 }
 
 export const CLD_FALLBACK_URL = `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/routes/abavas-rumba-renda/hero`
