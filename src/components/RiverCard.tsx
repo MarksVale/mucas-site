@@ -1,10 +1,11 @@
+'use client'
 import { Link } from '@/i18n/navigation'
 import type { UnifiedRiver } from '@/lib/all-rivers'
 import { cldCard } from '@/lib/cloudinary'
-import { getTranslations } from 'next-intl/server'
+import { useTranslations } from 'next-intl'
 
-export async function RiverCard({ slug, name, gradient, routeCount, description, region, bookable }: UnifiedRiver) {
-  const t = await getTranslations('rivers')
+export function RiverCard({ slug, name, gradient, routeCount, description, region, bookable }: UnifiedRiver) {
+  const t = useTranslations('rivers')
   const desc = description && description.length > 120
     ? description.slice(0, 120).trimEnd() + '…'
     : description
@@ -26,10 +27,10 @@ export async function RiverCard({ slug, name, gradient, routeCount, description,
         <p>{desc}</p>
         <div className="rc-meta">
           <span>{region}</span>
+          <Link href="/contact" className="rc-book-label" style={{ marginLeft: 'auto' }}>
+            {bookable ? t('bookOnlineTitle') : t('callToBookTitle')}
+          </Link>
         </div>
-        <Link href="/contact" className="rc-book-btn">
-          {bookable ? t('bookOnlineTitle') : t('callToBookTitle')}
-        </Link>
       </div>
     </div>
   )
