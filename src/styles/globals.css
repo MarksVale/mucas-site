@@ -898,8 +898,9 @@ img { max-width: 100%; display: block; }
   .btn { padding: 12px 24px; font-size: 13px; }
   .btn-lg { padding: 14px 32px; font-size: 0.95rem; }
 
-  .route-list-item { flex-direction: column; gap: 12px; align-items: flex-start; }
-  .rli-right { width: 100%; justify-content: space-between; }
+  .route-list-item { flex-direction: row; padding: 14px 16px; gap: 8px; }
+  .rli-left h4 { font-size: 14px; }
+  .rli-right { gap: 10px; flex-shrink: 0; }
 
   .stats-bar { flex-direction: column; gap: 12px; padding: 20px; }
   .stat-item + .stat-item { border-left: none; border-top: 1px solid var(--border); padding-top: 12px; }
