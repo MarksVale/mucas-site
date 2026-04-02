@@ -144,7 +144,6 @@ export default async function Home(props: { params: Promise<{ locale: string }> 
           <div className="testimonial-grid">
             {c.testimonials.map((t, i) => (
               <div className="testimonial" key={i}>
-                <div className="stars">⭐⭐⭐⭐⭐</div>
                 <p>&ldquo;{t.text}&rdquo;</p>
                 <div className="author">{t.author}</div>
                 <div className="source">{t.source}</div>
