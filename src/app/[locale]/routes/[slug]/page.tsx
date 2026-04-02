@@ -1,9 +1,8 @@
 import { Link } from '@/i18n/navigation'
 import { getRoute, getRoutes, getRoutesByRiver, getRiver, getBranchForRiver } from '@/lib/airtable'
 import { getRouteContent } from '@/lib/content'
-import { cldHero, cldGallery, cldCard } from '@/lib/cloudinary'
-import PhotoCarousel from '@/components/PhotoCarousel'
-import { IconDistance, IconDuration, IconDifficulty, IconHighlight, IconGallery, IconInfo, IconIncluded, IconTransport, IconSeason, IconNote, IconRoute, IconNature, IconBoat } from '@/components/Icons'
+import { cldHero, cldCard } from '@/lib/cloudinary'
+import { IconDistance, IconDuration, IconDifficulty, IconHighlight, IconInfo, IconIncluded, IconTransport, IconSeason, IconNote, IconRoute, IconNature, IconBoat } from '@/components/Icons'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME, buildRouteLD } from '@/lib/seo'
 import { getTranslations } from 'next-intl/server'
@@ -47,7 +46,6 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
   const relatedRoutes = riverRoutes.filter(r => r.slug !== slug).slice(0, 3)
   const content = getRouteContent(route)
   const topHighlights = content.highlights.slice(0, 3)
-  const galleryCount = river?.galleryCount ?? content.galleryCount ?? 0
   const durationDisplay = route.days === 1 && content.hours ? content.hours + 'h' : `${route.days} days`
   const t = await getTranslations('route')
   const c = await getTranslations('common')
@@ -130,12 +128,6 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
                 </div>
               ))}
             </div>
-          </div>
-        )}
-        {galleryCount > 0 && (
-          <div className="page-section">
-            <h2 className="stitle"><span className="stitle-icon"><IconGallery size={22} strokeWidth={1.8} /></span>{c('gallery')}</h2>
-            <PhotoCarousel images={Array.from({ length: galleryCount }, (_, i) => cldGallery('rivers', route.riverSlug, i + 1))} alt={route.name} />
           </div>
         )}
         {route.boats.length > 0 && (
