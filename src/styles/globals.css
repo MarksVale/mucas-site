@@ -797,7 +797,7 @@ img { max-width: 100%; display: block; }
   .hero-inner { padding-top: 70px; }
   .hero-inner h1 { font-size: 32px; }
   .hero-sub { font-size: 16px; }
-  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.12); }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.12); text-align: center; }
   .hero-stat { min-width: 0; }
   .hero-stat .num { font-size: 24px; }
   .hero-sm h1 { font-size: 30px; }
@@ -1662,9 +1662,9 @@ img { max-width: 100%; display: block; }
   .footer-grid {
     grid-template-columns: 1fr 1fr !important;
     grid-template-areas:
+      "contact contact"
       "brand brand"
-      "upes company"
-      "contact contact" !important;
+      "upes company" !important;
     gap: 28px !important;
   }
   .footer-col:nth-child(1) { grid-area: brand; }
