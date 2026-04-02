@@ -830,7 +830,7 @@ img { max-width: 100%; display: block; }
 
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
 
-  .page-hero { padding: 100px 16px 48px; }
+  .page-hero { padding: 100px 16px 90px; }
   .page-hero h1 { font-size: 30px; }
   .page-hero p { font-size: 16px; }
 
@@ -887,7 +887,7 @@ img { max-width: 100%; display: block; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 
-  .page-hero { padding: 88px 16px 36px; }
+  .page-hero { padding: 88px 16px 84px; }
   .page-hero h1 { font-size: 26px; }
   .route-hero, .river-hero { padding: 88px 16px 36px; }
   .route-hero h1, .river-hero h1 { font-size: 26px; }
@@ -1726,7 +1726,7 @@ img { max-width: 100%; display: block; }
 
 /* ===== PAGE-HERO bottom padding fix ===== */
 @media (max-width: 480px) {
-  .page-hero { padding: 84px 16px 40px !important; }
+  .page-hero { padding: 84px 16px 84px !important; }
 }
 
 /* ===== FOOTER: grid-template-areas layout (mobile) ===== */
