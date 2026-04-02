@@ -4,6 +4,7 @@ import { getAllRivers } from '@/lib/all-rivers'
 import { getHomePage } from '@/lib/content'
 import { getHeroImages } from '@/lib/cloudinary'
 import { RiverCard } from '@/components/RiverCard'
+import { FaqSection } from '@/components/FaqSection'
 import { HeroCarousel } from '@/components/HeroCarousel'
 import { HeroBookingWidget } from '@/components/HeroBookingWidget'
 import { IconSafety, IconTransport, IconExpertise, IconSeats, IconSailboat } from '@/components/Icons'
@@ -150,6 +151,13 @@ export default async function Home(props: { params: Promise<{ locale: string }> 
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section" style={{ background: '#F8F2F2' }}>
+        <div className="container" style={{ maxWidth: 760 }}>
+          <FaqSection />
         </div>
       </section>
 

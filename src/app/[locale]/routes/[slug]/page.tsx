@@ -7,6 +7,7 @@ import { IconDistance, IconDuration, IconDifficulty, IconHighlight, IconGallery,
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME, buildRouteLD } from '@/lib/seo'
 import { getTranslations } from 'next-intl/server'
+import { FaqSection } from '@/components/FaqSection'
 
 export async function generateStaticParams() {
   const routes = await getRoutes()
@@ -185,6 +186,7 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
             </div>
           </div>
         )}
+        <FaqSection />
         <div className="page-section">
           <div className="cta-banner">
             {isOnlineBookable ? (

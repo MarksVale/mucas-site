@@ -84,6 +84,19 @@
     "onlineBooking": "Tiešsaistes rezervācija pieejama",
     "phoneBooking": "Zvaniet vai rakstiet, lai rezervētu"
   },
+  "faq": {
+    "title": "Biežāk Uzdotie Jautājumi",
+    "q1": "Kā rezervēt braucienu?",
+    "a1": "Izvēlies maršrutu, aizpildi rezervācijas formu un maksā droši tiešsaistē. Apstiprinājumu saņemsi e-pastā 24 stundu laikā.",
+    "q2": "Kas ir iekļauts cenā?",
+    "a2": "Cenā iekļauti airi, glābšanas vestes un ūdensnecaurlaidīgs maiss. Transports uz sākumpunktu un paņemšana finišā pieejama par papildu maksu.",
+    "q3": "Vai nepieciešama iepriekšēja pieredze?",
+    "a3": "Lielākajai daļai maršrutu nav nepieciešama iepriekšēja pieredze. Mūsu komanda palīdzēs izvēlēties maršrutu atbilstoši jūsu prasmju līmenim.",
+    "q4": "Ko ņemt līdzi braucienā?",
+    "a4": "Ieteicams ņemt: ūdensizturīgu apģērbu, sauļošanās krēmu, ēdienu un dzeramo ūdeni, telefonu ūdensizturīgā maisiņā. Apaviem jābūt ūdensizturīgiem.",
+    "q5": "Vai var atcelt vai pārcelt rezervāciju?",
+    "a5": "Rezervāciju var atcelt vai pārcelt bez maksas 48 stundas pirms brauciena. Sazinieties ar mums pa e-pastu vai tālruni."
+  },
   "booking": {
     "startBooking": "Sākt Rezervāciju",
     "startBookingDesc": "Aizpildiet zemāk esošo veidlapu un mēs apstiprināsim rezervāciju e-pastā.",

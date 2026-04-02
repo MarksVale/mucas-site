@@ -3,6 +3,7 @@ import { getRiver, getRivers, getRoutesByRiver, getBranchForRiver } from '@/lib/
 import { getRiverContent, getRouteContent } from '@/lib/content'
 import { cldHero, cldGallery } from '@/lib/cloudinary'
 import { IconDistance, IconWater, IconBoat, IconHighlight, IconRoute, IconSeason, IconGallery, IconPhone, IconEmail, IconNature } from '@/components/Icons'
+import { FaqSection } from '@/components/FaqSection'
 import PhotoCarousel from '@/components/PhotoCarousel'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME, canonicalUrl, buildRiverLD } from '@/lib/seo'
@@ -92,13 +93,6 @@ export default async function RiverPage(props: { params: Promise<{ locale: strin
               <div className="fstat-label">{t('boatTypes')}</div>
             </div>
           )}
-          {content.season && (
-            <div className="fstat">
-              <div className="fstat-icon"><IconSeason size={24} strokeWidth={1.6} /></div>
-              <div className="fstat-value">{content.season}</div>
-              <div className="fstat-label">{c('season')}</div>
-            </div>
-          )}
         </div>
       </div>
       <div className="page-content">
@@ -175,6 +169,7 @@ export default async function RiverPage(props: { params: Promise<{ locale: strin
             </div>
           </div>
         )}
+        <FaqSection />
         <div className="page-section">
           <div className="cta-banner">
             <h2>{t('readyTitle', { name: river.name })}</h2>

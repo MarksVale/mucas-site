@@ -84,6 +84,19 @@
     "onlineBooking": "Online booking available",
     "phoneBooking": "Call or email to book"
   },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "q1": "How do I book a trip?",
+    "a1": "Choose a route, fill in the booking form and pay securely online. You'll receive a confirmation email within 24 hours.",
+    "q2": "What's included in the price?",
+    "a2": "The price includes paddles, life jackets and a waterproof bag. Transport to the start and pickup at the finish is available for an extra fee.",
+    "q3": "Do I need prior experience?",
+    "a3": "Most routes don't require prior experience. Our team will help you choose a route that matches your skill level.",
+    "q4": "What should I bring?",
+    "a4": "We recommend: water-resistant clothing, sunscreen, food and water, your phone in a waterproof case. Footwear should be water-resistant.",
+    "q5": "Can I cancel or reschedule my booking?",
+    "a5": "You can cancel or reschedule free of charge up to 48 hours before the trip. Contact us by email or phone."
+  },
   "booking": {
     "startBooking": "Start Your Booking",
     "startBookingDesc": "Fill in the details below and we'll confirm your booking by email.",

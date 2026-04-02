@@ -21,6 +21,7 @@ export default defineType({
     { name: 'fleet', title: 'Fleet Page' },
     { name: 'contact', title: 'Contact Page' },
     { name: 'booking', title: 'Booking Form' },
+    { name: 'faq', title: 'FAQ Section' },
   ],
   fields: [
     defineField({
@@ -125,6 +126,16 @@ export default defineType({
       str('message', 'Message label'), txt('messagePlaceholder', 'Message placeholder'),
       str('sendBtn', 'Send button'), str('ourBranches', 'Our Branches heading'),
       str('onlineBooking', 'Online booking available label'), str('phoneBooking', 'Phone booking label'),
+    ]}),
+
+    // FAQ
+    defineField({ name: 'faq', title: 'FAQ Section', type: 'object', group: 'faq', fields: [
+      str('title', 'Section heading'),
+      str('q1', 'Question 1'), txt('a1', 'Answer 1'),
+      str('q2', 'Question 2'), txt('a2', 'Answer 2'),
+      str('q3', 'Question 3'), txt('a3', 'Answer 3'),
+      str('q4', 'Question 4'), txt('a4', 'Answer 4'),
+      str('q5', 'Question 5'), txt('a5', 'Answer 5'),
     ]}),
 
     // BOOKING
