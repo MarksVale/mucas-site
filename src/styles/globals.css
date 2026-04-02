@@ -93,6 +93,10 @@ img { max-width: 100%; display: block; }
 }
 .nav .nav-cta:hover { background: var(--secondary) !important; color: var(--color-text-inverse) !important; }
 
+.lang-toggle { display: flex; align-items: center; opacity: 0.8; transition: opacity 0.15s; padding: 2px 0; }
+.lang-toggle:hover { opacity: 1; background: transparent !important; }
+.lang-toggle img { border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+
 /* ===== NAV TRANSPARENT (home) ===== */
 .nav-transparent {
   position: absolute; top: 0; left: 0; right: 0; z-index: 100;
