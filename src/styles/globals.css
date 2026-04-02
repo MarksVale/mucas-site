@@ -335,9 +335,9 @@ img { max-width: 100%; display: block; }
   padding: 4px 14px; border-radius: var(--radius); font-size: 12px; font-weight: 700;
   white-space: nowrap;
 }
-.rc-body { padding: 20px; }
+.rc-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
 .rc-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
-.rc-meta { display: flex; gap: 16px; font-size: 13px; color: var(--text-muted); }
+.rc-meta { display: flex; gap: 16px; font-size: 13px; color: var(--text-muted); margin-top: auto; }
 .rc-book-label { font-size: 13px; color: var(--primary); font-weight: 600; text-decoration: none; }
 .rc-book-label:hover { text-decoration: underline; }
 

@@ -2,6 +2,7 @@ import PageHero from '@/components/PageHero'
 import type { Metadata } from 'next'
 import { buildAlternates, buildOpenGraph, twitterCard, SITE_NAME } from '@/lib/seo'
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { Link } from '@/i18n/navigation'
 import { getBranches } from '@/lib/airtable'
 import { getContactPage } from '@/lib/content'
 import { getTranslations } from 'next-intl/server'
@@ -129,7 +130,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   <a href={`mailto:${branch.email}`}><Mail size={14} />{branch.email}</a>
                 </div>
                 <div className="branch-footer">
-                  {branch.bookingType === 'online' && <p style={{ color: 'var(--primary)' }}>{t('onlineBooking')}</p>}
+                  {branch.bookingType === 'online' && <Link href="/booking" style={{ color: 'var(--primary)', fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>{t('onlineBooking')}</Link>}
                   {branch.bookingType === 'phone' && <p style={{ color: 'var(--accent)' }}>{t('phoneBooking')}</p>}
                 </div>
               </div>

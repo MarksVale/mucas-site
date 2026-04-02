@@ -27,7 +27,7 @@ export function RiverCard({ slug, name, gradient, routeCount, description, regio
         <p>{desc}</p>
         <div className="rc-meta">
           <span>{region}</span>
-          <Link href="/contact" className="rc-book-label" style={{ marginLeft: 'auto' }}>
+          <Link href={bookable ? '/booking' : '/contact'} className="rc-book-label" style={{ marginLeft: 'auto' }}>
             {bookable ? t('bookOnlineTitle') : t('callToBookTitle')}
           </Link>
         </div>
