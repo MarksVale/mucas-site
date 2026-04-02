@@ -154,16 +154,10 @@ export default async function Home(props: { params: Promise<{ locale: string }> 
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ + CTA */}
       <section className="section" style={{ background: '#F8F2F2' }}>
         <div className="container">
           <FaqSection />
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="section" style={{ background: '#F8F2F2', paddingTop: 100, paddingBottom: 100 }}>
-        <div className="container">
           <div className="cta-banner">
             <h2>{c.ctaHeading}</h2>
             <p>{c.ctaSubtitle}</p>
