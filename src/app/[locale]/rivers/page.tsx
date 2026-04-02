@@ -37,13 +37,14 @@ export default async function RiversPage(props: { params: Promise<{ locale: stri
       <PageHero heading={t('heading')} subtitle={t('subtitle')} />
 
       <section style={{ background: 'var(--bg)', padding: '24px 0' }}>
-        <div className="container" style={{ display: 'flex', gap: 32, flexWrap: 'wrap', justifyContent: 'center', textAlign: 'center', fontSize: 15, color: 'var(--text-secondary)' }}>
-          <div>
-            <strong style={{ color: 'var(--primary)' }}>{t('bookOnlineTitle')}</strong> - {t('bookOnlineDesc')}
-          </div>
-          <div style={{ borderLeft: '1px solid #ccc', paddingLeft: 32 }}>
-            <strong style={{ color: 'var(--text-primary)' }}>{t('callToBookTitle')}</strong> - {t('callToBookDesc')}
-          </div>
+        <div className="container booking-methods">
+          <p className="bm-item">
+            <strong style={{ color: 'var(--primary)' }}>{t('bookOnlineTitle')}</strong> {t('bookOnlineDesc')}
+          </p>
+          <div className="bm-divider" />
+          <p className="bm-item">
+            <strong style={{ color: 'var(--text-primary)' }}>{t('callToBookTitle')}</strong> {t('callToBookDesc')}
+          </p>
         </div>
       </section>
 
