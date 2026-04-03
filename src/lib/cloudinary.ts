@@ -52,8 +52,8 @@ export function cldGallery(slug: string, n: number): string {
 }
 
 /** River card thumbnail (600×340, smart-cropped) */
-export function cldCard(slug: string): string {
-  return `${BASE}/${FALLBACK}/c_fill,g_auto:subject,w_600,h_340,q_auto,f_auto/mucas/rivers/${slug}/gallery-1`
+export function cldCard(slug: string, n = 1): string {
+  return `${BASE}/${FALLBACK}/c_fill,g_auto:subject,w_600,h_340,q_auto,f_auto/mucas/rivers/${slug}/gallery-${n}`
 }
 
 export const CLD_FALLBACK_URL = `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/rivers/gauja/hero`

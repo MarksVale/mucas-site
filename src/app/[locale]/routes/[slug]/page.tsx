@@ -227,12 +227,12 @@ export default async function RoutePage(props: { params: Promise<{ locale: strin
           <div className="page-section">
             <h2 className="stitle"><span className="stitle-icon"><IconRoute size={22} strokeWidth={1.8} /></span>{t('otherRoutes', { river: route.river })}</h2>
             <div className="related-3">
-              {relatedRoutes.map(r => {
+              {relatedRoutes.map((r, i) => {
                 const rc = getRouteContent(r)
                 const daysValue = typeof r.days === 'string' ? parseInt(r.days) : r.days
                 return (
                   <Link href={{ pathname: '/routes/[slug]', params: { slug: r.slug } }} className="rel-card" key={r.slug}>
-                    <div className="rel-img" style={{ backgroundImage: `url(${cldCard(r.riverSlug)})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+                    <div className="rel-img" style={{ backgroundImage: `url(${cldCard(r.riverSlug, i + 2)})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
                     <div className="rel-body">
                       <h4>{r.name}</h4>
                       <div className="rel-meta">
