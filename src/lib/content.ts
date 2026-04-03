@@ -50,8 +50,7 @@ export interface RiverContent {
   season: string
   totalLength: number
   priceFrom: number
-  photoUrl: string
-  galleryCount?: number
+  galleryCount: number
 }
 
 export interface RouteContent {
@@ -60,9 +59,6 @@ export interface RouteContent {
   difficulty: string
   km: number
   hours: string
-  photoUrl: string
-  photos?: string[]
-  galleryCount?: number
 }
 
 export function getRiverContent(river: River): RiverContent {
@@ -73,7 +69,6 @@ export function getRiverContent(river: River): RiverContent {
     season: river.season,
     totalLength: river.totalLength,
     priceFrom: river.priceFrom,
-    photoUrl: '',
     galleryCount: river.galleryCount,
   }
 }
@@ -85,8 +80,6 @@ export function getRouteContent(route: Route): RouteContent {
     difficulty: route.difficulty,
     km: route.km,
     hours: route.hours,
-    photoUrl: '',
-    galleryCount: 0,
   }
 }
 
