@@ -23,7 +23,8 @@ export default async function Home(props: { params: Promise<{ locale: string }> 
   const [allRivers, allRoutes, allBoats, c, heroImages] = await Promise.all([
     getAllRivers(locale), getRoutes(locale), getBoats(), getHomePage(locale), getHeroImages(),
   ])
-  const rivers = allRivers.slice(0, 6)
+  const FEATURED = ['salaca', 'gauja', 'brasla', 'venta', 'irbe', 'abava']
+  const rivers = FEATURED.map(slug => allRivers.find(r => r.slug === slug)).filter(Boolean)
   const routes = allRoutes.slice(0, 4)
 
   return (
