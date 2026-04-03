@@ -43,7 +43,7 @@ export const BOAT_SPECS: Record<string, BoatSpecs> = {
 
 /** Full-width hero (1400×600, smart-cropped) */
 export function cldHero(type: 'rivers', slug: string): string {
-  return `${BASE}/${FALLBACK}/c_fill,g_auto,w_1400,h_600,q_auto,f_auto/mucas/${type}/${slug}/hero`
+  return `${BASE}/${FALLBACK}/c_fill,g_auto,w_1400,h_600,q_auto,f_auto/mucas/${type}/${slug}/gallery-1`
 }
 
 /** Gallery thumbnail (800×560, smart-cropped) */
@@ -53,7 +53,7 @@ export function cldGallery(slug: string, n: number): string {
 
 /** River card thumbnail (600×340, smart-cropped) */
 export function cldCard(slug: string): string {
-  return `${BASE}/${FALLBACK}/c_fill,g_auto,w_600,h_340,q_auto,f_auto/mucas/rivers/${slug}/hero`
+  return `${BASE}/${FALLBACK}/c_fill,g_auto,w_600,h_340,q_auto,f_auto/mucas/rivers/${slug}/gallery-1`
 }
 
 export const CLD_FALLBACK_URL = `${BASE}/c_fill,g_auto,w_800,h_560,q_auto,f_auto/mucas/rivers/gauja/hero`
